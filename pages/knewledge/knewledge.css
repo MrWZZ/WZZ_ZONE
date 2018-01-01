@@ -1,0 +1,51 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+.banner{
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 15vh;
+  background-color: rgba(57, 57, 57,0.5);
+}
+
+/*  首页导航  =====================================*/
+
+.home_nav{
+  height: 30px;
+  width: 100%;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+  background-color: rgb(167, 198, 232);
+}
+
+.home_nav a{
+  margin: 0 10px;
+}
+
+.content{
+  width: 75%;
+  margin: 0 auto;
+}
+
+.knowledge_type{
+  padding-top: 10px;
+  width: 100%;
+}
+
+.knowledge_type h1{
+  border-bottom: 2px solid #b3b3b3;
+}
+
+.knowledge_type .knowledge_slot {
+    display: inline-block;
+    margin-top: 10px;
+    width: 24%;
+    height: 100px;
+    text-align: center;
+    line-height: 100px;
+    background-color: gray;
+}

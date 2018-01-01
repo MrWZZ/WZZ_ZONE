@@ -1,0 +1,66 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+/*  顶部条幅  =====================================*/
+
+.w_banner{
+  clear: both;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+}
+
+/*  首页导航  =====================================*/
+
+.home_nav{
+  height: 30px;
+  width: 100%;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+  background-color: rgb(167, 198, 232);
+}
+
+.home_nav a{
+  margin: 0 10px;
+}
+
+/*  左侧导航  =====================================*/
+
+.w_nav{
+  float: left;
+  width: 20%;
+}
+
+.w_nav a{
+  display: block;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  background-color: rgb(236, 236, 236);
+  border-bottom: 2px solid rgb(210, 210, 210);
+}
+
+/*  中间内容  =====================================*/
+
+.w_content{
+  float: left;
+  width: 75%;
+}
+
+iframe{
+  border: none;
+  overflow: hidden;
+}
+
+/*  右侧插件  =====================================*/
+
+.w_plug{
+  float: right;
+  width: 5%;
+  height: 100vh;
+}
