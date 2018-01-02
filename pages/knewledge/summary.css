@@ -32,7 +32,7 @@
 
 .w_nav{
   float: left;
-  width: 20%;
+  width: 250px;
 }
 
 .w_nav a{
@@ -47,16 +47,8 @@
 
 /*  中间内容  =====================================*/
 
-.page_content{
+#page_content{
   float: left;
   width: 1000px;
-  height: 100vh;
-}
-
-/*  右侧插件  =====================================*/
-
-.w_plug{
-  float: right;
-  width: 5%;
-  height: 100vh;
+  height: 1000px;
 }
