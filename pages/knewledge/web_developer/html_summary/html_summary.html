@@ -21,21 +21,19 @@
     </div>
     <!-- 左侧导航 -->
     <div class="w_nav">
-      <a href="pages/create_html.html" target="page_content">创建文档</a>
+      <a href="create_html.html" target="page_content">创建文档</a>
       <a href="pages/mark_word.html" target="page_content">标记文字</a>
       <a href="#">组织内容</a>
       <a href="#">文档分节</a>
     </div>
     <!-- 中间内容 -->
     <div class="w_content">
-      <iframe id="page_content" name="page_content" width="100%" height="100%" scrolling="no"></iframe>
+      <iframe id="page_content" name="page_content" width="100%" height="100%" ></iframe>
       <script type="text/javascript">
-        var f = document.getElementById("page_content");
-        f.onload = function()
+        var frame = document.getElementById("page_content");
+        frame.onload = function()
         {
-          console.log(document.getElementById("page_content").contentWindow.document.body.scrollHeight);
-          console.log(document.documentElement.clientHeight);
-          ifm.height = document.documentElement.clientHeight;
+          console.log(frame.contentWindow.document.body.scrollHeight);
         }
       </script>
     </div>
