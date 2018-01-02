@@ -33,9 +33,12 @@
         var frame = document.getElementById("page_content");
         frame.onload = function()
         {
-          console.log(frame.documentElement.scrollHeight);
-          console.log(frame.contentWindow.document.body.scrollHeight);
-          frame.height = frame.contentWindow.document.body.scrollHeight;
+          console.log("onload");
+          var frameContent = frame.contentWindow.document;
+          var frameHeight = Math.max(frameContent.body.scrollHeight,frameContent.documentElement.scrollHeight);
+
+          frame.height = frameHeight;
+          console.log(frameHeight);
         }
       </script>
     </div>
