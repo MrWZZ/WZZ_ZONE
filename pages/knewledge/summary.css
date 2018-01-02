@@ -47,17 +47,10 @@
 
 /*  中间内容  =====================================*/
 
-.w_content{
+.page_content{
   float: left;
   width: 1000px;
   height: 100vh;
-}
-
-iframe{
-  width: 75%;
-  height: 100%;
-  border: none;
-  padding-right: 20px;
 }
 
 /*  右侧插件  =====================================*/
