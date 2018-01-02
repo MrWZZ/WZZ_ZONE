@@ -31,12 +31,12 @@
     <script type="text/javascript">
       var frame = document.getElementById("page_content");
       var frameContent = frame.contentWindow.document;
-      var frameHeight = Math.max(frameContent.body.scrollHeight,frameContent.documentElement.scrollHeight);
+      var frameHeight = frameContent.body.scrollHeight || frameContent.documentElement.scrollHeight;
       frame.height = frameHeight;
       frame.onload = function()
       {
         frameContent = frame.contentWindow.document;
-        frameHeight = Math.max(frameContent.body.scrollHeight,frameContent.documentElement.scrollHeight);
+        frameHeight = frameContent.body.scrollHeight || frameContent.documentElement.scrollHeight;
         frame.height = frameHeight;
       }
     </script>
