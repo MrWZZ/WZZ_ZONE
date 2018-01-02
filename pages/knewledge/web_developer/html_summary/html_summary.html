@@ -30,14 +30,12 @@
     <div class="w_content">
       <iframe id="page_content" name="page_content" width="100%" height="100%"></iframe>
       <script type="text/javascript">
-
+        document.domain = "mrwzz.github.io"
         var f = document.getElementById("page_content");
         f.onload = function()
         {
-          console.log(document.domain);
-          console.log("onload");
-          // var w = window.frames["page_content"].document;
-          // console.log(w);
+          var w = window.frames["page_content"].document.body;
+          console.log(w);
         }
       </script>
     </div>
