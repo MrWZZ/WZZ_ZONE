@@ -28,14 +28,14 @@
     </div>
     <!-- 中间内容 -->
     <div class="w_content">
-      <iframe id="page_content" name="page_content" width="100%" height="100%"></iframe>
+      <iframe id="page_content" name="page_content" width="100%" height="100%" scrolling="no"></iframe>
       <script type="text/javascript">
-        document.domain = "mrwzz.github.io"
         var f = document.getElementById("page_content");
         f.onload = function()
         {
-          var w = window.frames["page_content"].document.body;
-          console.log(w);
+          console.log(document.getElementById("page_content").contentWindow.document.body.scrollHeight);
+          console.log(document.documentElement.clientHeight);
+          ifm.height = document.documentElement.clientHeight;
         }
       </script>
     </div>

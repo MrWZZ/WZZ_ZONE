@@ -51,13 +51,11 @@
   float: left;
   width: 1000px;
   height: 100vh;
-  overflow: hidden;
 }
 
 iframe{
   width: 75%;
   border: none;
-  overflow: scroll;
   padding-right: 20px;
 }
 
