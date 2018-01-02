@@ -27,11 +27,12 @@
       <a href="#">文档分节</a>
     </div>
     <!-- 中间内容 -->
-    <iframe src="create_html.html" id="page_content" name="page_content" width="500" height="200" scrolling="no" border="none"></iframe>
+    <iframe src="create_html.html" id="page_content" name="page_content" scrolling="no"></iframe>
     <script type="text/javascript">
       var frame = document.getElementById("page_content");
       frame.onload = function()
       {
+        console.log("onload");
         var frameContent = frame.contentWindow.document;
         var frameHeight = Math.max(frameContent.body.scrollHeight,frameContent.documentElement.scrollHeight);
         frame.height = frameHeight;

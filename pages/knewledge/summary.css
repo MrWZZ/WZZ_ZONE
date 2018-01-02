@@ -50,5 +50,5 @@
 #page_content{
   float: left;
   width: 1000px;
-  height: 1000px;
+  border: none;
 }
