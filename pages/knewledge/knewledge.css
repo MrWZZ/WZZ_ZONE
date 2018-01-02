@@ -16,6 +16,7 @@
 .home_nav{
   height: 30px;
   width: 100%;
+  font-size: 2vw;
   text-align: center;
   line-height: 30px;
   color: white;
@@ -26,10 +27,7 @@
   margin: 0 10px;
 }
 
-.content{
-  width: 75%;
-  margin: 0 auto;
-}
+
 
 .knowledge_type{
   padding-top: 10px;
@@ -40,12 +38,50 @@
   border-bottom: 2px solid #b3b3b3;
 }
 
-.knowledge_type .knowledge_slot {
+/* 手机屏幕================================================================= */
+
+@media screen and (max-width: 500px) {
+
+  .knowledge_type h1{
+    font-size: 5vw;
+  }
+
+  .content{
+    width: 75%;
+    margin: 0 auto;
+  }
+
+  .knowledge_type .knowledge_slot {
+    display: inline-block;
+    margin-top: 0.5vh;
+    width: 24vw;
+    height: 5vh;
+    text-align: center;
+    line-height: 5vh;
+    font-size: 2vw;
+    border-radius: 2vw;
+    background-color: gray;
+  }
+}
+
+/* 电脑屏幕================================================================= */
+
+@media screen and (min-width: 500px) {
+
+  .content{
+    width: 1000px;
+    margin: 0 auto;
+  }
+
+  .knowledge_type .knowledge_slot {
     display: inline-block;
     margin-top: 10px;
-    width: 24%;
-    height: 100px;
+    width: 246px;
+    height: 80px;
     text-align: center;
-    line-height: 100px;
+    line-height: 80px;
+    font-size: 15pt;
+    border-radius: 10px;
     background-color: gray;
+  }
 }

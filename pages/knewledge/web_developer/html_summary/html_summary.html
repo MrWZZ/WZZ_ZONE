@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1">
     <link rel="stylesheet" href="../../summary.css">
     <title>HTML总结</title>
   </head>
@@ -29,11 +30,14 @@
     <div class="w_content">
       <iframe id="page_content" name="page_content" width="100%" height="100%"></iframe>
       <script type="text/javascript">
-        var iframe = document.getElementById("page_content");
-        iframe.onload = function(e)
+
+        var f = document.getElementById("page_content");
+        f.onload = function()
         {
-          console.log(a);
-          console.log(pageHeight);
+          console.log(document.domain);
+          console.log("onload");
+          // var w = window.frames["page_content"].document;
+          // console.log(w);
         }
       </script>
     </div>
