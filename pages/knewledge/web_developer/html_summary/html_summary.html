@@ -30,11 +30,13 @@
     <iframe src="create_html.html" id="page_content" name="page_content" scrolling="no"></iframe>
     <script type="text/javascript">
       var frame = document.getElementById("page_content");
+      var frameContent = frame.contentWindow.document;
+      var frameHeight = Math.max(frameContent.body.scrollHeight,frameContent.documentElement.scrollHeight);
+      frame.height = frameHeight;
       frame.onload = function()
       {
-        console.log("onload");
-        var frameContent = frame.contentWindow.document;
-        var frameHeight = Math.max(frameContent.body.scrollHeight,frameContent.documentElement.scrollHeight);
+        frameContent = frame.contentWindow.document;
+        frameHeight = Math.max(frameContent.body.scrollHeight,frameContent.documentElement.scrollHeight);
         frame.height = frameHeight;
       }
     </script>
