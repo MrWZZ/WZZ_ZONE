@@ -27,7 +27,8 @@ function CreateLink()
 //删除点开iframe所产生的历史信息
 function ReplaceHistory()
 {
-  history.replaceState(null,null,"https://mrwzz.github.io/WZZ_ZONE/pages/knewledge/knewledge.html");
+  console.log(history.state);
+  // history.replaceState(null,null,"https://mrwzz.github.io/WZZ_ZONE/pages/knewledge/knewledge.html");
 }
 
 //iframe高度自适应
