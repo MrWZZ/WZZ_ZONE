@@ -63,13 +63,14 @@
 .w_nav a {
   display: block;
   width: 100%;
-  height: 30px;
-  line-height: 30px;
+  height: 40px;
+  line-height: 40px;
   text-align: center;
   text-decoration: none;
   text-shadow: #f7f7f7 4px 2px 1px;
   color: #154a8e;
-  border-bottom: 2px solid rgba(210, 210, 210,0.6);
+  background-color: #b5b9bd78;
+  border-bottom: 1px solid rgba(210, 210, 210,0.6);
 }
 
 .w_center

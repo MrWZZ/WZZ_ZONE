@@ -18,9 +18,16 @@ function CreateLink()
     a.setAttribute("href",pages[i].url);
     a.setAttribute("target","page_content");
     a.setAttribute("class","w_blur");
+    a.onclick = ReplaceHistory;
     a.text = pages[i].title;
     navContent.appendChild(a);
   }
+}
+
+//删除点开iframe所产生的历史信息
+function ReplaceHistory()
+{
+  history.replaceState(null,null,"https://mrwzz.github.io/WZZ_ZONE/pages/knewledge/knewledge.html");
 }
 
 //iframe高度自适应
