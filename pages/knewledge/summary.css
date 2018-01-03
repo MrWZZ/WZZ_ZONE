@@ -1,6 +1,28 @@
 *{
   margin: 0;
   padding: 0;
+  position: relative;
+}
+
+.bg{
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(191, 191, 191);
+  filter: blur(100px);
+  z-index: -1;
+}
+
+.w_blur::after {
+  content: "";
+  filter: blur(10px);
+  background-color: inherit;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 
 /*  顶部条幅  =====================================*/
@@ -16,39 +38,60 @@
 /*  首页导航  =====================================*/
 
 .home_nav{
+  position: relative;
   height: 30px;
   width: 100%;
   text-align: center;
   line-height: 30px;
-  color: white;
-  background-color: rgb(167, 198, 232);
+  background-color: rgba(191, 191, 191, 0.5);
 }
 
 .home_nav a{
+  color: #795003;
   margin: 0 10px;
+  text-decoration: none;
+  text-shadow: #f7f7f7 4px 2px 1px;
 }
 
 /*  左侧导航  =====================================*/
 
 .w_nav{
   float: left;
-  width: 250px;
+  width: 200px;
 }
 
-.w_nav a{
+.w_nav a {
   display: block;
   width: 100%;
   height: 30px;
   line-height: 30px;
   text-align: center;
-  background-color: rgb(236, 236, 236);
+  text-decoration: none;
+  text-shadow: #f7f7f7 4px 2px 1px;
+  color: #154a8e;
   border-bottom: 2px solid rgb(210, 210, 210);
 }
 
 /*  中间内容  =====================================*/
 
-#page_content{
+.w_content
+{
+  width: 1250px;
+  margin: 20px auto;
+  overflow: hidden;
+}
+
+#page_content
+{
   float: left;
   width: 1000px;
   border: none;
+}
+
+/*  底部内容  =====================================*/
+
+.w_bottom
+{
+  width: 100%;
+  height: 250px;
 }

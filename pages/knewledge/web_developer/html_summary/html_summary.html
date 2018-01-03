@@ -7,27 +7,31 @@
     <title>HTML总结</title>
   </head>
   <body>
+    <div class="bg"> </div>
     <!-- 顶部条幅 -->
     <div class="w_banner">
       <h1>HTML总结</h1>
     </div>
     <!-- 首页导航 -->
-    <div class="home_nav">
+    <div class="home_nav w_blur">
       <a href="#">主页</a>
       <a href="#">知识总结</a>
       <a href="#">方法库</a>
       <a href="#">收藏</a>
       <a href="#">作品</a>
     </div>
-    <!-- 左侧导航 -->
-    <div class="w_nav">
-      <a href="create_html.html" target="page_content">创建文档</a>
-      <a href="pages/mark_word.html" target="page_content">标记文字</a>
-      <a href="#">组织内容</a>
-      <a href="#">文档分节</a>
-    </div>
     <!-- 中间内容 -->
-    <iframe src="create_html.html" id="page_content" name="page_content" scrolling="no"></iframe>
+    <div class="w_content">
+      <!-- 左侧导航 -->
+      <div class="w_nav">
+        <a href="create_html.html" target="page_content" class="w_blur">创建文档</a>
+        <a href="pages/mark_word.html" target="page_content" class="w_blur">标记文字</a>
+        <a href="#" class="w_blur">组织内容</a>
+        <a href="#" class="w_blur">文档分节</a>
+      </div>
+      <!-- 显示页面 -->
+      <iframe src="create_html.html" id="page_content" name="page_content" scrolling="no"></iframe>
+    </div>
     <script type="text/javascript">
       var frame = document.getElementById("page_content");
       var frameContent = frame.contentWindow.document;
@@ -40,5 +44,9 @@
         frame.height = frameHeight;
       }
     </script>
+    <!-- 底部信息 -->
+    <div class="w_bottom">
+
+    </div>
   </body>
 </html>
