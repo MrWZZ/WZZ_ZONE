@@ -1,11 +1,10 @@
 *{
   margin: 0;
   padding: 0;
-  position: relative;
 }
 
 .bg{
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   background-color: rgb(191, 191, 191);
@@ -15,7 +14,7 @@
 
 .w_blur::after {
   content: "";
-  filter: blur(10px);
+  filter: blur(30px);
   background-color: inherit;
   position: absolute;
   top: 0;
@@ -50,10 +49,18 @@
   color: #795003;
   margin: 0 10px;
   text-decoration: none;
-  text-shadow: #f7f7f7 4px 2px 1px;
+  text-shadow: #dfd3c2 4px 2px 1px;
 }
 
 /*  中间内容  =====================================*/
+
+.w_center
+{
+  width: 1000px;
+  margin: 0 auto;
+  overflow: hidden;
+  transform: translateX(-100px);
+}
 
 .w_nav{
   float: left;
@@ -61,31 +68,53 @@
 }
 
 .w_nav a {
+  position: relative;
   display: block;
   width: 100%;
   height: 40px;
   line-height: 40px;
   text-align: center;
   text-decoration: none;
-  text-shadow: #f7f7f7 4px 2px 1px;
   color: #154a8e;
   background-color: #b5b9bd78;
-  border-bottom: 1px solid rgba(210, 210, 210,0.6);
-}
-
-.w_center
-{
-  width: 1000px;
-  margin: 20px auto;
-  overflow: hidden;
-  transform: translateX(-100px);
+  border-bottom: 1px solid rgba(210, 210, 210,0.5);
 }
 
 #page_content
 {
   float: left;
   width: 800px;
+  height: 1000px;
   border: none;
+}
+
+.w_nav_details
+{
+  display: none;
+  clear: both;
+}
+
+/*  右部插件  =====================================*/
+
+.w_to_top
+{
+  position: fixed;
+  right: 1%;
+  bottom: 5%;
+  width: 50px;
+  height: 50px;
+  background-color: red;
+}
+
+.w_show_catalogue
+{
+  display: none;
+  position: absolute;
+  right: 1%;
+  top: 5%;
+  width: 50px;
+  height: 50px;
+  background: blue;
 }
 
 /*  底部内容  =====================================*/
@@ -94,4 +123,83 @@
 {
   width: 100%;
   height: 250px;
+}
+
+/*  媒体查询  =====================================*/
+
+@media screen and (min-width:1200px)
+{
+
+}
+
+@media screen and (max-width:1200px)
+{
+  .w_center
+  {
+    width: 100%;
+    transform: translateX(0px);
+    margin: 0 auto;
+  }
+
+  .w_nav
+  {
+    display: none;
+  }
+
+  .w_nav_details a
+  {
+    position: relative;
+    box-sizing: border-box;
+    display: inline-block;
+    width: 50%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    text-decoration: none;
+    color: #154a8e;
+    background-color: #b5b9bd78;
+    border: 1px solid rgba(210, 210, 210,0.5);
+  }
+
+  #page_content
+  {
+    width: 100%;
+    height: 1000px;
+    border: none;
+  }
+
+  .w_show_catalogue
+  {
+    display: block;
+  }
+}
+
+@media screen and (max-width:500px)
+{
+  .w_center
+  {
+    width: 100%;
+  }
+
+  #page_content
+  {
+    width: 100%;
+  }
+
+  .home_nav a
+  {
+    font-size: 4vw;
+  }
+
+  .w_to_top
+  {
+    width: 10vw;
+    height: 10vw;
+  }
+
+  .w_show_catalogue
+  {
+    width: 10vw;
+    height: 10vw;
+  }
 }

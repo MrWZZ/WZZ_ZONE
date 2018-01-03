@@ -1,4 +1,6 @@
-
+var navContent;
+var navContentDetials;
+var isShow;
 //页面数组
 var pages = [
   { title:"创建文档", url:"pages/creating_html.html" },
@@ -11,7 +13,7 @@ var pages = [
 //导航链接生成
 function CreateLink()
 {
-  var navContent = document.querySelector(".w_nav");
+
   for(var i in pages)
   {
     var a = document.createElement("a");
@@ -19,7 +21,10 @@ function CreateLink()
     a.setAttribute("target","page_content");
     a.setAttribute("class","w_blur");
     a.text = pages[i].title;
-    navContent.appendChild(a);
+    navContent[0].appendChild(a);
+    var ac = a.cloneNode(true);
+    ac.setAttribute("onclick","ShowCatalogue()");
+    navContentDetials[0].appendChild(ac);
   }
 }
 
@@ -38,9 +43,28 @@ function setIframeHeight()
   }
 }
 
+//显示目录
+function ShowCatalogue()
+{
+  if(!isShow)
+  {
+    navContentDetials[0].style.display = "block";
+  }
+  else
+  {
+    navContentDetials[0].style.display = "none";
+  }
+  isShow = !isShow;
+}
+
 //页面初始化
 (function PageInitial()
 {
+  isShow = false;
+  navContent = document.getElementsByClassName("w_nav");
+  navContentDetials =  document.getElementsByClassName("w_nav_details");
   CreateLink();
   setIframeHeight();
+  document.querySelector(".w_to_top").setAttribute("onclick","window.scrollTo(0,0)");
+  document.querySelector(".w_show_catalogue").setAttribute("onclick","ShowCatalogue()");
 })();
