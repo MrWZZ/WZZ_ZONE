@@ -6,8 +6,8 @@
 
 .bg{
   position: absolute;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-color: rgb(191, 191, 191);
   filter: blur(100px);
   z-index: -1;
@@ -53,7 +53,7 @@
   text-shadow: #f7f7f7 4px 2px 1px;
 }
 
-/*  左侧导航  =====================================*/
+/*  中间内容  =====================================*/
 
 .w_nav{
   float: left;
@@ -69,22 +69,21 @@
   text-decoration: none;
   text-shadow: #f7f7f7 4px 2px 1px;
   color: #154a8e;
-  border-bottom: 2px solid rgb(210, 210, 210);
+  border-bottom: 2px solid rgba(210, 210, 210,0.6);
 }
 
-/*  中间内容  =====================================*/
-
-.w_content
+.w_center
 {
-  width: 1250px;
+  width: 1000px;
   margin: 20px auto;
   overflow: hidden;
+  transform: translateX(-100px);
 }
 
 #page_content
 {
   float: left;
-  width: 1000px;
+  width: 800px;
   border: none;
 }
 
