@@ -1,0 +1,259 @@
+<h2 id="table">table元素</h2>
+
++ 局部属性：border
++ 内容：caption、colgroup、thead、tbody、tfoot、tr、th、td
++ 默认样式：
+
+```css
+table{
+  display: table;
+  border-collapse: separate;
+  border-spacing: 2px;
+  border-color: gray;
+}
+```
+
+table元素会保证让列的宽度足以容纳最宽的内容，让行的高度足以容纳最高的单元格。
+
+border属性的值必须设置为1或空字符串。
+
+<h2 id="tr">tr元素</h2>
+
++ 局部属性：无
++ 内容：一个或多个td或th元素
++ 默认样式：
+
+```css
+tr{
+  display:table-row;
+  vertical-align: inherit;
+  border-color: inherit;
+}
+```
+
+<h2 id="td">td元素</h2>
+
++ 局部属性：colspan、rowspan、headers
++ 内容：流内容
++ 默认样式：
+
+```css
+td{
+  display: table-cell;
+  vertical-align: inherit;
+}
+```
+
+rowspan属性：可以控制一个单元格向下跨几行。
+colspan属性：可以控制一个单元格向右跨几列。
+
+示例：
+
+```html
+<table>
+  <tr>
+    <td colspan="4">跨4列</td>
+  </tr>
+  <tr>
+    <td rowspan="3">跨3行</td>
+    <td>你好</td>
+    <td>你好</td>
+    <td>你好</td>
+  </tr>
+  <tr>
+    <td>你好</td>
+    <td>你好</td>
+    <td>你好</td>
+  </tr>
+  <tr>
+    <td>你好</td>
+    <td>你好</td>
+    <td>你好</td>
+  </tr>
+</table>
+```
+
+<table>
+  <tr>
+    <td colspan="4">跨4列</td>
+  </tr>
+  <tr>
+    <td rowspan="3">跨3行</td>
+    <td>你好</td>
+    <td>你好</td>
+    <td>你好</td>
+  </tr>
+  <tr>
+    <td>你好</td>
+    <td>你好</td>
+    <td>你好</td>
+  </tr>
+  <tr>
+    <td>你好</td>
+    <td>你好</td>
+    <td>你好</td>
+  </tr>
+</table>
+
+<h2 id="th">th元素</h2>
+
++ 局部属性：colspan、rowspan、headers
++ 内容：短语内容
++ 默认样式：
+
+```css
+th{
+  display: table-cell;
+  vertical-align: inherit;
+  font-weight: bold;
+  text-align: center;
+}
+```
+
+<h2 id="tbody">tbody元素</h2>
+
++ 局部属性：无
++ 内容：零或多个tr元素
++ 默认样式：
+
+```css
+tbody{
+  display: table-row-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+```
+
+注意：即使在文档中没有用到tbody元素，但大多浏览器在处理table元素的时候都会自动插入tbody元素。
+<br>因此完全根据文档中的表格结构来设计的CSS选择器有可能不管用。
+
+<h2 id="thead">thead元素</h2>
+
++ 局部属性：无
++ 内容：零或多个tr元素
++ 默认样式：
+
+```css
+thead{
+  display: table-header-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+```
+
+<h2 id="tfoot">tfoot元素</h2>
+
++ 局部属性：无
++ 内容：零或多个tr元素
++ 默认样式：
+
+```css
+tfoot{
+  display: table-footer-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+```
+
+<h2 id="caption">caption元素</h2>
+
++ 局部属性：无
++ 内容：除了table元素的流内容
++ 默认样式：
+
+```css
+caption{
+  display: table-caption;
+  text-align: center;
+}
+```
+
+该元素为表格添加标题，一个表格只能包含一个caption元素。
+
+<h2 id="colgroup">colgroup元素</h2>
+
++ 局部属性：span
++ 内容：零或多个col元素（只有未设置span属性时才能使用）
++ 默认样式：
+
+```css
+colgroup{
+  display: table-column-group;
+}
+```
+
+表格是基于行的，有时候我们要基于列进行一些操作的时候就会很麻烦。
+<br>这时候我们可以使用colgroup元素来指定列，我们可以通过它来对列进行操作。
+
+示例：
+
+```html
+<table>
+  <caption>这是一个标题</caption>
+  <colgroup span="2" style="color:red;">
+  <colgroup span="3" style="color:blue;">
+  <thead>
+    <tr>
+      <th>标题</th>
+      <th>标题</th>
+      <th>标题</th>
+      <th>标题</th>
+      <th>标题</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>内容</th>
+      <th>内容</th>
+      <th>内容</th>
+      <th>内容</th>
+      <th>内容</th>
+    </tr>
+    <tr>
+      <th>内容</th>
+      <th>内容</th>
+      <th>内容</th>
+      <th>内容</th>
+      <th>内容</th>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th colspan="5">结尾</th>
+    </tr>
+  </tfoot>
+</table>
+```
+
+<h2 id="col">col元素</h2>
+
++ 局部属性：span
++ 内容：无（虚元素）
++ 默认样式：
+
+```css
+col{
+  display: table-column;
+}
+```
+
+如果不使用span属性的话则只代表一行。
+
+示例：
+
+```html
+<table>
+  <colgroup>
+    <col span="2" style="color:red;">
+    <col style="color:blue;">
+    <col span="2" style="color:yellow;">
+  </colgroup>
+  <tr>
+    <td>内容</td>
+    <td>内容</td>
+    <td>内容</td>
+    <td>内容</td>
+    <td>内容</td>
+  </tr>
+</table>
+```

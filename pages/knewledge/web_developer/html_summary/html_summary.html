@@ -23,29 +23,12 @@
     <!-- 中间内容 -->
     <div class="w_center">
       <div class="w_nav">
-        <a href="create_html.html" target="page_content" class="w_blur">创建文档</a>
-        <a href="pages/mark_word.html" target="page_content" class="w_blur">标记文字</a>
-        <a href="#" class="w_blur">组织内容</a>
-        <a href="#" class="w_blur">文档分节</a>
       </div>
       <!-- 显示页面 -->
-      <iframe src="create_html.html" id="page_content" name="page_content" scrolling="no"></iframe>
+      <iframe src="pages/create_html.html" id="page_content" name="page_content" scrolling="no"></iframe>
     </div>
-    <script type="text/javascript">
-      var frame = document.getElementById("page_content");
-      var frameContent = frame.contentWindow.document;
-      var frameHeight = frameContent.body.scrollHeight || frameContent.documentElement.scrollHeight;
-      frame.height = frameHeight;
-      frame.onload = function()
-      {
-        frameContent = frame.contentWindow.document;
-        frameHeight = frameContent.body.scrollHeight || frameContent.documentElement.scrollHeight;
-        frame.height = frameHeight;
-      }
-    </script>
     <!-- 底部信息 -->
-    <div class="w_bottom">
-
-    </div>
+    <div class="w_bottom"> </div>
   </body>
+  <script src="html_summary.js" defer charset="utf-8"></script>
 </html>
