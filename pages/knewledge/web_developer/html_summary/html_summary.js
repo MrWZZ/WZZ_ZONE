@@ -63,7 +63,7 @@ function ShowCatalogue()
   isShow = false;
   navContent = document.getElementsByClassName("w_nav");
   navContentDetials =  document.getElementsByClassName("w_nav_details");
-  pageContent = document.querySelector(".page_content_t");
+  pageContent = document.querySelector(".page_content");
   CreateLink();
   document.querySelector(".w_to_top").setAttribute("onclick","window.scrollTo(0,0)");
   document.querySelector(".w_show_catalogue").setAttribute("onclick","ShowCatalogue()");
