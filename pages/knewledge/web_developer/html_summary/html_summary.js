@@ -48,10 +48,7 @@ function setIframeHeight()
 //点击链接生成内容
 function createContent(e)
 {
-  if(e)
-  {
-    console.log(e);
-  }
+  e.preventDefault();
 
   var iframe = document.createElement("iframe");
   iframe.src = "pages/document_segmentation.html";
@@ -61,7 +58,9 @@ function createContent(e)
     console.log("onload");
     console.log(iframe.contentWindow.document.querySelector(".w_article"));
     AcceptBody(iframe.contentWindow.document.querySelector(".w_article"));
+    document.querySelector(".w_center").removeChild(frame);
   }
+  document.querySelector(".w_center").appendChild(frame);
 }
 
 //显示目录
