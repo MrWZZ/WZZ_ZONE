@@ -78,13 +78,6 @@
   clear: both;
 }
 
-.page_content
-{
-  float: left;
-  width: 800px;
-  border: none;
-}
-
 /*  右部插件  =====================================*/
 
 .w_to_top
@@ -118,6 +111,15 @@
 
 /*  媒体查询  =====================================*/
 
+@media screen and (min-width:1200px)
+{
+  .page_content
+  {
+    float: left;
+    width: 800px;
+  }
+}
+
 @media screen and (max-width:1200px)
 {
   .w_center
@@ -147,10 +149,9 @@
     border: 1px solid rgba(210, 210, 210,0.5);
   }
 
-  #page_content
+  .page_content
   {
     width: 100%;
-    border: none;
   }
 
   .w_show_catalogue
@@ -165,15 +166,11 @@
   {
     width:90%;
   }
+
 }
 
 @media screen and (max-width:500px)
 {
-  .w_center
-  {
-    width: 90%;
-  }
-
   .home_nav a
   {
     font-size: 4vw;
