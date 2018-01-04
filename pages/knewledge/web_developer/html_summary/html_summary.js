@@ -13,18 +13,13 @@ var pages = [
 //导航链接生成
 function CreateLink()
 {
-
   for(var i in pages)
   {
     var a = document.createElement("a");
-    // a.setAttribute("href",pages[i].url);
-    // a.setAttribute("target","page_content");
-    a.setAttribute("class","w_blur");
     a.text = pages[i].title;
-    navContent[0].appendChild(a);
     a.onclick = createContent;
-    var ac = a.cloneNode(true);
-    navContentDetials[0].appendChild(ac);
+    navContent[0].appendChild(a);
+    navContentDetials[0].appendChild(a.cloneNode(true));
   }
 }
 
@@ -55,8 +50,6 @@ function createContent(e)
   iframe.style.display = "none";
   iframe.onload = function()
   {
-    console.log("onload");
-    console.log(iframe.contentWindow.document.querySelector(".w_article"));
     AcceptBody(iframe.contentWindow.document.querySelector(".w_article"));
     document.querySelector(".w_center").removeChild(iframe);
   }
@@ -82,8 +75,6 @@ function AcceptBody(article)
 {
   document.querySelector(".page_content_t").append(article);
 }
-
-
 
 //页面初始化
 (function PageInitial()
