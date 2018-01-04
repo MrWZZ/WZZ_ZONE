@@ -16,6 +16,7 @@ function CreateLink()
   for(var i in pages)
   {
     var a = document.createElement("a");
+    a.href = pages[i].url;
     a.text = pages[i].title;
     a.onclick = createContent;
     navContent[0].appendChild(a);
@@ -43,10 +44,12 @@ function setIframeHeight()
 //点击链接生成内容
 function createContent(e)
 {
-  e.preventDefault();
   console.log(e);
+  e.target.preventDefault();
+
+  console.log(e.target.url);
   var iframe = document.createElement("iframe");
-  iframe.src = "pages/creating_html.html";
+  iframe.src = e.target.url;
   iframe.style.display = "none";
   iframe.onload = function()
   {
