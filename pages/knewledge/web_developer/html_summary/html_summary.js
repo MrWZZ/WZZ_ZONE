@@ -44,7 +44,7 @@ function setIframeHeight()
 function createContent(e)
 {
   e.preventDefault();
-
+  console.log(e);
   var iframe = document.createElement("iframe");
   iframe.src = "pages/creating_html.html";
   iframe.style.display = "none";
