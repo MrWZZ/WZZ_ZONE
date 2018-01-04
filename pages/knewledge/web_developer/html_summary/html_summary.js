@@ -29,6 +29,7 @@ function CreateLink()
 //点击链接生成内容
 function CreateContent(url)
 {
+  console.log("c");
   var iframe = document.createElement("iframe");
   iframe.src = url;
   iframe.style.display = "none";
