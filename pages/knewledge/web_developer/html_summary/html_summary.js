@@ -22,8 +22,8 @@ function CreateLink()
     a.setAttribute("class","w_blur");
     a.text = pages[i].title;
     navContent[0].appendChild(a);
+    a.onclick = createContent;
     var ac = a.cloneNode(true);
-    ac.setAttribute("onclick","createContent()");
     navContentDetials[0].appendChild(ac);
   }
 }
@@ -48,7 +48,11 @@ function setIframeHeight()
 //点击链接生成内容
 function createContent(e)
 {
-  console.log(e);
+  if(e)
+  {
+    console.log(e);
+  }
+
   var iframe = document.createElement("iframe");
   iframe.src = "pages/document_segmentation.html";
   iframe.style.display = "none";
