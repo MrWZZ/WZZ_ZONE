@@ -1,6 +1,8 @@
 var navContent;
 var navContentDetials;
 var isShow;
+//子页面
+var pageContent;
 //页面数组
 var pages = [
   { title:"创建文档", url:"pages/creating_html.html" },
@@ -30,13 +32,12 @@ function CreateLink()
 //点击链接生成内容
 function CreateContent(url)
 {
-  console.log("c");
   var iframe = document.createElement("iframe");
   iframe.src = url;
   iframe.style.display = "none";
   iframe.onload = function()
   {
-    AcceptBody(iframe.contentWindow.document.querySelector(".w_article"));
+    pageContent.innerHTML = iframe.contentWindow.document.querySelector(".w_article").innerHTML;
     document.querySelector(".w_center").removeChild(iframe);
   }
   document.querySelector(".w_center").appendChild(iframe);
@@ -56,20 +57,16 @@ function ShowCatalogue()
   isShow = !isShow;
 }
 
-//接受子页面内容
-function AcceptBody(article)
-{
-  document.querySelector(".page_content_t").append(article);
-}
-
 //页面初始化
 (function PageInitial()
 {
   isShow = false;
   navContent = document.getElementsByClassName("w_nav");
   navContentDetials =  document.getElementsByClassName("w_nav_details");
+  pageContent = document.querySelector(".page_content_t");
   CreateLink();
-  // setIframeHeight();
   document.querySelector(".w_to_top").setAttribute("onclick","window.scrollTo(0,0)");
   document.querySelector(".w_show_catalogue").setAttribute("onclick","ShowCatalogue()");
+  //一开始显示第一个页面
+  CreateContent(pages[0].url);
 })();
