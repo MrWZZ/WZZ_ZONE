@@ -15,6 +15,7 @@ function CreateLink()
 {
   for(var i in pages)
   {
+    console.log("c");
     var a = document.createElement("a");
     a.href = pages[i].url;
     a.text = pages[i].title;
@@ -45,8 +46,7 @@ function setIframeHeight()
 function createContent(e)
 {
   console.log(e);
-  e.target.preventDefault();
-
+  e.defaultPrevented = true;
   console.log(e.target.url);
   var iframe = document.createElement("iframe");
   iframe.src = e.target.url;
