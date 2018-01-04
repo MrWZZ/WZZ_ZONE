@@ -51,7 +51,6 @@
 {
   width: 1000px;
   margin: 0 auto;
-  overflow: hidden;
   transform: translateX(-100px);
 }
 
@@ -73,19 +72,17 @@
   border-bottom: 1px solid rgba(210, 210, 210,0.5);
 }
 
-#page_content
-{
-  float: left;
-  display: none;
-  width: 800px;
-  height: 1000px;
-  border: none;
-}
-
 .w_nav_details
 {
   display: none;
   clear: both;
+}
+
+.page_content
+{
+  float: left;
+  width: 800px;
+  border: none;
 }
 
 /*  右部插件  =====================================*/
@@ -121,11 +118,6 @@
 
 /*  媒体查询  =====================================*/
 
-@media screen and (min-width:1200px)
-{
-
-}
-
 @media screen and (max-width:1200px)
 {
   .w_center
@@ -158,7 +150,6 @@
   #page_content
   {
     width: 100%;
-    height: 1000px;
     border: none;
   }
 
@@ -172,7 +163,7 @@
 {
   .w_center
   {
-    width:100%;
+    width:90%;
   }
 }
 
@@ -180,12 +171,7 @@
 {
   .w_center
   {
-    width: 100%;
-  }
-
-  #page_content
-  {
-    width: 100%;
+    width: 90%;
   }
 
   .home_nav a
