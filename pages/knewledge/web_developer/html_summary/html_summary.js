@@ -39,6 +39,7 @@ function CreateContent(url)
   {
     pageContent.innerHTML = iframe.contentWindow.document.body.innerHTML;
     document.querySelector(".w_center").removeChild(iframe);
+    ShowCatalogue();
   }
   document.querySelector(".w_center").appendChild(iframe);
 }
@@ -67,6 +68,13 @@ function ShowCatalogue()
   CreateLink();
   document.querySelector(".w_to_top").setAttribute("onclick","window.scrollTo(0,0)");
   document.querySelector(".w_show_catalogue").setAttribute("onclick","ShowCatalogue()");
+  window.onresize = function()
+  {
+    if(window.innerWidth < 1200)
+    {
+      navContentDetials[0].style.display = "none";
+    }
+  }
   //一开始显示第一个页面
   CreateContent(pages[0].url);
 })();
