@@ -16,6 +16,7 @@ function CreateLink()
   for(var i in pages)
   {
     var a = document.createElement("a");
+    a.setAttribute("class","w_blur");
     a.setAttribute("data-url",pages[i].url);
     a.text = pages[i].title;
     a.onclick = function(e) {CreateContent(e.target.getAttribute("data-url"));}
