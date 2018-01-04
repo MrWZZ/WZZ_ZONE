@@ -20,6 +20,8 @@ function CreateLink()
     a.text = pages[i].title;
     a.onclick = function(e) {CreateContent(e.target.getAttribute("data-url"));}
     navContent[0].appendChild(a);
+    var ac = a.cloneNode(true);
+    ac.onclick = function(e) {CreateContent(e.target.getAttribute("data-url"));}
     navContentDetials[0].appendChild(a.cloneNode(true));
   }
 }
