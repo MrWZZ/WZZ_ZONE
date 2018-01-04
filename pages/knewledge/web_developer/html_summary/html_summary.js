@@ -60,7 +60,7 @@ function createContent(e)
     AcceptBody(iframe.contentWindow.document.querySelector(".w_article"));
     document.querySelector(".w_center").removeChild(frame);
   }
-  document.querySelector(".w_center").appendChild(frame);
+  document.querySelector(".w_center").appendChild(iframe);
 }
 
 //显示目录
