@@ -58,7 +58,7 @@ function createContent(e)
     console.log("onload");
     console.log(iframe.contentWindow.document.querySelector(".w_article"));
     AcceptBody(iframe.contentWindow.document.querySelector(".w_article"));
-    document.querySelector(".w_center").removeChild(frame);
+    document.querySelector(".w_center").removeChild(iframe);
   }
   document.querySelector(".w_center").appendChild(iframe);
 }
