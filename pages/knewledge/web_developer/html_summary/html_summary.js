@@ -22,7 +22,7 @@ function CreateLink()
     navContent[0].appendChild(a);
     var ac = a.cloneNode(true);
     ac.onclick = function(e) {CreateContent(e.target.getAttribute("data-url"));}
-    navContentDetials[0].appendChild(ac.cloneNode(true));
+    navContentDetials[0].appendChild(ac);
   }
 }
 
