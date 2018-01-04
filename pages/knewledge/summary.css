@@ -8,7 +8,7 @@
   width: 100%;
   height: 100%;
   z-index: -1;
-  background-image: url("https://mrwzz.github.io/WZZ_ZONE/image/bg.png");
+  background-image: url("https://raw.githubusercontent.com/MrWZZ/WZZ_ZONE/gh-pages/image/bg.png");
 }
 
 .w_blur::after {
