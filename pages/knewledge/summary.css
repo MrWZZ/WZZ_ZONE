@@ -7,15 +7,14 @@
   position: fixed;
   width: 100%;
   height: 100%;
-  /*-webkit-filter: blur(100px);  filter: blur(100px);*/
-  /*filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false);*/
+  -webkit-filter: blur(100px);  filter: blur(100px);
   z-index: -1;
   background-color: darkgrey;
 }
 
 .w_blur::after {
   content: "";
-  /*-webkit-filter: blur(30px);  filter: blur(30px);*/
+  -webkit-filter: blur(30px);  filter: blur(30px);
   background-color: inherit;
   position: absolute;
   top: 0;
