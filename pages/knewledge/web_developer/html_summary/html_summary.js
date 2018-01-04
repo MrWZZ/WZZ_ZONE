@@ -40,6 +40,8 @@ function setIframeHeight()
     frameContent = frame.contentWindow.document;
     frameHeight = frameContent.body.scrollHeight || frameContent.documentElement.scrollHeight;
     frame.height = frameHeight;
+    console.log(frameContent.querySelector(".w_article"));
+    AcceptBody(frameContent.querySelector(".w_article"));
   }
 }
 
@@ -55,6 +57,12 @@ function ShowCatalogue()
     navContentDetials[0].style.display = "none";
   }
   isShow = !isShow;
+}
+
+//接受子页面内容
+function AcceptBody(article)
+{
+  document.querySelector(".page_content_t").append(article);
 }
 
 //页面初始化
