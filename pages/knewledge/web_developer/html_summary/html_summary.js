@@ -23,7 +23,7 @@ function CreateLink()
     a.text = pages[i].title;
     navContent[0].appendChild(a);
     var ac = a.cloneNode(true);
-    ac.setAttribute("onclick","createContent(e)");
+    ac.setAttribute("onclick","createContent()");
     navContentDetials[0].appendChild(ac);
   }
 }
