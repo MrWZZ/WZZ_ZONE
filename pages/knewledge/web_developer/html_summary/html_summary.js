@@ -51,7 +51,7 @@ function createContent(e)
   e.preventDefault();
 
   var iframe = document.createElement("iframe");
-  iframe.src = "pages/document_segmentation.html";
+  iframe.src = "pages/creating_html.html";
   iframe.style.display = "none";
   iframe.onload = function()
   {
