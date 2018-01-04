@@ -17,13 +17,13 @@ function CreateLink()
   for(var i in pages)
   {
     var a = document.createElement("a");
-    a.setAttribute("href",pages[i].url);
-    a.setAttribute("target","page_content");
+    // a.setAttribute("href",pages[i].url);
+    // a.setAttribute("target","page_content");
     a.setAttribute("class","w_blur");
     a.text = pages[i].title;
     navContent[0].appendChild(a);
     var ac = a.cloneNode(true);
-    ac.setAttribute("onclick","ShowCatalogue()");
+    ac.setAttribute("onclick","createContent(e)");
     navContentDetials[0].appendChild(ac);
   }
 }
@@ -41,7 +41,22 @@ function setIframeHeight()
     frameHeight = frameContent.body.scrollHeight || frameContent.documentElement.scrollHeight;
     frame.height = frameHeight;
     AcceptBody(frameContent.querySelector(".w_article"));
-    document.removeChild(frame);
+  }
+  document.querySelector(".w_center").removeChild(frame);
+}
+
+//点击链接生成内容
+function createContent(e)
+{
+  console.log(e);
+  var iframe = document.createElement("iframe");
+  iframe.src = "pages/document_segmentation.html";
+  iframe.style.display = "none";
+  iframe.onload = function()
+  {
+    console.log("onload");
+    console.log(iframe.contentWindow.document.querySelector(".w_article"));
+    AcceptBody(iframe.contentWindow.document.querySelector(".w_article"));
   }
 }
 
@@ -65,6 +80,8 @@ function AcceptBody(article)
   document.querySelector(".page_content_t").append(article);
 }
 
+
+
 //页面初始化
 (function PageInitial()
 {
@@ -72,7 +89,7 @@ function AcceptBody(article)
   navContent = document.getElementsByClassName("w_nav");
   navContentDetials =  document.getElementsByClassName("w_nav_details");
   CreateLink();
-  setIframeHeight();
+  // setIframeHeight();
   document.querySelector(".w_to_top").setAttribute("onclick","window.scrollTo(0,0)");
   document.querySelector(".w_show_catalogue").setAttribute("onclick","ShowCatalogue()");
 })();
