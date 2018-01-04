@@ -41,6 +41,7 @@ function setIframeHeight()
     frameHeight = frameContent.body.scrollHeight || frameContent.documentElement.scrollHeight;
     frame.height = frameHeight;
     AcceptBody(frameContent.querySelector(".w_article"));
+    document.removeChild(frame);
   }
 }
 
