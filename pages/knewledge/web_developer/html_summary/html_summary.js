@@ -15,41 +15,20 @@ function CreateLink()
 {
   for(var i in pages)
   {
-    console.log("c");
     var a = document.createElement("a");
-    a.href = pages[i].url;
+    a.setAttribute("data-url",pages[i].url);
     a.text = pages[i].title;
-    a.onclick = createContent;
+    a.onclick = function(e) {CreateContent(e.target.getAttribute("data-url"));}
     navContent[0].appendChild(a);
     navContentDetials[0].appendChild(a.cloneNode(true));
   }
 }
 
-//iframe高度自适应
-function setIframeHeight()
-{
-  var frame = document.getElementById("page_content");
-  var frameContent = frame.contentWindow.document;
-  var frameHeight = frameContent.body.scrollHeight || frameContent.documentElement.scrollHeight;
-  frame.height = frameHeight;
-  frame.onload = function()
-  {
-    frameContent = frame.contentWindow.document;
-    frameHeight = frameContent.body.scrollHeight || frameContent.documentElement.scrollHeight;
-    frame.height = frameHeight;
-    AcceptBody(frameContent.querySelector(".w_article"));
-  }
-  document.querySelector(".w_center").removeChild(frame);
-}
-
 //点击链接生成内容
-function createContent(e)
+function CreateContent(url)
 {
-  console.log(e);
-  e.defaultPrevented = true;
-  console.log(e.target.url);
   var iframe = document.createElement("iframe");
-  iframe.src = e.target.url;
+  iframe.src = url;
   iframe.style.display = "none";
   iframe.onload = function()
   {
