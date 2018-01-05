@@ -85,21 +85,48 @@ body
 {
   position: fixed;
   right: 1%;
-  bottom: 5%;
+  bottom: 25%;
   width: 50px;
   height: 50px;
-  background-color: red;
+  background-color: gray;
+  border-radius: 20%;
 }
 
-.w_show_catalogue
-{
+.w_to_top div:first-child {
+  position: absolute;
+  width: 50%;
+  height: 10%;
+  transform: rotate(45deg);
+  background-color: blue;
+  margin: 45% 40%;
+}
+
+.w_to_top div:last-child {
+  position: absolute;
+  width: 50%;
+  height: 10%;
+  transform: rotate(-45deg);
+  background-color: blue;
+  margin: 45% 10%;
+}
+
+.w_show_catalogue {
   display: none;
   position: absolute;
   right: 1%;
-  top: 5%;
+  top: 13%;
   width: 50px;
   height: 50px;
-  background: blue;
+  background-color: rgb(187, 212, 182);
+  border-radius: 20%;
+}
+
+.w_show_catalogue div {
+  width: 65%;
+  height: 15%;
+  background-color: #2e942e;
+  margin: 15% auto;
+  border-radius: 30%;
 }
 
 /*  底部内容  =====================================*/
