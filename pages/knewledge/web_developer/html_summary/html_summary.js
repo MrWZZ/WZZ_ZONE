@@ -32,9 +32,9 @@ function CreateContent(url)
   iframe.onload = function()
   {
     pageContent.innerHTML = iframe.contentWindow.document.body.innerHTML;
-    document.querySelector(".center").removeChild(iframe);
+    pageContent.removeChild(iframe);
   }
-  document.querySelector(".center").appendChild(iframe);
+  pageContent.appendChild(iframe);
 }
 
 //页面初始化
