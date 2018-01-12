@@ -1,8 +1,6 @@
-var navContent;
-var navContentDetials;
-var isShow;
-//子页面
-var pageContent;
+var navContent;           //左侧导航
+var pageContent;          //子页面
+
 //页面数组
 var pages = [
   { title:"创建文档", url:"pages/creating_html.html" },
@@ -18,14 +16,10 @@ function CreateLink()
   for(var i in pages)
   {
     var a = document.createElement("a");
-    a.setAttribute("class","w_blur");
     a.setAttribute("data-url",pages[i].url);
     a.text = pages[i].title;
     a.onclick = function(e) {CreateContent(e.target.getAttribute("data-url"));}
-    navContent[0].appendChild(a);
-    var ac = a.cloneNode(true);
-    ac.onclick = function(e) {CreateContent(e.target.getAttribute("data-url"));}
-    navContentDetials[0].appendChild(ac);
+    navContent.appendChild(a);
   }
 }
 
@@ -38,43 +32,19 @@ function CreateContent(url)
   iframe.onload = function()
   {
     pageContent.innerHTML = iframe.contentWindow.document.body.innerHTML;
-    document.querySelector(".w_center").removeChild(iframe);
-    ShowCatalogue();
+    document.querySelector(".center").removeChild(iframe);
   }
-  document.querySelector(".w_center").appendChild(iframe);
-}
-
-//显示目录
-function ShowCatalogue()
-{
-  if(!isShow)
-  {
-    navContentDetials[0].style.display = "block";
-  }
-  else
-  {
-    navContentDetials[0].style.display = "none";
-  }
-  isShow = !isShow;
+  document.querySelector(".center").appendChild(iframe);
 }
 
 //页面初始化
 (function PageInitial()
 {
-  isShow = false;
-  navContent = document.getElementsByClassName("w_nav");
-  navContentDetials =  document.getElementsByClassName("w_nav_details");
-  pageContent = document.querySelector(".page_content");
+  navContent = document.querySelector(".left nav");
+  pageContent = document.querySelector(".center");
   CreateLink();
-  document.querySelector(".w_to_top").setAttribute("onclick","window.scrollTo(0,0)");
-  document.querySelector(".w_show_catalogue").setAttribute("onclick","ShowCatalogue()");
-  window.onresize = function()
-  {
-    if(window.innerWidth < 1200)
-    {
-      navContentDetials[0].style.display = "none";
-    }
-  }
+  document.querySelector(".to_top").setAttribute("onclick","window.scrollTo(0,0)");
+
   //一开始显示第一个页面
   CreateContent(pages[0].url);
 })();

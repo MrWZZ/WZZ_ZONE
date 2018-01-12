@@ -2,71 +2,65 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1">
+    <title></title>
     <link rel="stylesheet" href="../../summary.css">
-    <title>HTML总结</title>
   </head>
-  <body >
-    <!-- 顶部条幅 -->
-    <div class="w_banner">
-      <h1>HTML总结</h1>
-    </div>
-    <!-- 首页导航 -->
-    <div class="home_nav w_blur">
+  <body>
+    <header>
+      <h1>HTML5总结</h1>
+    </header>
+    <nav class="home_nav">
       <a href="#">主页</a>
       <a href="#">知识总结</a>
       <a href="#">方法库</a>
       <a href="#">收藏</a>
       <a href="#">作品</a>
-    </div>
-    <!-- 中间内容 -->
-    <div class="w_center">
-      <!-- 导航 -->
-      <div class="w_nav_details"> </div>
-      <div class="w_nav"> </div>
-      <!-- 显示页面 -->
-      <div class="page_content">
-        <article class="test">
-          <h2 id="DOCTYPE">DOCTYPE元素</h2>
-          DOCTYPE元素独一无二，而且自成一类。每一个HTML文档都必须以DOCTYPE元素开头。浏览器据此得知自己将要处理的是HTML内容。
+    </nav>
+    <div class="content">
+      <div class="left">
+        <nav>
 
-          <h2 id="html">html元素</h2>
-          html元素更恰当的名称是根元素，它代表文档中HTML部分的开始。
+        </nav>
+      </div>
+      <article class="center">
+        <h2 id="DOCTYPE">DOCTYPE元素</h2>
+        DOCTYPE元素独一无二，而且自成一类。每一个HTML文档都必须以DOCTYPE元素开头。浏览器据此得知自己将要处理的是HTML内容。
 
-          <h2 id="head">head元素</h2>
-          head元素包含着文档的元素据。在HTML中，元素据向浏览器提供了有关文档内容和标记的信息，此外还可以包含脚本和对外部资源的引用。
+        <h2 id="html">html元素</h2>
+        html元素更恰当的名称是根元素，它代表文档中HTML部分的开始。
 
-          <h2 id="body">body元素</h2>
-          html文档的元素据和文档信息包装在head元素中，文档的内容则包装在 body元素中。
+        <h2 id="head">head元素</h2>
+        head元素包含着文档的元素据。在HTML中，元素据向浏览器提供了有关文档内容和标记的信息，此外还可以包含脚本和对外部资源的引用。
 
-          <h2 id="title">title元素</h2>
+        <h2 id="body">body元素</h2>
+        html文档的元素据和文档信息包装在head元素中，文档的内容则包装在 body元素中。
 
-          + 允许具有的父元素：head
-          + 局部属性：无
-          + 示例：`<title> ... </title>`
+        <h2 id="title">title元素</h2>
 
-          title元素的作用是设置文档的标题或名称。浏览器通常将该元素的内容显示在其窗口的顶部或标签页的标签上。
+        + 允许具有的父元素：head
+        + 局部属性：无
+        + 示例：`<title> ... </title>`
 
-          每一个HTML文档都应该有且只有一个title元素。
+        title元素的作用是设置文档的标题或名称。浏览器通常将该元素的内容显示在其窗口的顶部或标签页的标签上。
 
-          <h2 id="base">base元素</h2>
+        每一个HTML文档都应该有且只有一个title元素。
 
-          + 允许具有的父元素：head
-          + 局部属性：href、target
-          + 示例：`<base href="#" target="_blank">`
+        <h2 id="base">base元素</h2>
 
-          base元素可以用来设置一个基准URL，让HTML文档中的相对链接在此基础上进行解析。
-          <br>此外,该元素还能设定链接在用户点击时的打开方式，以及提交表单时浏览器如何反应。
-        </article>
+        + 允许具有的父元素：head
+        + 局部属性：href、target
+        + 示例：`<base href="#" target="_blank">`
+
+        base元素可以用来设置一个基准URL，让HTML文档中的相对链接在此基础上进行解析。
+        <br>此外,该元素还能设定链接在用户点击时的打开方式，以及提交表单时浏览器如何反应。
+      </article>
+      <div class="right">
+        <div class="to_top"> <div></div> <div></div> </div>
       </div>
     </div>
-    <!-- 右部插件 -->
-    <div class="w_plug">
-      <div class="w_show_catalogue"> <div></div> <div></div> <div></div> </div>
-      <div class="w_to_top"> <div></div> <div></div> </div>
-    </div>
-    <!-- 底部信息 -->
-    <div class="w_bottom"> </div>
+    <footer>
+
+    </footer>
   </body>
   <script src="html_summary.js" defer charset="utf-8"></script>
 </html>
