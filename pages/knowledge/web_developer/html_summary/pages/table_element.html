@@ -190,8 +190,8 @@
   <xmp class="block">
   <table border="1">
     <caption>这是一个标题</caption>
-    <colgroup span="2" style="color:red;">
-    <colgroup span="3" style="color:blue;">
+    <colgroup span="2" style="background-color:red;">
+    <colgroup span="3" style="background-color:blue;">
     <thead>
       <tr>
         <th>标题</th>
@@ -225,6 +225,44 @@
   </table>
   </xmp>
 
+  演示：
+
+  <table border="1">
+    <caption>这是一个标题</caption>
+    <colgroup span="2" style="background-color:red;">
+    <colgroup span="3" style="background-color:blue;">
+    <thead>
+      <tr>
+        <th>标题</th>
+        <th>标题</th>
+        <th>标题</th>
+        <th>标题</th>
+        <th>标题</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>内容</th>
+        <th>内容</th>
+        <th>内容</th>
+        <th>内容</th>
+        <th>内容</th>
+      </tr>
+      <tr>
+        <th>内容</th>
+        <th>内容</th>
+        <th>内容</th>
+        <th>内容</th>
+        <th>内容</th>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th colspan="5">结尾</th>
+      </tr>
+    </tfoot>
+  </table>
+
   <h1 id="col" class="h1">col元素</h1>
 
   + 局部属性：span
@@ -242,9 +280,9 @@
   <xmp class="block">
   <table border="1">
     <colgroup>
-      <col span="2" style="color:red;">
-      <col style="color:blue;">
-      <col span="2" style="color:yellow;">
+      <col span="2" style="background-color:red;">
+      <col style="background-color:blue;">
+      <col span="2" style="background-color:yellow;">
     </colgroup>
     <tr>
       <td>内容</td>
@@ -255,6 +293,23 @@
     </tr>
   </table>
   </xmp>
+
+  演示：
+
+  <table border="1">
+    <colgroup>
+      <col span="2" style="background-color:red;">
+      <col style="background-color:blue;">
+      <col span="2" style="background-color:yellow;">
+    </colgroup>
+    <tr>
+      <td>内容</td>
+      <td>内容</td>
+      <td>内容</td>
+      <td>内容</td>
+      <td>内容</td>
+    </tr>
+  </table>
 </pre>
   </body>
 </html>
