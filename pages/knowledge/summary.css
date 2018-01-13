@@ -23,6 +23,15 @@ body {
 .content {
   display: flex;
   justify-content: center; }
+  .content .center {
+    width: 800px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: white; }
+
+.content {
+  display: flex;
+  justify-content: center; }
   .content .left nav {
     padding: 10px 50px 0 0; }
     .content .left nav a {
@@ -31,6 +40,7 @@ body {
       color: blue;
       text-decoration: none; }
       .content .left nav a:hover {
+        cursor: pointer;
         text-decoration: underline; }
     @media screen and (max-width: 800px) {
       .content .left nav {
