@@ -42,5 +42,56 @@ body{
     border-radius: 10px;
     background-color: white;
   }
+}
+
+// 标签=============================================
+
+.w_doc{
+  margin: 0 0;
+  padding: 0 0;
+  font-size: 15px;
+  *{
+    margin: 0 0;
+    padding: 0 0;
+  }
+
+  @mixin h1_h6 {
+    margin: 5px 0;
+  }
+  .h1{
+    font-size: 25px;
+    @include h1_h6;
+  }
+  .h2{
+    font-size: 20px;
+    @include h1_h6;
+  }
+
+  .block{
+    display: block;
+    color: black;
+    background: none;
+    @extend .language;
+  }
+}
+
+code,xmp{
+  display: inline;
+  margin: 0 2px;
+  padding: 0px 2px;
+  color: #E91E63;
+  font-size: large;
+  background-color: #FCE4EC;
+  border-radius: 4px;
+}
+
+.language{
+  $border_radius:5px;
+
+  position: relative;
+  border-radius: $border_radius;
+  background-color: #EEEEEE;
+  border: 2px #E0E0E0 solid;
+  font-size: 15px;
 
 }

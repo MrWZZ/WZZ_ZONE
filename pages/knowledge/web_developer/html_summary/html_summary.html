@@ -23,6 +23,170 @@
         </nav>
       </div>
       <article class="center">
+            <h2 id="DOCTYPE">DOCTYPE元素</h2>
+            <p>DOCTYPE元素独一无二，而且自成一类。每一个HTML文档都必须以DOCTYPE元素开头。
+              <br>浏览器据此得知自己将要处理的是HTML内容。</p>
+
+            <h2 id="html">html元素</h2>
+            <p>html元素更恰当的名称是根元素，它代表文档中HTML部分的开始。</p>
+
+            <h2 id="head">head元素</h2>
+            <p>head元素包含着文档的元素据。在HTML中，元素据向浏览器提供了有关文档内容和标记的信息，
+              <wbr>此外还可以包含脚本和对外部资源的引用。</p>
+
+            <h2 id="body">body元素</h2>
+            <p>html文档的元素据和文档信息包装在head元素中，文档的内容则包装在 body元素中。</p>
+
+            <h2 id="title">title元素</h2>
+            <ul>
+              <li>允许具有的父元素：head</li>
+              <li>局部属性：无</li>
+              <li> 示例：<xmp> <title> ... </title> </xmp> </li>
+            </ul>
+
+            <p>title元素的作用是设置文档的标题或名称。浏览器通常将该元素的内容显示在其窗口的顶部或标签页的标签上。</p>
+
+            <p>每一个HTML文档都应该有且只有一个title元素。</p>
+
+            <h2 id="base">base元素</h2>
+
+            <ul>
+              <li>允许具有的父元素：head</li>
+              <li>局部属性：href、target</li>
+              <li>示例：<xmp><base href="#" target="_blank"></xmp></li>
+            </ul>
+
+            <p>base元素可以用来设置一个基准URL，让HTML文档中的相对链接在此基础上进行解析。此外,该元素还能设定链接在用户点击时的打开方式，以及提交表单时浏览器如何反应。</p>
+
+            <h2 id="meta">meta元素</h2>
+
+            <ul>
+              <li>允许具有的父元素：head</li>
+              <li>局部属性：name、content、charset、http-equiv</li>
+              <li>示例：<xmp><meta charset="utf-8"></xmp></li>
+            </ul>
+
+            <p>meta元素可以用来定义文档的各种元数据，一个HTML文档中可以包含多个meta元素，注意每个meta元素只能用于一种用途。</p>
+
+            <dl>
+              <dt>用法1：<xmp><meta name="author" content="WZZ"></xmp></dt>
+                <dd>name属性用来表示元数据的类型，而content属性用来提供值。</dd><br>
+              <dt>用法2：<xmp><meta charset="utf-8"></xmp></dt>
+                <dd>声明HTML文档内容所用的字符编码。</dd><br>
+              <dt>用法3：<xmp><meta http-equiv="refresh" content="5"></xmp></dt>
+                <br><dd><b>改写HTTP标头字段的值。</b></dd>
+                <dd>
+                  <ul>
+                  <li>refresh：<br>
+                    <span>以秒为单位指定一个时间间隔，在此时间过去之后将从服务器重新载入当前页面。也可以另行指定一个URL让浏览器载入。</span>
+                    <span>如：<xmp><meta http-equiv="refresh" content="5;http://www.baidu.com"></xmp></span>
+                  </li>
+                  <li>default-style：<br>
+                    <span>指定页面优先使用的样式表。对应的content属性值应与同一个文档中某个style元素或link元素的title属性值相同。</span>
+                  </li>
+                  <li>content-type：<br>
+                    <span>这是另一种声明HTML页面所用字符编码的方法。</span>
+                  </li>
+                </ul>
+              </dd>
+            </dl>
+
+            <h2 id="style">style元素</h2>
+
+            <ul>
+              <li>允许具有的父元素：任何可以包含元数据的元素</li>
+              <li>局部属性：type、media、scoped</li>
+              <li>示例：<xmp><style media="screen"> {...} </style></xmp>
+              </li>
+            </ul>
+
+            <p>style元素可以用来定义HTML文档内嵌的CSS样式。</p>
+
+            <ol>
+              <li>指定样式类型
+                <p>type属性可以用来将所定义的样式类型告诉浏览器。但是浏览器支持的样式机制只有CSS一种，所以这个属性的值总是text/css。</p>
+              </li>
+              <li>指定样式作用范围
+                <p>如果style元素中有scoped属性存在，那么其中定义的样式只作用于该元素的父元素及所有兄弟元素。</p>
+              </li>
+              <li>指定样式使用的媒体
+                <p>media属性可以用来表明文档在什么情况下应使用该元素中定义的样式。</p>
+                <p>用法：<xmp><style media="screen AND (max-width:500px)" type="text/css"> {...} </style></xmp></p>
+                <ul>
+                  <li>all：将样式用于所有设备（默认）</li>
+                  <li>screen：将样式用于计算机显示屏幕</li>
+                  <li>print：将样式用于打印预览和打印页面时</li>
+                  <li>tv：将样式用于电视机</li>
+                </ul>
+                <p>AND用来组合设备和特性条件，除了AND，还可以使用NOT和表示OR的逗号<code>,</code>。</p>
+                <p>width等特性通常会跟限定词min和max配和使用。</p>
+                <ul>
+                  <li>width height：指定浏览器窗口的宽度和高度。单位：px。</li>
+                  <li>device-width device-height：指定整个设备（而不仅仅是浏览器窗口）的宽度和高度。单位：px。</li>
+                  <li>resolution：指定设备的像素密度。单位：dpi、dpcm。</li>
+                  <li>orientation：指定设备的较长边朝向。值：portrait、landscape。</li>
+                </ul>
+              </li>
+            </ol>
+
+            <h2 id="link">link元素</h2>
+
+            <ul>
+              <li>允许具有的父元素：head、noscript</li>
+              <li>局部属性：href、rel、hreflang、media、type、sizes</li>
+              <li>示例：<xmp><link rel="stylesheet" href="/css/master.css"></xmp></li>
+            </ul>
+
+            <p>link元素可以用来在HTML文档和外部资源之间建立联系。</p>
+
+            <p><b>局部属性说明</b></p>
+
+            <ul>
+              <li>href：指定link元素指向的资源的URL。</li>
+              <li>hreflang：说明所关联资源使用的语言。</li>
+              <li>media：说明所关联的内容用于哪种设备。</li>
+              <li>rel：说明文档与所关联资源的关系类型。</li>
+              <li>sizes：指定图标的大小。</li>
+              <li>type：指定所关联资源的MIME类型。</li>
+            </ul>
+
+            <h2 id="script">script元素</h2>
+
+            <ul>
+              <li>允许具有的父元素：可以包含元数据或短语元素的任何元素</li>
+              <li>局部属性：type、src、defer、async、charset</li>
+              <li>示例：</xmp><script src="..." charset="utf-8"></script></xmp></li>
+            </ul>
+
+            <p>script元素可以用来在页面中加入脚本，方式有在文档中定义脚本和引用外部文件中的脚本两种。</p>
+
+            <p><b>局部属性说明</b></p>
+
+            <ul>
+              <li>type：表示所引用或定义的脚本的类型。</li>
+              <li>src：指定外部脚本文件的URL。</li>
+              <li>defer：告诉浏览器要等页面载入和解析完毕之后才能执行脚本。</li>
+              <li>async：异步执行脚本。</li>
+              <li>charset：说明外部脚本文件所用字符编码，只用与src属性一同使用。</li>
+            </ul>
+
+            <h2 id="noscript">noscript元素</h2>
+
+            <ul>
+              <li>允许具有的父元素：可以包含元数据或短语元素的任何元素</li>
+              <li>局部属性：无</li>
+              <li>示例：<xmp><noscript> ... </noscript></xmp></li>
+            </ul>
+
+            <p>noscript元素可以用来向禁用了JavaScript或浏览器不支持的JavaScript的用户显示一些内容。</p>
+
+            <p>还有一种用法是在浏览器不支持JavaScript时将其引至另一个URL。</p>
+
+<pre class="language">
+&lt;noscript&gt;
+  &lt;meta http-equiv="refresh" content="0;http://"&gt;
+&lt;/noscript&gt;
+</pre>
 
       </article>
       <div class="right">
@@ -33,5 +197,6 @@
 
     </footer>
   </body>
-  <script src="html_summary.js" defer charset="utf-8"></script>
+  <script src="html_summary.js"  charset="utf-8"></script>
+  <!-- <script src="../../universal.js"  charset="utf-8"></script> -->
 </html>

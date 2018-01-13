@@ -29,6 +29,40 @@ body {
     border-radius: 10px;
     background-color: white; }
 
+.w_doc {
+  margin: 0 0;
+  padding: 0 0;
+  font-size: 15px; }
+  .w_doc * {
+    margin: 0 0;
+    padding: 0 0; }
+  .w_doc .h1 {
+    font-size: 25px;
+    margin: 5px 0; }
+  .w_doc .h2 {
+    font-size: 20px;
+    margin: 5px 0; }
+  .w_doc .block {
+    display: block;
+    color: black;
+    background: none; }
+
+code, xmp {
+  display: inline;
+  margin: 0 2px;
+  padding: 0px 2px;
+  color: #E91E63;
+  font-size: large;
+  background-color: #FCE4EC;
+  border-radius: 4px; }
+
+.language, .w_doc .block {
+  position: relative;
+  border-radius: 5px;
+  background-color: #EEEEEE;
+  border: 2px #E0E0E0 solid;
+  font-size: 15px; }
+
 .content {
   display: flex;
   justify-content: center; }
