@@ -2,273 +2,262 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../knowledge.css">
     <title>标记文字</title>
   </head>
   <body>
-      <h2 id="a">a元素</h2>
-
-      + 局部属性：href、hreflang、media、rel、target、type
-      + 示例：`<a href="#"> ... </a>`
-      + 意义：连接。
-      + 默认样式：
-
-      ```css
-      a:link,a:visited{
-        color:blue;
-        text-decoration:underline;
-        cursor:auto;
-      }
-
-      a:link:active,a:visited:active{
-        color:blue;
-      }
-      ```
-
-      将a元素的href属性设置为以`http://`开头的URL即可生成到其他HTML文档的超连接。
-      <br>如果href属性值不是以类似`http://`这样的已知协议开头，那么浏览器会将该链接视为相对引用。
-
-      生成内部超链接：
-
-      ```html
-      <a href="#test">点击这里跳转</a>
-
-      <p id="test">浏览器会滚动到这个位置。<p>
-      ```
-
-      如果浏览器找不到具有指定id属性值元素，那么他会再进一次查找，试图找到一个name属性值与其匹配的元素。
-
-      target属性的用途时告诉浏览器希望将所连接的资源显示在哪里。
-
-      如果里面添加ima元素，则点击图片也能进行连接的跳转。
-
-      **target属性的值**
-
-      + `_blick` ：在新窗口或标签页中打开文档。
-      + `_parent`：在父窗框组（frameset）中打开文档。
-      + `_self`：在当前窗口中打开文档（默认）。
-      + `_top`：在顶层窗口打开文档。
-      + `<frame>`：在指定窗框中打开文档。
-
-      <h2 id="b">b元素、strong元素</h2>
-
-      + 局部属性：无
-      + 示例：`<b> ... </b>` `<strong> ... </strong>`
-      + 意义：强调。
-      + 默认样式：
-
-      ```css
-      b,strong{
-        font-weight: bolder;
-      }
-      ```
-
-      <h2 id="em">em元素、i元素</h2>
-
-      + 局部属性：无
-      + 示例：`<em> ... </em>` `<i> ... </i>`
-      + 意义：强调。
-      + 默认样式：
-
-      ```css
-      em,i{
-        font-style: italic;
-      }
-      ```
-
-      <h2 id="s">s元素</h2>
-
-      + 局部属性：无
-      + 示例：`<s> ... </s>`
-      + 意义：表示一段文字不再正确。
-      + 默认样式：
-
-      ```css
-      s{
-        text-decoration: line-through;
-      }
-      ```
-
-      <h2 id="u">u元素</h2>
-
-      + 局部属性：无
-      + 示例：`<u> ... </u>`
-      + 意义：突出显示。
-      + 默认样式：
-
-      ```css
-      u{
-        text-decoration: underline;
-      }
-      ```
-
-      <h2 id="small">small元素</h2>
-
-      + 局部属性：无
-      + 示例：`<small> ... </small>`
-      + 意义：免责声明和澄清声明。
-      + 默认样式：
-
-      ```css
-      small{
-        font-size: smaller;
-      }
-      ```
-
-      <h2 id="sub">sub元素、sup元素</h2>
-
-      + 局部属性：无
-      + 示例：`<sub> ... </sub>` `<sup> ... </sup>`
-      + 意义：表示下标和上标。
-      + 默认样式：
-
-      ```css
-      sub{
-        vertical-align: sub;
-        font-size: smaller;
-      }
-
-      sup{
-        vertical-align: super;
-        font-size: smaller;
-      }
-      ```
-
-      <h2 id="ins">ins元素、del元素</h2>
-
-      + 局部属性：cite、datetime
-      + 示例：`<ins> ... </ins>` `<del> ... </del>`
-      + 意义：表示文档中添加和删除的文字。
-      + 默认样式：
-
-      ```css
-      ins{
-        text-decoration: underline;
-      }
-
-      del{
-        text-decoration: line-through;
-      }
-      ```
-
-      datetime属性用来设置修改时间。
-
-      <h2 id="mark">mark元素</h2>
-
-      + 局部属性：无。
-      + 示例：`<mark> ... </mark>`
-      + 意义：表示因为与某段上下文相关而被突出显示的一段文字。
-      + 默认样式：
-
-      ```css
-      mark{
-        background-color: yellow;
-        color: black;
-      }
-      ```
-
-      <h2 id="br">br元素、wbr元素</h2>
-
-      + 局部属性：无
-      + 示例：`<br>` `<wbr>`
-      + 意义：换行。
-      + 默认样式：如果需要换行，则从新行开始显示后续内容。
-
-      <h2 id="abbr">abbr元素</h2>
-
-      + 局部属性：无，但全局属性title有特殊含义
-      + 示例：`<abbr title="..."> ... </abbr>`
-      + 意义：表示缩写。
-      + 默认样式：无
-
-      <h2 id="dfn">dfn元素</h2>
-
-      + 局部属性：无，但全局属性title有特殊含义
-      + 示例：`<dfn> ... </dfn>`
-      + 意义：表示定义中的术语。
-      + 默认样式：无
-
-      <h2 id="q">q元素</h2>
-
-      + 局部属性：cite
-      + 示例：`<q cite="..."> ... </q>`
-      + 意义：表示引用他处的内容
-      + 默认样式：
-
-      ```css
-      q{
-        display: inline;
-      }
-
-      q:before{
-        content: open-quote;
-      }
-
-      q:after{
-        content: close-quote;
-      }
-      ```
-
-      cite属性可以用来指定来源文章的URL。
-
-      <h2 id="cite">cite元素</h2>
-
-      + 局部属性：无
-      + 示例：`<cite> ... </cite>`
-      + 意义：表示所用作品的标题
-      + 默认样式：
-
-      ```css
-      cite{
-        font-style: italic;
-      }
-      ```
-
-      <h2 id="ruby">ruby、rt、rp元素</h2>
-
-      + 局部属性：无
-      + 示例：`<ruby>你<rp>(</rp><rt>ni</rt><rp>)</rp></ruby>`
-      + 意义：用来帮助读者掌握表意语言文字正确的发音。
-      + 表现：<ruby>你<rp>(</rp><rt>ni</rt><rp>)</rp></ruby>
-      + 默认样式
-
-      ```css
-      ruby{
-        text-indent: 0;  /*段落首行缩进*/
-      }
-      ```
-
-      ruby元素需要与rt元素和rp元素搭配使用。
-      <br>rt元素用来标记注音符号，rp元素则用来标记供不支持注音符号特性的浏览器在注音符号前后加括号。
-
-      <h2 id="bdo">bdo元素</h2>
-
-      + 局部属性：无。但是必须要有全局属性dir
-      + 示例：`<bdo dir="rtl"> 从右到左 </bdo>`
-      + 意义：可以用来撇开默认的文字方向设置，明确地指定其内容中文字的方向。
-      + 表现：<bdo dir="rtl"> 从右到左 </bdo>
-      + 默认样式：无
-
-      <h2 id="bdi">bdi元素</h2>
-
-      + 局部属性：无。
-      + 示例：`<bdi> ... </bdi>`
-      + 意义：保持原来的文字方向，防止浏览器自动改变文字方向。
-      + 默认样式：无
-
-      <h2 id="time">time元素</h2>
-
-      + 局部属性：datetime、pubdate
-      + 示例：`<time> ... </time>`
-      + 意义：用来表示时间或日期。
-      + 默认样式：无
-
-      如果pubdata存在，那么time元素表示的是整个HTML文档或离钙元素最近的article元素的发布日期。
-
-      <h2 id="span">span元素</h2>
-
-      + 局部属性：无。
-      + 示例：`<span> ... </span>`
-      + 意义：无意义的行内元素。
-      + 默认样式：无
+<pre class="w_doc">
+  <h1 class="h1">a元素</h1>
+
+  + 局部属性：href、hreflang、media、rel、target、type
+  + 示例：<xmp><a href="#"> ... </a></xmp>
+  + 意义：连接。
+  + 默认样式：
+  <xmp class="block">
+  a:link,a:visited{
+    color:blue;
+    text-decoration:underline;
+    cursor:auto;
+  }
+
+  a:link:active,a:visited:active{
+    color:blue;
+  }
+  </xmp>
+
+  将a元素的href属性设置为以<xmp>http://</xmp>开头的URL即可生成到其他HTML文档的超连接。
+  如果href属性值不是以类似<xmp>http://</xmp>这样的已知协议开头，那么浏览器会将该链接视为相对引用。
+
+  生成内部超链接：
+  <xmp class="block">
+  <a href="#test">点击这里跳转</a>
+  <p id="test">浏览器会滚动到这个位置。<p>
+  </xmp>
+
+  如果浏览器找不到具有指定id属性值元素，那么他会再进一次查找，试图找到一个name属性值与其匹配的元素。
+
+  target属性的用途时告诉浏览器希望将所连接的资源显示在哪里。
+
+  如果里面添加ima元素，则点击图片也能进行连接的跳转。
+
+  <b>target属性的值</b>
+
+  + <xmp>_blick</xmp> ：在新窗口或标签页中打开文档。
+  + <xmp>_parent</xmp>：在父窗框组（frameset）中打开文档。
+  + <xmp>_self</xmp>：在当前窗口中打开文档（默认）。
+  + <xmp>_top</xmp>：在顶层窗口打开文档。
+  + <xmp><frame></xmp>：在指定窗框中打开文档。
+
+  <h1 class="h1">b元素、strong元素</h1>
+
+  + 局部属性：无
+  + 示例：<xmp><b> ... </b></xmp> <xmp><strong> ... </strong></xmp>
+  + 意义：强调。
+  + 默认样式：
+  <xmp class="block">
+  b,strong{
+    font-weight: bolder;
+  }
+  </xmp>
+
+  <h1 class="h1">em元素、i元素</h1>
+
+  + 局部属性：无
+  + 示例：<xmp><em> ... </em></xmp> <xmp><i> ... </i></xmp>
+  + 意义：强调。
+  + 默认样式：
+  <xmp class="block">
+  em,i{
+    font-style: italic;
+  }
+  </xmp>
+
+  <h1 class="h1">s元素</h1>
+
+  + 局部属性：无
+  + 示例：<xmp><s> ... </s></xmp>
+  + 意义：表示一段文字不再正确。
+  + 默认样式：
+  <xmp class="block">
+  s{
+    text-decoration: line-through;
+  }
+  </xmp>
+
+  <h1 class="h1">u元素</h1>
+
+  + 局部属性：无
+  + 示例：<xmp><u> ... </u></xmp>
+  + 意义：突出显示。
+  + 默认样式：
+  <xmp class="block">
+  u{
+    text-decoration: underline;
+  }
+  </xmp>
+
+  <h1 class="h1">small元素</h1>
+
+  + 局部属性：无
+  + 示例：<xmp><small> ... </small></xmp>
+  + 意义：免责声明和澄清声明。
+  + 默认样式：
+  <xmp class="block">
+  small{
+    font-size: smaller;
+  }
+  </xmp>
+
+  <h1 id="sub">sub元素、sup元素</h1>
+
+  + 局部属性：无
+  + 示例：<xmp><sub> ... </sub></xmp> <xmp><sup> ... </sup></xmp>
+  + 意义：表示下标和上标。
+  + 默认样式：
+  <xmp class="block">
+  sub{
+    vertical-align: sub;
+    font-size: smaller;
+  }
+
+  sup{
+    vertical-align: super;
+    font-size: smaller;
+  }
+  </xmp>
+
+  <h1 class="h1">ins元素、del元素</h1>
+
+  + 局部属性：cite、datetime
+  + 示例：<xmp><ins> ... </ins></xmp> <xmp><del> ... </del></xmp>
+  + 意义：表示文档中添加和删除的文字。
+  + 默认样式：
+  <xmp class="block">
+  ins{
+    text-decoration: underline;
+  }
+
+  del{
+    text-decoration: line-through;
+  }
+  </xmp>
+
+  datetime属性用来设置修改时间。
+
+  <h1 class="h1">mark元素</h1>
+
+  + 局部属性：无。
+  + 示例：<xmp><mark> ... </mark></xmp>
+  + 意义：表示因为与某段上下文相关而被突出显示的一段文字。
+  + 默认样式：
+  <xmp class="block">
+  mark{
+    background-color: yellow;
+    color: black;
+  }
+  </xmp>
+
+  <h1 class="h1">br元素、wbr元素</h1>
+
+  + 局部属性：无
+  + 示例：<xmp><br></xmp> <xmp><wbr></xmp>
+  + 意义：换行。
+  + 默认样式：如果需要换行，则从新行开始显示后续内容。
+
+  <h1 class="h1">abbr元素</h1>
+
+  + 局部属性：无，但全局属性title有特殊含义
+  + 示例：<xmp><abbr title="..."> ... </abbr></xmp>
+  + 意义：表示缩写。
+  + 默认样式：无
+
+  <h1 class="h1">dfn元素</h1>
+
+  + 局部属性：无，但全局属性title有特殊含义
+  + 示例：<xmp><dfn> ... </dfn></xmp>
+  + 意义：表示定义中的术语。
+  + 默认样式：无
+
+  <h1 class="h1">q元素</h1>
+
+  + 局部属性：cite
+  + 示例：<xmp><q cite="..."> ... </q></xmp>
+  + 意义：表示引用他处的内容
+  + 默认样式：
+  <xmp class="block">
+  q{
+    display: inline;
+  }
+
+  q:before{
+    content: open-quote;
+  }
+
+  q:after{
+    content: close-quote;
+  }
+  </xmp>
+
+  cite属性可以用来指定来源文章的URL。
+
+  <h1 class="h1">cite元素</h1>
+
+  + 局部属性：无
+  + 示例：<xmp><cite> ... </cite></xmp>
+  + 意义：表示所用作品的标题
+  + 默认样式：
+  <xmp class="block">
+  cite{
+    font-style: italic;
+  }
+  </xmp>
+
+  <h1 class="h1">ruby、rt、rp元素</h1>
+
+  + 局部属性：无
+  + 示例：<xmp><ruby>你<rp>(</rp><rt>ni</rt><rp>)</rp></ruby></xmp>
+  + 意义：用来帮助读者掌握表意语言文字正确的发音。
+  + 表现：<ruby>你<rp>(</rp><rt>ni</rt><rp>)</rp></ruby>
+  + 默认样式：
+  <xmp class="block">
+  ruby{
+    text-indent: 0;  /*段落首行缩进*/
+  }
+  </xmp>
+
+  ruby元素需要与rt元素和rp元素搭配使用。
+  rt元素用来标记注音符号，rp元素则用来标记供不支持注音符号特性的浏览器在注音符号前后加括号。
+
+  <h1 class="h1">bdo元素</h1>
+
+  + 局部属性：无。但是必须要有全局属性dir
+  + 示例：<xmp><bdo dir="rtl"> 从右到左 </bdo></xmp>
+  + 意义：可以用来撇开默认的文字方向设置，明确地指定其内容中文字的方向。
+  + 表现：<bdo dir="rtl"> 从右到左 </bdo>
+  + 默认样式：无
+
+  <h1 class="h1">bdi元素</h1>
+
+  + 局部属性：无。
+  + 示例：<xmp><bdi> ... </bdi></xmp>
+  + 意义：保持原来的文字方向，防止浏览器自动改变文字方向。
+  + 默认样式：无
+
+  <h1 class="h1">time元素</h1>
+
+  + 局部属性：datetime、pubdate
+  + 示例：<xmp><time> ... </time></xmp>
+  + 意义：用来表示时间或日期。
+  + 默认样式：无
+
+  如果pubdata存在，那么time元素表示的是整个HTML文档或离钙元素最近的article元素的发布日期。
+
+  <h1 id="span" class="h1">span元素</h1>
+
+  + 局部属性：无。
+  + 示例：<xmp><span> ... </span></xmp>
+  + 意义：无意义的行内元素。
+  + 默认样式：无
+</pre>
   </body>
 </html>

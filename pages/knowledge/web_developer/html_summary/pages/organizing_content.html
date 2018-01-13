@@ -2,104 +2,106 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../knowledge.css">
     <title></title>
   </head>
   <body>
-      <h2 id="div">div元素</h2>
+<pre class="w_doc">
+  <h1 id="div" class="h1">div元素</h1>
 
-      + 局部属性：无
-      + 示例：`<div> ... </div>`
-      + 意义：无意义的块级元素
+  + 局部属性：无
+  + 示例：<xmp><div> ... </div></xmp>
+  + 意义：无意义的块级元素
 
-      <h2 id="p">p元素</h2>
+  <h1 id="p" class="h1">p元素</h1>
 
-      + 局部属性：无
-      + 示例：`<p> ... </p>`
-      + 意义：段落
+  + 局部属性：无
+  + 示例：<xmp><p> ... </p></xmp>
+  + 意义：段落
 
-      <h2 id="pre">pre元素</h2>
+  <h1 id="pre" class="h1">pre元素</h1>
 
-      + 局部属性：无
-      + 示例：`<pre> ... </pre>`
-      + 意义：改变浏览器处理内容的方式，阻止合并空白字符，让源文档中的格式得以保留
+  + 局部属性：无
+  + 示例：<xmp><pre> ... </pre></xmp>
+  + 意义：改变浏览器处理内容的方式，阻止合并空白字符，让源文档中的格式得以保留
 
+  <h1 id="blockquote" class="h1">blockquote元素</h1>
 
-      <h2 id="blockquote">blockquote元素</h2>
+  + 局部属性：cite
+  + 示例：<xmp><blockquote cite="http://"> ... </blockquote></xmp>
+  + 意义：表示引自他处的一片内容。
 
-      + 局部属性：cite
-      + 示例：`<blockquote cite="http://"> ... </blockquote>`
-      + 意义：表示引自他处的一片内容。
+  <h1 id="hr" class="h1">hr元素</h1>
 
-      <h2 id="hr">hr元素</h2>
+  + 局部属性：无
+  + 示例：<xmp><hr></xmp>
+  + 意义：表示段落级别的主题分隔
 
-      + 局部属性：无
-      + 示例：`<hr>`
-      + 意义：表示段落级别的主题分隔
+  <h1 id="li" class="h1">li元素</h1>
 
-      <h2 id="li">li元素</h2>
+  + 局部属性：value（仅用于父元素为ol元素）
+  + 示例：<xmp><li> ... </li></xmp>
+  + 意义：表示列表中的项目
 
-      + 局部属性：value（仅用于父元素为ol元素）
-      + 示例：`<li> ... </li>`
-      + 意义：表示列表中的项目
+  value属性可以用来指定某一项的编号。
 
-      value属性可以用来指定某一项的编号。
+  <h1 id="ol" class="h1">ol元素</h1>
 
-      <h2 id="ol">ol元素</h2>
+  + 局部属性：start、reversed、type
+  + 意义：有序列表
+  + 示例：
+  <xmp class="block">
+  <ol>
+       <li> ... </li>
+  </ol>
+  </xmp>
 
-      + 局部属性：start、reversed、type
-      + 意义：有序列表
-      + 示例：
-      ```html
-      <ol>
-           <li> ... </li>
-      </ol>
-      ```
+  start属性设定的是列表首项的编号值，如果不用这个属性，那么首项的标号为1。
+  reversed属性使列表编号采用降序。
+  type属性用来设定显示在各列表项旁的标号的类型。
 
-      start属性设定的是列表首项的编号值，如果不用这个属性，那么首项的标号为1。
-      <br>reversed属性使列表编号采用降序。
-      <br>type属性用来设定显示在各列表项旁的标号的类型。
+  <b>ol元素的type属性的值</b>
 
-      **ol元素的type属性的值**
+  + 1: 十进制数（默认）
+  + a：小写英文字母
+  + A：大写英文字母
+  + i：小写罗马数字
+  + I：大写罗马数字
 
-      + 1: 十进制数（默认）
-      + a：小写英文字母
-      + A：大写英文字母
-      + i：小写罗马数字
-      + I：大写罗马数字
+  <h1 id="ul" class="h1">ul元素</h1>
 
-      <h2 id="ul">ul元素</h2>
+  + 局部属性：无
+  + 意义：无序列表
+  + 示例：
+  <xmp class="block">
+  <ul>
+       <li> ... </li>
+  </ul>
+  </xmp>
 
-      + 局部属性：无
-      + 意义：无序列表
-      + 示例：
-      ```html
-      <ul>
-           <li> ... </li>
-      </ul>
-      ```
+  <h1 id="dl" class="h1">dl、dt、dd元素</h1>
 
-      <h2 id="dl">dl、dt、dd元素</h2>
+  + 局部属性：无
+  + 意义：说明列表。
+  + 示例：
+  <xmp class="block">
+  <dl>
+      <dt> ... </dt>
+        <dd> ... <dd>
+  </dl>
+  </xmp>
 
-      + 局部属性：无
-      + 意义：说明列表。
-      + 示例：
-      ```html
-      <dl>
-          <dt> ... </dt>
-            <dd> ... <dd>
-      </dl>
-      ```
+  <h1 id="figure" class="h1">figure元素</h1>
 
-      <h2 id="figure">figure元素</h2>
-
-      + 局部属性：无
-      + 意义：一个独立的内容单元，可带标题
-      + 示例：
-      ```html
-      <figure>
-          <figcaption> ... </figcaption>
-          <p> ... </p>
-      </figure>
-      ```
+  + 局部属性：无
+  + 意义：一个独立的内容单元，可带标题
+  + 示例：
+  <xmp class="block">
+  <figure>
+      <figcaption> ... </figcaption>
+      <p> ... </p>
+  </figure>
+  </xmp>
+</pre>
   </body>
 </html>
