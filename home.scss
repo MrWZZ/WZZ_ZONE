@@ -1,0 +1,73 @@
+body{
+  background-color: #eee;
+  background: radial-gradient(circle, #EEEEEE, #E0E0E0, #c6c6c6);
+}
+
+.home{
+  $home_size:500px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: $home_size;
+  height: $home_size;
+  margin:(-$home_size/2) (-$home_size/2);
+
+  .home_link{
+    $link_size:150px;
+
+    position: absolute;
+    display: block;
+    text-align: center;
+    line-height: $link_size;
+    text-decoration: none;
+    width: $link_size;
+    height: $link_size;
+    border-radius: $link_size/2;
+    background-color: #d9cca4;
+    background: radial-gradient(circle, #ffeeba, #e5c596, #e5a777);
+    margin:(-$link_size/2) (-$link_size/2);
+
+    &:nth-child(1)
+    {
+      left: 0;
+      top: 50%;
+    }
+    &:nth-child(2)
+    {
+      left: $home_size/2 - $home_size/2*0.71;
+      top: $home_size/2 - $home_size/2*0.71;
+    }
+    &:nth-child(3)
+    {
+      left: 50%;
+      top: 0%;
+    }
+    &:nth-child(4)
+    {
+      left: $home_size/2 + $home_size/2*0.71;
+      top: $home_size/2 - $home_size/2*0.71;
+    }
+    &:nth-child(5)
+    {
+      left: 100%;
+      top: 50%;
+    }
+  }
+
+  .center_icon{
+    $icon_size:200px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: $icon_size;
+    height: $icon_size;
+    margin:(-$icon_size/2) (-$icon_size/2);
+    border-radius: $icon_size/2;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("favicon.png");
+    border: 2px solid white;
+  }
+}
