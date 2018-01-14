@@ -32,7 +32,7 @@ function CreateContent(url)
 function ExecuteFunList()
 {
   var scriptElems = document.getElementsByClassName("execute_fun");
-  for(var i = 0; i <　scriptElems.length; i++)
+  for(var i = 0; i < scriptElems.length; i++)
   {
     eval(scriptElems[i].innerHTML.toString());
   }
