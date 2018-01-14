@@ -73,6 +73,20 @@ body{
     background: none;
     @extend .language;
   }
+
+  .demo{
+    display: block;
+    background-color: #ddd;
+    border: 2px solid lightgray;
+    border-radius: 5px;
+  }
+
+  kbd{
+    padding: 0 2px;
+    border-radius: 2px;
+    background-color: black;
+    color: white;
+  }
 }
 
 code,xmp{

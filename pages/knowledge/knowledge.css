@@ -46,6 +46,16 @@ body {
     display: block;
     color: black;
     background: none; }
+  .w_doc .demo {
+    display: block;
+    background-color: #ddd;
+    border: 2px solid lightgray;
+    border-radius: 5px; }
+  .w_doc kbd {
+    padding: 0 2px;
+    border-radius: 2px;
+    background-color: black;
+    color: white; }
 
 code, xmp {
   display: inline;
