@@ -85,12 +85,12 @@
   </xmp>
   演示：
   <div class="demo">
-  <div id="src" draggable="true" style="width:50px;height:50px;background:red"></div>
-  <div id="target" style="width:100px;height:50px;border:1px solid black;"></div>
+  <div id="src1" draggable="true" style="width:50px;height:50px;background:red"></div>
+  <div id="target1" style="width:100px;height:50px;border:1px solid black;"></div>
 
   <script type="text/javascript">
-    var src = document.getElementById("src");
-    var target = document.getElementById("target");
+    var src = document.getElementById("src1");
+    var target = document.getElementById("target1");
 
     //ondragenter,ondragover的默认行为是拒绝接受任何被拖动的项目，阻止默认行为让他可以接受。
     target.ondragenter = function(e){e.preventDefault();};
@@ -152,13 +152,15 @@
   <hr>
 
   <h1 id="DOCTYPE" class="h1">DOCTYPE元素</h1>
-  DOCTYPE元素独一无二，而且自成一类。每一个HTML文档都必须以DOCTYPE元素开头。浏览器据此得知自己将要处理的是HTML内容。
+  DOCTYPE元素独一无二，而且自成一类。每一个HTML文档都必须以DOCTYPE元素开头。
+  浏览器据此得知自己将要处理的是HTML内容。
 
   <h1 id="html" class="n1">html元素</h1>
   html元素更恰当的名称是根元素，它代表文档中HTML部分的开始。
 
   <h1 id="head" class="h1">head元素</h1>
-  head元素包含着文档的元素据。在HTML中，元素据向浏览器提供了有关文档内容和标记的信息，此外还可以包含脚本和对外部资源的引用。
+  head元素包含着文档的元素据。在HTML中，元素据向浏览器提供了有关文档内容和标记的信息。
+  此外还可以包含脚本和对外部资源的引用。
 
   <h1 class="h1" id="body">body元素</h1>
   html文档的元素据和文档信息包装在head元素中，文档的内容则包装在 body元素中。
@@ -222,7 +224,8 @@
 
   1. 指定样式类型
 
-    type属性可以用来将所定义的样式类型告诉浏览器。但是浏览器支持的样式机制只有CSS一种，所以这个属性的值总是text/css。
+    type属性可以用来将所定义的样式类型告诉浏览器。
+    但是浏览器支持的样式机制只有CSS一种，所以这个属性的值总是text/css。
 
   2. 指定样式作用范围
 
