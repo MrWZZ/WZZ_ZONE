@@ -1,6 +1,6 @@
 var navContent;           //左侧导航
 var pageContent;          //子页面
-var funList;              //子页面中需要运行的方法列表
+
 //导航链接生成
 function CreateLink()
 {
@@ -31,16 +31,9 @@ function CreateContent(url)
 //执行子页面中需要运行的方法
 function ExecuteFunList()
 {
-  // for(var i = 0; i < funList.length; i++)
-  // {
-  //   eval(funList[i]);
-  //   console.log("1");
-  // }
-  // //funList = [];
   var scriptElems = document.getElementsByClassName("execute_fun");
   for(var i = 0; i <　scriptElems.length; i++)
   {
-    console.log(String(scriptElems[i].innerHTML).toString());
     eval(scriptElems[i].innerHTML.toString());
   }
 }
