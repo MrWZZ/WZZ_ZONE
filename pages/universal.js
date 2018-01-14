@@ -24,7 +24,7 @@ function CreateContent(url)
   iframe.onload = function()
   {
     pageContent.innerHTML = iframe.contentWindow.document.body.innerHTML;
-    ExecuteFunList();
+    //ExecuteFunList();
   }
   pageContent.appendChild(iframe);
 }
