@@ -74,7 +74,8 @@ body {
 .w_doc {
   margin: 0 0;
   padding: 0 0;
-  font-size: 15px; }
+  font-size: 15px;
+  line-height: 20px; }
   .w_doc * {
     margin: 0 0;
     padding: 0 0; }
