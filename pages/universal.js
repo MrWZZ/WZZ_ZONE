@@ -40,8 +40,8 @@ function ExecuteFunList()
   var scriptElems = document.getElementsByClassName("execute_fun");
   for(var i = 0; i <　scriptElems.length; i++)
   {
-    console.log(String(scriptElems[i]));
-    eval(String(scriptElems[i]));
+    console.log(String(scriptElems[i]).toString());
+    eval(scriptElems[i].toString());
   }
 }
 
