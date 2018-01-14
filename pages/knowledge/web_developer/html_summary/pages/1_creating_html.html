@@ -85,10 +85,25 @@
   </xmp>
   演示：
   <div class="demo">
-  <div id="src1" draggable="true" style="width:50px;height:50px;background:red"></div>
-  <div id="target1" style="width:100px;height:50px;border:1px solid black;"></div>
+  <div id="src" draggable="true" style="width:50px;height:50px;background:red"></div>
+  <div id="target" style="width:100px;height:50px;border:1px solid black;"></div>
 
-
+  <script type="text/javascript">
+    var src = document.getElementById("src");
+    var target = document.getElementById("target");
+    console.log("on");
+    //ondragenter,ondragover的默认行为是拒绝接受任何被拖动的项目，阻止默认行为让他可以接受。
+    target.ondragenter = function(e){e.preventDefault();};
+    target.ondragover = function(e){e.preventDefault();};
+    target.ondrop = function(e)
+    {
+      //如果要克隆出一个新的元素的话就取消注释下面代码
+      // var newElem = src.cloneNode(false);
+      target.appendChild(src);
+      //阻止默认行为是为了防止浏览器做出出乎意料的事。
+      e.preventDefault();
+    };
+  </script>
   </div>
 
   <b>+ hidden属性</b>
@@ -286,21 +301,5 @@
   </noscript>
   </xmp>
 </pre>
-<script type="text/javascript">
-  var src = document.getElementById("src1");
-  var target = document.getElementById("target1");
-
-  //ondragenter,ondragover的默认行为是拒绝接受任何被拖动的项目，阻止默认行为让他可以接受。
-  target.ondragenter = function(e){e.preventDefault();};
-  target.ondragover = function(e){e.preventDefault();};
-  target.ondrop = function(e)
-  {
-    //如果要克隆出一个新的元素的话就取消注释下面代码
-    // var newElem = src.cloneNode(false);
-    target.appendChild(src);
-    //阻止默认行为是为了防止浏览器做出出乎意料的事。
-    e.preventDefault();
-  };
-</script>
   </body>
 </html>
