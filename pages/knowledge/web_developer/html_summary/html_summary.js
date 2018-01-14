@@ -31,7 +31,7 @@ function CreateContent(url)
   iframe.style.display = "none";
   iframe.onload = function()
   {
-    pageContent.innerHTML = iframe.contentWindow.document.body.innerHTML;
+    pageContent.appendChild(iframe.contentWindow.document.querySelector(".w_doc"));
     pageContent.removeChild(iframe);
   }
   pageContent.appendChild(iframe);
