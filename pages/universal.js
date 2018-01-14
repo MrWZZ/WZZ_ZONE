@@ -34,7 +34,7 @@ function ExecuteFunList()
 {
   for(var i = 0; i < funList.length; i++)
   {
-    console.log("1");
+    console.log("2");
     funList[i].call(window);
     funList[i]();
     funList[i].call();
