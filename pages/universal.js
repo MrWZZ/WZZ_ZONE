@@ -31,12 +31,17 @@ function CreateContent(url)
 //执行子页面中需要运行的方法
 function ExecuteFunList()
 {
-  for(var i = 0; i < funList.length; i++)
+  // for(var i = 0; i < funList.length; i++)
+  // {
+  //   eval(funList[i]);
+  //   console.log("1");
+  // }
+  // //funList = [];
+  var scriptElems = document.getElementsByClassName("execute_fun");
+  for(var i = 0; i <　scriptElems.length; i++)
   {
-    eval(funList[i]);
-    console.log("1");
+    console.log(scriptElems[i].innerHTML);
   }
-  //funList = [];
 }
 
 //页面初始化
