@@ -34,7 +34,7 @@ function CreateContent(url)
   {
     pageContent.innerHTML = iframe.contentWindow.document.body.innerHTML;
     ExecuteFunList();
-    pageContent.removeChild(iframe);
+    //pageContent.removeChild(iframe);
   }
   pageContent.appendChild(iframe);
 }
@@ -44,7 +44,6 @@ function ExecuteFunList()
 {
   for(var i = 0; i < funList.length; i++)
   {
-    console.log(funList[i]);
     funList[i]();
   }
   funList = [];

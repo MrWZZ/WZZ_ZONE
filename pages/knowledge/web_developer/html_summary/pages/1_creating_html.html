@@ -290,8 +290,7 @@
   function fun_draggable(){
     var src = document.getElementById("src");
     var target = document.getElementById("target");
-
-
+    console.log("on");
     //ondragenter,ondragover的默认行为是拒绝接受任何被拖动的项目，阻止默认行为让他可以接受。
     target.ondragenter = function(e){e.preventDefault();};
     target.ondragover = function(e){e.preventDefault();};
@@ -304,7 +303,6 @@
       e.preventDefault();
     };
   }
-  console.log("on");
   window.parent.funList.push(fun_draggable);
 </script>
   </body>
