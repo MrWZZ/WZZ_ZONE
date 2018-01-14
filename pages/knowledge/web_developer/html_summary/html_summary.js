@@ -1,5 +1,6 @@
 var navContent;           //左侧导航
 var pageContent;          //子页面
+var funList;              //子页面中需要运行的方法列表
 
 //页面数组
 var pages = [
@@ -31,10 +32,21 @@ function CreateContent(url)
   iframe.style.display = "none";
   iframe.onload = function()
   {
-    pageContent.appendChild(iframe.contentWindow.document.querySelector(".w_doc"));
+    pageContent.innerHTML = iframe.contentWindow.document.body.innerHTML;
+    ExecuteFunList();
     pageContent.removeChild(iframe);
   }
   pageContent.appendChild(iframe);
+}
+
+//执行子页面中需要运行的方法
+function ExecuteFunList()
+{
+  for(var i = 0; i < funList.length; i++)
+  {
+    funList[i]();
+  }
+  funList = [];
 }
 
 //页面初始化
@@ -42,6 +54,7 @@ function CreateContent(url)
 {
   navContent = document.querySelector(".left nav");
   pageContent = document.querySelector(".center");
+  funList = [];
   CreateLink();
   document.querySelector(".to_top").setAttribute("onclick","window.scrollTo(0,0)");
 
