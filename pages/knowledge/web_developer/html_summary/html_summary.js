@@ -44,6 +44,7 @@ function ExecuteFunList()
 {
   for(var i = 0; i < funList.length; i++)
   {
+    console.log(funList[i]);
     funList[i]();
   }
   funList = [];
