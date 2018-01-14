@@ -286,21 +286,21 @@
   </noscript>
   </xmp>
 </pre>
-  </body>
-  <script type="text/javascript">
-    var src = document.getElementById("src1");
-    var target = document.getElementById("target1");
+<script type="text/javascript">
+  var src = document.getElementById("src1");
+  var target = document.getElementById("target1");
 
-    //ondragenter,ondragover的默认行为是拒绝接受任何被拖动的项目，阻止默认行为让他可以接受。
-    target.ondragenter = function(e){e.preventDefault();};
-    target.ondragover = function(e){e.preventDefault();};
-    target.ondrop = function(e)
-    {
-      //如果要克隆出一个新的元素的话就取消注释下面代码
-      // var newElem = src.cloneNode(false);
-      target.appendChild(src);
-      //阻止默认行为是为了防止浏览器做出出乎意料的事。
-      e.preventDefault();
-    };
-  </script>
+  //ondragenter,ondragover的默认行为是拒绝接受任何被拖动的项目，阻止默认行为让他可以接受。
+  target.ondragenter = function(e){e.preventDefault();};
+  target.ondragover = function(e){e.preventDefault();};
+  target.ondrop = function(e)
+  {
+    //如果要克隆出一个新的元素的话就取消注释下面代码
+    // var newElem = src.cloneNode(false);
+    target.appendChild(src);
+    //阻止默认行为是为了防止浏览器做出出乎意料的事。
+    e.preventDefault();
+  };
+</script>
+  </body>
 </html>
