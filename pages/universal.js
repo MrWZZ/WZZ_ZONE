@@ -34,9 +34,9 @@ function ExecuteFunList()
 {
   for(var i = 0; i < funList.length; i++)
   {
-    funList[i]();
+    funList[i].call();
   }
-  funList = [];
+  //funList = [];
 }
 
 //页面初始化
