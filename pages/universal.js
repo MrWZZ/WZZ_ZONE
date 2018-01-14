@@ -1,7 +1,7 @@
 var navContent;           //左侧导航
 var pageContent;          //子页面
 var funList;              //子页面中需要运行的方法列表
-
+var funT;
 //导航链接生成
 function CreateLink()
 {
@@ -25,6 +25,8 @@ function CreateContent(url)
   {
     pageContent.innerHTML = iframe.contentWindow.document.body.innerHTML;
     ExecuteFunList();
+    funT();
+    console.log("4");
   }
   pageContent.appendChild(iframe);
 }
@@ -34,7 +36,7 @@ function ExecuteFunList()
 {
   for(var i = 0; i < funList.length; i++)
   {
-    console.log("2");
+    console.log("3");
     funList[i].call(window);
     funList[i]();
     funList[i].call();
