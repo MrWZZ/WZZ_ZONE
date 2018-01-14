@@ -29,6 +29,48 @@ body {
     border-radius: 10px;
     background-color: white; }
 
+.content {
+  display: flex;
+  justify-content: center; }
+  .content .left nav {
+    padding: 10px 50px 0 0; }
+    .content .left nav a {
+      display: block;
+      padding: 3px 0;
+      color: blue;
+      text-decoration: none; }
+      .content .left nav a:hover {
+        cursor: pointer;
+        text-decoration: underline; }
+    @media screen and (max-width: 800px) {
+      .content .left nav {
+        display: none; } }
+  .content .center {
+    width: 800px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: white; }
+  .content .right .to_top {
+    position: fixed;
+    right: 2%;
+    bottom: 100px;
+    width: 50px;
+    height: 50px;
+    background-color: #bdbdbd;
+    border-radius: 20%; }
+    .content .right .to_top div {
+      position: absolute;
+      width: 50%;
+      height: 10%;
+      background-color: #0097A7;
+      border-radius: 30%; }
+    .content .right .to_top div:first-child {
+      transform: rotate(45deg);
+      margin: 45% 40%; }
+    .content .right .to_top div:last-child {
+      transform: rotate(-45deg);
+      margin: 45% 10%; }
+
 .w_doc {
   margin: 0 0;
   padding: 0 0;
@@ -72,47 +114,5 @@ code, xmp {
   background-color: #EEEEEE;
   border: 2px #E0E0E0 solid;
   font-size: 15px; }
-
-.content {
-  display: flex;
-  justify-content: center; }
-  .content .left nav {
-    padding: 10px 50px 0 0; }
-    .content .left nav a {
-      display: block;
-      padding: 3px 0;
-      color: blue;
-      text-decoration: none; }
-      .content .left nav a:hover {
-        cursor: pointer;
-        text-decoration: underline; }
-    @media screen and (max-width: 800px) {
-      .content .left nav {
-        display: none; } }
-  .content .center {
-    width: 800px;
-    padding: 10px;
-    border-radius: 10px;
-    background-color: white; }
-  .content .right .to_top {
-    position: fixed;
-    right: 2%;
-    bottom: 100px;
-    width: 50px;
-    height: 50px;
-    background-color: #bdbdbd;
-    border-radius: 20%; }
-    .content .right .to_top div {
-      position: absolute;
-      width: 50%;
-      height: 10%;
-      background-color: #0097A7;
-      border-radius: 30%; }
-    .content .right .to_top div:first-child {
-      transform: rotate(45deg);
-      margin: 45% 40%; }
-    .content .right .to_top div:last-child {
-      transform: rotate(-45deg);
-      margin: 45% 10%; }
 
 /*# sourceMappingURL=summary.css.map */
