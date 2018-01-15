@@ -42,9 +42,6 @@ body {
       .content .left nav a:hover {
         cursor: pointer;
         text-decoration: underline; }
-    @media screen and (max-width: 800px) {
-      .content .left nav {
-        display: none; } }
   .content .center {
     width: 800px;
     padding: 10px;
