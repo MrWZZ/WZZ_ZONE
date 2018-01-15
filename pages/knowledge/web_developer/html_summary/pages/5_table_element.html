@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+    <title></title>
+  </head>
+  <body>
+<pre class="w_doc">
+  <h1 id="table" class="h1">table元素</h1>
+
+  + 局部属性：border
+  + 内容：caption、colgroup、thead、tbody、tfoot、tr、th、td
+  + 默认样式：
+  <xmp class="block">
+  table{
+    display: table;
+    border-collapse: separate;
+    border-spacing: 2px;
+    border-color: gray;
+  }
+  </xmp>
+
+  table元素会保证让列的宽度足以容纳最宽的内容，让行的高度足以容纳最高的单元格。
+
+  border属性的值必须设置为1或空字符串。
+
+  <h1 id="tr" class="h1">tr元素</h1>
+
+  + 局部属性：无
+  + 内容：一个或多个td或th元素
+  + 默认样式：
+  <xmp class="block">
+  tr{
+    display:table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+  }
+  </xmp>
+
+  <h1 id="td" class="h1">td元素</h1>
+
+  + 局部属性：colspan、rowspan、headers
+  + 内容：流内容
+  + 默认样式：
+  <xmp class="block">
+  td{
+    display: table-cell;
+    vertical-align: inherit;
+  }
+  </xmp>
+
+  rowspan属性：可以控制一个单元格向下跨几行。
+  colspan属性：可以控制一个单元格向右跨几列。
+
+  代码：
+  <xmp class="block">
+  <table border="1">
+    <tr>
+      <td colspan="4">跨4列</td>
+    </tr>
+    <tr>
+      <td rowspan="3">跨3行</td>
+      <td>你好</td>
+      <td>你好</td>
+      <td>你好</td>
+    </tr>
+    <tr>
+      <td>你好</td>
+      <td>你好</td>
+      <td>你好</td>
+    </tr>
+    <tr>
+      <td>你好</td>
+      <td>你好</td>
+      <td>你好</td>
+    </tr>
+  </table>
+  </xmp>
+  演示：
+  <div class="demo">
+  <table border="1">
+    <tr>
+      <td colspan="4">跨4列</td>
+    </tr>
+    <tr>
+      <td rowspan="3">跨3行</td>
+      <td>你好</td>
+      <td>你好</td>
+      <td>你好</td>
+    </tr>
+    <tr>
+      <td>你好</td>
+      <td>你好</td>
+      <td>你好</td>
+    </tr>
+    <tr>
+      <td>你好</td>
+      <td>你好</td>
+      <td>你好</td>
+    </tr>
+  </table>
+  </div>
+  <h1 id="th" class="h1">th元素</h1>
+
+  + 局部属性：colspan、rowspan、headers
+  + 内容：短语内容
+  + 默认样式：
+  <xmp class="block">
+  th{
+    display: table-cell;
+    vertical-align: inherit;
+    font-weight: bold;
+    text-align: center;
+  }
+  </xmp>
+
+  <h1 id="tbody" class="h1">tbody元素</h1>
+
+  + 局部属性：无
+  + 内容：零或多个tr元素
+  + 默认样式：
+  <xmp class="block">
+  tbody{
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+  }
+  </xmp>
+
+  注意：即使在文档中没有用到tbody元素，但大多浏览器在处理table元素的时候都会自动插入tbody元素。
+  因此完全根据文档中的表格结构来设计的CSS选择器有可能不管用。
+
+  <h1 id="thead" class="h1">thead元素</h1>
+
+  + 局部属性：无
+  + 内容：零或多个tr元素
+  + 默认样式：
+  <xmp class="block">
+  thead{
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+  }
+  </xmp>
+
+  <h1 id="tfoot" class="h1">tfoot元素</h1>
+
+  + 局部属性：无
+  + 内容：零或多个tr元素
+  + 默认样式：
+  <xmp class="block">
+  tfoot{
+    display: table-footer-group;
+    vertical-align: middle;
+    border-color: inherit;
+  }
+  </xmp>
+
+  <h1 id="caption" class="h1">caption元素</h1>
+
+  + 局部属性：无
+  + 内容：除了table元素的流内容
+  + 默认样式：
+  <xmp class="block">
+  caption{
+    display: table-caption;
+    text-align: center;
+  }
+  </xmp>
+
+  该元素为表格添加标题，一个表格只能包含一个caption元素。
+
+  <h1 id="colgroup" class="h1">colgroup元素</h1>
+
+  + 局部属性：span
+  + 内容：零或多个col元素（只有未设置span属性时才能使用）
+  + 默认样式：
+  <xmp class="block">
+  colgroup{
+    display: table-column-group;
+  }
+  </xmp>
+
+  表格是基于行的，有时候我们要基于列进行一些操作的时候就会很麻烦。
+  这时候我们可以使用colgroup元素来指定列，我们可以通过它来对列进行操作。
+
+  代码：
+  <xmp class="block">
+  <table border="1">
+    <caption>这是一个标题</caption>
+    <colgroup span="2" style="background-color:red;">
+    <colgroup span="3" style="background-color:blue;">
+    <thead>
+      <tr>
+        <th>标题</th>
+        <th>标题</th>
+        <th>标题</th>
+        <th>标题</th>
+        <th>标题</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>内容</th>
+        <th>内容</th>
+        <th>内容</th>
+        <th>内容</th>
+        <th>内容</th>
+      </tr>
+      <tr>
+        <th>内容</th>
+        <th>内容</th>
+        <th>内容</th>
+        <th>内容</th>
+        <th>内容</th>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th colspan="5">结尾</th>
+      </tr>
+    </tfoot>
+  </table>
+  </xmp>
+  演示：
+  <div class="demo">
+  <table border="1">
+    <caption>这是一个标题</caption>
+    <colgroup span="2" style="background-color:red;">
+    <colgroup span="3" style="background-color:blue;">
+    <thead>
+      <tr>
+        <th>标题</th>
+        <th>标题</th>
+        <th>标题</th>
+        <th>标题</th>
+        <th>标题</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>内容</th>
+        <th>内容</th>
+        <th>内容</th>
+        <th>内容</th>
+        <th>内容</th>
+      </tr>
+      <tr>
+        <th>内容</th>
+        <th>内容</th>
+        <th>内容</th>
+        <th>内容</th>
+        <th>内容</th>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th colspan="5">结尾</th>
+      </tr>
+    </tfoot>
+  </table>
+  </div>
+  <h1 id="col" class="h1">col元素</h1>
+
+  + 局部属性：span
+  + 内容：无（虚元素）
+  + 默认样式：
+  <xmp class="block">
+  col{
+    display: table-column;
+  }
+  </xmp>
+
+  如果不使用span属性的话则只代表一行。
+
+  代码：
+  <xmp class="block">
+  <table border="1">
+    <colgroup>
+      <col span="2" style="background-color:red;">
+      <col style="background-color:blue;">
+      <col span="2" style="background-color:yellow;">
+    </colgroup>
+    <tr>
+      <td>内容</td>
+      <td>内容</td>
+      <td>内容</td>
+      <td>内容</td>
+      <td>内容</td>
+    </tr>
+  </table>
+  </xmp>
+  演示：
+  <div class="demo">
+  <table border="1">
+    <colgroup>
+      <col span="2" style="background-color:red;">
+      <col style="background-color:blue;">
+      <col span="2" style="background-color:yellow;">
+    </colgroup>
+    <tr>
+      <td>内容</td>
+      <td>内容</td>
+      <td>内容</td>
+      <td>内容</td>
+      <td>内容</td>
+    </tr>
+  </table>
+  </div>
+</pre>
+  </body>
+</html>

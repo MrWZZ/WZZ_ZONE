@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../knowledge.css">
+    <title></title>
+  </head>
+  <body>
+<pre class="w_doc">
+  Atom软件安装完第一次使用时中间会有一条白线。
+  这条白线是用于指示内容超出该线后在网页上的排版可能会和Atom显示的不一样。
+
+  <b>默认情况下，该线与左边的距离为615px。</b>
+
+  比如现在我这个内容元素的宽度为800px。为了减少调试，我要把改线的距离也变成800px。
+
+  打开File->Stylesheet，在下面添加代码：
+  <xmp class="block">
+  atom-text-editor .wrap-guide{
+    border: 1px solid gray;
+    transform: translateX(-615px);
+    margin-left: 750px;
+  }
+  </xmp>
+  这里的750px是因为Atom软件里面的字体大小跟页面的不一样，所以减少一点。
+
+  如果要隐藏该线，只需要在里面添加：
+  <xmp class="block">
+  atom-text-editor .wrap-guide{
+    visibility: hidden;
+  }
+  </xmp>
+</pre>
+  </body>
+</html>

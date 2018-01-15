@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+    <title></title>
+  </head>
+  <body>
+<pre class="w_doc">
+  1.在静态页面中，我们可能要用iframe元素来加载另一个页面的内容。
+    然而在电脑本地中，file://协议会禁止跨页面访问，要在网络中，才可以进行跨页面访问。
+    而使用iframe元素加载子页面的话，它会带有滚动条，很影响美观。
+    而取消滚动条又不能滚动，下面的内容将不能查看。
+    自然而然，我们想到自动适应高度来解决这个问题，下面是大神的解决方法：
+    <a href="http://www.cnblogs.com/yizuierguo/archive/2010/08/04/1792287.html">三谈Iframe自适应高度[转自口碑网UED博客]</a>
+
+    我自己研究了一下，总感觉使用iframe元素不怎么好，以后需要操作里面的内容时很不方便。
+    所以我索性用令一种方法来解决这个问题，还不需要自适应高度。
+
+    代码：
+    <xmp class="block">
+      //点击链接生成内容
+      function CreateContent(url)
+      {
+        var iframe = document.createElement("iframe");
+        iframe.src = url;
+        iframe.style.display = "none";
+        iframe.onload = function()
+        {
+          //pageContent为接收iframe内容的元素
+          pageContent.innerHTML = iframe.contentWindow.document.body.innerHTML;
+          //下面第3点执行的方法
+          ExecuteFunList();
+        }
+        pageContent.appendChild(iframe);
+      }
+    </xmp>
+
+  2.在Chrome浏览器中，我用js生成一个iframe元素，让这个元素来加载子页面。
+    它的display为none，在加载完之后，获取body里面的innerHTML，然后在消除这个元素。
+    结果在消除这个元素的时候报错了。我发现浏览器会自动消除这个元素，也不知道是什么原因。
+    既然它自动消除，我就不人工再消除一次了。
+
+  3.在一个页面中，script元素里面的代码会在加载的时候执行。
+    但是你将这个元素的innerHTML复制到令一个元素的时候，它就不会再执行了。
+    如果我们要执行里面的方法的话，可以在复制innerHTML完后在调用eval(E.innerHTML.toString())。
+    实例：
+    <xmp class="block">
+      html文本中：
+      <script class="execute_fun" type="text/javascript">
+      console.log("runing");
+      </script>
+
+      js脚本中：
+      function ExecuteFunList()
+      {
+        var scriptElems = document.getElementsByClassName("execute_fun");
+        for(var i = 0; i < scriptElems.length; i++)
+        {
+          eval(scriptElems[i].innerHTML.toString());
+        }
+      }
+    </xmp>
+
+</pre>
+  </body>
+</html>
