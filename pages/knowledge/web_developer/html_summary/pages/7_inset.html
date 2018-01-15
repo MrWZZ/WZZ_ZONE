@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+    <title></title>
+  </head>
+  <body>
+<pre class="w_doc">
+<h1 class="h1">img元素</h1>
+  + 作用：在HTML文档里嵌入图像。
+  + 局部属性：src、alt、height、width、usemap、ismap
+
+  img元素可以放在a元素里。效果是点击图片跳转。
+  ismap属性：给img元素应用此属性的话，进行跳转的话会给服务器发送用户点击图片的位置。
+
+<h2 class="h2">map元素</h2>
+  + 作用：给img元素创建一个分区响应图，通过点击图像的不同位置跳转到不同的地方。
+
+  该功能涉及的元素：area元素，该功能感觉使用的不多，就不写了。
+
+<h1 class="h1">iframe元素</h1>
+  + 作用：在现有的HTML文档中嵌入另一张文档。
+  + 局部属性：src、srcdoc、name、width、height
+
+  本页面就是通过脚本用iframe元素进行加载的。有兴趣可以查看universal.js源码。
+
+<h1 class="h1">progress元素</h1>
+  + 作用：可以用来表现文档的加载进度。
+  + 局部属性：value、max、form
+
+<h1 class="h1">meter元素</h1>
+  + 作用：用来显示某个范围内所有可能值中的一个。
+  + 局部属性：value、min、max、low、high、optimum、form
+
+<h1 class="h1">video元素</h1>
+  + 作用：在网页里嵌入视频内容。
+  + 局部属性：autoplay、preload、controls、loop、poster、height、width、muted、src
+
+  autoplay属性：如果存在，浏览器会尽可能立即开始播放视频。
+  preload属性：告诉浏览器是否要预先载入视频。
+    允许值 -- none：用户播放之前不会载入视频。
+             metadata：用户在播放前只能载入视频的元数据（宽、高、第一帧、长度等）
+             auto：请求浏览器尽快下载整个视频。（默认）
+  controls属性：如果存在，浏览器显示播放控件。
+  loop属性：如果存在，视频会重复播放。
+  poster属性：指定视频数据载入的显示的图片，类似于海报，值为图片地址。
+  height、width属性：视频的高宽。
+  muted属性：如果存在，视频从一开始会处于静音状态。
+  src属性：视频的地址。
+
+<h1 class="h1">audio元素</h1>
+  + 作用：允许你在HTML文档里嵌入音频内容。
+
+  与video元素有很多共同点。
+
+<h1 class="h1">canvas元素</h1>
+  此元素功能非常强大。github中U3D仓库有用法实例。
+</pre>
+  </body>
+</html>

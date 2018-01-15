@@ -63,6 +63,50 @@
   这里给input元素匹配了一个label元素，input元素中的id属性将于label元素中的for属性进行绑定。
   label元素不一定要与input元素放在一起，label元素也可以放在其他地方。
 
+<h1 class="h1">fieldset元素</h1>
+  + 作用：将一些表单元素组织在一起。
+  + 局部属性：name、form、disabled
+
+  <b>disabled属性</b>
+  可以一次禁用组内的多个元素。
+
+<div class="supplement">
+  <h2 class="h2">legend元素</h2>
+    + 作用：为fieldset元素提供说明。
+    + 局部属性：无
+    <b>legend元素必须是fieldset元素的第一个子元素。</b>
+</div>
+  代码：
+  <xmp class="block">
+  <form action="index.html" method="post">
+    <fieldset>
+      <legend>第一组</legend>
+      <input type="text" name="" value="">
+      <input type="text" name="" value="">
+    </fieldset>
+    <fieldset disabled>
+      <legend>第二组</legend>
+      <input type="text" name="" value="">
+      <input type="text" name="" value="">
+    </fieldset>
+  </form>
+  </xmp>
+  演示：
+  <div class="demo">
+    <form action="index.html" method="post">
+      <fieldset>
+        <legend>第一组</legend>
+        <input type="text" name="" value="">
+        <input type="text" name="" value="">
+      </fieldset>
+      <fieldset disabled>
+        <legend>第二组</legend>
+        <input type="text" name="" value="">
+        <input type="text" name="" value="">
+      </fieldset>
+    </form>
+  </div>
+
 <h1 class="h1">button元素</h1>
   + 作用：按钮。
   + 局部属性：name、disabled、form、type、value、autofocus、以及取决于type的其他属性。
@@ -100,6 +144,8 @@
   <b>type属性</b>
   该属性决定了本元素的表现形式。
 
+    <b>+ hidden：用户看不到数据项，但会提交到服务器。</b>
+
     <b>+ text：单行文本框。（默认）</b>
       该值提供的额外属性：
       + list：为指定为文本框提供建议的datalist元素，其值为datalist元素的id值。
@@ -110,7 +156,7 @@
       + readonly：用来将文本设为只读以阻止用户编辑其内容。
           readonly属性和disabled属性都可以用来生成用户不能编辑的文本框，其外观不同。
           且disabled属性的input元素的数据不会提交到服务器，而readonly属性会提交到服务器。
-          用hidden属性可以做到既不显示给用户信息又能把信息提交到服务器。
+          用hidden的type类型可以做到既不显示给用户信息又能把信息提交到服务器。
       + required：表明用户必须输入一个值，否则无法通过输入验证。
       + value：设置文本框的初始值。
 
@@ -169,7 +215,7 @@
       + value               |
 
     <b>+ submit、reset、button：用来生成类似button元素那样的按钮。</b>
-    
+
     <b>+ 用来给数据把关的值</b>
       + checkbox：将输入限制在“是/否”复选框中进行选择。
       + color：只能输入颜色。
@@ -178,7 +224,12 @@
       + datetime-local：只能输入不带时区的世界时。
       + email：只能输入规范的电子邮箱地址。
       + month：只能输入年和月。
-      + radiobutton：将输入限制在一组固定选项中进行选择。
+      + radio：将输入限制在一组固定选项中进行选择。
+          <b>name的值相同的，浏览器会将这些视为一组。</b>
+          该属性提供的额外属性：
+          + checked：默认为选定状态。
+          + required：表示用户必须在一组单选按钮中选择一个，否则无法通过验证。
+          + value：设定在单选按钮呈选定状态时提交给服务器的数据。
       + range：只能输入指定范围的数值。
       + tel：只能输入规范的电话号码。
       + time：只能输入时间信息。
@@ -186,53 +237,160 @@
       + url：只能输入完全限定的URL。
       + number：只能输入数字。
 
-<h1 class="h1">fieldset元素</h1>
-  + 作用：将一些表单元素组织在一起。
-  + 局部属性：name、form、disabled
+          number型input元素可用的额外属性
+          + list：同上。
+          + min：设定可接受的最小值。
+          + max：设定可接受的最大值。
+          + readonly：同上。
+          + required：表明用户必须输入一个值。
+          + step：指定上下调节数组步长。
+          + value：指定元素的初始值。
 
-  <b>disabled属性</b>
-  可以一次禁用组内的多个元素。
+    代码：
+    <xmp class="block">
+    <form method="post">
+      <input type="checkbox" name="" value="">
+      <input type="color" name="" value="">
+      <input type="date" name="" value="">
+      <input type="datetime" name="" value="">
+      <input type="datetime-local" name="" value="">
+      <input type="email" name="" value="">
+      <input type="month" name="" value="">
+      <fieldset>
+        <legend>城市</legend>
+        <input type="radio" checked name="city" value="济南">济南
+        <input type="radio" name="city" value="深圳">深圳
+        <input type="radio" name="city" value="北京">北京
+      </fieldset>
+      0<input type="range" min="0" max="10" name="" value="">10
+      <input type="tel" name="" value="">
+      <input type="time" name="" value="">
+      <input type="week" name="" value="">
+      <input type="url" name="" value="">
+      <input type="number" min="0" max="10" step="2">
+    </form>
+    </xmp>
+    演示：
+    <div class="demo">
+      <form method="post">
+        <input type="checkbox" name="" value="">
+        <input type="color" name="" value="">
+        <input type="date" name="" value="">
+        <input type="datetime" name="" value="">
+        <input type="datetime-local" name="" value="">
+        <input type="email" name="" value="">
+        <input type="month" name="" value="">
+        <fieldset>
+          <legend>城市</legend>
+          <input type="radio" checked name="city" value="济南">济南
+          <input type="radio" name="city" value="深圳">深圳
+          <input type="radio" name="city" value="北京">北京
+        </fieldset>
+        0<input type="range" min="0" max="10" name="" value="">10
+        <input type="tel" name="" value="">
+        <input type="time" name="" value="">
+        <input type="week" name="" value="">
+        <input type="url" name="" value="">
+        <input type="number" min="0" max="10" step="2">
+      </form>
+    </div>
 
-<div class="supplement">
-  <h2 class="h2">legend元素</h2>
-    + 作用：为fieldset元素提供说明。
-    + 局部属性：无
-    <b>legend元素必须是fieldset元素的第一个子元素。</b>
-</div>
+    <b>+ image：生成的按钮显示为一副图像</b>
+        提供的额外属性：
+        + 包括button类型的额外属性。
+        + alt：提供元素的说明文字。
+        + height、width：图片的高宽。
+        + src：图片的路径。
+
+    <b>+ file：可以在提交表单时将文件上传到服务器。</b>
+        <b>form元素的编码类型为multipart/form-data的时候才能上传文件。</b>
+        提供的额外属性：
+        + accept：指定接受的MIME类型。
+        + required：必须提供一个值。
+
+<h1 class="h1">select元素</h1>
+  + 作用：生成一个选项列表供用户选择。
+  + 局部属性：name、disabled、form、size、multiple、autofocus、required
+
+  size属性：让select元素一次显示项目的个数。
+  multiple：用户可以按住<kbd>Ctrl</kbd>一次选择多个项。
+
+  提供给用户的选项由option元素定义。
+
   代码：
   <xmp class="block">
-  <form action="index.html" method="post">
-    <fieldset>
-      <legend>第一组</legend>
-      <input type="text" name="" value="">
-      <input type="text" name="" value="">
-    </fieldset>
-    <fieldset disabled>
-      <legend>第二组</legend>
-      <input type="text" name="" value="">
-      <input type="text" name="" value="">
-    </fieldset>
+  <form>
+    City:
+    <select size="3" multiple>
+      <option selected>济南</option>
+      <option>上海</option>
+      <option>北京</option>
+      <option>深圳</option>
+      <option>天津</option>
+    </select>
   </form>
   </xmp>
   演示：
   <div class="demo">
-    <form action="index.html" method="post">
-      <fieldset>
-        <legend>第一组</legend>
-        <input type="text" name="" value="">
-        <input type="text" name="" value="">
-      </fieldset>
-      <fieldset disabled>
-        <legend>第二组</legend>
-        <input type="text" name="" value="">
-        <input type="text" name="" value="">
-      </fieldset>
-    </form>
+  <form>
+    City:
+    <select size="3" multiple>
+      <option selected>济南</option>
+      <option>上海</option>
+      <option>北京</option>
+      <option>深圳</option>
+      <option>天津</option>
+    </select>
+  </form>
   </div>
 
+<h2 class="h2">optgroup元素</h2>
+  + 作用：可以在select元素的内容中建立一定的结构。
+  + 局部属性：label、disabled
 
+  label属性：用来提供一个小标题。
+  该元素只起组织作用，用户无法将其作为选项选中。
 
+  代码：
+  <xmp class="block">
+  <form class="" action="index.html" method="post">
+    <select class="" name="">
+      <optgroup label="北方城市">
+        <option>北京</option>
+        <option>天津</option>
+      </optgroup>
+      <optgroup label="南方城市">
+        <option>深圳</option>
+        <option>广州</option>
+      </optgroup>
+    </select>
+  </form>
+  </xmp>
+  演示：
+  <div class="demo">
+  <form class="" action="index.html" method="post">
+    <select class="" name="">
+      <optgroup label="北方城市">
+        <option>北京</option>
+        <option>天津</option>
+      </optgroup>
+      <optgroup label="南方城市">
+        <option>深圳</option>
+        <option>广州</option>
+      </optgroup>
+    </select>
+  </form>
+  </div>
 
+<h1 class="h1">textarea元素</h1>
+  + 作用：生成一个多行文本框，用户可以在里面输入多行文字。
+  + 局部属性：name、disabled、form、readonly、maxlength、autofocus、required、placeholder、dirname、
+    rows、cols、wrap
+
+  rows、cols属性：用来设置其大小。
+  wrap属性：用来控制用户输入的文字中插入换行符的方式。
+    允许的值：hard、soft。
+    值为hard时，将会插入换行符，结果是提交的文字中每一行的字符都不超过cols属性的规定。
 
 </pre>
   </body>
