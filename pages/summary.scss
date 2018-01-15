@@ -93,6 +93,10 @@
     font-size: 20px;
     @include h1_h6;
   }
+  .h3{
+    font-size: 15px;
+    @include h1_h6;
+  }
 
   .block{
     display: block;
@@ -101,12 +105,26 @@
     @extend .language;
   }
 
+  .inline_block{
+    display: inline-block;
+    color: black;
+    background: none;
+    @extend .language;
+  }
+
   .demo{
     display: block;
-    background-color: #ddd;
+    background-color: #F5F5F5;
     border: 2px solid lightgray;
     border-radius: 5px;
   }
+
+  .supplement{
+    border: 2px dashed #9e9e9e;
+    border-radius: 5px;
+    padding-bottom: 1em;
+  }
+
 
   kbd{
     padding: 0 2px;
