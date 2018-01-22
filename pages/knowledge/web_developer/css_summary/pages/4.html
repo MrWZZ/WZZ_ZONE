@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+  </head>
+  <body>
+<pre class="w_doc">
+<h1 class="h1">使用过渡</h1>
+  <b>过渡属性</b>
+  + transition                      指定CSS属性过渡效果的简写属性。
+  + transition-delay                指定触发过渡的延迟时间。
+  + transition-duration             指定过渡的持续时间。
+  + transition-property             指定带有过渡效果的属性。
+  + transition-timing-function      指定过渡期间计算中间属性值的函数。
+
+  transition简写属性的格式如下：
+  transition:transition-property transition-duration transition-timing-function transition-delay。
+
+  代码：
+  <xmp class="block">
+  <style media="screen">
+    #t0{
+      background-color: red;
+      font-size: 10px;
+      color: white;
+      transition-delay: 100ms;
+      transition-duration: 1500ms;
+      transition-property: background-color,color;
+      transition-timing-function: linear;
+    }
+    #t0:hover{
+      background-color: blue;
+      font-size: 20px;
+      color:black;
+    }
+  </style>
+  <p id="t0">这是一段动画的测试文字。</p>
+  </xmp>
+  演示：
+  <div class="demo">
+    <style media="screen">
+      #t0{
+        background-color: red;
+        font-size: 10px;
+        color: white;
+        transition-delay: 100ms;
+        transition-duration: 1500ms;
+        transition-property: background-color,color;
+        transition-timing-function: linear;
+      }
+      #t0:hover{
+        background-color: blue;
+        font-size: 20px;
+        color:black;
+      }
+    </style>
+    <p id="t0">这是一段动画的测试文字。</p>
+  </div>
+
+  如果transition-property没有指定的话，则所有属性都将作用于过渡。
+
+  
+</pre>
+  </body>
+</html>
