@@ -1,5 +1,27 @@
 var navContent;           //左侧导航
 var pageContent;          //子页面
+//首页导航数组(知识总结模块有这个的副本，需要一起修改)
+var homeLinks = [
+  { title:"主页", url:"/WZZ_ZONE/index.html" },
+  { title:"知识总结", url:"/WZZ_ZONE/pages/knowledge/knowledge.html" },
+  { title:"方法库", url:"#" },
+  { title:"收藏", url:"#" },
+  { title:"作品", url:"#" },
+  { title:"踩过的坑", url:"/WZZ_ZONE/pages/mistake/mistake.html" }
+];
+
+//首页导航生成(知识总结模块有这个的副本，需要一起修改)
+function CreateHomeLinks()
+{
+  var homeNavPanel = document.querySelector(".home_nav");
+  for(var i in homeLinks)
+  {
+    var a = document.createElement("a");
+    a.setAttribute("href",homeLinks[i].url);
+    a.text = homeLinks[i].title;
+    homeNavPanel.appendChild(a);
+  }
+}
 
 //导航链接生成
 function CreateLink()
@@ -45,6 +67,7 @@ function ExecuteFunList()
   pageContent = document.querySelector(".center");
   funList = [];
   CreateLink();
+  CreateHomeLinks();
   document.querySelector(".to_top").setAttribute("onclick","window.scrollTo(0,0)");
 
   //一开始显示第一个页面
