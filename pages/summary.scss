@@ -1,6 +1,5 @@
 @import "base";
 
-
 // 中部内容=============================================
 
 .content{
@@ -122,6 +121,10 @@
     padding-bottom: 1em;
   }
 
+  strong{
+    font-size: 1.3em;
+    color: #ea0000;
+  }
 
   kbd{
     padding: 0 2px;

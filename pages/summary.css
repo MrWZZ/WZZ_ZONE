@@ -2,6 +2,8 @@ body {
   background-color: #eee; }
   body > header {
     text-align: center; }
+    body > header h1 {
+      text-align: center; }
   body > footer {
     height: 100px;
     width: 100%; }
@@ -102,6 +104,9 @@ body {
     border: 2px dashed #9e9e9e;
     border-radius: 5px;
     padding-bottom: 1em; }
+  .w_doc strong {
+    font-size: 1.3em;
+    color: #ea0000; }
   .w_doc kbd {
     padding: 0 2px;
     border-radius: 2px;
