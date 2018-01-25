@@ -29,7 +29,7 @@ var knowledgeList = [
     {title:"HTML",url:"web_developer/html_summary/html_summary.html"},
     {title:"CSS",url:"web_developer/css_summary/css_summary.html"},
     {title:"JavaScript",url:"web_developer/javascript_summary/javascript_summary.html"},
-    {title:"JQuery",url:"#"}
+    {title:"JQuery",url:"web_developer/jquery_summary/jquery_summary.html"}
   ]},
   //软件
   {type : "软件",
