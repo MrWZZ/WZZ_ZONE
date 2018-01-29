@@ -1,0 +1,5 @@
+//页面数组
+var pages = [
+  { title:"概要", url:"pages/1.html" },
+  { title:"基础排序算法", url:"pages/2.html" },
+];

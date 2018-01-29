@@ -42,7 +42,8 @@ var knowledgeList = [
   {type : "语言",
    slots:[
     {title:"C++",url:"#"},
-    {title:"C#",url:"#"}
+    {title:"C#",url:"#"},
+    {title:"数据结构与算法",url:"language/structures_and_algorithms/structures_and_algorithms.html"}
   ]}
 ];
 

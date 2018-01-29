@@ -2,6 +2,8 @@ body {
   background-color: #eee; }
   body > header {
     text-align: center; }
+    body > header p {
+      text-align: right; }
     body > header h1 {
       text-align: center; }
   body > footer {

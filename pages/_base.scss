@@ -3,6 +3,9 @@ $footer_height:100px;
 body{
   background-color: #eee;
   > header{
+    p{
+      text-align: right;
+    }
     h1{
       text-align: center;
     }
