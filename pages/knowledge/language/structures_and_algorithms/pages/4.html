@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+  </head>
+  <body>
+<pre class="w_doc">
+<h1 class="h1">散列表</h1>
+  散列表可以非常快速地插入和检索数据，但是诸如查找最大值或最小值这样的查找操作，效率不高。
+
+  散列表的数据结构是围绕数组设计的。
+  数据通过散列函数计算得到该数据应该放置在数组的索引位置。
+
+  散列函数的工作原理：
+  将键的ASCII码值相加，在对数组的大小取模。
+
+  代码：
+  <xmp class="block">
+    public int SimpleHash(string s,string[] arr)
+    {
+      int tot = 0;
+      char[] cname;
+      cname = s.ToCharArray();
+      for(int i = 0; i <= cname.GetUpperBound(0); i++)
+      {
+        tot += (int)cname[i];
+      }
+      return tot % arr.GetUpperBound(0);
+    }
+  </xmp>
+
+  散列表数组的长度最好是一个素数，如果要保存的数据不是分多的话，10007是一个好的选择。
+
+  <b>查找散列表中的数据</b>
+  为了查找散列表中的数据，需要计算键的散列值，然后访问数组中的对应元素。
+
+  <b>解决冲突</b>
+  在处理散列表的时候，不可避免地会遇到计算出的键的散列值已经储存了另一个键。
+  这时候我们需要一些策略来解决这个冲突。
+
+  + 桶式散列法
+    这中方法类似与用二维数组来保存数据。
+    实际上是使用List对象来保存。
+
+    第一次计算得出数据项应该在的第一维的位置
+    + 如果该位置没有其他值，则将数据放在该位置第二维0索引处。
+    + 如果已经保存了其他值，则将数据放在该位置第二维1索引处。
+
+  + 开放定址法
+    这种方法是当计算出的散列值的位置已经存在另一个键时，则向下移动，判断该位置是否以存在值。
+    移动的方法有两种：
+    1.线性探查法。
+      即每次向下+1。不过这种方法会使数据元素趋近成类聚。
+    2.平方探查法。（推荐的处理方式）
+      即以一个数的平方向下判断。
+
+<h2 class="h2">一个简单的桶式散列表类</h2>
+  仅作摘抄参考，实际可进行优化扩展。
+<xmp class="block">
+  public class BucketHash
+  {
+    private const int SIZE = 10007;
+    ArrayList[] data;
+
+    public BucketHash()
+    {
+      data = new ArrayList[SIZE];
+      for(int i = 0; i <= SIZE -1; i++)
+      {
+        data[i] = new ArrayList[4];
+      }
+    }
+
+    public int Hash(string s)
+    {
+      long tot = 0;
+      char[] charray;
+      charray = s.ToCharArray();
+      for(int i = 0; i <= s.Length - 1; i++)
+      {
+        tot += 37 * tot + (int)charray[i];
+      }
+      tot = tot % data.GetUpperBound(0);
+      if(tot < 0)
+      {
+        tot += data.GetUpperBound(0);
+      }
+      return (int)tot;
+    }
+
+    public void Insert(string item)
+    {
+      int hash_value;
+      hash_value = Hash(item);
+      if(data[hash_value].Contains(item))
+      {
+        data[hash_value].Add(item);
+      }
+    }
+
+    public void Remove(string item)
+    {
+      int hash_value;
+      hash_value = Hash(item);
+      if(!data[hash_value].Contains(item))
+      {
+        data[hash_value].Remove(item);
+      }
+    }
+  }
+</xmp>
+</pre>
+  </body>
+</html>
