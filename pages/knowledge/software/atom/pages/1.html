@@ -30,6 +30,44 @@
     visibility: hidden;
   }
   </xmp>
+
+  <b>自定义代码片段</b>
+  <a href="http://blog.csdn.net/zsl10/article/details/51873564">自定义代码片段</a>
+
+  WZZ_ZONE网页使用的自定义标签
+  <xmp class="block">
+    '.text.html.basic':
+      'xmp':
+        'prefix': 'xmp'
+        'body':'<xmp>$1</xmp>'
+      'xmp-block':
+        'prefix': 'block'
+        'body': '''
+               <xmp class="block">
+                 $1
+               </xmp>
+               '''
+       'demo':
+         'prefix': 'demo'
+         "body":'''
+               <div class="demo">
+                 $1
+               </div>
+               '''
+      'execute_fun':
+        'prefix': "exe"
+        'body': '''
+                <script class="execute_fun" type="text/javascript">
+                  $1
+                </script>
+                '''
+      'h1':
+        'prefix': '.h1'
+        'body': '<h1 class="h1">$1</h1>'
+      'h2':
+        'prefix': '.h2'
+        'body': '<h2 class="h2">$1</h2>'
+  </xmp>
 </pre>
   </body>
 </html>

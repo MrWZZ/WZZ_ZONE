@@ -14,7 +14,7 @@
    冒泡排序时可用的最慢的排序算法之一，但它是最容易理解和实现的一种排序算法。
 
    原理：
-   1.选择第一个元素，令其与后面的元素进行比较，如果前面的值比后面的值大，则进行位置交换，选择位置前进一。
+   1.选择第一个元素，令其与后面的元素进行比较，如果前面的值比后面的值大，则进行位置交换。
    2.依次比较到数组末尾。（这时，最大值的项已被放置到末尾，则下次需要比较的次数减一。）
    3.循环1、2步骤，直到最后只剩下一个元素。
 
@@ -124,6 +124,65 @@
       }
      </script>
    </div>
+
+<h1 class="h1">选择排序</h1>
+  此排序方法在循环比较的时候，记录每次最小的值的索引，通过索引进行值的交换。
+
+  原理：
+  1.这种排序是从数组的起始处开始，把第一个元素与数组中其他元素进行比较。
+  2.然后最小的元素放置在第0个位置上，接着再从第1个位置开始再次进行排序操作。
+  3.循环1、2，直到结束。
+
+  代码：
+  <xmp class="block">
+    public void SelectionSort()
+    {
+      int min,temp;
+      // upper为数组的最大索引。
+      for(int outer = 0; outer <= upper; outer++)
+      {
+        min = outer;
+        for(int inner = outer + 1; inner <= upper; inner++)
+        {
+          if(arr[inner] < arr[min])
+          {
+            min = inner;
+          }
+        }
+        temp = arr[outer];
+        arr[outer] = arr[min];
+        arr[min] = temp;
+      }
+    }
+  </xmp>
+
+<h1 class="h1">插入排序</h1>
+  此排序算法操作非常耗时，感觉像是逆向的冒泡排序。
+
+  代码：
+  <xmp class="block">
+    public void InsertionSort()
+    {
+      int inner,temp;
+      for(int outer = 1; outer <= upper; outer++)
+      {
+        temp = arr[outer];
+        inner = outer;
+        while(inner > 0 && arr[inner-1] >= temp)
+        {
+          arr[inner] = arr[inner-1];
+          inner--;
+        }
+        arr[inner] = temp;
+      }
+    }
+  </xmp>
+
+  <b>总结</b>
+  当数组元素量为10000时，各排序算法所需要的时间对比。
+  选择排序：2864
+  冒泡排序：53607
+  插入排序：84751
 </pre>
   </body>
 </html>

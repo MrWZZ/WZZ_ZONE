@@ -2,4 +2,5 @@
 var pages = [
   { title:"概要", url:"pages/1.html" },
   { title:"基础排序算法", url:"pages/2.html" },
+  { title:"基础查找算法", url:"pages/3.html" },
 ];

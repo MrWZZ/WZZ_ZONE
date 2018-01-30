@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+  </head>
+  <body>
+<pre class="w_doc">
+<h1 class="h1">顺序查找</h1>
+  当列表中的数据是无序排列时，需要用到顺序查找。
+  该种查找算法则是遍历整个数组，直到找到需要的值。
+
+  该方法实现简单，不做摘抄。
+
+  <b>自组织数据加快顺序查找数度</b>
+  要查找的数据大概会遵循“80-20”规则。
+  意思是在数据集合上80%的查找操作都是为了查找到数据集合内20%的数据。
+
+  当通过查找操作时，将查找的数据移动到列表的开始处。
+  最终把20%的数据放在数据集合的开始部分，可以加快顺序查找的速度。
+
+<h1 class="h1">二叉查找算法</h1>
+  当列表中的数据是有序排列的时候，可以使用该查找算法。
+
+  原理：
+  1.设置查找的上限和下限，将上限和下限相加除以2得中间点。
+  2.把中间点的值和所要查找的值进行比较。
+    + 如果相等，则找到该值。
+    + 如果不相等
+      + 查找的值大于中间值，则中间点+1得出新的下限。
+      + 查找的值小于中间值，则中间点-1得出新的上限。
+  3.循环2，直到找到目标点。
+
+  代码：
+  <xmp class="block">
+    //返回的是查找值的位置索引。
+    public int binSearch(int value)
+    {
+      int upperBound,lowerBound,mid;
+      upperBound = arr.Length - 1;
+      lowerBound = 0;
+      while(lowerBound <= upperBound)
+      {
+        mid = (upperBound + lowerBound) / 2;
+        if(arr[mid] == value) { return mid; }
+        else
+        {
+          if(value < arr[mid]) { upperBound = mid - 1; }
+          else { lowerBound = mid + 1; }
+        }
+      }
+      return -1;
+    }
+  </xmp>
+
+  <b>递归二叉查找算法</b>
+  二叉查找算法实际是一种递归算法，算法会不断地划分数组直到所要的数据项才会终止。
+  而每次的划分都是表示成一个比原有问题规模更小的同类问题。
+
+  代码：
+  <xmp class="block">
+    public int RbinSearch(int value,int lower,int upper)
+    {
+      if(lower > upper) { return -1; }
+      else
+      {
+        int mid;
+        mid = (int)(upper + lower) / 2;
+        if(value < arr[mid])
+        {
+          return RbinSearch(value,lower,mid - 1);
+        }
+        else if(value == arr[mid])
+        {
+          return mid;
+        }
+        else
+        {
+          return RbinSearch(value,mid + 1,upper);
+        }
+      }
+    }
+  </xmp>
+
+  同上面的迭代算法相比，递归的方式执行同样的操作要比迭代<b>慢10倍</b>。
+  使用递归的方式常常是因为别的原因。
+</pre>
+  </body>
+</html>
