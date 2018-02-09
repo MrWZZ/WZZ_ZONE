@@ -4,4 +4,6 @@ var pages = [
   { title:"基础排序算法", url:"pages/2.html" },
   { title:"基础查找算法", url:"pages/3.html" },
   { title:"散列表", url:"pages/4.html" },
+  { title:"链表", url:"pages/5.html" },
+  { title:"二叉树", url:"pages/6.html" },
 ];
