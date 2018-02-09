@@ -6,4 +6,6 @@ var pages = [
   { title:"散列表", url:"pages/4.html" },
   { title:"链表", url:"pages/5.html" },
   { title:"二叉树", url:"pages/6.html" },
+  { title:"集合", url:"pages/7.html" },
+  { title:"高级排序算法", url:"pages/8.html" },
 ];

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+  </head>
+  <body>
+<pre class="w_doc">
+  <h1 class="h1">集合</h1>
+  集合是特殊元素们的一种聚合。
+  集合的元素被称为成员。
+  集合有两个最重要的属性，一个是集合的成员是无序的，一个是集合的成员只能出现一次。
+
+  <h2 class="h2">集合的定义</h2>
+  1.不包含任何成员的集合称为空集合。全域是所有可能成员的集合。
+  2.如果两个集合包含完全一样的成员，那么就认为这两个集合相等。
+  3.如果第一个集合的全部成员都包含在第二个集合内，就认为第一个集合是第二个集合的子集。
+
+  <h2 class="h2">集合的操作</h2>
+  1.联合：把第一个集合的成员与另一个集合的成员合并从而获得一个新的集合。
+  2.交叉：把既存在与第一个集合也存在第二个集合的所有成员添加给一个集合从而获得新的集合。
+  3.差异：把存在与第一个集合但不存在第二个集合的所有成员添加给一个集合从而获得一个新的集合。
+
+<h1 class="h1">用散列表来实现</h1>
+  代码：
+  <xmp class="block">
+    public class CSet
+    {
+      private Hashtable data;
+      public CSet()
+      {
+        data = new Hashtable();
+      }
+
+      public void Add(Object item)
+      {
+        if(!data.ContainsValue(item))
+        {
+          data.Add(Hash(item),item);
+        }
+      }
+
+      private string Hash(Object item)
+      {
+        char[] chars;
+        string s = item.ToString();
+        int hashValue = 0;
+        chars = s.ToCharArray();
+        for(int i = 0; i<= chars.GetUpperbound(0); i++)
+        {
+          hashValue += (int)chars[i];
+        }
+        return hashValue.ToString();
+      }
+
+      public void Remove(Object item)
+      {
+        data.Remove(Hash(item));
+      }
+
+      public int Size()
+      {
+        return data.Count;
+      }
+
+      //合并
+      public CSet Union(CSet aSet)
+      {
+        CSet tempSet = new CSet();
+        foreach(Object hashObject in data.Keys)
+        {
+          tempSet.Add(this.data[hashObject]);
+        }
+        foreach(Object hashObject in aSet.data.Keys)
+        {
+          if(!(this.data.ContainsKey(hashObject)))
+          {
+            tempSet.Add(aSet.data[hashObject]);
+          }
+        }
+        return tempSet;
+      }
+
+      //交集
+      public CSet Intersection(CSet aSet)
+      {
+        CSet tempSet = new CSet();
+        foreach(Object hashObject in data.Keys)
+        {
+          if(aSet.data.Contains(hashObject))
+          {
+            tempSet.Add(aSet.data[hashObject]);
+            tempSet.Add(aSet.GetValue(hashObject))
+          }
+        }
+        return tempSet;
+      }
+
+      //子集
+      public bool Subset(CSet aSet)
+      {
+        if(this.Size() > aSet.Size())
+        {
+          return false;
+        }
+        else
+        {
+          foreach(Object key in this.data.Keys)
+          {
+            if(!(aSet.data.Contains(key)))
+            {
+              return false;
+            }
+          }
+          return true;
+        }
+      }
+    }
+  </xmp>
+
+<h1 class="h1">使用BitArray实现</h1>
+  上面的实现是针对非数字的集合，但是这仍然会在一些方面特别是针对大集合方面存在效率低的问题。
+
+  使用BitArray来储存整数集合成员有绩点好处。
+  1.储存空间的要求小。
+  2.对集合进行操作进行操作速度快。
+  
+</pre>
+  </body>
+</html>
