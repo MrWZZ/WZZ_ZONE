@@ -31,6 +31,10 @@ var knowledgeList = [
     {title:"JavaScript",url:"web_developer/javascript_summary/javascript_summary.html"},
     {title:"JQuery",url:"web_developer/jquery_summary/jquery_summary.html"}
   ]},
+  //后台
+  {type : "后台",
+    {title:"Node",url:"web_developer/node_summary/node_summary.html"}
+  ]},
   //软件
   {type : "软件",
    slots:[

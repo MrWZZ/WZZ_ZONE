@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+    <title></title>
+  </head>
+  <body>
+<pre class="w_doc">
+<h1 class="h1">Node的优势</h1>
+  1.速度比PHP快86倍。
+  2.跟前台配合起来方便。
+
+<h1 class="h1">使用</h1>
+  1.<a href="https://nodejs.org/en/">安装</a>
+  2.运行文件
+    进入cmd
+    切换盘符    e:
+    进入文件夹  cd node
+    运行文件    node node.js
+
+    代码：
+    <xmp class="inline_block">
+      const http = require('http');
+
+      var server = http.createServer(function(req,res)
+      {
+        //链接成功的回调函数
+        console.log("链接");
+
+        res.write("链接中");
+        res.end();
+      });
+
+      //侦听
+      server.listen(8080);
+    </xmp>
+
+<h1 class="h1">fs模块</h1>
+  代码：
+  <xmp class="block">
+    const http = require("http");
+    const fs = require("fs");
+
+    var server = http.createServer(function(req,res)
+    {
+      var fileName = "/www" + req.url;
+
+      //读文件
+      fs.readFile("fileName",function(err,data)
+      {
+        if(err)
+        {
+          console.log(err);
+        }
+        else
+        {
+          res.write(data);
+        }
+        res.end();
+      });
+
+      //写文件
+      //fs.writeFile("fileName","content",function(err){});
+    });
+
+    server.listen(8080);
+  </xmp>
+
+  <b>解析GET</b>
+    代码:
+    <xmp class="inline_block">
+      const urlLib = require("url");
+      var obj = urlLib.parse("http://www.dd.com?a=1&b=2",true);
+      var url = obj.pathname;
+      var GET = obj.query;
+    </xmp>
+
+  <b>解析POST</b>
+    代码：
+    <xmp class="inline_block">
+      const http = require("http");
+
+      //querystring主要用来解析post数据。
+      const querystring = require("querystring");
+
+      http.createServer(function(req,res)
+      {
+        var str = "";
+
+        // on 绑定事件。
+
+        //分段传送，多次
+        req.on("data",function(data)
+        {
+          str += data;
+        });
+
+        //传送结束，一次
+        req.on("end",function()
+        {
+          const POST = querystring.parse(str);
+
+          //more
+        });
+      }).listen(8080);
+    </xmp>
+
+<h1 class="h1">自定义模块</h1>
+<b>+ 自己的模块</b>
+  1.require     引入模块
+  2.module      批量输出
+  3.exports     导出数据
+
+<b>+ 引入模块</b>
+  <b>如果自定义模块与自己定义的模块名称相同，系统模块优先。</b>
+
+  1.引入自己的模块的时候要加<code>./</code>
+  2.将自定义的模块放入node_modules文件夹中，就不用加<code>./</code>。
+
+<b>+ <code>.js</code>是可选的</b>
+
+<h2 class="h2">npm</h2>
+  npm:NodeJS Package Manager
+
+  1.统一下载途径
+  2.自动下载依赖
+
+  代码：
+  <xmp class="inline_block">
+    //安装
+    npm install xxx
+    //卸载
+    npm uninstall xxx
+  </xmp>
+
+  3.发布
+    （百度）
+</pre>
+  </body>
+</html>
