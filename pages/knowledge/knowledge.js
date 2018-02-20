@@ -33,7 +33,8 @@ var knowledgeList = [
   ]},
   //后台
   {type : "后台",
-    {title:"Node",url:"web_developer/node_summary/node_summary.html"}
+    slots:[
+     {title:"Node",url:"web_developer/node_summary/node_summary.html"}
   ]},
   //软件
   {type : "软件",
