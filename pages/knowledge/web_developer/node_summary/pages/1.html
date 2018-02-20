@@ -20,7 +20,7 @@
     运行文件    node node.js
 
     代码：
-    <xmp class="inline_block">
+    <xmp class="block">
       const http = require('http');
 
       var server = http.createServer(function(req,res)
@@ -69,7 +69,7 @@
 
   <b>解析GET</b>
     代码:
-    <xmp class="inline_block">
+    <xmp class="block">
       const urlLib = require("url");
       var obj = urlLib.parse("http://www.dd.com?a=1&b=2",true);
       var url = obj.pathname;
@@ -78,7 +78,7 @@
 
   <b>解析POST</b>
     代码：
-    <xmp class="inline_block">
+    <xmp class="block">
       const http = require("http");
 
       //querystring主要用来解析post数据。
@@ -127,7 +127,7 @@
   2.自动下载依赖
 
   代码：
-  <xmp class="inline_block">
+  <xmp class="block">
     //安装
     npm install xxx
     //卸载
