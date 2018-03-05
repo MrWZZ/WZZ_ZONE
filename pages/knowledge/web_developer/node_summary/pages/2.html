@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+    <title></title>
+  </head>
+  <body>
+<pre class="w_doc">
+<h1 class="h1">express框架</h1>
+
+<b>特点</b>
++ 非侵入：保留了原生的方法，增加了新的方法。
+
+  安装：npm install express
+
+  代码：
+  <xmp class="block">
+    const express = require("express");
+
+    var server = express();
+
+    server.use("/",function(req,res)
+    {
+      //send方法可以发送json数据，而write不可以。
+      res.send("link");
+      res.end();
+    });
+
+    server.listen();
+  </xmp>
+
+  接收有3种方式：
+  1：server.use("/",function(req,res,next){});
+    有2个参数：
+    + "/":针对的路径，如果不填，则针对所有路径。
+    + "function(req,res,next)":接收信息后回调方法。
+      + req:接受的信息。
+      + res:发送的信息。
+      + next:（可选）是否进行链式操作。
+  2：server.get("/",function(req,res){});
+  3：server.post("/",function(req,res){});
+  <b>同时使用调用机制类似if-else</b>
+
+<h2 class="h2">express-static中间件</h2>
+  安装：npm install express-static
+
+  代码：
+  <xmp class="block">
+    const express = require("express");
+    const expressStatic = require("express-static");
+
+    var server = express();
+    server.listen(8080);
+
+    //用户数据
+    var users = {
+      "zhangsan" : "123456",
+      "lisi" : "123"
+    };
+
+    /* 定义接口形式
+      /login?user=xxx&password=xxx
+      =>{ok:false/true,msg:"原因"}
+    */
+    server.get("/login",function(req,res)
+    {
+      var user = req.query["user"];
+      var password = req.query["password"];
+
+      if(users[user] == null)
+      {
+        res.send({ok:false,msg:"用户不存在"});
+      }
+      else
+      {
+        if(users[user] != password)
+        {
+          res.send({ok:false,msg:"密码错误"});
+        }
+        else
+        {
+          res.send({ok:true,msg:"成功"});
+        }
+      }
+      res.end();
+    });
+  </xmp>
+
+<h2 class="h2">body-parser中间件</h2>
+  安装：npm install body-parser
+
+  代码：
+  <xmp class="block">
+    const express = require("express");
+    const bodyParser = require("body-parser");
+
+    var server = express();
+    server.listen(8080);
+
+    //给body赋值
+    server.use(bodyParser.urlencoded({}));
+
+    server.use("/",function(req,res)
+    {
+      console.log(req.body);
+    });
+  </xmp>
+
+<div class="supplement">
+  GET - 无需中间件
+  req.query
+
+  POST - 需要body-parser中间件
+  1.server.use(bodyParser.urlencoded(
+  {
+    //是否开启扩展模式
+    extended:true,
+    //最大接受的数据大小，默认100k
+    limit: 1*1024*1024      //2M
+  }));
+  2.server.use("/",function()
+  {
+    //...
+  });
+
+  <b>链式操作</b>
+  如：
+  1.server.use("/",function(req,res,next){next();});
+  2.server.use("/",function(req,res,next){next();});
+
+  + 请求的地址相同。
+  + 如果需要进行下一个use，则调用next()。
+
+</div>
+</pre>
+  </body>
+</html>
