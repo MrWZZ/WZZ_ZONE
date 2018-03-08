@@ -3,7 +3,7 @@ var homeLinks = [
   { title:"主页", url:"/WZZ_ZONE/index.html" },
   { title:"知识总结", url:"/WZZ_ZONE/pages/knowledge/knowledge.html" },
   { title:"方法库", url:"#" },
-  { title:"收藏", url:"#" },
+  { title:"收藏", url:"/WZZ_ZONE/pages/collection/collection.html" },
   { title:"作品", url:"#" },
   { title:"踩过的坑", url:"/WZZ_ZONE/pages/mistake/mistake.html" }
 ];
@@ -31,23 +31,19 @@ var knowledgeList = [
     {title:"JavaScript",url:"web_developer/javascript_summary/javascript_summary.html"},
     {title:"JQuery",url:"web_developer/jquery_summary/jquery_summary.html"}
   ]},
-  //后台
-  {type : "后台",
-    slots:[
-     {title:"Node",url:"web_developer/node_summary/node_summary.html"}
-  ]},
   //软件
   {type : "软件",
    slots:[
     {title:"Unity3D",url:"#"},
     {title:"Atom",url:"software/atom/atom.html"},
-    {title:"Git",url:"#"}
+    {title:"Git",url:"software/git/git.html"}
   ]},
   //语言
   {type : "语言",
    slots:[
     {title:"C++",url:"#"},
     {title:"C#",url:"#"},
+    {title:"UML",url:"language/uml/uml.html"},
     {title:"数据结构与算法",url:"language/structures_and_algorithms/structures_and_algorithms.html"}
   ]}
 ];

@@ -5,7 +5,7 @@ var homeLinks = [
   { title:"主页", url:"/WZZ_ZONE/index.html" },
   { title:"知识总结", url:"/WZZ_ZONE/pages/knowledge/knowledge.html" },
   { title:"方法库", url:"#" },
-  { title:"收藏", url:"#" },
+  { title:"收藏", url:"/WZZ_ZONE/pages/collection/collection.html" },
   { title:"作品", url:"#" },
   { title:"踩过的坑", url:"/WZZ_ZONE/pages/mistake/mistake.html" }
 ];
