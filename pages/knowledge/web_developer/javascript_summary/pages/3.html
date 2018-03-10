@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+    <title></title>
+  </head>
+  <body>
+<pre class="w_doc">
+<h1 class="h1">Array类</h1>
+  常用的方法：
+  + push()      在结尾添加一个或多个项
+  + pop()       删除并返回最后一个项
+  + shift()     删除数组中的第一个项
+  + unshift()   把一个项放在数组的第一个位置。
+  + sort()      按升序排列数组
+
+<h1 class="h1">定义类或对象</h1>
+  <b>工厂方式</b>
+  <xmp class="block">
+    var oCar = new Object();
+    oCar.color = "red";
+    OCar.door = 4;
+    oCar.showColor = function(){};
+  </xmp>
+
+  <b>构造函数方式</b>
+  <xmp class="block">
+    function Car(sColor,iDoors)
+    {
+      this.color = sColor;
+      this.door = iDoors;
+      this.showColor = function(){};
+    }
+    var oCar1 = new Car("red",4);
+  </xmp>
+
+  <b>原型方式</b>
+  原型方式的优点在于实例化出来的对象不会重复声明里面的值。
+  <xmp class="block">
+    function Car() { }
+
+    Car.prototype.color = "red";
+    Car.prototype.doors = 4;
+    Car.prototype.showColor = function(){};
+
+    var oCar1 = new Car();
+  </xmp>
+
+  <b>混合的构造函数/原型方式</b>
+  <xmp class="block">
+    function Car(sColor,iDoors)
+    {
+      this.color = sColor;
+      this.doors = iDoors;
+    }
+
+    Car.prototype.showColor = function(){};
+
+    var oCar1 = new Car("red",4);
+  </xmp>
+
+  <b>动态原型方法</b>
+  <xmp class="block">
+    function Car(sColor,iDoors)
+    {
+      this.color = sColor;
+      this.doors = iDoors;
+
+      if(typeof Car._initialized == "undefined")
+      {
+        Car.prototype.showColor = function(){};
+        Car._initialized = true;
+      }
+    }
+  </xmp>
+
+  <b>混合工厂方式</b>
+  <xmp class="block">
+    function Car()
+    {
+      var oTempCar = new Object();
+      oTempCar.color = "red";
+      oTempCar.doors = 4;
+      oTempCar.showColor = function(){};
+
+      return oTempCar;
+    }
+  </xmp>
+
+<h1 class="h1">继承</h1>
+  <b>call()、apply()</b>
+  他们的第一个参数都是作用的对象（this）,call()后面的参数是按顺序一个一个来，而apply()是一个数组。
+
+  <xmp class="block">
+    function ClassA(sColor,sName)
+    {
+      this.color = sColor;
+      this.name = sName;
+    }
+
+    function ClassB(sColor,sName,iDoor)
+    {
+      ClassA.call(this,sColor,sName);
+      this.door = iDoor;
+    }
+  </xmp>
+
+  <b>原型链</b>
+  <xmp class="block">
+    function ClassA() {}
+    ClassA.prototype.color = "red";
+    ClassA.prototype.doors = 4;
+
+    function ClassB(){}
+    Classb.prototype = new ClassA();
+  </xmp>
+
+</pre>
+  </body>
+</html>
