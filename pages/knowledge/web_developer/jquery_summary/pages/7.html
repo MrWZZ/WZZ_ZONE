@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+  </head>
+  <body>
+<pre class="w_doc">
+  <h1 class="h1">JavaScript中的Ajax</h1>
+  <b>XMLHttpRequest对象的属性及简要说明</b>
+  + readyState:通信的状态。
+  + onreadystatechange:设置回调事件处理程序，当readyState属性的值改变时，会激发此事件。
+  + responseText:服务器返回text/html格式的文档。
+  + responseXML：服务器返回的text/xml格式的文档。
+  + status：描述了HTTP响应short类型的状态代码。
+  + statusText：HTTP响应的状态代码对应的文本。
+
+  <b>readyState属性代码</b>
+  + 0：代表未初始化的状态。
+  + 1：代表链接状态。
+  + 2：代表发送的状态。
+  + 3：代表正在接受状态。
+  + 4：代表已加载状态。
+
+  <b>XMLHttpRequest对象的标准方法</b>
+  + abort():终止当前请求。
+  + open(method,url):使用请求方式和请求地址初始化一个XMLHttpRequest对象。
+  + send(args):发送数据。
+  + setRequestHeader(key,val):设置请求的头部信息。
+  + getResponseHeader(key):该方法用于检索响应的头部值。
+  + getAllResponseHeaders():该方法用于返回响应头部信息的集合。
+
+  <h1 class="h1">jQuery中的Ajax</h1>
+  <b>$.ajax()</b>
+  该方法是jQuery实现Ajax最底层的方法。
+  <xmp class="block">
+    var xmlReq = $.ajax(options)
+  </xmp>
+
+  options是一个object类型的参数，该参数属性都是已“键、值”对的形式设置的，常用的属性如下:
+  + url:发送请求的地址，该属性为字符串类型。
+  + type：请求方式。
+  + timeout:设置请求超时的时间。
+  + data:发送到服务器的数据。
+  + dataType:预期服务器返回的数据类型。
+  + contentType:发送信息至服务器时的编码类型。
+  + beforeSend:请求发送前的事件。
+  + complete：请求完成后的事件。
+  + success：请求执行成功时的事件。
+  + error:请求执行失败时的事件。
+  + global：是否触发全局Ajax事件。
+
+  <b>load()</b>
+  该方法能远程载入HTML代码并直接插入DOM中。
+  <xmp class="block">
+    load(url,[data],[callback]);
+  </xmp>
+  该方法有3个参数：
+  + url:请求的页面路径。
+  + data:请求附加的参数，是"key,value"对的集合。
+  + callback:请求完成时执行的回调函数，无论请求执行成功还是失败。
+
+  <b>$.get()</b>
+  该方法使用GET方式来进行异步请求。
+  <xmp class="block">
+    var xmlReq = $.get(url,[data],[callback],[type]);
+  </xmp>
+
+  <b>$.post()</b>
+  该方法使用POST方式来进行异步请求。
+  <xmp class="block">
+    var xmlReq = $.post(url,[data],[callback],[type]);
+  </xmp>
+
+  <b>$.getJSON()</b>
+  该方法通过GET方式请求载入JSON数据。
+  <xmp class="block">
+    var xmlReq = $.getJSON(url,[data],[callback]);
+  </xmp>
+
+  <b>$.getScript()</b>
+  在页面执行的时候动态加载script文件。
+  <xmp class="block">
+    var xml = $.getScript(url,[callback]);
+  </xmp>
+
+  <h1 class="h1">序列化表单数据</h1>
+  <b>serialize()</b>
+  该方法能将表达内容序列化成一个字符串。
+  <xmp class="block">
+    var data = $("form").serialize();
+  </xmp>
+
+  <b>serializeArray()</b>
+  该方法可以将页面表单序列化成一个JSON结构对象。
+  <xmp class="block">
+    var jsonData = $("form").serializeArray();
+  </xmp>
+
+</pre>
+  </body>
+</html>

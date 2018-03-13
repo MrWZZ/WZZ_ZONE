@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+  </head>
+  <body>
+<pre class="w_doc">
+  <h1 class="h1">DOM载入事件</h1>
+  <b>ready()</b>
+
+  键盘事件，鼠标事件同DOM事件。
+
+  <h1 class="h1">表单事件</h1>
+  同DOM事件。
+  + change:控件的值发生改变的时候触发
+
+  <b>其他事件</b>
+  + load:当元素加载就绪后触发。
+  + unload：当元素卸载后触发。
+  + error：当元素发送错误时触发。
+  + resize：当浏览器改变大小的时候触发。
+  + scroll：当浏览器滚动条位置改变时触发。
+
+  <strong>jQuery采用的是事件集合处理方式，即同时绑定多个事件，会一起执行。</strong>
+
+  <h1 class="h1">绑定事件</h1>
+  <b>bind(map)</b>
+  该方法可以一次为对象绑定多个事件。
+  <xmp class="block">
+    $("#id").bind(
+    {
+      focrs:function(){},
+      blur:function(){}
+    });
+
+    //绑定方法时同时传递参数
+    //bind("type",[data],fun)
+
+    $("#id").bind(
+    "click",
+    {
+      arg1:"200",
+      arg2:"2"
+    },
+    function(event)
+    {
+      alert("arg1"+event.data.arg1);
+    });
+  </xmp>
+
+  <b>one(type,[data],fn)</b>
+  为对象绑定一个指定类型的一次性的方法处理程序。
+  用法同上。
+
+  <b>hover(overFn,outFn)</b>
+  就是为元素同时绑定鼠标悬停进入，和离开的两个方法。
+  <xmp class="block">
+    $("#id").hover(
+    {
+      //over
+      function(){},
+
+      //out
+      function(){}
+    });
+  </xmp>
+
+  <b>toggle(fn1,fn2,...)</b>
+  它的作用是在被点击的时候一次循环地调用里面的方法。
+  <xmp class="block">
+    $("#id").toggle(
+    //f1
+    function(){},
+    //f2
+    function(){},
+    //f3
+    function(){}
+    );
+  </xmp>
+
+  <b>live(type,fun)</b>
+  用这种方法帮的事件，在文档的整个生命周期中，只要符合，就会生效。
+  而不看绑定的时候是否符合事件的触发条件。
+
+  <h2 class="h2">删除事件</h2>
+  <b>unbind([type],[data])</b>
+  用于删除匹配对象的事情处理程序。
+
+  <b>die([type],[fn])</b>
+  该方法与live方法对应，用于解除用live注册的事件。
+
+  <h1 class="h1">模拟操作</h1>
+  很多时候应用程序需要在代码执行到某个地方的时候，主动模拟用户的操作（如点击鼠标），或者说是在一个事件
+  处理程序里触发另一个事件。
+
+  <b>type()</b>
+  type为事件的类型名。
+  <xmp class="block">
+    $("button").click();
+  </xmp>
+
+  <b>trigger(type[,data])</b>
+  用于触发指定类型的事件。
+  <xmp class="block">
+    $("button").trigger("click",["value1"]);
+  </xmp>
+
+  <b>triggerHandler(type,[data])</b>
+  用法和上面的一样，但有一些区别。
+  + 不会触发浏览器的默认事件。
+  + 只触发jQuery对象集合中的第一个元素的事件处理程序。
+  + 不会触发事件冒泡。
+  + 返回的是事件处理程序的返回值，而不是可链接的jQuery对象。
+
+  <h1 class="h1">jQuery事件对象</h1>
+  <b>jQuery事件对象的属性</b>
+  + type:获得该事件对象的事件类型。
+  + target：获得事件触发者。
+  + data：获得调用事件时出入的额外参数集合。
+  + relatedTarget：获得触发鼠标事件的DOM元素。
+  + currentTarget：获得当前DOM元素。
+  + pageX、pageY获得鼠标事件中，鼠标光标相对于页面左上角的位置。
+  + result：获得上一个事件处理函数的返回值。
+  + timeStamp：获得事件发生的时间戳。
+
+  <b>jQuery事件对象的方法</b>
+  + preventDefault()：阻止默认的事件行为。
+  + isDefaultPrevented():是否执行过preventDefault()方法。
+  + stopPropagation()：停止事件冒泡。
+  + isPrepaationStopped()：是否调用了stopPropagation()方法。
+  + stopImmediatePropagation():终止处理该事件。该方法将停止该事件的其他处理程序，并且停止事件冒泡。
+  + isImmediatePropagationStopped():是否调用了stopImmedataPropagation()方法。
+</pre>
+  </body>
+</html>

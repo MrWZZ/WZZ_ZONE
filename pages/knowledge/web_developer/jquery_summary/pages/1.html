@@ -7,7 +7,99 @@
   </head>
   <body>
 <pre class="w_doc">
-jQuery.makeArray(item)可以把任务对象转换为数组。
+<h1 class="h1">编写jQuery代码</h1>
+  基础代码形式：
+  <xmp class="block">
+    $(function()
+    {
+      alert("Hello World!");
+    });
+  </xmp>
+
+  在jQuery库中，$表示jQuery的别名，$()等效于jQuery()。
+
+  DOM文档的加载顺序：
+  1.解析HTML结构
+  2.加载外部脚本和样式表文件
+  3.解析并执行脚本代码
+  4.构造HTML DOM模型。
+  5.加载图片等外部文件
+  6.页面加载完毕
+
+  <b>ready事件</b>
+  <xmp class="block">
+    //jQuery方法
+    $(document).ready(function(){});
+    $(function(){})     //为了开发方便，jQuery对上面的方法进行了简化，这行代码等同于上面的代码。
+
+    //原生js代码
+    window.onload = function(){};
+
+    //但是jQuery的ready函数要先于onload函数
+  </xmp>
+
+  onload事件必须等到网页中所有内容全部加载完毕之后才被执行。
+  而ready事件是DOM结构绘制完毕之后就执行。
+
+<h1 class="h1">jQuery对象和DOM对象</h1>
+  DOM对象是原生的对象，而jQuery对象是包装DOM对象后产生的一个新对象。
+  我们可以理解为DOM对象是一个独立的个体，而jQuery是多个DOM对象组成的数据集合。
+  这两类对象之间的方法不能互相通用。
+
+  <b>jQuery对象转换为DOM对象</b>
+  1.借助数组下标来读取jQuery对象集合中的某个DOM元素。
+  <xmp class="block">
+    var $li = $("li");  //jQuery对象
+    var li0 = $li[0];   //DOM对象
+    alert(li0.innerHTML);
+  </xmp>
+
+  2.借助jQuery对象的get()方法。给get()传递一个下标值，即可取出某个DOM对象。
+  <xmp class="block">
+    var $li = $("li");
+    var li0 = $li.get(0);
+    alert(li0.innerHTML);
+  </xmp>
+
+  <b>DOM对象转换为jQuery对象</b>
+  对于DOM对象来说，直接把它传递给$()函数，jQuery对象会自动把它包装为jQuery对象。
+
+<h1 class="h1">jQuery构造函数</h1>
+  jQuery把所有操作都包装在一个jQuery()函数中，形成了统一（也是惟一的）操作入口。
+  jQuery()构造函数能接受任意类型的数据，但是能够解析的参数包括下面4中类型。
+
+  <b>1.jQuery(expression,[context])</b>
+  <xmp class="block">
+    //context的默认值为整个文档
+    $("div#wrap>p:first").addClass("red");
+  </xmp>
+
+  <b>2.jQuery(html)</b>
+  <xmp class="block">
+    //其中$("<li>new item</li>")会把字符串转换为DOM对象
+    $("li").append($("<li>new item</li>"));
+  </xmp>
+
+  <b>3.jQuery(elements)</b>
+  <xmp class="block">
+    //document对象被转换为jQuery对象，然后使用ready函数
+    $(document).ready();
+  </xmp>
+
+  <b>4.jQuery(fn)</b>
+  <xmp class="block">
+    $(function()
+    {
+      //...
+    });
+  </xmp>
+
+<h1 class="h1">jQuery链式语法</h1>
+  也就是对象的使用。
+  <xmp class="block">
+    //eq(index)：取得某个位置的jQuery
+    $("li").eq(0).click(function(){});
+  </xmp>
 </pre>
   </body>
 </html>
