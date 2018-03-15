@@ -44,6 +44,7 @@ var knowledgeList = [
     {title:"C++",url:"#"},
     {title:"C#",url:"#"},
     {title:"UML",url:"language/uml/uml.html"},
+    {title:"设计模式",url:"language/design_pattern/design_pattern.html"},
     {title:"数据结构与算法",url:"language/structures_and_algorithms/structures_and_algorithms.html"}
   ]}
 ];
