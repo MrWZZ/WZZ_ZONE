@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+  </head>
+  <body>
+<pre class="w_doc">
+  <h1 class="h1">概述</h1>
+  C#要求所有的程序逻辑都包含在一个类型定义中（类、接口、结构、枚举、委托）。
+  与其他语言不同，C#中创建全局函数或全局数据是不可能的。
+
+  签名：一个方法的名称、返回类型和参数列表。
+
+  <h1 class="h1">Main()</h1>
+  一个可执行程序可以有多个Main()方法，但是必须指定哪一个为入口。
+
+  Main()有3中方式：
+  <xmp class="block">
+    //args数组是一些命令行参数
+    static int Main(string[] args)
+    {
+      return 0;
+    }
+
+    static void Main()
+    {
+
+    }
+
+    static int Main()
+    {
+      return 0;
+    }
+  </xmp>
+      Main()返回值为0代表程序正常结束，而其他值（如-1）则表示有错误发生（要知道，0是自动返回的，即使
+  Main()方法的原型结构返回void）。
+
+  <h1 class="h1">System.Environment类</h1>
+  该类允许我们通过不同的静态成员获取大量有关运行.NET应用程序的操作系统的细节。
+
+  <b>System.Environment的部分属性</b>
+  + ExitCode                      获取或设置应用程序中任何地方的退出代码。
+  + Is64bitOperationgSystem       返回布尔值，代表主机是否运行64位操作系统。
+  + MachineName                   获得当前机器的名字。
+  + NewLine                       获得当前环境的换行符。
+  + SystemDirectoey               返回通向系统目录的完整路径。
+  + UserName                      返回启动这个应用程序的用户名称。
+  + Version                       返回版本对象，代表.NET平台的版本。
+
+
+  <h1 class="h1">System.Console类</h1>
+  该类封装了基于控制台应用程序的输入、输出和错误流操作。
+
+  <b>System.Console的部分成员</b>
+  + Beep()                        这个方法强制控制台发出指定频率和持续时间的蜂鸣声。
+  + BackgroundColor               设置当前输出的背景、前景颜色。
+    ForegroundColor
+  + BufferHeight                  设置当前控制台缓冲区域的高度、宽度。
+    BufferWidth
+  + Title                         设置当前控制台的标题。
+  + WindowHeight                  控制与已简历的缓冲区相关的控制台大小。
+    WindowWidth
+    WindowTop
+    WindowLeft
+  + Clear()                       清除已建立的缓冲区和控制台的显示区域。
+
+  <h1 class="h1">格式化控制台输出</h1>
+  输出的时候可以使用大括号占位符的方式来简化输出。
+  <xmp class="block">
+    //可以在字符串字面量的任意位置放置占位符，而不需要按照递增的次序
+    Console.WriteLine("{2:d8},{0},{1}",10,20,13);
+  </xmp>
+
+  <b>.NET数值格式字符</b>
+  + C/c             格式化数据。默认情况下，会以当地货币符号为前缀。
+  + D/d             格式化十进制数。还可以用于指定填充值的最小个数。
+  + E/e             指数计数法。
+  + F/f             定点小数格式化。
+  + G/g             格式化为定点或指数格式。
+  + N/n             基本的数值格式化（1000划分带逗号）。
+  + X/x             十六进制格式化。
+
+  <h1 class="h1">系统数据类型和相应的C#关键字</h1>
+  <b>C#内建系统类型</b>(!：在其他.NET语言中不兼容)
+  + bool                 true/false
+  + sbtye      !         -128~127
+  + btye                 0~255
+  + short                -32768~32767
+  + ushort     !         0~65535
+  + int                  -2147483648~2147483647
+  + uint       !         0~4294967295
+  + long                 -9223372036854775808~9223372036854775807
+  + ulong      !         0~18446744073709551615
+  + char                 U+0000~U+ffff
+  + float                -3.4e38~3.4e38
+  + double
+  + decimal
+  + string
+  + object
+
+  <h2 class="h2">声明和初始化</h2>
+  <xmp class="block">
+    int a = 0;
+    int i = new int();
+    //在一行中声明同一类型
+    int i1 = 2,i2 = 3,i3 = i1;
+  </xmp>
+
+  派生自Ststem.ValueType的类在栈上分配，有一个可以预测的生命周期，而且效率非常高。
+  而其他的实在垃圾的回收堆上分配。
+  <b>派生自ValueType</b>
+  Boolean、Byte、Char、Decimal、Double、Int、Void、DateTime、Guid、TimeSpan、Single、
+  枚举、结构。
+  <b>其他</b>
+  Type、String、Array、Exception、Delegate。
+
+  <h1 class="h1">使用字符串数据</h1>
+  <b>System.String的部分成员</b>
+  + Length                返回字符串长度。
+  + Compare()             比较两个字符串。
+  + Contains()            当前字符串是否包含指定子字符串。
+  + Equals()              两个字符串对象是否包含同样的字符数据。
+  + Format()              格式化传入的字符串。
+  + Insert()              将一个字符串插入给定字符串中。
+  + PadLeft()             这两个方法在字符串内填充字符。
+  + PadRight()
+  + Remove()              接收一个带有修改（删除或替换）的字符串副本。
+  + Replace()
+  + Split()               返回一个指定字符或字符串分割的数组。
+  + Trim()                移除字符串头部、尾部出现的所有指定字符。
+  + ToUpper()             返回一个大写或小写的副本。
+  + ToLower()
+
+  <b>@：逐字字符串</b>
+  用@符号修饰的字符串，里面的字符不需要转义，会已原字符输出。
+  唯一需要转义的是 <code>"</code>，这时用""（双引号）在@中表示一个引号。
+
+  字符串是不可变的，对字符串进行修改，只不过是返回它的副本罢了。
+
+  <b>Ststem.Text.StringBuilder类型</b>
+  我们调用这个类型的成员时，都是直接修改对象内部的字符数据（因此对可变的字符串来说，效率比String高）。
+
+  <h1 class="h1">数据类型转换</h1>
+  <b>隐式转换</b>
+  小类型的数据在计算的时候会自动转换成大类型的数据。
+
+  <b>强制转换</b>
+  在类型前加括号进行强制转换。
+
+  <b>checked关键字</b>
+  如果在计算的时候可能会发生溢出的情况，用该关键字可以检查移除情况，并引发异常。
+  <xmp class="block">
+    //方括号的方式
+    try
+    {
+      byte sum = checked((byte)Add(b1,b2));
+    }
+    ...
+
+    //花括号的方式
+    try
+    {
+      checked
+      {
+        byte sum = (byte)Add(b1,b2);
+      }
+    }
+  </xmp>
+  可以在vs中预设整个项目都checked。
+
+  <b>unchecked</b>
+  如果一段代码的溢出是可以接受的，就可以使用该关键字。
+
+  <h1 class="h1">隐式类型本地变量</h1>
+  我们在声明变量的时候用var声明，它会根据值自己确定变量的值类型，一般在数据库查询的时候才用。
+
+  var关键字的限制：
+  隐式类型只能用于方法或属性范围内的本地变量，不能用于定义返回值、参数、自定义类型的字段数据。
+  在声明隐式类型的时候必须同时赋值，且这个值不能为NULL。
+
+  var声明的类型是强类型，如果要变成弱类型的数据用dynamic关键字修饰。
+
+  <h1 class="h1">C#迭代结构</h1>
+  C#有4中迭代结构：
+  + for
+  + foreach/in
+  + while
+  + do/while
+
+  <h1 class="h1">条件结构和关系、相等操作符</h1>
+  条件结构：
+  + if/else
+  + switch
+
+</pre>
+  </body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+  </head>
+  <body>
+<pre class="w_doc">
+  <h1 class="h1">.NET异常处理的四要素</h1>
+  + 一个表示异常详细信息的类类型。
+  + 一个向调用者抛出异常类实例的成员。
+  + 调用者的一段调用异常成员的代码块。
+  + 调用者的一段处理（或捕获）将要发生异常的代码块。
+  C#编成语言提供了4个允许我们处理异常的关键字：try、catch、throw、finally。
+
+  System.Exception是所有异常的基类。
+  <b>System.Exception类型的核心成员</b>
+  + Data：返回一个键值对集合，提供有段该异常的更多程序员自定义的信息，默认为空。
+  + HelpLink：返回一个URL，指向包含详细错误信息的帮助文件或网站。
+  + InnerException：只读。用来获取导致该异常的上一个异常的信息。
+  + Message：只读。返回异常的文字描述。
+  + Source：返回引发该异常的程序集或对象的名称。
+  + StackTrace：只读。返回一个标识触发异常调用序列的字符串。
+  + TargetSite：只读。返回一个MethodBase对象，其中描述引发异常的许多信息。
+
+  <b>引发普通异常</b>
+  如果我们引发一个异常，总是由我们来决定引发的问题和何时引发问题。
+  <xmp class="block">
+    public void ShowName()
+    {
+      //...
+      if(name == "")
+      {
+        throw new Exception("name is null");
+      }
+      else
+      {
+        Console.WriteLine("name is {0}",name);
+      }
+    }
+  </xmp>
+
+  <b>捕获异常</b>
+  <xmp class="block">
+    try
+    {
+      c.ShowName();
+    }
+    catch(Exception e)
+    {
+      console.WriteLine(e.Message);
+    }
+  </xmp>
+
+  1.系统级异常：System.SystemException
+    该异常是.NET平台引发的异常，该异常被认为是无法修复的致命错误。
+  2.应用级异常：System.ApplicationException
+    该异常应该是由正在执行的应用程序代码库引发的。
+
+  <h1 class="h1">构建自定义异常</h1>
+  异常的命名一般都已Exception结尾。
+  定义：
+  <xmp class="block">
+    public class CarNameIsNullException : ApplicationException
+    {
+      public string message = "";
+      public CarNameIsNullException(){}
+      public CarNameIsNullException(string _message)
+      {
+        message = _message;
+      }
+    }
+  </xmp>
+
+  抛出异常：
+  <xmp class="block">
+    public void ShowName()
+    {
+      CarNameIsNullException ex = new CarNameIsNullException("car name is null");
+      ex.HelpLink = "...";
+      throw ex;
+    }
+  </xmp>
+
+  捕获异常：
+  <xmp class="block">
+    try
+    {
+      c.ShowName();
+    }
+    catch(Exception e)
+    {
+      Console.WriteLine(e.message);
+    }
+  </xmp>
+
+  <b>一个严谨规范的自定义异常</b>
+  + 继承自Exception/ApplicationException。
+  + 有[System.Serializable]特性标记。
+  + 定义一个默认的构造函数。
+  + 定义一个继承Message属性的构造函数。
+  + 定义一个处理“内部”异常的构造函数。
+  + 定义一个处理类型序列化的构造函数。
+
+  <b>再次引发异常</b>
+  <xmp class="block">
+    //Main()
+    try
+    {
+      //...
+    }
+    catch(Exception e)
+    {
+      //...
+      throw;
+    }
+  </xmp>
+  该异常在Main()中，这样的话，最终用户看到的是一个系统提供的错误对话框。
+  我们需要再次抛出异常来查看详细的信息。
+  我们这里的throw没有带参数，这样的话，只会重新抛出原始的异常对象，保护了原始目标的上下文。
+
+  <b>finally块</b>
+  该块在try/catch块后，不论是否引发异常，都会执行finally块，一般出来释放内存用。
+  <xmp class="block">
+    try{}
+    catch(Exception e){}
+    finally
+    {
+      //...释放内存等必须操作
+    }
+  </xmp>
+</pre>
+  </body>
+</html>

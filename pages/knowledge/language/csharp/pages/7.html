@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+  </head>
+  <body>
+<pre class="w_doc">
+  <h1 class="h1">委托</h1>
+  委托是一个类型安全的对象，它指向程序中另一个以后会被调用的方法（或多个方法）。
+  委托类型包含3个重要的信息：
+  + 它所调用的方法名
+  + 该方法的参数（可选）
+  + 该方法的返回值类型（看选）
+
+  <b>定义一个委托</b>
+  委托的定义必须匹配方法的参数和返回类型。
+  <xmp class="block">
+    //这个委托可以匹配任何传入两个int参数，并且返回值是int的方法
+    public delegate int BinaryOp(int x,int y);
+  </xmp>
+
+  <b>一个简单的委托示例</b>
+  <xmp class="block">
+    public delegate int BinaryOp(int x,int y);
+
+    public class SimpleMath
+    {
+      public static int Add(int x,int y)
+      {
+        return x + y;
+      }
+    }
+
+    //Main()
+
+    //创建委托实例
+    BinaryOp b = new BinaryOp(SimpleMath.Add);
+
+    //使用委托
+    Console.WriteLine(b(10,10));
+
+    //使用委托，在底层实际是调用了委托的Invoke方法
+    //b.Invoke(10,10)
+  </xmp>
+  对委托调用GetInvocationList()可以参看委托里的方法数组。
+
+  =操作符会重置委托数组。
+  +=会给委托添加方法。
+  -=会给委托消除方法。
+
+  <b>方法组转换语法简化</b>
+  这种方法允许我们在调用以委托作为参数的时候，直接将方法传入，而不用先实例一个委托。
+
+  目前为止，我们使用委托的步骤为：
+  1.自定义一个与要指向的方法格式相匹配的委托。
+  2.创建自定义委托实例，将方法名作为构造函数的参数。
+  3.通过调用委托来间接调用该方法。
+
+  但是C#库给我预制了两个委托，让我们可以省下第一个步骤。
+  Action委托只能指向返回void的方法。
+  Func委托能可以返回自定义的方法。Func的泛型中最后一个参数类型就是返回类型。
+
+  <h1 class="h1">事件</h1>
+  我的理解是，事件就是委托的阉割版，事件只是提供了更好的封装性。
+
+  <xmp class="block">
+    //先声明委托，也可以使用预制委托省略此步骤
+    public delegate void CarEngineHandler(string msg);
+
+    //声明事件
+    public event CarEngineHandler Exploded;
+
+    //注册事件
+    Exploded += SomeMethod;
+
+    //触发事件
+    Exploded("...");
+  </xmp>
+
+  <b>标准的事件委托</b>
+  <xmp class="block">
+    //事件触发的更多信息
+    public class CarEventArgs : EventArgs
+    {
+      public readonly string msg;
+      public CarEventArgs(string _message)
+      {
+        msg = _message;
+      }
+    }
+
+    //sender为触发事件的对象
+    public delegate void CarHandler(object sender,CarEventArgs e);
+  </xmp>
+
+  C#预制了事件类型委托：EventHandler委托。
+
+  <h1 class="h1">匿名方法</h1>
+  + 匿名方法不能访问定义方法中的ref,out参数
+  + 匿名方法中的本地变量不能与外部方法中的本地变量重命
+  + 匿名方法可以访问外部类作用域中的实例变量（或静态变量）
+  + 匿名方法内的本地变量可以与外部类的成员变量重命
+
+  <b>Lambda表达式</b>
+  语法：(参数列表) => (处理语句)
+
+  参数列表为0个：
+  () => { //... }
+
+  参数列表有1个：
+  x => { //... }
+
+  参数列表有多个：
+  (x,y) => { //... }
+
+  处理语句只有一句：（但建议只有一句也加大括号，看起来明显一点）
+  (x,y) => x + y
+
+  处理语句有多句：（需要加花括号、return）
+  (x,y) => { Console.WriteLine(x+y); return x+y; }
+
+</pre>
+  </body>
+</html>

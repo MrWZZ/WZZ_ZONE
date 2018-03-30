@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+  </head>
+  <body>
+<pre class="w_doc">
+  <h1 class="h1">接口类型</h1>
+  接口就是一组抽象成员的命名集合。
+  根据惯例，接口多以I最为前缀。
+  接口只能包含抽象成员。
+  接口的成员也不指定访问修饰符（所有接口成员都是隐式公共的和抽象的）。
+
+  + 接口不能定义字段。
+  + 接口不能有构造函数。
+  + 接口不能提供实现。
+
+  <xmp class="block">
+    public interface ICar
+    {
+      string Name {get;set;}
+      void ShowName();
+      void SetName(string _name);
+    }
+  </xmp>
+
+  <h1 class="h1">显式实现接口</h1>
+  因为一个类可以同时实现多个接口，那么如果接口中的方法同名怎么办，这时候我们需要显式实现接口。
+  <xmp class="block">
+    public interface ICar
+    {
+      void Draw();
+    }
+
+    public interface ICar1
+    {
+      void Draw();
+    }
+
+    class Minivan : ICar,ICar1
+    {
+      void ICar.Draw()
+      {
+        //...
+      }
+
+      void ICar1.Draw()
+      {
+        //...
+      }
+    }
+  </xmp>
+  如果使用这种语法，我们不能加访问修饰符，显示实现的成员是自动私有化的。
+  如果对一个对象使用该接口方法的话，我们必须使用显示转换，才能使用该方法。
+
+  <h1 class="h1">接口的层次结构</h1>
+  一个接口可以继承另一个接口，但派生接口不会继承真正的实现，而是通过额外的抽象成员扩展其自身的定义。
+  <xmp class="block">
+    public interface ICar
+    {
+      void Draw();
+    }
+
+    public interface ICar1 : ICar
+    {
+      void Draw1();
+    }
+
+    class Minivan : ICar1
+    {
+      public void Draw(){};
+      public void Draw1(){};
+    }
+  </xmp>
+  接口是可以多重继承的。
+
+  <h1 class="h1">构建可枚举类型</h1>
+  一个类如果需要被迭代的话，需要实现IEnumerable接口。
+  <xmp class="block">
+    public interface IEnumerable
+    {
+      IEnumerator GetEnumerator();
+    }
+
+    pubilc interface IEnumerator
+    {
+      bool MoverNext();           //将光标的内部位置向前移动
+      object Current { get; }     //获取当前的值（只读）
+      void Reset();               //将光标重置到第一个成员前面
+    }
+  </xmp>
+
+  <b>实现IEnumerable接口完成迭代</b>
+  <xmp class="block">
+    class Garage : IEnumerable
+    {
+      private Car[] carArray = new Car[4];
+
+      //方法1
+      public IEnumerator GetEnumerator()
+      {
+        return carArray.GetEnumerator();
+      }
+
+      //方法2
+      public IEnumerator GetEnumerator()
+      {
+        foreach (Car c in carAray)
+        {
+          yield return c;
+        }
+      }
+
+      //方法3
+      public IEnumerator GetEnumerator()
+      {
+        yield return carAray[0];
+        yield return carAray[1];
+        yield return carAray[2];
+        yield return carAray[3];
+      }
+    }
+  </xmp>
+
+  <b>实现IEnumerator接口完成迭代</b>
+  <xmp class="block">
+
+    class ForeachTest:IEnumerable
+    {
+        private string[] elements;  //装载字符串的数组
+        private int ctr = 0;  //数组的下标计数器
+
+        /// 初始化的字符串
+        ForeachTest(params string[] initialStrings)
+        {
+            //为字符串分配内存空间
+            elements = new String[8];
+            //复制传递给构造方法的字符串
+            foreach (string s in initialStrings)
+            {
+                elements[ctr++] = s;
+            }
+        }
+
+
+        ///  构造函数
+        ///  初始化的字符串
+        ///  delimiters分隔符，可以是一个或多个字符分隔
+        ForeachTest(string initialStrings, char[] delimiters)
+        {
+            elements = initialStrings.Split(delimiters);
+        }
+
+        //实现接口中得方法
+        public IEnumerator GetEnumerator()
+        {
+            return  new ForeachTestEnumerator(this);
+        }
+
+        private class ForeachTestEnumerator : IEnumerator
+        {
+            private int position = -1;
+            private ForeachTest t;
+            public ForeachTestEnumerator(ForeachTest t)
+            {
+                this.t = t;
+            }
+
+            #region 实现接口
+
+            public object Current
+            {
+                get
+                {
+                    return t.elements[position];
+                }
+            }
+
+            public bool MoveNext()
+            {
+                if (position < t.elements.Length - 1)
+                {
+                    position++;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            public void Reset()
+            {
+                position = -1;
+            }
+        }
+      }
+  </xmp>
+
+  <h1 class="h1">用yield关键字构建迭代方法</h1>
+  简单的说，迭代器就是一个方法，它指定了容器内部项被foreach处理时该如何返回。
+
+  <xmp class="block">
+    public class Garage:IEnumerator
+    {
+      private Car[] carArray = new Car[4];
+
+      public IEnumerator GetEnumerator()
+      {
+        foreach(Car c in carAray)
+        {
+          yield return c;
+        }
+      }
+    }
+  </xmp>
+
+  <h1 class="h1">构建可克隆对象</h1>
+  实现ICloneable接口
+  <xmp class="block">
+    public class Point : ICloneable
+    {
+      //...
+
+      //方法1：返回一个完全独立的副本
+      public object Clone()
+      {
+        return new Point();
+      }
+
+      //方法2：返回一个浅复制的副本
+      public object Clone()
+      {
+        return this.MemberwiseClone();
+      }
+    }
+  </xmp>
+</pre>
+  </body>
+</html>

@@ -36,13 +36,14 @@ var knowledgeList = [
    slots:[
     {title:"Unity3D",url:"#"},
     {title:"Atom",url:"software/atom/atom.html"},
+    {title:"Visual Studio",url:"software/vs/vs.html"},
     {title:"Git",url:"software/git/git.html"}
   ]},
   //语言
   {type : "语言",
    slots:[
     {title:"C++",url:"#"},
-    {title:"C#",url:"#"},
+    {title:"C#",url:"language/csharp/csharp.html"},
     {title:"UML",url:"language/uml/uml.html"},
     {title:"设计模式",url:"language/design_pattern/design_pattern.html"},
     {title:"数据结构与算法",url:"language/structures_and_algorithms/structures_and_algorithms.html"}

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+  </head>
+  <body>
+<pre class="w_doc">
+  <h1 class="h1">方法和参数修饰符</h1>
+  <b>C#参数修饰符</b>
+  + 无          如果一个参数没有用参数修饰符标记，则认为它按值传递。
+  + out         引用传入，方法结束时，该参数必须被赋值。
+  + ref         引用传入，传入时应该已赋值，方法里也可以重新赋值。
+  + params      可以将一组可变数量的参数作为数组传入，在方法里遍历取值。
+                （必须是最后一个参数，且只有一个）
+
+
+  <b>给参数赋初始值可以让该参数变成可选参数</b>
+  <xmp class="block">
+    public void Get(string s,string owner = "me"){}
+  </xmp>
+  注意：可选参数的值必须是编译时可以确定的。
+
+  <b>使用命名参数调用方法</b>
+  <xmp class="block">
+    public void Get(string s1 = "a",string s2 = "b"){}
+
+    Get(s2:"c");
+  </xmp>
+  使用这种方法可以在有可选参数的时候指定给一个赋值，其他保持默认值。
+  但这种方法对有必须值、可选值的时候，必须值要按顺序先传入，命名参数要在后面传入。
+
+  <b>重载</b>
+  传入在参数不同、返回的类型不同，就可以使用方法重载。
+  <xmp class="block">
+    public int Add(int x){}
+    public long Add(int x){}
+    public int Add(int x,int y){}
+  </xmp>
+
+  <h1 class="h1">数组</h1>
+  数组的声明：
+  <xmp class="block">
+    int[] ints = new int[2];
+    int[] ints1 = new int[] {1,2,3};
+    int[] ints2 = new int[2] {1,2};
+
+    //隐式类型数组会根据里面的类型自动确定数组类型，但里面的类型要一致
+    var ints3 = new[] {1,2,2};
+
+    //可以包含任意类型
+    object[] intsAny = new object[3];
+  </xmp>
+
+
+  <b>多维数组</b>
+  <xmp class="block">
+    //矩形数组，每一行的长度必须相同
+    int[,] m1 = new int[4,5];
+
+    //齿形数组，各行的长度可以不同
+    int[][] m2 = new int[2][];
+  </xmp>
+
+  <b>System.Array的部分成员</b>
+  + Clear()             将数组中的一系列元素设置为空值。
+  + CopyTo()            将源数组中的元素复制到目标数组中。
+  + Length              返回数组中项的个数。
+  + Rank                返回当前数组的维度。
+  + Reverse()           反转一维数组的内容。
+  + Sort()              按升序排序。
+
+  <h1 class="h1">枚举类型</h1>
+  <xmp class="block">
+    //自定义枚举
+    enum EmpType
+    {
+      Manager,        // = 0
+      Grunt,          // = 1
+      Vice            // = 2
+    }
+
+    //改变某一个值开始的值
+    enum EmpType
+    {
+      Manager,        // = 0
+      Grunt = 5,      // = 5
+      Vice            // = 6
+    }
+
+    //默认情况，用来保存枚举值的是int类型，我们可以指定为其他类型（byte、short、int、long）。
+    //但注意不要溢出。
+    enum EmpType : byte
+    {
+      Manager,        // = 0
+      Grunt = 5,      // = 5
+      Vice            // = 6
+    }
+  </xmp>
+
+  <h1 class="h1">结构</h1>
+  结构的声明和类差不多一样。
+  <xmp class="block">
+    struct R
+    {
+      private int w;
+    }
+  </xmp>
+  区别：
+  + 结构中没有析构函数。
+  + 结构在声明变量的时候不能赋初值值。（赋值是执行代码，执行代码都在方法里面。）
+  + 结构中的默认构造函数不能显示定义。
+  + 给结构定义的其他构造函数中，在结束前必须给所有字段<mark>直接</mark>赋值。
+  + 结构不能从其他类、结构中继承，但是可以实现接口，继承其他类。
+  + 结构是值类型，类是引用类型。
+
+  <h1 class="h1">引用类型和值类型</h1>
+  <xmp class="block">
+    class Person
+    {
+      publicn int age;
+      public Person(int age)
+      {
+        this.age = age;
+      }
+    }
+
+    //一个方法
+    static void SendAge(Person p)
+    {
+      p.age = 99;             //有效
+      p = new Person(33);     //无效
+    }
+  </xmp>
+  方法默认是按值传递的，上面的方法中，将一个Person传入，但真正传入的是指向调用者对象的引用。
+  也就是说，我们可以通过这个引用改变该对象在堆上的值；
+
+    但是给这个引用重新分配堆是无效的，当方法结束后，原来的P变量还是指向原来的堆，
+  而原来的堆上的值并没有改变。
+
+  <b>引用类型和值类型的比较</b>
+  <b>问题</b>                    <b>值类型</b>                     <b>引用类型</b>
+  分配的位置              栈                          堆
+  继承性                  总是密封的                  如果不是密封的
+  消亡时间                越出定义的作用域时          垃圾回收时
+
+  <h1 class="h1">可空类型</h1>
+  值类型是不能为空的，但是在使用数据库时，一项数据为空是常有的时，这时候可空类型就很有用了。
+
+  <xmp class="block">
+    //普通int类型
+    int a1 = 10;
+    //可空int类型
+    int? a2 = null;
+  </xmp>
+  注意：int和int?不是同一个类型，它们是两个不同的类型。
+
+  <b>??</b>操作符
+  这是一个双元操作符，当前面的值为空时，就使用后面的值。
+  <xmp class="block">
+    int a = mar() ?? 100;
+  </xmp>
+
+</pre>
+  </body>
+</html>
