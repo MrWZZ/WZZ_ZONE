@@ -57,7 +57,7 @@
       While(!iftAR.IsCompleted)
       {
         //...
-        Thredd.Sleep(1000);
+        Thread.Sleep(1000);
       }
       //现在，Add()完成了
       int answer = b.EndInvoke(IftAR);
@@ -475,7 +475,7 @@
       //有返回值，使用泛型Task
       private async Task<string> DoworkAsync()
       {
-        return await Aask.Run(()=>
+        return await Task.Run(()=>
         {
           Thread.Sleep(10000);
           return "Done with work!";
