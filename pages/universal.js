@@ -2,12 +2,12 @@ var navContent;           //左侧导航
 var pageContent;          //子页面
 //首页导航数组(知识总结模块有这个的副本，需要一起修改)
 var homeLinks = [
-  { title:"主页", url:"/WZZ_ZONE/index.html" },
-  { title:"知识总结", url:"/WZZ_ZONE/pages/knowledge/knowledge.html" },
+  { title:"主页", url:"/index.html" },
+  { title:"知识总结", url:"/pages/knowledge/knowledge.html" },
   { title:"方法库", url:"#" },
-  { title:"收藏", url:"/WZZ_ZONE/pages/collection/collection.html" },
+  { title:"收藏", url:"/pages/collection/collection.html" },
   { title:"作品", url:"#" },
-  { title:"踩过的坑", url:"/WZZ_ZONE/pages/mistake/mistake.html" }
+  { title:"踩过的坑", url:"/pages/mistake/mistake.html" }
 ];
 
 //首页导航生成(知识总结模块有这个的副本，需要一起修改)
