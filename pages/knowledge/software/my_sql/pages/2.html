@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+  </head>
+  <body>
+<pre class="w_doc">
+  <h1 class="h1">数据库操作</h1>
+  <b>创建数据库</b>
+  <xmp class="block">
+    create database 数据库名;
+  </xmp>
+
+  <b>查看数据库</b>
+  <xmp class="block">
+    show databases;
+  </xmp>
+
+  <b>选择数据库</b>
+  <xmp class="block">
+    use 数据库名;
+  </xmp>
+
+  <b>删除数据库</b>
+  <xmp class="block">
+    drop database 数据库名;
+  </xmp>
+
+  <h1 class="h1">数据表操作</h1>
+  <b>创建数据表</b>
+  <xmp class="block">
+    create [temporary] table [if not exists] 数据库名 [(create_definition,...)][table_options][select_statement]
+  </xmp>
+
+  + temporary：如果使用该关键字，表示创建一个临时表。
+  + if not exists：用于避免表存在时报告错误。
+  + create_definition：这是表的列属性部分。MySQL要求创建表时，至少包含一列。
+  + table_options：表的一些特性参数。
+  + select_statement：select语句的描述部分，用它可以快速地创建表。
+
+  create_definition部分的具体格式如下：
+  <xmp class="block">
+    col_name type[not null|null] [default default_value] [auto_increment] [primary key] [reference_definition]
+  </xmp>
+
+  + col_name：字段名。
+  + type：字段类型。
+  + not null|null：指出该列是否允许是空值，系统默认允许空值。
+  + default default_value：表示默认值。
+  + auto_increment：是否自动编号。
+  + primary key：标记为主键。
+  + reference_definition：为字段添加注释。
+
+  <b>查看表结构</b>
+  <xmp class="block">
+    show [full]columns from 数据表名 [from 数据库名];
+    //或
+    show [full]columns from 数据表名.数据库名;
+  </xmp>
+  <xmp class="block">
+    describe 数据表名;
+
+    //只列出某一列的信息
+    describe 数据表名 列名;
+  </xmp>
+
+  其中describe可以简写为desc。
+
+  <b>修改表结构</b>
+  修改表结构指增加或删除字段、修改字段名或字段类型、设置取消主键外键、设置取消索引以及修改表的注释等。
+  <xmp class="block">
+    alter[ignore] table 数据表名 alter_spec[,alter_spec]...
+  </xmp>
+
+  指定ignore时，如果出现重复关键的行，则只执行一行，其他重复的行被删除。
+  其中，alter_spec子句定义要修改内容，语法如下：
+  <xmp class="block">
+    alter_specification:
+        add [column] create_definition [first|after column_name]          //添加新字段
+      | add index [index_name] (index_col_name,...)                       //添加索引名称
+      | add primary key (index_col_name,...)                              //添加主键名称
+      | add unique [index_name] (index_col_name,...)                      //添加唯一索引
+      | alter [column] col_name {set dafault literal | drop default}      //修改字段名称
+      | change [column] old_col_name create_definition                    //修改字段类型
+      | modify [column] create_definition                                 //修改子句定义字段
+      | drop [column] col_name                                            //删除字段名称
+      | drop primary key                                                  //删除主键名称
+      | drop index index_name                                             //删除索引名称
+      | rename [as] new_tbl_name                                          //更改表名
+      | table_options
+  </xmp>
+
+  alter table语句允许指定多个动作，其动作间使用逗号分隔，每个动作表示对表的一个修改。
+
+  <mark>通过alter修改表列，前提是必须将表中的数据全部删除，然后才可以修改表列。</mark>
+
+  <b>重命名表</b>
+  <xmp class="block">
+    rename table 数据表名1 to 数据表名2;
+  </xmp>
+  可以同时对多个表进行重命名，多个表之间使用逗号分隔。
+
+  <b>删除表</b>
+  <xmp class="block">
+    drop table [if exists] 数据表名;
+  </xmp>
+
+  <h1 class="h1">语句操作</h1>
+  <b>插入记录</b>
+  <xmp class="block">
+    insert into 数据表名(column_name,column_name2,...) values(value1,value2);
+  </xmp>
+  可以同时插入多行记录。
+
+  <b>查询数据库记录</b>
+  <xmp class="block">
+    select selection_list                       //要查询的内容，选择哪些列
+    form 数据表名                                //指定数据表
+    where primary_constraint                    //查询时需要满足的条件
+    group by grouping_columns                   //如何对结果进行分组
+    order by sorting_cloumns                    //如何对结果进行排序
+    having secondary_constrint                  //查询时满足的第二个条件
+    limit count                                 //限定输出的查询结果
+  </xmp>
+
+  1.selection_list
+  设置查询内容。
+  如果要查询表中所有列，可以将其设置为"*"；如果要查询表中某一列或多列，则直接输入列名，并以","分隔。
+  <xmp class="block">
+    select * form tb_mrbook;
+    select user,pass form tb_mrbook;
+  </xmp>
+
+  2.table_list
+  指定要查询的数据表。
+  既可以从一个数据表中查询，也可以从多个数据表中进行查询，多个表之间用逗号分隔，并通过where子句来确定表之间的联系。
+  <xmp class="block">
+    select tb_mrbook.id,tb_mrbook.bookname,author,price form tb_mrbook,tb_bookinfo
+    where tb_mrbook.bookname = tb_bookinfo.bookname and tb_bookinfo.bookname = 'MySQL';
+  </xmp>
+
+  3.where
+  查询的条件。
+  常用的where子句比较运算符:<code>=、>、<、=>、<=、!=、is null</code>
+  <xmp class="block">
+    select * from tb_mrbook where type = 'php';
+  </xmp>
+
+  4.group by
+  通过该子句可以将数据划分到不同的组中，实现对记录进行分组查询。
+  <xmp class="block">
+    select bookname,avg(price),type form tb_mrbook group by type;
+  </xmp>
+
+  5.distinct
+  可以去除结果中重复的行。
+  <xmp class="block">
+    select distinct type from tb_mrbook;
+  </xmp>
+
+  6.order body
+  对结果进行升序或降序（desc）排序，默认是升序。
+  如果含有null时，如果是升序排序，null值将出现在最前面。
+  <xmp class="block">
+    selet * from tb_mrbook order by id desc limit 3;
+  </xmp>
+
+  7.like
+  通过该子句可以实现模糊查询。
+  他有两种通配符：<code>%、_</code>
+  %：可以匹配一个或多个字符。
+  _：只可以匹配一个字符。
+  <xmp class="block">
+    //查找所有第二个字母是“h”的图书
+    select * from tb_mrbook where bookname like('_h%');
+  </xmp>
+
+  8.concat
+  可以联合多个字段，构成一个总的字符串。
+  <xmp class="block">
+    //把bookname和price并合到一起，构成一个新的字符串
+    //as关键字给合并字段取一个别名
+    select id,concat(bookname,":",price) as info,f_time,type from tb_mrbook;
+  </xmp>
+
+  9.limit
+  控制结构输出的行数。
+  <xmp class="block">
+    select * from tb_mrbook limit 3;
+  </xmp>
+
+  10.使用函数和表达式
+  可以使用函数来计算各列的值，作为输出结果。
+  常用的函数如下：
+  + avg(字段名)：平均值。
+  + count(字段名)：如指定一个字段，则统计该字段中的非空记录。如在前面加distinct，则统计不同值的记录。如使用count(*)
+                  则统计包含空值的所有记录。
+  + min(字段名)：最小值。
+  + max(字段名)：最大值。
+  + std(字段名)：指定字段的标准背离值。
+  + stdtev(字段名)：同std。
+  + sum(字段名)：指定字段所有记录的总和。
+  <xmp class="block">
+    //使用函数
+    select sum(price) as total,type from tb_mrbook group by type;
+
+    //使用表达式
+    select *,(price * 0.5) as '80%' from tb_mrbook;
+  </xmp>
+
+  <b>修改记录</b>
+  要执行修改的操作可以使用update语句。
+  <xmp class="block">
+    updata 数据表名 set column_name = new_value1,column_name2 = new_value2,... where ...
+  </xmp>
+
+  其中，set子句指出要修改的列和他们给定的值，where子句是可选的，如果给出它将指定记录中哪行应该被更新，否则，更新所有。
+
+  <b>删除记录</b>
+  <xmp class="block">
+    delete from 数据表名 where condition;
+  </xmp>
+  如果没有指定where，则删除所有数据。
+</pre>
+  </body>
+</html>

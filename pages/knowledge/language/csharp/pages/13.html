@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+  </head>
+  <body>
+<pre class="w_doc">
+  <h1 class="h1">Application类的作用</h1>
+  System.Windows.Application类代表了一个运行中的WPF应用程序的全部实例。
+  <b>Application类的关键属性</b>
+  + Current               这个属性能让你在代码中的任何地方访问正在运行的Application对象
+  + MainWindow            获取或设置应用程序的主窗口
+  + Properties            建立和获取整个WPF应用程序中可以访问的数据（如窗口、对话框等）
+  + StartupUrl            这个属性可以获取或设置一个URI，指定应用程序启动时自动打开的窗口或页面
+  + Windows               访问由当前Application对象的线程所创建的每一个窗口
+
+  <b>构造Application类</b>
+  任何WPF应用程序都需要定义扩展自Application的类。
+  在该类中，你将定义程序的入口点（Main()），创建该子类的实例并处理Startup和Exit事件。
+  <xmp class="block">
+    //为WPF程序定义全局应用程序对象
+    class MyApp : Application
+    {
+      [STAThread]
+      static void Main(string[] args)
+      {
+        //创建应用程序对象
+        MyApp app = new MyApp();
+
+        //注册Startup/Exit事件
+        app.Startup += (s,e) => { //... }
+        app.Exit += (s,e) => { //... }
+      }
+    }
+  </xmp>
+
+  <h1 class="h1">Window类的作用</h1>
+  System.Windows.Window类表示继承自Application的类所拥有的一个窗口，包括由主窗口显示所有的对话框。
+
+  <b>创建一个强类型的Window类</b>
+  <xmp class="block">
+    using System.Windows;
+
+    class MainWindow : Window
+    {
+      public MainWindow(string windowTitle,int height,int width)
+      {
+        this.Title = windowTitle;
+        this.WindowStartupLocation = WindowStartupLoacation.CenterScreen;
+        this.Height = height;
+        this.Width = width;
+      }
+    }
+
+    //在app.Startup方法里开启窗口
+    static void AppStartUp(object sender,StartupEventArgs e)
+    {
+      MainWindow wnd = new MainWindow("MainWindow",200,200);
+      wnd.Show();
+    }
+  </xmp>
+
+  <b>创建简单的用户界面</b>
+  1.定义一个成员变量来代表所需的控件；
+  2.在创建Window时配置这个空间的外观和行为；
+  3.将控件分配给继承的Content属性，或作为AddChild()方法的参数。
+
+  <xmp class="block">
+    class MainWindow : Window
+    {
+      //我们的UI元素
+      private Button btnExitApp = new Button();
+
+      public MainWindow(string windowTitle,int height,int width)
+      {
+        //配置按钮并设置子控件
+        btnExitApp.Click += new RoutedEventHandler(btnExitApp_Clicked);
+        btnExitApp.Content = "Exit";
+        btnExitApp.Height = 25;
+        btnExitApp.Width = 100;
+
+        //将窗口的内容设置为一个按钮
+        this.Content = btnExitApp;
+
+        //配置窗体
+        this.Title = windowTitle;
+        this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        this.Height = height;
+        this.Width = width;
+        this.Show();
+      }
+
+      private void btnExitApp_Clicked(object sender,RoutedEventArgs e)
+      {
+        this.Close();
+      }
+    }
+  </xmp>
+
+  <b>与应用程序级别的数据交互</b>
+  Application类定义了一个Properties的属性。我们可以通过这个，在WPF应用程序中跨越所有窗口来共享数据。
+  这个属性保存的是object类型。
+
+  <xmp class="block">
+    private static AppStartUp(object sender,StartupEventArgs e)
+    {
+      //检查传入的命令行参数来看是否他们指定了/GODMODE标识
+      Application.Current.Properties["GodMode"] = false;
+
+      foreach(string arg in e.Args)
+      {
+        if(arg.ToLower()=="/godmode")
+        {
+          Application.Current.Properties["GodMode"] = true;
+          break;
+        }
+      }
+    }
+  </xmp>
+
+  <b>处理Window对象的关闭</b>
+  Closing事件可以检测用户是否真的要关闭窗口并且从内存中移除，它和CancelEventHandler委托一起使用。
+  这个委托期望目标方法接受System.ComponentModel.CancelEventArgs作为第二个参数。
+  CancelEventArgs提供了Cancel属性，将他设置为true可以放置窗口真正的关闭。
+  <xmp class="block">
+    public MainWindow(string ...)
+    {
+      ...
+      this.Closing += MainWindow_Closing;
+      this.Closed += MainWindow_Closed;
+    }
+
+    private void MainWindow_Closing(object sender,System.ComponentModel.CancelEventArgs e)
+    {
+      //用户是否真正希望关闭这个窗口
+      string msg = "Do you want to close tithout saving?";
+      MessageBoxResult result = Messagebox.Show(mas,"MyApp",MessageBoxButton.YesNo,MessageBoxImage.Warning);
+
+      if(result == MessageBoxResult.No)
+      {
+        e.Cancel = true;
+      }
+    }
+
+    private void MainWindwo_Closed(...)
+    {
+      //...
+    }
+  </xmp>
+
+  <b>拦截鼠标事件</b>
+  WPF API提供了我们可以捕获的事件来和或鼠标交互。
+  具体而言、UIELement基类定义了许多鼠标相关的事件，如MouseMove、MouseUp、MouseDown等。
+  这些事件和System.Windows.Input.MouseEventHandler委托一起使用，
+  他希望其目标接受System.Windows.Input.MouseEventArgs类型作为第二个参数。
+  <xmp class="block">
+    public class MouseEventArgs : InputEventArgs
+    {
+      ...
+      public Point GetPosition(IInputElement relativeTo);
+      public MouseButtonState LeftButton {get;}
+      public MouseButtonState MiddleButton {get;}
+      ...
+    }
+  </xmp>
+
+  GetPosition()方法允许我们获取窗口上相对UI元素的（x,y）值。
+  如果你对捕获相对激活窗口的位置有兴趣的话，只需要传入this。
+  <xmp class="block">
+    public MainWindow(string Wid....)
+    {
+      this.MouseMove += MainWindow_MouseMove;
+    }
+
+    private void MainWindow_MouseMove(object sender,System.Windows.Input.MouseEventArgs e)
+    {
+      //获取鼠标位置
+      this.Title = e.GetPosition(this).ToString();
+    }
+  </xmp>
+
+  <b>拦截键盘事件</b>
+  和上面类似的。
+  <xmp class="block">
+    ...
+    public bool IsDown {get;}
+    public bool IsRepeat {get;}
+    public bool IsToggled {get;}
+  </xmp>
+
+  使用
+  <xmp class="block">
+    Private void MainWindow_KeyDown(object sender,System.Window.Input.KeyEventArgs e)
+    {
+      btnExitApp.Content = e.Key.ToString();
+    }
+  </xmp>
+
+  <hr>
+  <strong>摘抄自《C#6.0学习笔记 从第一行C#代码带第一个项目设计（周家安）》</strong>
+  <h1 class="h1">Windows窗体应用程序的基本结构</h1>
+  <xmp class="block">
+    static void Main()
+    {
+      //这两行是预制代码，方式出现异常情况
+      Application.EnableVisualStyles();
+      Application.SetCompatibleTextRenderingDefault(false);
+
+      //实例一个新的窗口并进入循环
+      Application.Run(new Form1());
+    }
+  </xmp>
+
+  <b>手动创建一个Windows应用程序</b>
+  1.创建一个空的项目。
+  2.引用System.Window.Forms和System.Drawing。
+  3.创建新类
+  <xmp class="block">
+    class App
+    {
+        [STAThread]
+        static void Main(string[] cmdArgs)
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(true);
+
+            //设置窗体属性
+            Form mainWindow = new Form
+            {
+                Text = "MyForm",
+                Size = new Size(500, 1000),
+                Location = new Point(120, 120)
+            };
+
+            //开始运行
+            Application.Run(mainWindow);
+        }
+    }
+  </xmp>
+
+  其中Run的方法有3中重载形式，其中使用ApplicationContext类的重载最为灵活。
+  <xmp class="block">
+    public class MyAppContext : ApplicationContext
+    {
+        static int WindowCount;
+        private Form window1, window2, window3;
+        public MyAppContext()
+        {
+            WindowCount = 0;
+
+            //实例化3个窗口
+            window1 = new Form
+            {
+                Text = "窗口1",
+                Size = new Size(500, 500),
+                Location = new Point(400, 500),
+                Name = "form1"
+            };
+            window1.FormClosed += onWindowClosed;
+            WindowCount++;
+
+            window2 = new Form
+            {
+                Text = "窗口2",
+                Size = new Size(500, 500),
+                Location = new Point(500, 500),
+                Name = "form2"
+            };
+            window2.FormClosed += onWindowClosed;
+            WindowCount++;
+
+            window3 = new Form
+            {
+                Text = "窗口3",
+                Size = new Size(500, 500),
+                Location = new Point(600, 500),
+                Name = "form3"
+            };
+            window3.FormClosed += onWindowClosed;
+            WindowCount++;
+
+            //显示3个窗口
+            window1.Show();
+            window2.Show();
+            window3.Show();
+        }
+
+        private void onWindowClosed(object sender, FormClosedEventArgs e)
+        {
+            WindowCount--;
+            Console.WriteLine(WindowCount);
+            if (WindowCount == 0)
+            {
+                ExitThread();
+            }
+        }
+    }
+
+    //Main
+    Application.Run(new MyAppCoutext());
+  </xmp>
+
+  <h1 class="h1">窗口设计器</h1>
+  
+</pre>
+  </body>
+</html>

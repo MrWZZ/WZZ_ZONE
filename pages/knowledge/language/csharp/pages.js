@@ -10,5 +10,7 @@ var pages = [
   { title:"高级语言特性", url:"pages/8.html" },
   { title:"反射", url:"pages/9.html" },
   { title:"多线程、并行和异步", url:"pages/10.html" },
-  { title:"文件输入输出和对象序列化", url:"pages/10.html" },
+  { title:"文件输入输出和对象序列化", url:"pages/11.html" },
+  { title:"ADO.NET", url:"pages/12.html" },
+  { title:"WPF", url:"pages/13.html" },
 ];

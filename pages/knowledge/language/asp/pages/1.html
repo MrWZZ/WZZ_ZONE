@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+  </head>
+  <body>
+<pre class="w_doc">
+  <h1 class="h1">最简单的Web服务器</h1>
+  <h2 class="h2">网络插座Socket</h2>
+  + IPAddress                  表示一个IP地址
+  + IPEndPoint                 表示一个端点
+  + System.Net.Sockets         提供了基于Socket编程的数据类型
+  + Sockets                    封装了Socket的操作
+  + Listen                     设置基于链接通信的Socket进入监听状态，并设置等待队列的长度
+  + Appect                     等待一个新的链接，当新连接到达的时候，返回一个针对新连接的Socket对象
+  + Receive                    通过Socket接受字节数据
+  + Send                       通过Socket发送字节数据
+
+  <xmp class="block">
+    //取得本机的loopback网络地址，即127.0.0.1
+    IPAddress address = IPAddress.Loopback;
+    //创建可以访问的端点，49152为端口，如果设置为0，则表示使用一个空闲的端口号
+    IPEndPoint endPoint = new IPEndPoint(address,49152);
+    //创建socket，使用IPv4地址，传输控制协议TCP，双向、可靠、基于连接的字节流
+    Socket socket = new Socket(AddressFamily.InterNetwork,SocketType.Stream,ProtocolType.Tcp);
+    //将socket绑定到一个端点上
+    socket.Bind(endPoint);
+    //设置链接队列的长度
+    socket.Listem(10);
+
+    while(true)
+    {
+      //开始监听，这个方法会阻塞线程的执行，知道接受到一个客户端的链接请求
+      Socket client = socket.Accept();
+      //准备读取客户端请求的数据，读取的数据将保存在一个数组中
+      byte[] buffer = new byte[4096];
+      //接受数据
+      int length = client.Receive(buffer,4096,SocketFlags.None);
+      //将请求的数据翻译为UTF-8
+      System.Text.Encoding utf8 = System.Text.Encoding.UTF8;
+      string requestString = utf8.GetString(buffer,0,length);
+      //回应的状态行
+      string statusLine = "HTTP/1.1 200 OK\r\n";
+      byte[] statusLineBytes = utf8.GetBytes(statusLine);
+      //准备发送到客户端的网页
+      string responseBody = "<html>...</html>";
+      byte[] responseBodyBytes = utf8.GetBytes(responseBody);
+      //回应的头部
+      string responseHeader =
+        string.Format(
+          "Content-Type:text/html;
+          charset=UTF-8\r\nContent-Length:{0}\r\n",
+          responseBody.Length
+        );
+      byte[] responseHeaderBytes = utf8.GetBytes(responseHeader);
+
+      //向客户端发送状态信息
+      client.Send(statusLineBytes);
+      //向客户端发送回应头
+      client.Send(responseHeaderBytes);
+      //头部与内容的分隔行
+      client.Send(new byte[]{13,10});
+      //向客户端发送内容部分
+      client.Send(responseBodyBytes);
+
+      //断开与客户端的连接
+      client.Close();
+      if(Console.KeyAvailable) { break; }
+    }
+    //关闭服务器
+    socket.Close();
+  </xmp>
+
+  <h2 class="h2">基于TcpListener的Web服务器</h2>
+  <xmp class="block">
+    //取得本机的loopback网络地址，即127.0.0.1
+    IPAddress address = IPAddress.Loopback;
+    //创建可以访问的端点，49152为端口，如果设置为0，则表示使用一个空闲的端口号
+    IPEndPoint endPoint = new IPEndPoint(address,49152);
+    //创建TCP监听器
+    TcpListener newserver = new TcpListener(endPoint);
+    //启动监听器
+    newserver.Start();
+    while(true)
+    {
+      //等待客户端连接
+      TcpClient = newclient = newserver.AcceptTcpClient();
+      //得到一个网络流
+      NetworkStream ns = newclient.GetStream();
+      //处理工程中使用UTF-8编码
+      System.Text.Encoding utf8 = System.Text.Encoding.UTF8;
+      byte[] request = new byte[4096];
+      int length = ns.Read(request,0,4096);
+      string requestString = utf8.GetString(request,0,length);
+
+      //状态行
+      string statusLine = "HTTP/1.1 200 OK\r\n";
+      byte[] statusLineBytes = utf8.GetBytes(statusLine);
+      //准备发送到客户端的网页
+      string responseBody = "<html>...</html>";
+      byte[] responseBodyBytes = utf8.GetBytes(responseBody);
+      //回应的头部
+      string responseHeader =
+        string.Format(
+          "Content-Type:text/html;
+          charset=UTF-8\r\nContent-Length:{0}\r\n",
+          responseBody.Length
+        );
+      byte[] responseHeaderBytes = utf8.GetBytes(responseHeader);
+
+      //输出回应的状态行
+      ns.Write(statusLineBytes,0,statusLineBytes.Length);
+      //输出回应的头部
+      ns.Write(responseHeaderBytes,0,responseHeaderBytes.Length);
+      //输出回应头部与内容之间的空行
+      ns.Write(new byte[]{13,10},0,2);
+      //输出内容部分
+      ns.Write(responseBodyBytes,0,responseBodyBytes.Lenght);
+
+      //关闭与客户端的连接
+      newclient.Close();
+      if(Console.KeyAvailable){break;}
+    }
+    //关闭服务器
+    newserver.Stop();
+  </xmp>
+
+  <h2 class="h2">基于HttpListener的Web服务器</h2>
+  <xmp class="block">
+    //检查系统是否支持
+    if(!HttpListener.IsSupported)
+    {
+      throw new System.InvalidOperationException("...");
+    }
+    //注意前缀必须以 / 正斜杠结尾
+    string[] prefixes = new string[] {"http://locahost:49152/"};
+    //创建监听器
+    HttpListener listener = new HttpListener();
+    //增加监听的前缀
+    foreach(string s in prefixes)
+    {
+      Listen.Prefixes.Add(s);
+    }
+    //开始监听
+    listener.Start();
+    while(true)
+    {
+      //阻塞线程，知道请求到达
+      HttpListenerContext context = listener.GetContet();
+      //取得请对象
+      HttpListenerRequest request = context.Request;
+      //取得回应对象
+      HttpListenerResponse response = context.Response;
+      //构造回应内容
+      string responseString = @"<html>...</html>";
+      //设置回应头部内容，长度，编码
+      response.COntentLength64 = Sytem.Text.Encoding.UTF8.GetByteCount(responseString);
+      response.ContentType = "text/html;charset=UTF-8";
+      //输出回应内容
+      System.IO.Stream output = response.OutputStream;
+      System.IO,StreamWriter writer = new System.IO.StreamWriter(output);
+      writer.Writer(responseString);
+      //必须关闭输出流
+      writer.Close();
+
+      if(Console.KeyAvailable){break;}
+    }
+    //关闭服务器
+    listener.Stop();
+  </xmp>
+
+  <h1 class="h1">进入ASP.NET</h1>
+  在.NET中，程序集管理的最小逻辑单位为应用程序域，对于.NET程序来说，可以动态加载程序集到应用程序域中。
+  但是，加载之后不能单独卸载，只能以应用程序域为单位来整体卸载，应用程序域提供了四个重要的机制：
+  + 隔离，不同应用程序域之间不能直接访问。跨应用程序域访问的对象必须派生自System.MarshalByRefObject。
+  + 卸载，被加载的程序集只能以应用程序域为单位卸载。
+  + 安全，以应用程序域为边界的安全机制。
+  + 配置，以应用程序域为边界的程序配置。
+
+  <h2 class="h2">Web应用程序域</h2>
+  ApplicationHost类的静态方法CreateApplicationHost可以帮助我们非常简单地创建Web应用程序所需要的应用程序域。
+  <xmp class="block">
+    public static object CreateApplicationHost(
+      Type hostType,
+      string virtualDir,
+      string physicalDir
+    )
+  </xmp>
+
+  + hostType：表示用来跨域访问的通信对象，必须派生自MarshalByRefObject基类。
+  + virtualDIr：表示王振应用程序的根所对应的虚拟目录。
+  + physicalDir：表示网站应用程序所在的文件系统的文件夹目录。
+
+  特别注意：
+  这个方法需要创建一个新的应用程序域，这个应用程序域将重新加载hostType方法将按照以下的顺序来寻找定义hostType类型的程序集。
+  1）GAC
+  2）网站物理文件目录下的文件夹
+  所以，如果没有将定义hostType的程序集经过数字签名，并加载到GAC中，那么，必须在网站应用程序所在的文件夹下创建bin文件夹，
+  然后将定义的hostType的程序集复制到bin文件夹中。
+
+  借用ApplicationHost类创建新的应用程序域的过程。
+  <xmp class="block">
+    System.Type hostType = typeof(Intelligencer);
+
+    Intelligencer intelligencer =
+      System.Web.Hosting.ApplicaionHost.CreateApplicationHost(
+      hostType,
+      "/",
+      System.Environment.CurrentDirectroy
+      )
+      as Intelligencer;
+  </xmp>
+
+  其中，Intelligencer类的定义如下：
+  <xmp class="block">
+    public class Intelligencer:System.MarshalByRefObject{
+      public string Report()
+      {
+        System.AppDomain appdomain = System.AppDomain.CurentDomain;
+        StringBuilder builder = new StringBuilder();
+        //应用程序域的信息
+        builder.AppendFormat("Domain ID:{0}\r\n",appdomain.Id);
+
+        //对于每一个Web应用程序域，有一个HostingEnvironment
+        builder.AppendFormat("VirtualPath:{0}\r\n",HostingEnvironment.ApplicaionVirtualPath);
+        builder.AppendFormat("PhysicalPath:{0}\r\n",HostingEnvironment.ApplicaionPhysicalPath);
+
+        return builder.ToString();
+      }
+    }
+  </xmp>
+
+  <h2 class="h2">不使用GAC和bin加载Web应用程序域</h2>
+  <xmp class="block">
+    static object CreateWorkerAppDomainWithHost(string virtualPath,string physicalPath,Type hostType)
+    {
+      //通过反射使用私有的BuildManagerHost类型
+      //这种方法创建Web应用程序域不需要程序集注册到GAC或者放置到bin文件夹
+
+      //唯一的应用程序名
+      string uniqueAppString = string.Concat(virtualPath,physicalPath).ToLowerInvariant();
+
+      //获取位移的ID
+      string appId = (uniqueAppString.GetHashCode()).ToString("x",CultureInfo.InvariantCulture);
+
+      //System.Web.Compilation.BuildmanagerHost是一个内部类
+      var buildManagerHostType = typeof(HttpRuntion).Assembly.GetType("System.Web.Compilation.BuildManagerHost");
+
+      //为应用程序域创建对象
+      var buildManagerHost =
+      appManager.CreateObject(
+        appId,
+        buildManagerHostType,
+        virtualPath,
+        physicalPath,
+        false
+      );
+
+      //调用BuildManagerHost.RegisterAssembly方法将类型注册到应用程序域
+      buildManagerHostType.InvokeMember(
+        "RegisterAssembly",
+        BindingFlags.Instance | BindingFlags.InvokeMethod | BindingFlags.NonPublic,
+        bull,
+        buildManagerHost,
+        new object[2]{
+          hostType.Assembly.FullName,
+          hostType.Assemly.Location}
+      );
+
+      //现在可以使用类i系那个创建对象实例
+      return appManager.CreateObject(
+        appId,
+        hostType,
+        virtualPath,
+        physicalPath,
+        false
+      );
+    }
+  </xmp>
+  
+</pre>
+  </body>
+</html>
