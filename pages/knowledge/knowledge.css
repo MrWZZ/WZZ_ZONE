@@ -16,7 +16,9 @@ body {
   line-height: 2em;
   margin: 10px 0;
   border-radius: 5px;
-  background-color: #d9d9d9; }
+  background-color: #d9d9d9;
+  box-shadow: 2px 2px 2px #9E9E9E;
+  text-shadow: 2px 2px 2px #9E9E9E; }
   .home_nav a {
     color: blue;
     padding: 0 15px;
@@ -28,33 +30,39 @@ body {
   display: flex;
   justify-content: center; }
   .content .center {
+    box-shadow: 2px 2px 2px #9E9E9E;
     width: 1000px;
     padding: 10px;
     border-radius: 10px;
-    background-color: white; }
+    background-color: #FAFAFA; }
 
-.center .knowledge_type h1, .center .knowledge_type h2, .center .knowledge_type h3, .center .knowledge_type h4, .center .knowledge_type h5, .center .knowledge_type h6 {
-  font-weight: normal;
-  text-align: center;
-  border-radius: 5px;
-  background-color: #e0e0e0; }
-.center .knowledge_type .knowledge_content {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-wrap: wrap; }
-  .center .knowledge_type .knowledge_content a {
-    display: inline-block;
-    margin: 5px 7px;
-    border-radius: 5px;
-    width: 23%;
-    height: 4em;
-    line-height: 4em;
+.center {
+  box-shadow: 2px 2px 2px #9E9E9E; }
+  .center .knowledge_type h1, .center .knowledge_type h2, .center .knowledge_type h3, .center .knowledge_type h4, .center .knowledge_type h5, .center .knowledge_type h6 {
+    font-weight: normal;
     text-align: center;
-    background-color: #fff8bb;
-    text-decoration: none;
-    color: black; }
-    .center .knowledge_type .knowledge_content a:hover {
-      background-color: #e8e2a7; }
+    border-radius: 5px;
+    background-color: #e0e0e0;
+    box-shadow: 2px 2px 2px #9E9E9E;
+    text-shadow: 2px 2px 2px #9E9E9E; }
+  .center .knowledge_type .knowledge_content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap; }
+    .center .knowledge_type .knowledge_content a {
+      box-shadow: 2px 2px 2px #9E9E9E;
+      display: inline-block;
+      margin: 5px 7px;
+      border-radius: 5px;
+      width: 23%;
+      height: 4em;
+      line-height: 4em;
+      text-align: center;
+      background-color: #fff8bb;
+      text-decoration: none;
+      color: black; }
+      .center .knowledge_type .knowledge_content a:hover {
+        background-color: #e8e2a7; }
 
 /*# sourceMappingURL=knowledge.css.map */

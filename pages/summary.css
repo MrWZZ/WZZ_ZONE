@@ -16,7 +16,9 @@ body {
   line-height: 2em;
   margin: 10px 0;
   border-radius: 5px;
-  background-color: #d9d9d9; }
+  background-color: #d9d9d9;
+  box-shadow: 2px 2px 2px #9E9E9E;
+  text-shadow: 2px 2px 2px #9E9E9E; }
   .home_nav a {
     color: blue;
     padding: 0 15px;
@@ -28,10 +30,11 @@ body {
   display: flex;
   justify-content: center; }
   .content .center {
+    box-shadow: 2px 2px 2px #9E9E9E;
     width: 1000px;
     padding: 10px;
     border-radius: 10px;
-    background-color: white; }
+    background-color: #FAFAFA; }
 
 .content .left nav {
   padding: 10px 50px 0 0; }

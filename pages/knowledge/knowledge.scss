@@ -1,6 +1,8 @@
 @import "../base";
 
 .center{
+  box-shadow: 2px 2px 2px #9E9E9E;
+
   .knowledge_type{
 
     h1,h2,h3,h4,h5,h6{
@@ -8,15 +10,18 @@
       text-align: center;
       border-radius: 5px;
       background-color: #e0e0e0;
+      box-shadow: 2px 2px 2px #9E9E9E;
+      text-shadow: 2px 2px 2px #9E9E9E;
     }
 
     .knowledge_content{
+
       display: flex;
       justify-content: flex-start;
       align-items: center;
       flex-wrap: wrap;
-
       a{
+        box-shadow: 2px 2px 2px #9E9E9E;
         $height:4em;
 
         display: inline-block;
