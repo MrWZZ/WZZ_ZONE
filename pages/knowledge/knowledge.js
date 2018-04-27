@@ -31,24 +31,14 @@ var knowledgeList = [
     {title:"JavaScript",url:"web_developer/javascript_summary/javascript_summary.html"},
     {title:"JQuery",url:"web_developer/jquery_summary/jquery_summary.html"}
   ]},
-  //软件
-  {type : "软件",
+  //其他
+  {type : "其他",
    slots:[
-    {title:"Unity3D",url:"#"},
-    {title:"Atom",url:"software/atom/atom.html"},
-    {title:"Visual Studio",url:"software/vs/vs.html"},
-    {title:"MySQL",url:"software/my_sql/my_sql.html"},
-    {title:"Git",url:"software/git/git.html"}
-  ]},
-  //语言
-  {type : "语言",
-   slots:[
-    {title:"C++",url:"#"},
-    {title:"C#",url:"language/csharp/csharp.html"},
-    {title:"ASP",url:"language/asp/asp.html"},
-    {title:"UML",url:"language/uml/uml.html"},
-    {title:"设计模式",url:"language/design_pattern/design_pattern.html"},
-    {title:"数据结构与算法",url:"language/structures_and_algorithms/structures_and_algorithms.html"}
+    {title:"C#",url:"other/csharp/csharp.html"},
+    {title:"UML",url:"other/uml/uml.html"},
+    {title:"设计模式",url:"other/design_pattern/design_pattern.html"},
+    {title:"MySQL",url:"other/my_sql/my_sql.html"},
+    {title:"数据结构与算法",url:"other/structures_and_algorithms/structures_and_algorithms.html"}
   ]}
 ];
 

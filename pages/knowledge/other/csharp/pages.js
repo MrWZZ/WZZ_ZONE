@@ -13,4 +13,5 @@ var pages = [
   { title:"文件输入输出和对象序列化", url:"pages/11.html" },
   { title:"ADO.NET", url:"pages/12.html" },
   { title:"WPF", url:"pages/13.html" },
+  { title:"ASP", url:"pages/14.html" },
 ];
