@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+    <title></title>
+  </head>
+  <body>
+<pre class="w_doc">
+  <h1 class="h1">接口</h1>
+  接口的关键字是interface。
+  接口的所有方法默认为共有方法。
+  接口的实现使用implements关键字。
+  实现多个接口时，用“，”分隔。
+
+  与c#不同的是，java的接口可以实现方法，拥有方法体。
+  <h2 class="h2">静态方法</h2>
+  <xmp class="block">
+    public interface IntSequence
+    {
+      ...
+      public static IntSequence digigtsOf(int n)
+      {
+        ...
+      }
+    }
+  </xmp>
+
+  <h2 class="h2">默认方法</h2>
+  你可以给接口的任意方法提供默认实现，这需要default关键字。
+  <xmp class="block">
+    public interface IntSequence
+    {
+      default boolean hasNext()
+      {
+        ...
+      }
+    }
+  </xmp>
+
+  <b>解决默认方法冲突</b>
+  如果一个类实现了两个接口，且两个接口方法相同，其中一个或两个都拥有默认方法，此时，你必须解决冲突。
+  <xmp class="block">
+    public class Employee impements IPerson,IMan
+    {
+      public int getId()
+      {
+        return IMan.super.getId();
+      }
+    }
+  </xmp>
+
+  如果一个类继承一个父类，且实现了一个接口，如果有相同方法，接口的方法会被忽略。
+
+  <h1 class="h1">Lambda表达式</h1>
+  与c#基本相似，不过他是用"->"来承接方法体。
+
+  <h1 class="h1">方法引用和构造函数引用</h1>
+  在Java中，是没有委托这种类型的，不过它用另一种方式来实现方法的引用。
+  但是这并不是委托，实际上是放入类型为函数式接口的变量中而已。
+
+  <b>方法引用</b>
+  + 类::实例方法
+  + 类::静态方法
+  + 对象::实例方法
+
+  <b>构造函数的引用</b>
+  + 类型::new
+</pre>
+  </body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+<pre class="w_doc">
+  <h1 class="h1">线程的创建</h1>
+  <b>继承Thread类创建多线程</b>
+  <xmp class="block">
+    class MyThread extends Thread
+    {
+      public void run()
+      {
+        while(true)
+        {
+          ...
+        }
+      }
+    }
+
+    //Main
+    MyThread myThread = new MyThread();
+    myThread.Start();
+  </xmp>
+
+  <b>实现Runnable接口创建多线程</b>
+  这里也可以用Lambda表达式来简化。
+  <xmp class="block">
+    class MyThread implements Runnable
+    {
+      public void run()
+      {
+          while(true)
+          {
+            ...
+          }
+      }
+    }
+
+    //Main
+    MyThread myThread = new MyThread();
+    Thread thread = new Thread(myThread);
+    myThread.Start();
+  </xmp>
+
+  <h1 class="h1">并发任务</h1>
+  当任务执行只需要很短的时间，你想在同一个线程上执行这些任务，不想浪费启动线程的时间。
+  当任务是计算密集型时，你就想然让每个处理器只有一个线程，而不是每个任务一个线程，已避免线程之间切换的开销。
+
+  Executor类有个工厂方法，会产生一个有很多短暂任务或任务会消耗很多时间等待的程序优化过的executor。
+  如果可能的话，每个任务在空闲的线程上执行；如果所有的线程都在繁忙工作，就会分配一个新线程。
+  超过一定空闲时间的线程就会被终止。
+  <xmp class="block">
+    Runnable task = () -> {...}
+    Executor exec = Executors.newCachedThreadPool();
+    exec.execute(task);
+
+    //获取系统的处理器数目
+    int processors = Runtime.getRuntime().availableProcessors();
+    //产生一个固定数目的线程池
+    exec = Executores.newFixedThreadPool(processors);
+  </xmp>
+
+  <b>一个完整示例</b>
+  <xmp class="block">
+    public static void main(String[] args)
+    {
+      Runnable hellos = () ->
+      {
+        for (int i = 1; i <= 1000; i++)
+        {
+          ...
+        }
+      }
+
+      Runnable goodbyes = () ->
+      {
+        for (int i = 1; i <= 1000; i++)
+        {
+          ...
+        }
+      }
+
+      Executor executor = Executors.newCachedThreadPool();
+      executor.execute(hellos);
+      executor.execute(goodbyes);
+    }
+  </xmp>
+
+  <b>同步锁</b>
+  使用synchronized可以然某个任务同步。
+  <xmp class="block">
+    //1：同步代码块
+    synchronized(obj)
+    {
+      ...
+    }
+
+    //2：同步一个方法
+    public synchronized void method()
+    {
+      ...
+    }
+  </xmp>
+</pre>
+  </body>
+</html>

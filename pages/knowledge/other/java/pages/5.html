@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+<pre class="w_doc">
+  <h1 class="h1">常用集合</h1>
+  <b>List</b>
+  list是一个有序的集合：每个元素都有位置。
+  <b>Set</b>
+  在set中，元素不会插到特定的位置，并且不允许出现重复的元素。
+  <b>Queue</b>
+  Queue会记住插入顺序，但是你只能在尾端插入元素，从头部删除他们。
+  <b>Deque</b>
+  双端队列有两个尾端，插入和删除都可以在两个尾部进行。
+  <b>Map</b>
+  类似C#的字典。
+
+  <h1 class="h1">其他集合</h1>
+  <b>Properties</b>
+  用于存储配置文件，类似Unity的PlayerPref。
+
+  使用方法：
+  <xmp class="block">
+    //储存
+    Properties settings = new Properties();
+    settings.put("width","200");
+    settings.put("title","HelloWorld!");
+    try(OutputStream out = Files.newOutputStream(path))
+    {
+      settings.store(out,"Program Properties");
+    }
+
+    //读取
+    try(InputStream in = Files.newInputStream(path))
+    {
+      settings.load(in);
+    }
+    String title = settings.getProperty("title","New Document");
+  </xmp>
+</pre>
+  </body>
+</html>

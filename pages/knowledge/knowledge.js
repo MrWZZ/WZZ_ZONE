@@ -38,6 +38,7 @@ var knowledgeList = [
     {title:"UML",url:"other/uml/uml.html"},
     {title:"设计模式",url:"other/design_pattern/design_pattern.html"},
     {title:"MySQL",url:"other/my_sql/my_sql.html"},
+    {title:"Java",url:"other/java/java.html"},
     {title:"数据结构与算法",url:"other/structures_and_algorithms/structures_and_algorithms.html"}
   ]}
 ];

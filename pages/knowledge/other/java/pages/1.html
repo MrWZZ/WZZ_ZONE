@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+<pre class="w_doc">
+  <h1 class="h1">基本类型</h1>
+  <b>整形</b>
+  + int       4字节
+  + long      8字节
+  + short     2字节
+  + byte      1字节
+
+  <b>浮点类型</b>
+  + float     4字节       F后缀
+  + double    8字节       D后缀（小数无后缀默认）
+
+  <b>char类型</b>
+
+  <b>布尔型</b>
+
+  <h1 class="h1">变量</h1>
+  Java是强类型语言。
+
+  <b>常量</b>
+  final关键字声明。
+
+  <h1 class="h1">大数</h1>
+  如果基本数据类型精度不能满足要求，可以使用java.math包中的BigInteger和BigDecimal类。
+
+  <h1 class="h1">字符串</h1>
+  ...
+
+  <b>字符串比较</b>
+  要检查两个字符串是否相等，使用equals方法。
+  不要使用==操作符比较字符串，在java虚拟机中，每一个字符串只有一个实例，因此"World"=="World"为真，但是，
+  <xmp class="block">
+    String location = greeting.substring(7,12);
+
+    location == "World";    //为false
+  </xmp>
+
+  <h1 class="h1">输入与输出</h1>
+  调用System.out.println时，输出发送到“标准输入流”，然后在窗口显示出来。
+  从“标准输入流”读取不是那样简单，因为相应的System.in对象只能读取单个字节的方法。
+  要读取字符串和数字，构造一个依附到System.in的Scanner。
+  <xmp class="block">
+    Scanner in = new Scanner(System.in);
+
+    //nextLine方法从输入读取一行
+    System.out.println("What is your name?");
+    String name = in.nextLine();
+  </xmp>
+
+  <b>格式化输出</b>
+  <xmp class="block">
+    //表示输出的浮点数宽度为8，精度为小数点后两位，多余的以空格字符填充
+    System.out.printf("%8.2f",1000.0/3.0);
+  </xmp>
+
+  格式化输出的转换字符
+  + d               十进制整数
+  + x/X             十六进制整数
+  + o               八进制整数
+  + f               定点浮点数
+  + e/E             指数型浮点数
+  + g/G             普通浮点数
+  + a/A             十六进制浮点数
+  + s/S             字符串
+  + c/C             字符
+  + b/B             布尔值
+  + h/H             哈希值
+  + %               百分号符号
+  + n               平台相关的行风格符
+
+  <h1 class="h1">控制流</h1>
+  <b>分支</b>
+  + if-else if-else
+  + switch-case-default-break
+
+  <b>循环</b>
+  + while
+  + do-while
+  + for
+  + for(Type arg : args)
+
+  带标签的continue、break
+  <xmp class="block">
+    outer:
+    while(...)
+    {
+      ...
+      while(...)
+      {
+        if(...) break outer;
+      }
+    }
+    //带标签的bread跳转到这里
+  </xmp>
+  普通的break只能跳出所在的一个循环，但是带标签的break能跳出到指定指定位置，方便了许多。
+  <mark>你在声明的顶部加标签，但是break声明跳到尾部。</mark>
+
+  <h1 class="h1">数组和数组列表</h1>
+  对所有基本类型而言，都有相应的数组类型： int[]、String[]等。
+
+  <b>构造数组</b>
+  <xmp class="block">
+    int[] primes = { 2,3,4 };
+    int[] primes1 = new int[] { 2,3 };
+    //多维数组
+    int[][] square = {
+      { 2,3,4 },
+      { 3,4,5 }
+    };
+  </xmp>
+
+  <b>数组列表</b>
+  数组列表能自动扩充长度，不同于C#的是，Java没有索引器，不能使用[]直接读取数组列表中的某个值，需要使用其构造方法。
+  <xmp class="block">
+    //后面的<>中可以不填
+    ArrayList<String> friends = new ArrayList<>();
+    friends.add("Tom");
+    String first = friends.get(0);
+    firends.set(0,"Mary");
+  </xmp>
+
+  泛型类有个不幸的限制：不能使用基本类型作为类型参数。解决的方法是，使用包装类。
+  每一种类型都对应一种包装类：Integer、Byte、Short、Long、Character、Float、Double和Boolean。
+  而在这中方法中，自动装箱会自动完成。
+
+  <mark>数组列表的==比较的是引用，要比较值的话还是得使用equals()。</mark>
+
+  <h1 class="h1">方法</h1>
+  静态方法：static
+
+  方法的命名开头是小写。
+
+  参数的传递都是值传递，没有ref、out。
+
+  <b>可变参数</b>
+  <xmp class="block">
+    //声明形式
+    public static double average(double... values)
+    {
+      double sum = 0;
+      for(double v : values) sum += v;
+      return values.length == 0 ? 0 : sum/values.length;
+    }
+  </xmp>
+</pre>
+  </body>
+</html>
