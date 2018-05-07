@@ -4,7 +4,7 @@ var homeLinks = [
   { title:"知识总结", url:"/pages/knowledge/knowledge.html" },
   { title:"方法库", url:"#" },
   { title:"收藏", url:"/pages/collection/collection.html" },
-  { title:"作品", url:"#" },
+  { title:"作品", url:"/pages/production/production.html" },
   { title:"踩过的坑", url:"/pages/mistake/mistake.html" }
 ];
 
