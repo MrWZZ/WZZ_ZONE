@@ -9,22 +9,202 @@
 <pre class="w_doc">
   <h1 class="h1">认识IOC</h1>
   IOC实际上就是读取配置文件的工厂模式。
+  还有就是注解模式，使得配置变得更加简单。
 
   <h2 class="h2">注入的方式</h2>
-  <b>设值注入</b>
+
+  为了演示简单的IOC,只需要简单的在maven中加入一个依赖即可：
   <xmp class="block">
-    //1：建立接口
-    public interface Box
+    <dependencies>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>5.0.6.RELEASE</version>
+    </dependency>
+
+  </dependencies>
+  </xmp>
+
+  <h2 class="h2">设值注入</h2>
+  <xmp class="block">
+    // 1：建立一个类
+    package com.wzz;
+
+    public class Man
     {
-      Object smash();
+        private int age;
+
+        // ioc通过此方法设置值
+        public void setAge(int age)
+        {
+            this.age = age;
+        }
+
+        public void sayAge()
+        {
+            System.out.println("My age is " + age);
+        }
     }
 
-    //2：实现接口
-    public class MedicineBox implements Box
-    {
-      
-    }
+    // 2：在xml中配置
+    <bean id="man" class="com.wzz.Man">
+        <property name="age" value="18"></property>
+    </bean>
+
+    // 3：在main中加载
+    //读取xml文件
+    ApplicationContext ac = new ClassPathXmlApplicationContext("com/wzz/applicationContext.xml");
+    //通过ioc实例对象（需强转）
+    Man m = (Man) ac.getBean("man");
+    //使用对象
+    m.sayAge();
   </xmp>
+
+  <h2 class="h2">构造器注入</h2>
+  <xmp class="block">
+    // 1：创建类
+    package com.wzz;
+
+    public class Man
+    {
+        private int age;
+
+        // ioc通过该构造器设值
+        public Man(int age)
+        {
+            this.age = age;
+        }
+
+        public void sayAge()
+        {
+            System.out.println("My age is " + age);
+        }
+    }
+
+    // 2：在xml中配置
+    <bean id="man" class="com.wzz.Man">
+        <constructor-arg value="18"></constructor-arg>
+    </bean>
+
+    // 3：在main中加载
+    //读取xml文件
+    ApplicationContext ac = new ClassPathXmlApplicationContext("com/wzz/applicationContext.xml");
+    //通过ioc实例对象（需强转）
+    Man m = (Man) ac.getBean("man");
+    //使用对象
+    m.sayAge();
+  </xmp>
+
+  <h1 class="h1">Bean详解</h1>
+  + bean标签：代表一个配置类对象。
+    + id属性：main中通过id找到该bean。
+    + class属性：该bean应该实例的类（全路径）。
+    + scope属性：可以设置bean的作用域。
+      可用值：
+      + singleton
+        IOC容器中只会存在一个共享的Bean实例，即实例该Bean是一个单例模式。
+        <xmp class="block">
+          <bean id="man" class="com.wzz.Man">
+              <property name="age" value="18" scope="singleton"></property>
+          </bean>
+        </xmp>
+      + prototype:
+        非单例模式，每一次实例都是一个新的对象。
+        <xmp class="block">
+          <bean id="man" class="com.wzz.Man">
+              <property name="age" value="18" scope="prototype"></property>
+          </bean>
+        </xmp>
+
+  + property标签：使用设值注入，则使用该标签。
+    + name属性：目标类中的变量名。
+    + value属性：给该变量（类型为基本类型）设的值。
+
+  + constructor-arg标签：使用构造注入，则使用该标签。
+    + index属性：根据参数位置设值（默认是按顺序赋值）。
+    + type属性：根据参数类型设值。（容易出错）
+    + value属性：给该变量（类型为基本类型）设的值。
+
+  <h2 class="h2">设值不为基本类型</h2>
+  （1）ref标签：引用其他类型。
+      + bean属性：表示引用id为其值的bean，该bean可以用同一文件夹中，也可以在不同文件夹中，如果在不同文件夹中，需要import。
+      + local属性：表示引用当前文件夹中id为其值的bean。
+      <xmp class="block">
+        // 1：被引用类
+        package com.wzz;
+
+        public class Pen
+        {
+            private String color;
+
+            public void setColor(String color)
+            {
+                this.color = color;
+            }
+
+            public String getColor()
+            {
+                return color;
+            }
+        }
+
+        // 2：引用类
+        package com.wzz;
+
+        public class Man
+        {
+            private int age;
+            private Pen pen;
+
+            public void setAge(int age)
+            {
+                this.age = age;
+            }
+
+            public void setPen(Pen pen)
+            {
+                this.pen = pen;
+            }
+
+            public void sayAge()
+            {
+                System.out.println("My age is " + age);
+            }
+
+            public void showPenColor()
+            {
+                System.out.println("My pen color is " + pen.getColor());
+            }
+        }
+
+        // 3：在xml中配置
+        <bean id="man" class="com.wzz.Man">
+          <property name="pen">
+              <ref bean="pen"></ref>
+          </property>
+          <property name="age" value="18"></property>
+        </bean>
+
+        <bean id="pen" class="com.wzz.Pen">
+          <property name="color" value="red"></property>
+        </bean>
+
+        // 4：在main中加载
+        ApplicationContext ac = new ClassPathXmlApplicationContext("com/wzz/applicationContext.xml");
+        Man m = (Man) ac.getBean("man");
+        m.sayAge();
+        m.showPenColor();
+      </xmp>
+
+  （2）使用内部bean
+    内部bean不需要id，只能在此处使用。
+    <xmp class="block">
+      <property name="pen">
+          <bean class="xxx">
+      </property>
+    </xmp>
+
 </pre>
   </body>
 </html>
