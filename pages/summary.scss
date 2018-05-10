@@ -73,6 +73,9 @@
   }
   .h1{
     font-size: 25px;
+    background-color: #cbb3b3;
+    padding: 10px;
+    box-shadow: 1px 1px 2px #000;
     @include h1_h6;
   }
   .h2{
