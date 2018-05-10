@@ -116,6 +116,89 @@
               <property name="age" value="18" scope="prototype"></property>
           </bean>
         </xmp>
+    + depends-on属性：表示该bean初始化之前强制执行指定的一个或多个bean初始化。
+      <xmp class="block">
+        <bean id="man" class="com.wzz.Man" depens-on="pen1,pen2">
+            <property name="age" value="18" scope="singleton"></property>
+        </bean>
+      </xmp>
+    + lazy-init属性：表示该bean在需要的时候在初始化（延迟初始化）。
+      <xmp class="block">
+        <bean id="man" class="com.wzz.Man" lazy-init="true">
+            <property name="age" value="18" scope="singleton"></property>
+        </bean>
+      </xmp>
+    + init-method属性：指定初始化方法来初始化对象。
+      <xmp class="block">
+        // 类对象
+        class Man
+        {
+          private String name;
+          private int age;
+
+          public void init()
+          {
+            this.name = "Tom";
+            this.age = 12;
+          }
+        }
+
+        // xml配置
+        <bean id="man" class="com.wzz.Man" init-method="init">
+            //这里就不需要给name和age设值了，如果配置了，系统也会忽略
+        </bean>
+      </xmp>
+    + destory-method属性：bean使用后应该及时销毁，该属性指定销毁的方法。
+      <xmp class="block">
+        // 类对象
+        class Man
+        {
+          private String name;
+          private int age;
+
+          public void destory()
+          {
+            this.name = "";
+            this.age = 0;
+            System.out.println("bean已销毁")。
+          }
+        }
+
+        // xml配置
+        <bean id="man" class="com.wzz.Man" destory-method="destory">
+          // ...
+        </bean>
+      </xmp>
+    + autowire属性：自动装配。
+      可用值：
+      + byName：根据名称自动装配。
+      <xmp class="block">
+        // 类对象
+        class Man
+        {
+          private String name;
+          private int age;
+          privete Pen pen;
+
+          //setter方法省略
+        }
+
+        // xml配置
+        <bean id="man" class="com.wzz.Man" autowire="byName">
+          <property name="name" value="Tom" />
+          <property name="age" value="18" />
+          //因为设置了byName，这里可以不设置pen的值，它会自动查找id为pen的bean装配进来。
+        </bean>
+
+        <bean id="pen" class="...">...</bean>
+      </xmp>
+      + byType:根据类型自动装配（在构造注入中也有效）。使用方法同byName。
+    + dependency-check属性：对应与自动装配的检查模式，如果自动装配失败，则抛出异常。
+      可用值：
+      + simple：只对基本类型进行检查。
+      + object：只对引用类型进行检查。
+      + all：对所有值进行检查。
+      + none：不进行检查。
 
   + property标签：使用设值注入，则使用该标签。
     + name属性：目标类中的变量名。
@@ -204,6 +287,141 @@
           <bean class="xxx">
       </property>
     </xmp>
+
+<h1 class="h1">集合的注入</h1>
+  <h2 class="h2">List类型</h2>
+  如果字段是一个数组或List。可以用该配置注入：
+  <xmp class="block">
+    <property name="pens">
+        <list>
+          //注入基本类型int
+          <value>123</value>
+          //注入基本类型string
+          <value>"red"</value>
+          //注入引用类型
+          <ref bean="xxx" />
+        </list>
+    </property>
+  </xmp>
+
+  <h2 class="h2">Set类型</h2>
+  该类型的注入同list，只需要把list标签改成set标签，且注入的类型是字符串不需要加双引号。
+
+  <h2 class="h2">Map类型</h2>
+  <xmp class="block">
+    <property name="pens">
+        <map>
+          //注入基本类型int
+          <entry key="key1"> <value>123</value> </entry>
+          //注入基本类型string
+          <entry key="key2"> <value>red</value> </entry>
+          //注入引用类型
+          <entry key="key3"> <ref bean="xxx" /> </entry>
+        </map>
+    </property>
+  </xmp>
+
+  <h2 class="h2">Properties类型</h2>
+  <xmp class="block">
+    <property name="pens">
+        <props>
+          //注入基本类型int
+          <prop key="key1">123</prop>
+          //注入基本类型string
+          <prop key="key2">red</prop>
+          //注入引用类型
+          <prop key="key3"> <ref bean="xxx" /> </prop>
+        </props>
+    </property>
+  </xmp>
+
+  <h2 class="h2">util标签</h2>
+  我们可以使用该标签在其他地方进行定义，然后在需要使用列表的时候，直接引用该util标签。
+  使用该标签时需要引用一些命名空间。
+
+  <xmp class="block">
+    <util:list id="list1">
+      <ref bean="xxx" />
+      <ref bean="xxx" />
+      <ref bean="xxx" />
+    </util:list>
+
+    <bean id="role">
+      <property name="pens" ref="list1" />
+    </bean>
+  </xmp>
+
+  <h2 class="h2">null值的处理</h2>
+  在Bean的配置中，往往会需要配置一个null值。这时需要一些特定的方法。
+  <xmp class="block">
+
+    <property name="pens">
+        <list>
+          // 方式一
+          <value>null</value>
+          // 方式二
+          <null />
+        </list>
+    </property>
+  </xmp>
+
+<h1 class="h1">事件监听</h1>
+  <xmp class="block">
+    // 事件类
+    package com.wzz;
+
+    import org.springframework.context.ApplicationEvent;
+
+    public class LoginEvent extends ApplicationEvent
+    {
+
+        public LoginEvent(Object source)
+        {
+            super(source);
+            System.out.println("事件启动。。。");
+        }
+    }
+
+    // 监听管理类
+    package com.wzz;
+
+    import org.springframework.context.ApplicationEvent;
+    import org.springframework.context.ApplicationListener;
+
+    public class LoginListener implements ApplicationListener
+    {
+        @Override
+        public void onApplicationEvent(ApplicationEvent applicationEvent)
+        {
+            if(applicationEvent instanceof LoginEvent)
+            {
+                System.out.println("监听到该事件。。。");
+            }
+        }
+    }
+
+    // xml配置
+    <bean id="listener" class="com.wzz.LoginListener" />
+
+    // 启动事件
+    public class App
+    {
+
+        public static void main( String[] args )
+        {
+            ApplicationContext ac = new ClassPathXmlApplicationContext("com/wzz/applicationContext.xml");
+
+            // 事件被启动
+            ac.publishEvent(new LoginEvent(login()));
+        }
+
+        public static String login()
+        {
+            System.out.println("用户登陆");
+            return "";
+        }
+    }
+  </xmp>
 
 </pre>
   </body>
