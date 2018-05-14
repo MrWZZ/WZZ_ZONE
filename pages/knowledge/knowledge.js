@@ -1,4 +1,4 @@
-//首页导航数组(通用模块有这个的副本，需要一起修改)
+//首页导航数组(通用、作品模块有这个的副本，需要一起修改)
 var homeLinks = [
   { title:"主页", url:"/index.html" },
   { title:"知识总结", url:"/pages/knowledge/knowledge.html" },
@@ -8,7 +8,7 @@ var homeLinks = [
   { title:"踩过的坑", url:"/pages/mistake/mistake.html" }
 ];
 
-//首页导航生成(通用模块有这个的副本，需要一起修改)
+//首页导航生成(通用、作品模块有这个的副本，需要一起修改)
 function CreateHomeLinks()
 {
   var homeNavPanel = document.querySelector(".home_nav");
@@ -31,6 +31,13 @@ var knowledgeList = [
     {title:"JavaScript",url:"web_developer/javascript_summary/javascript_summary.html"},
     {title:"JQuery",url:"web_developer/jquery_summary/jquery_summary.html"}
   ]},
+  //Java
+  {type : "Java",
+   slots:[
+     {title:"Java",url:"java/java/java.html"},
+     {title:"Spring",url:"java/spring/spring.html"},
+     {title:"SpringMVC",url:"java/springmvc/springmvc.html"},
+  ]},
   //其他
   {type : "其他",
    slots:[
@@ -38,8 +45,6 @@ var knowledgeList = [
     {title:"UML",url:"other/uml/uml.html"},
     {title:"设计模式",url:"other/design_pattern/design_pattern.html"},
     {title:"MySQL",url:"other/my_sql/my_sql.html"},
-    {title:"Java",url:"other/java/java.html"},
-    {title:"Spring",url:"other/spring/spring.html"},
     {title:"数据结构与算法",url:"other/structures_and_algorithms/structures_and_algorithms.html"}
   ]}
 ];

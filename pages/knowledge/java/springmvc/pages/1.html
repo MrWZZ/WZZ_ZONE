@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+<pre class="w_doc">
+<h1 class="h1">开发第一个Spring MVC应用</h1>
+
+<b>Spring MVC模型</b>
+<img src="resources/springmvc.jpg" alt="">
+
+这里使用idea来编写项目。
+
+1.新建一个不带模版的maven项目。
+
+2.在项目上添加框架：j2ee的web application。
+
+3.配置tomcat，部署中加上artifact->war exploded。
+  设置on update、on frame 为update classes and resources。
+
+4.加入依赖
+<xmp class="block">
+<properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <spring.version>4.3.0.RELEASE</spring.version>
+</properties>
+
+<!--项目依赖 -->
+<dependencies>
+    <!--单元测试-->
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.10</version>
+        <scope>test</scope>
+    </dependency>
+
+    <!--j2ee相关包 servlet、jsp、jstl-->
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>3.1.0</version>
+    </dependency>
+    <dependency>
+        <groupId>javax.servlet.jsp</groupId>
+        <artifactId>jsp-api</artifactId>
+        <version>2.2</version>
+    </dependency>
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>jstl</artifactId>
+        <version>1.2</version>
+    </dependency>
+
+    <!--mysql驱动包-->
+    <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>5.1.35</version>
+    </dependency>
+
+    <!--spring相关包-->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+
+    <!--其他需要的包-->
+    <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>3.4</version>
+    </dependency>
+    <dependency>
+        <groupId>commons-fileupload</groupId>
+        <artifactId>commons-fileupload</artifactId>
+        <version>1.3.1</version>
+    </dependency>
+</dependencies>
+</xmp>
+
+5.将依赖包加入output lib中。
+  ctrl+alt+shift+s -> Artifacts -> 双击项目中的依赖包。
+
+6.配置前端控制器（web.xml）
+<xmp class="block">
+<welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+</welcome-file-list>
+
+<servlet>
+    <servlet-name>springMVC</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>WEB-INF/springmvc-config.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+    <async-supported>true</async-supported>
+</servlet>
+<servlet-mapping>
+    <servlet-name>springMVC</servlet-name>
+    <url-pattern>/</url-pattern>
+</servlet-mapping>
+</xmp>
+
+7.在WEB-INF下新建springmvc-config.xml，并对其进行配置。
+<xmp class="block">
+<context:annotation-config/>
+<context:component-scan base-package="com.wzz.controller">
+    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+</context:component-scan>
+<mvc:default-servlet-handler/>
+<mvc:annotation-driven/>
+<bean id="defaultViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+    <property name="prefix" value="/WEB-INF/views/"/>
+    <property name="suffix" value=".jsp"/>
+</bean>
+</xmp>
+
+8.新建目录/WEB-INF/views/，并在目录下新建jsp文件：welcome.jsp。
+<xmp class="block">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Title</title>
+</head>
+<body>
+    ${message}
+</body>
+</html>
+</xmp>
+
+9.新建包com.wzz.controller，并在该包下新建class。
+<xmp class="block">
+package com.wzz.controller;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class HelloController
+{
+    @RequestMapping("/hello")
+    public String hello(Model model)
+    {
+        model.addAttribute("message","message");
+        return "welcome";
+    }
+}
+</xmp>
+
+9.运行tomcat,然后在浏览器路径下输入/hello。
+
+<h1 class="h1">具体说明</h1>
+
+</pre>
+  </body>
+</html>

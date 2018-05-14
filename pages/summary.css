@@ -7,7 +7,7 @@ body {
     body > header h1 {
       text-align: center; }
   body > footer {
-    height: 100px;
+    height: 60px;
     width: 100%; }
 
 .home_nav {
@@ -49,17 +49,15 @@ body {
 .content .right .to_top {
   position: fixed;
   right: 2%;
-  bottom: 100px;
+  bottom: 60px;
   width: 50px;
   height: 50px;
-  background-color: #bdbdbd;
-  border-radius: 20%; }
+  background-color: #c6c6c6; }
   .content .right .to_top div {
     position: absolute;
     width: 50%;
     height: 10%;
-    background-color: #0097A7;
-    border-radius: 30%; }
+    background-color: #0097A7; }
   .content .right .to_top div:first-child {
     transform: rotate(45deg);
     margin: 45% 40%; }
