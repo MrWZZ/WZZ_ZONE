@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+<pre class="w_doc">
+<h1 class="h1">@Controller注解</h1>
+该注解用于指示Spring类的实例是一个控制器。
+使用该注解需要在配置文中引入：
+<xmp class="block">
+xmlns:context="http://www.springframework.org/schema/context"
+
+<context:annotation-config/>
+<context:component-scan base-package="com.wzz.controller" />
+</xmp>
+
+其中，context:component-scan标签用于指定要对哪个包进行扫描。
+
+<h2 class="h2">视图解析器</h2>
+<xmp class="block">
+<bean id="defaultViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+  <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+  <property name="prefix" value="/WEB-INF/views/"/>
+  <property name="suffix" value=".jsp"/>
+</bean>
+</xmp>
+
+prefix：指定视图的前缀。
+suffix：指定视图的后缀。
+
+这样，在控制器中，如果返回的视图名为"welcome"，则实际的路径为"/WEB-INF/views/welcome.jsp"。
+
+<h2 class="h2">使用示例</h2>
+<xmp class="block">
+@Controller
+public class HelloController
+{
+    @RequestMapping("/hello")
+    public String hello(Model model)
+    {
+        model.addAttribute("message","message");
+        return "welcome";
+    }
+}
+</xmp>
+
+<h1 class="h1">@ModelAttribute注解</h1>
+该注解将请求参数绑定到Model对象。
+该注解只支持一个属性value，表示绑定的属性名称。
+
+1.@ModelAttribute(value="")注释返回具体类的方法。
+该注解的值就是model属性的名称，而该model属性的值就是注解的返回值。
+
+2.@ModelAttribute注释void返回值的方法。
+他把请求参数值赋给相应的形参，model属性名称和值由model.addAttribute()实现。
+
+3.@ModelAttribute注释返回具体类的方法。
+它的model属性名为返回值的类名。
+
+4.@ModelAttribute(value="")和@RequestMapping(value="")同时注释一个方法。
+则方法的返回值不是视图名，是model属性的值。
+具体为model属性名为ModelAttribute的值，model属性值为方法返回值。
+视图名为RequestMapping的值。
+
+5.@ModelAttribute注释一个方法的参数
+则model的属性名为ModelAttribute的值，该属性名的值为方法的返回值。
+
+<h1 class="h1">@RequestMapping注解</h1>
+开发者需要在控制器内部为每一个请求动作开发相应的处理方法。
+该注解指示Spring用哪一个类或方法来处理请求动作，该注解可以用于类或方法。
+
+<h2 class="h2">该注解支持的属性</h2>
++ value：用于将指定请求的实际地址映射到方法上。
+  如果只有唯一的属性，即可省略属性名。
+<xmp class="block">
+@RequestMapping(value="/hello")
+public ModelAndView hello(){}
+</xmp>
+
++ name：给映射地址指定一个别名。
+
++ method：映射指定请求的方法类型。
+  如果有多个的话，加上花括号包起来并用逗号隔开。
+  默认为接受全部类型。
+<xmp class="block">
+//单个
+@RequestMapping(value="/hello",method=RequestMethod.POST)
+//多个
+@RequestMapping(value="/hello",method={RequestMethod.POST,RequestMethod.GET})
+</xmp>
+
++ consumes：指定处理请求的提交内容类型。
+<xmp class="block">
+@RequestMapping(value="/hello",method=RequestMethod.POST,consumes="application/json")
+</xmp>
+
++ produces：指定返回的内容类型。
+<xmp class="block">
+//该方法仅处理requst请求中Accept头中包含了"application/json"的请求，同时指定了返回的类型
+@RequestMapping(value="/hello",method=RequestMethod.POST,produces="application/json")
+</xmp>
+
++ params：指定request中必须包含某些参数值时，才让该方法处理。
+<xmp class="block">
+@RequestMapping(value="/hello",method=RequestMethod.POST,params="myParam=myuValue")
+</xmp>
+
++ headers：指定request中必须包含某些指定的header值，才能让该方法处理。
+<xmp class="block">
+@RequestMapping(value="/hello",method=RequestMethod.POST,headers="Referer=http://www.xxx.xxx/")
+</xmp>
+
++ Path
+
+<h2 class="h2">请求处理方法可出现的类型</h2>
+即处理方法支持的形参类型。
+<xmp class="block">
+@RequestMapping(value="/hello")
+public String login(HttpServletRequest r)
+{
+  return "login";
+}
+</xmp>
+
++ ServletRequest/HttpServletRequest
++ ServletResponse/HttpServletResponse
++ HttpSession
++ WebRequest/NativeWebRequest
++ Locale
++ InputStream/Reader
++ OutputStream/Writer
++ Principal
++ HttpEntity<?>
++ Map
++ Model
++ ModelMap
++ RedirectAtributes
++ Errors
++ BindingResult
++ SessionStatus
++ UriComponentsBuilder
++ @PathVariable、@@MatrixVariable注解
++ @RequestParam、@RequestHeader、@RequestBody、@RequestPart注解
+
+<h2 class="h2">请求方法可返回类型</h2>
++ ModelAndView
++ Model
++ Map
++ View
++ String
++ HttpEntity/ResponseEntity
++ Callable
++ DeferredResult
++ void
+
+<h2 class="h2">Model和ModelMap</h2>
++ addObject(String name,Object value)
+  可以向视图中添加模型数据。
+
+<b>Model使用示例</b>
+
+1.创建一个User类
+<xmp class="block">
+public class User implements Serializable
+{
+    private String name;
+    private String password;
+
+    //省略getter、setter
+}
+</xmp>
+
+2.创建UserController类
+<xmp class="block">
+@Controller
+public class UserController
+{
+    //该注解修饰的方法会先于login调用，该方法会接受前台页面传入的参数
+    //具体的说input中的name会与本方法的形参对应
+    @ModelAttribute
+    public void userModel(String name,String password,Model model)
+    {
+        User user = new User();
+        user.setName(name);
+        user.setPassword(password);
+        model.addAttribute("user",user);
+    }
+
+    @RequestMapping("/login")
+    public String login(Model model)
+    {
+        //会从model中取出之前名为user的对象
+        User user = (User) model.asMap().get("user");
+        return "result";
+    }
+}
+</xmp>
+
+3.提交页面
+<xmp class="block">
+<form action="http://localhost:8080/login" method="post">
+  name:<input type="text" name="name" value=""><br/>
+  password:<input type="text" name="password" value=""><br/>
+  <input type="submit">
+</form>
+</xmp>
+
+4.结果返回页面
+<xmp class="block">
+name:${requestScope.user.name}<br/>
+password:${requestScope.user.password}
+</xmp>
+
+<b>ModelMap使用示例</b>
+ModelMap比Model好用一点，会省略asMap()的转换。
+其他的和Model完全一样。
+
+<h2 class="h2">ModelAndView</h2>
+控制器处理方法的返回值如果是本类型，则其既包含模型数据信息，也包含视图信息。
+可以简单将模型数据看成<xmp>Map<String,Object></xmp>对象。
+
++ addObject(String name,Object value)
+  向ModelAndView对象中添加模型。
+
++ setViewName(String viewName)
+  设置视图的名字。
+
+<b>使用示例</b>
+<xmp class="block">
+@Controller
+public class UserController
+{
+    @ModelAttribute
+    public void userModel(String name,String password,ModelAndView model)
+    {
+        User user = new User();
+        user.setName(name);
+        user.setPassword(password);
+        model.addObject("user",user);
+    }
+
+    @RequestMapping("/login")
+    public ModelAndView login(ModelAndView mv)
+    {
+        User user = (User) mv.getModel().get("user");
+        //这里可以使用user做一下事情
+
+        mv.setViewName("result");
+        return mv;
+    }
+}
+</xmp>
+其他的文件和上面的一样。
+
+<h1 class="h1">@RequestParam注解</h1>
+该注解用于将指定的请求参数赋值给方法中的形参，就可省略@ModelAttribute方法的编写。
+
+<h2 class="h2">可用属性</h2>
++ name：指定请求头绑定的名称。
++ value：name属性的别名。
++ required：指示参数是否必须绑定。
++ defaultValue：如果没有传递参数而使用的默认值。
+
+<b>使用示例代码</b>
+<xmp class="block">
+@Controller
+public class UserController
+{
+    @RequestMapping("/login")
+    public String login(@RequestParam("name") String name,
+                        @RequestParam("password") String password,
+                        ModelMap modelMap)
+    {
+        User user = new User();
+        user.setName(name);
+        user.setPassword(password);
+
+        modelMap.addAttribute("user",user);
+        return "result";
+    }
+}
+</xmp>
+
+<h1 class="h1">@PathVariable注解</h1>
+该注解可以非常方便地获取请求URL中的动态参数。
+
+该注解只支持一个属性value，类型为String，表示绑定的名称，如果声落则默认绑定同名参数。
+
+<b>示例代码</b>
+<xmp class="block">
+@Requestmapping(value="/pathVariable/{userId}")
+public void pathVarivaleTest(@PathVariable Integer userId){}
+</xmp>
+假如请求的URL为"http://localhost:8080/pathVariable/1",则userId的值会被赋值为1。
+
+<h1 class="h1">@RequestHeader注解</h1>
+该注解用于将请求的头信息区数据映射到功能处理方法的参数上。
+
+<b>可使用属性</b>
++ name
++ value
++ required
++ defaultValue
+
+<b>示例代码</b>
+<xmp class="block">
+@RequestMapping("/requestHeader")
+public void requestHeaderTest(@RequestHeader("User-Agent") String userAgent,
+                              @RequestHeader(value="Accept") String[] accepts)
+{}
+</xmp>
+
+<h1 class="h1">@CookieValue注解</h1>
+该注解用于将请求的Cookie数据映射到功能处理方法的参数上。
+
+<b>可使用属性</b>
++ name
++ value
++ required
++ defaultValue
+
+<b>示例代码</b>
+<xmp class="block">
+@RequestMapping("/cookieValue")
+public void cookieValueTest(@CookieValue(value="JSESSIONID",defaultValue="") String sessionId)
+</xmp>
+
+<h1 class="h1">@SessionAttributes注解</h1>
+该注解允许我们有选择地指定Model中的哪些属性需要转存到HttpSession对象中。
+
+<b>可用属性</b>
++ names：Model中属性的名称，即存储在HttpSession当中的属性名称。
++ value：names属性的别名。
++ types：指示参数是否必须绑定。
+
+<b>示例代码</b>
+<xmp class="block">
+@Controller
+@SessionAttributes("user")
+public class UserController{}
+
+//还有如下写法
+@SessionAttributes(types={User.class},value="user")
+@SessionAttributes(types={User.class,Dept.class},value={"user","dept"})
+</xmp>
+
+在类上使用了该注解，则当其下的处理方法象model中加入名为user的对象时，也会将该对象设置到HttpSession作用域中。
+
+作用域分为四种，分别为：
++ page：在当前页面有效(仅用于JSP中)。
++ request：在当前请求中有效。
++ session：在当前会话中有效。
++ application：在所有应用程序中有效。
+
+</pre>
+  </body>
+</html>
