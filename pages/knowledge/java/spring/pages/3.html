@@ -1,153 +1,183 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+</head>
+<body>
 <pre class="w_doc">
-  <h1 class="h1">JDBC</h1>
-  使用jdbc可以简化我们操作数据库的代码。
+<h1 class="h1">JDBC</h1>
+使用jdbc可以简化我们操作数据库的代码。
 
-  <h2 class="h2">简单实例</h2>
-  1. 添加依赖。
-  <xmp class="block">
-    <properties>
-        <spring.version>5.0.6.RELEASE</spring.version>        // 指定spring版本
-        // 省略其他
-    </properties>
+<h2 class="h2">简单实例</h2>
+1. 添加依赖。
+<xmp class="block">
+  <properties>
+      <spring.version>5.0.6.RELEASE</spring.version>        // 指定spring版本
+      // 省略其他
+  </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
-        </dependency>
+  <dependencies>
+      <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>4.11</version>
+          <scope>test</scope>
+      </dependency>
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-context</artifactId>
+          <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-core</artifactId>
+          <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-jdbc</artifactId>
+          <version>${spring.version}</version>
+      </dependency>
 
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.26</version>
-        </dependency>
+      <dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+          <version>5.1.26</version>
+      </dependency>
 
-    </dependencies>
-  </xmp>
+  </dependencies>
+</xmp>
 
-  2. 定义用户类型
-  <xmp class="block">
-    package com.wzz;
-    public class User
-    {
-        private Long id;
-        private String userName;
-        private String passWord;
+2. 定义用户类型
+<xmp class="block">
+  package com.wzz;
+  public class User
+  {
+      private Long id;
+      private String userName;
+      private String passWord;
 
-        // 省略getter、setter
-    }
-  </xmp>
+      // 省略getter、setter
+  }
+</xmp>
 
-  3. 定义DAO接口
-  <xmp class="block">
-    package com.wzz;
-    public interface IUserDAO
-    {
-        public void insert(User user);
-        public void delete(User user);
-        public void update(User user);
-        public User find(Long id);
-    }
-  </xmp>
+3. 定义DAO接口
+<xmp class="block">
+  package com.wzz;
+  public interface IUserDAO
+  {
+      public void insert(User user);
+      public void delete(User user);
+      public void update(User user);
+      public User find(Long id);
+  }
+</xmp>
 
-  4. 实现DAO接口
-  <xmp class="block">
-    package com.wzz;
-    import org.springframework.jdbc.core.JdbcTemplate;
-    import javax.sql.DataSource;
-    public class UserDAO implements IUserDAO
-    {
-        // 根据配置文件链接数据库并得到对数据库的操作对象
-        private JdbcTemplate jdbcTemplate;
-        public void setDataSource(DataSource dataSource)
-        {
-            jdbcTemplate = new JdbcTemplate(dataSource);
-        }
+4. 实现DAO接口
+<xmp class="block">
+  package com.wzz;
+  import org.springframework.jdbc.core.JdbcTemplate;
+  import javax.sql.DataSource;
+  public class UserDAO implements IUserDAO
+  {
+      // 根据配置文件链接数据库并得到对数据库的操作对象
+      private JdbcTemplate jdbcTemplate;
+      public void setDataSource(DataSource dataSource)
+      {
+          jdbcTemplate = new JdbcTemplate(dataSource);
+      }
 
-        @Override
-        public void insert(User user)
-        {
-            String name = user.getUserName();
-            String password = user.getPassWord();
+      @Override
+      public void insert(User user)
+      {
+          String name = user.getUserName();
+          String password = user.getPassWord();
 
-            // 执行sql语句
-            this.jdbcTemplate.update("insert into user (name,password)" +
-                                     "value('" + name + "','" + password + "')");
-        }
+          // 执行sql语句
+          this.jdbcTemplate.update("insert into user (name,password)" +
+                                   "value('" + name + "','" + password + "')");
+      }
 
-      // 省略其他方法
-    }
-  </xmp>
+    // 省略其他方法
+  }
+</xmp>
 
-  5. 配置xml文件
-  <xmp class="block">
-    // 链接数据库
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="url" value="jdbc:mysql://localhost:3306/user" />
-        <property name="username" value="root"/>
-        <property name="password" value="root"/>
-    </bean>
+5. 配置xml文件
+<xmp class="block">
+  // 链接数据库
+  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <property name="url" value="jdbc:mysql://localhost:3306/user" />
+      <property name="username" value="root"/>
+      <property name="password" value="root"/>
+  </bean>
 
-    // 配置UserDAO对象
-    <bean id="userDao" class="com.wzz.UserDAO">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
-  </xmp>
+  // 配置UserDAO对象
+  <bean id="userDao" class="com.wzz.UserDAO">
+      <property name="dataSource" ref="dataSource"/>
+  </bean>
+</xmp>
 
-  ps：userDao的property中name的值为dataSource而不是jdbcTemplate。
-      我怀疑设值注入是根据setter方法中的形参名来匹配私有变量的。
-      然后JdbcTemplate的构造函数接受一个dataSource（该bean指向的）类进行初始化，即可对数据库进行操作。
+ps：userDao的property中name的值为dataSource而不是jdbcTemplate。
+    我怀疑设值注入是根据setter方法中的形参名来匹配私有变量的。
+    然后JdbcTemplate的构造函数接受一个dataSource（该bean指向的）类进行初始化，即可对数据库进行操作。
 
-  5. main中进行操作
-  <xmp class="block">
-    public static void main(String[] args)
-    {
-        ApplicationContext ac = new ClassPathXmlApplicationContext("com/wzz/ApplicationContext.xml");
-        IUserDAO userDAO = (IUserDAO) ac.getBean("userDao");
+5. main中进行操作
+<xmp class="block">
+  public static void main(String[] args)
+  {
+      ApplicationContext ac = new ClassPathXmlApplicationContext("com/wzz/ApplicationContext.xml");
+      IUserDAO userDAO = (IUserDAO) ac.getBean("userDao");
 
-        User user = new User();
-        user.setUserName("wzz");
-        user.setPassWord("123456");
+      User user = new User();
+      user.setUserName("wzz");
+      user.setPassWord("123456");
 
-        userDAO.insert(user);
-    }
-  </xmp>
+      userDAO.insert(user);
+  }
+</xmp>
 
-  <h2 class="h2">JdbcTemplate查询数据库方法</h2>
-  <b>返回单个对象查询</b>
+<h2 class="h2">JdbcTemplate查询数据库方法</h2>
+<b>返回单个对象查询</b>
 
-  + Object query(String sql,ResultSetExtractor extractor)
++ Object query(String sql,ResultSetExtractor extractor)
+<xmp class="block">
+@Override
+public User find(Long id)
+{
+    return (User)jdbcTemplate.query("select * from user where id=" + id,
+            new ResultSetExtractor()
+            {
+                @Override
+                public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException
+                {
+                    User user = new User();
+                    if(resultSet.next())
+                    {
+                        user.setId(resultSet.getLong("id"));
+                        user.setUserName(resultSet.getString("name"));
+                        user.setPassWord(resultSet.getString("password"));
+                        return user;
+                    }
+                    return user;
+                }
+            });
+}
+</xmp>
+
++ Object query(String sql,Object[] args,ResultSetExtractor extractor)
+  在上面的方法中，进行sql语句的输入时，需要进行字符串拼接，十分麻烦。
+  现在这个方法提供了参数列表，这样在sql中，变量只需要用<code>?</code>代替，不需要进行拼接了。
+  参数列表的输入会根据变量<code>?</code>的顺序依次代入。
+  其他使用方法同上。
   <xmp class="block">
   @Override
   public User find(Long id)
   {
-      return (User)jdbcTemplate.query("select * from user where id=" + id,
+      return (User)jdbcTemplate.query("select * from user where id=?",
+              new Object[] { id },
               new ResultSetExtractor()
               {
                   @Override
@@ -167,157 +197,127 @@
   }
   </xmp>
 
-  + Object query(String sql,Object[] args,ResultSetExtractor extractor)
-    在上面的方法中，进行sql语句的输入时，需要进行字符串拼接，十分麻烦。
-    现在这个方法提供了参数列表，这样在sql中，变量只需要用<code>?</code>代替，不需要进行拼接了。
-    参数列表的输入会根据变量<code>?</code>的顺序依次代入。
-    其他使用方法同上。
-    <xmp class="block">
-    @Override
-    public User find(Long id)
-    {
-        return (User)jdbcTemplate.query("select * from user where id=?",
-                new Object[] { id },
-                new ResultSetExtractor()
-                {
-                    @Override
-                    public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException
-                    {
-                        User user = new User();
-                        if(resultSet.next())
-                        {
-                            user.setId(resultSet.getLong("id"));
-                            user.setUserName(resultSet.getString("name"));
-                            user.setPassWord(resultSet.getString("password"));
-                            return user;
-                        }
-                        return user;
-                    }
-                });
-    }
-    </xmp>
-
-  + int queryForInt(String sql)
-  + int queryForInt(String sql,Object[] args)
-    根据sql来查询并返回int类型对象。
-    <xmp class="block">
-    // 返回user表中的所有记录数
-    int num = jdbcTemplate.queryForInt("select count(*) from user");
-    </xmp>
-
-  + long queryForLong(String sql)
-  + long queryForLong(String sql,Object[] args)
-
-  + Object queryForObject(String sql,Class requiredType)
-  + Object queryForObject(String sql,Object[] args,Class requiredType)
-    根据sql查询requiredType类型的对象，可查询任意类型（基本类型）。
-    <xmp class="block">
-    String name = (String) jdbcTemplate.queryForObject("...",java.lang.String.class);
-    </xmp>
-
-  + Object queryForObject(String sql,RowMapper rowMapper)
-  + Object queryForObject(String sql,Object[] args,RowMapper rowMapper)
-    自定义类继承RowMapper接口，该自定义类对sql查询的结果进行处理，并返回其包装类。
-    相当于本节第一个方法的预定义形式。
-    <xmp class="block">
-    // 自定义类
-    public class UserRowMapper implements RowMapper
-    {
-        @Override
-        public Object mapRow(ResultSet resultSet, int i) throws SQLException
-        {
-            User user = new User();
-            user.setId(resultSet.getLong("id"));
-            user.setUserName(resultSet.getString("name"));
-            user.setPassWord(resultSet.getString("password"));
-            return user;
-        }
-    }
-
-    // 使用查询
-    User user = (User) jdbcTemplate.queryForObject("select * from user where id = 1",new UserRowMapper());
-    </xmp>
-
-  <b>返回多个对象查询</b>
-
-  + List query(String sql,RowMapper rowMapper)
-  + List query(String sql,Object[] args,RowMapper rowMapper)
-    返回一个list，该list的成员是实现了RowMapper的类的返回类型。
-
-  + List queryForList(String sql)
-  + List queryForList(String sql,Object[] args)
-    返回一个list，该list的成员是Map对象。
-
-  + List queryForList(String sql,Class elementType)
-    返回一个list，该list的成员是elementType（基本类型）的对象。
-
-  <h2 class="h2">使用Jdbc Template更新数据</h2>
-
-  + void execute(String sql)
-    接受一个sql，执行该sql的操作。
-
-  + int update(String sql)
-  + int update(Stirng sql,Object[] args)
-    与上面的方法作用相同，只不过返回的是sql执行的数据量。
-
-  <h1 class="h1">事务</h1>
-
-  <b>事务属性</b>
-  1. 传播行为
-    + PROPAGATION_REQUIRED = 0
-      表示支持当前事务，如果当前没有事务则新建一个事务。
-
-    + PROPAGATION_SUPPORTS = 1
-      表示支持当前事务，如果当前没有事务则以非事务的方式执行。
-
-    + PROPAGATION_MANDATORY = 2
-      表示纳入该事务管理的方法必须在事务中进行，如果当前没有事务就抛出异常。
-
-    + PROPAGATION_rEQUIRES_NEW = 3
-      表示如果有事务存在就暂停它，然后新建一个新的事务。
-
-    + PROPAGATION_NOT_SUPPORTED = 4
-      表示当前方法不在事务中进行，如果当前已经开启事务则停止当前事务。
-
-    + PROPAGATION_NEVER = 5
-      表示当前方法不在事务中进行，如果当前已经开启事务则抛出异常。
-
-    + PROPAGATION_NESTED = 6
-      表示当前方法在嵌入事务中进行，如果当前不是嵌入事务，则新建一个事务。
-
-  2. 隔离层级
-    + ISOLATION_DEFAULT
-      表示使用底层数据库预设的隔离层级。
-
-    + ISOLATION_READ_UNCOMMITTED
-      表示允许事务读取其他并行事务还没有提交的数据。
-
-    + ISOLATION_READ_COMMITTED
-      表示允许事务读取并行的事务已经提交的数据。
-
-    + ISOLATION_REPEATABLE_READ
-      表示要求多次读取的数据必须相同，一个事务读取数据的时候，如果另一个并行的事务正在修改但是还没有提交数据，
-      则这个并行事务中的数据将恢复到修改前。
-
-    + ISOLATION_SERIALIZABLE
-      表示完全隔离层级。
-
-  3. 只读（Read-only）
-    表示当前事务只能进行读取动作，需要一些传播行为（0、3、6）配合使用。
-
-  4. 事务超时（Transaction timeout）
-    默认为：TIMEOUT_DEFAULT = -1
-    这是永不超时。
-
-  <b>基于Annotation</b>
++ int queryForInt(String sql)
++ int queryForInt(String sql,Object[] args)
+  根据sql来查询并返回int类型对象。
   <xmp class="block">
-  // 在需要事务的类上加上
-  @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,readOnly = true,timeout = 30)
-
-  // 配置文件加上（未验证）
-  <tx:annotation-driven transaction-manager="transactionManager" />
+  // 返回user表中的所有记录数
+  int num = jdbcTemplate.queryForInt("select count(*) from user");
   </xmp>
 
++ long queryForLong(String sql)
++ long queryForLong(String sql,Object[] args)
+
++ Object queryForObject(String sql,Class requiredType)
++ Object queryForObject(String sql,Object[] args,Class requiredType)
+  根据sql查询requiredType类型的对象，可查询任意类型（基本类型）。
+  <xmp class="block">
+  String name = (String) jdbcTemplate.queryForObject("...",java.lang.String.class);
+  </xmp>
+
++ Object queryForObject(String sql,RowMapper rowMapper)
++ Object queryForObject(String sql,Object[] args,RowMapper rowMapper)
+  自定义类继承RowMapper接口，该自定义类对sql查询的结果进行处理，并返回其包装类。
+  相当于本节第一个方法的预定义形式。
+  <xmp class="block">
+  // 自定义类
+  public class UserRowMapper implements RowMapper
+  {
+      @Override
+      public Object mapRow(ResultSet resultSet, int i) throws SQLException
+      {
+          User user = new User();
+          user.setId(resultSet.getLong("id"));
+          user.setUserName(resultSet.getString("name"));
+          user.setPassWord(resultSet.getString("password"));
+          return user;
+      }
+  }
+
+  // 使用查询
+  User user = (User) jdbcTemplate.queryForObject("select * from user where id = 1",new UserRowMapper());
+  </xmp>
+
+<b>返回多个对象查询</b>
+
++ List query(String sql,RowMapper rowMapper)
++ List query(String sql,Object[] args,RowMapper rowMapper)
+  返回一个list，该list的成员是实现了RowMapper的类的返回类型。
+
++ List queryForList(String sql)
++ List queryForList(String sql,Object[] args)
+  返回一个list，该list的成员是Map对象。
+
++ List queryForList(String sql,Class elementType)
+  返回一个list，该list的成员是elementType（基本类型）的对象。
+
+<h2 class="h2">使用Jdbc Template更新数据</h2>
+
++ void execute(String sql)
+  接受一个sql，执行该sql的操作。
+
++ int update(String sql)
++ int update(Stirng sql,Object[] args)
+  与上面的方法作用相同，只不过返回的是sql执行的数据量。
+
+<h1 class="h1">事务</h1>
+
+<b>事务属性</b>
+1. 传播行为
+  + PROPAGATION_REQUIRED = 0
+    表示支持当前事务，如果当前没有事务则新建一个事务。
+
+  + PROPAGATION_SUPPORTS = 1
+    表示支持当前事务，如果当前没有事务则以非事务的方式执行。
+
+  + PROPAGATION_MANDATORY = 2
+    表示纳入该事务管理的方法必须在事务中进行，如果当前没有事务就抛出异常。
+
+  + PROPAGATION_rEQUIRES_NEW = 3
+    表示如果有事务存在就暂停它，然后新建一个新的事务。
+
+  + PROPAGATION_NOT_SUPPORTED = 4
+    表示当前方法不在事务中进行，如果当前已经开启事务则停止当前事务。
+
+  + PROPAGATION_NEVER = 5
+    表示当前方法不在事务中进行，如果当前已经开启事务则抛出异常。
+
+  + PROPAGATION_NESTED = 6
+    表示当前方法在嵌入事务中进行，如果当前不是嵌入事务，则新建一个事务。
+
+2. 隔离层级
+  + ISOLATION_DEFAULT
+    表示使用底层数据库预设的隔离层级。
+
+  + ISOLATION_READ_UNCOMMITTED
+    表示允许事务读取其他并行事务还没有提交的数据。
+
+  + ISOLATION_READ_COMMITTED
+    表示允许事务读取并行的事务已经提交的数据。
+
+  + ISOLATION_REPEATABLE_READ
+    表示要求多次读取的数据必须相同，一个事务读取数据的时候，如果另一个并行的事务正在修改但是还没有提交数据，
+    则这个并行事务中的数据将恢复到修改前。
+
+  + ISOLATION_SERIALIZABLE
+    表示完全隔离层级。
+
+3. 只读（Read-only）
+  表示当前事务只能进行读取动作，需要一些传播行为（0、3、6）配合使用。
+
+4. 事务超时（Transaction timeout）
+  默认为：TIMEOUT_DEFAULT = -1
+  这是永不超时。
+
+<b>基于Annotation</b>
+<xmp class="block">
+// 在需要事务的类上加上
+@Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,readOnly = true,timeout = 30)
+
+// 配置文件加上（未验证）
+<tx:annotation-driven transaction-manager="transactionManager" />
+</xmp>
+
 </pre>
-  </body>
+</body>
 </html>

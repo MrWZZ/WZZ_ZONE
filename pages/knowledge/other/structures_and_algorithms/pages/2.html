@@ -1,188 +1,188 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
-  </head>
-  <body>
+<head>
+<meta charset="utf-8">
+<title></title>
+<link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+</head>
+<body>
 <pre class="w_doc">
 
-  <strong>为方便演示，有些代码将以js编写。</strong>
+<strong>为方便演示，有些代码将以js编写。</strong>
 
 <h1 class="h1">冒泡排序</h1>
-   冒泡排序时可用的最慢的排序算法之一，但它是最容易理解和实现的一种排序算法。
+冒泡排序时可用的最慢的排序算法之一，但它是最容易理解和实现的一种排序算法。
 
-   原理：
-   1.选择第一个元素，令其与后面的元素进行比较，如果前面的值比后面的值大，则进行位置交换。
-   2.依次比较到数组末尾。（这时，最大值的项已被放置到末尾，则下次需要比较的次数减一。）
-   3.循环1、2步骤，直到最后只剩下一个元素。
+原理：
+1.选择第一个元素，令其与后面的元素进行比较，如果前面的值比后面的值大，则进行位置交换。
+2.依次比较到数组末尾。（这时，最大值的项已被放置到末尾，则下次需要比较的次数减一。）
+3.循环1、2步骤，直到最后只剩下一个元素。
 
-   代码：
-   <xmp class="block">
-     var list = [2,4,1,3,7,5,0,8,9,6];
-     function BubbleSort(sortList)
+代码：
+<xmp class="block">
+ var list = [2,4,1,3,7,5,0,8,9,6];
+ function BubbleSort(sortList)
+ {
+   var temp;
+   for(var i = sortList.length; i > 1; i--)
+   {
+     for(var j = 0; j < i - 1; j++)
      {
-       var temp;
-       for(var i = sortList.length; i > 1; i--)
+       if(sortList[j] > sortList[j+1])
        {
-         for(var j = 0; j < i - 1; j++)
-         {
-           if(sortList[j] > sortList[j+1])
-           {
-             temp = sortList[j];
-             sortList[j] = sortList[j+1];
-             sortList[j+1] = temp;
-           }
-         }
+         temp = sortList[j];
+         sortList[j] = sortList[j+1];
+         sortList[j+1] = temp;
        }
      }
-     BubbleSort(list);
-   </xmp>
-   演示：
-   <div class="demo">
-     <table id="bubble_sort">
-       <tr>
-         <td></td><td></td><td></td><td></td><td></td>
-         <td></td><td></td><td></td><td></td><td></td>
-       </tr>
-     </table>
-     <input id="run" type="button" name="" value="运行">
-     <style media="screen">
-     #bubble_sort td{
-       width: 30px;
-       height: 30px;
-       border: 1px solid;
-       text-align: center;
+   }
+ }
+ BubbleSort(list);
+</xmp>
+演示：
+<div class="demo">
+ <table id="bubble_sort">
+   <tr>
+     <td></td><td></td><td></td><td></td><td></td>
+     <td></td><td></td><td></td><td></td><td></td>
+   </tr>
+ </table>
+ <input id="run" type="button" name="" value="运行">
+ <style media="screen">
+ #bubble_sort td{
+   width: 30px;
+   height: 30px;
+   border: 1px solid;
+   text-align: center;
+ }
+ </style>
+ <script class="execute_fun" type="text/javascript">
+   var list;
+   var i;
+   var j;
+   var slots;
+   var s_id;
+   var color;
+   document.querySelector("#run").onclick = Run;
+
+   function Run()
+   {
+     list = [2,4,1,3,7,5,0,8,9,6];
+     i = list.length;
+     j = 0;
+     slots = document.querySelectorAll("#bubble_sort td");
+     s_id = setInterval(BubbleSort,1000);
+   }
+
+   function BubbleSort()
+   {
+     var temp;
+     for(; i > 1; )
+     {
+       for(; j < i - 1; )
+       {
+         if(list[j] > list[j+1])
+         {
+           temp = list[j];
+           list[j] = list[j+1];
+           list[j+1] = temp;
+           color = "red";
+         }
+         else
+         {
+           color = "yellow";
+         }
+         Show();
+         j++;
+         return;
+       }
+       i--;
+       j = 0;
      }
-     </style>
-     <script class="execute_fun" type="text/javascript">
-       var list;
-       var i;
-       var j;
-       var slots;
-       var s_id;
-       var color;
-       document.querySelector("#run").onclick = Run;
-
-       function Run()
+     if(i == 1)
+     {
+       clearInterval(s_id);
+       for(var s = 0; s < slots.length; s++)
        {
-         list = [2,4,1,3,7,5,0,8,9,6];
-         i = list.length;
-         j = 0;
-         slots = document.querySelectorAll("#bubble_sort td");
-         s_id = setInterval(BubbleSort,1000);
+         slots[s].style.background = "white";
        }
+     }
+   }
 
-       function BubbleSort()
-       {
-         var temp;
-         for(; i > 1; )
-         {
-           for(; j < i - 1; )
-           {
-             if(list[j] > list[j+1])
-             {
-               temp = list[j];
-               list[j] = list[j+1];
-               list[j+1] = temp;
-               color = "red";
-             }
-             else
-             {
-               color = "yellow";
-             }
-             Show();
-             j++;
-             return;
-           }
-           i--;
-           j = 0;
-         }
-         if(i == 1)
-         {
-           clearInterval(s_id);
-           for(var s = 0; s < slots.length; s++)
-           {
-             slots[s].style.background = "white";
-           }
-         }
-       }
-
-      function Show()
-      {
-        for(var s = 0; s < slots.length; s++)
-        {
-          slots[s].innerHTML = list[s];
-          slots[s].style.background = "white";
-        }
-        for(var y = 0; y < slots.length - i; y++)
-        {
-          slots[slots.length - 1 - y].style.background = "green";
-        }
-        slots[j].style.background = color;
-      }
-     </script>
-   </div>
+  function Show()
+  {
+    for(var s = 0; s < slots.length; s++)
+    {
+      slots[s].innerHTML = list[s];
+      slots[s].style.background = "white";
+    }
+    for(var y = 0; y < slots.length - i; y++)
+    {
+      slots[slots.length - 1 - y].style.background = "green";
+    }
+    slots[j].style.background = color;
+  }
+ </script>
+</div>
 
 <h1 class="h1">选择排序</h1>
-  此排序方法在循环比较的时候，记录每次最小的值的索引，通过索引进行值的交换。
+此排序方法在循环比较的时候，记录每次最小的值的索引，通过索引进行值的交换。
 
-  原理：
-  1.这种排序是从数组的起始处开始，把第一个元素与数组中其他元素进行比较。
-  2.然后最小的元素放置在第0个位置上，接着再从第1个位置开始再次进行排序操作。
-  3.循环1、2，直到结束。
+原理：
+1.这种排序是从数组的起始处开始，把第一个元素与数组中其他元素进行比较。
+2.然后最小的元素放置在第0个位置上，接着再从第1个位置开始再次进行排序操作。
+3.循环1、2，直到结束。
 
-  代码：
-  <xmp class="block">
-    public void SelectionSort()
+代码：
+<xmp class="block">
+public void SelectionSort()
+{
+  int min,temp;
+  // upper为数组的最大索引。
+  for(int outer = 0; outer <= upper; outer++)
+  {
+    min = outer;
+    for(int inner = outer + 1; inner <= upper; inner++)
     {
-      int min,temp;
-      // upper为数组的最大索引。
-      for(int outer = 0; outer <= upper; outer++)
+      if(arr[inner] < arr[min])
       {
-        min = outer;
-        for(int inner = outer + 1; inner <= upper; inner++)
-        {
-          if(arr[inner] < arr[min])
-          {
-            min = inner;
-          }
-        }
-        temp = arr[outer];
-        arr[outer] = arr[min];
-        arr[min] = temp;
+        min = inner;
       }
     }
-  </xmp>
+    temp = arr[outer];
+    arr[outer] = arr[min];
+    arr[min] = temp;
+  }
+}
+</xmp>
 
 <h1 class="h1">插入排序</h1>
-  此排序算法操作非常耗时，感觉像是逆向的冒泡排序。
+此排序算法操作非常耗时，感觉像是逆向的冒泡排序。
 
-  代码：
-  <xmp class="block">
-    public void InsertionSort()
+代码：
+<xmp class="block">
+public void InsertionSort()
+{
+  int inner,temp;
+  for(int outer = 1; outer <= upper; outer++)
+  {
+    temp = arr[outer];
+    inner = outer;
+    while(inner > 0 && arr[inner-1] >= temp)
     {
-      int inner,temp;
-      for(int outer = 1; outer <= upper; outer++)
-      {
-        temp = arr[outer];
-        inner = outer;
-        while(inner > 0 && arr[inner-1] >= temp)
-        {
-          arr[inner] = arr[inner-1];
-          inner--;
-        }
-        arr[inner] = temp;
-      }
+      arr[inner] = arr[inner-1];
+      inner--;
     }
-  </xmp>
+    arr[inner] = temp;
+  }
+}
+</xmp>
 
-  <b>总结</b>
-  当数组元素量为10000时，各排序算法所需要的时间对比。
-  选择排序：2864
-  冒泡排序：53607
-  插入排序：84751
+<b>总结</b>
+当数组元素量为10000时，各排序算法所需要的时间对比。
+选择排序：2864
+冒泡排序：53607
+插入排序：84751
 </pre>
-  </body>
+</body>
 </html>

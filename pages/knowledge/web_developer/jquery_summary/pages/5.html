@@ -1,154 +1,154 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+</head>
+<body>
 <pre class="w_doc">
-  <h1 class="h1">元素内容</h1>
-  <h2 class="h2">操作HTML</h2>
-  <b>获取HTML内容</b>
-  <code>html()</code>
-  获取匹配元素集合中第一个元素的HTML内容。
-  <xmp class="block">
-    var s = $("#id").html();
-  </xmp>
+<h1 class="h1">元素内容</h1>
+<h2 class="h2">操作HTML</h2>
+<b>获取HTML内容</b>
+<code>html()</code>
+获取匹配元素集合中第一个元素的HTML内容。
+<xmp class="block">
+  var s = $("#id").html();
+</xmp>
 
-  <b>设置HTML内容</b>
-  <code>html(htmlString)</code>
-  设置元素的HTML内容。
-  <xmp class="block">
-    $("#id").html("更换内容");
-  </xmp>
+<b>设置HTML内容</b>
+<code>html(htmlString)</code>
+设置元素的HTML内容。
+<xmp class="block">
+  $("#id").html("更换内容");
+</xmp>
 
-  <b>根据索引设置HTML内容</b>
-  <code>html(function(index,htmk))</code>
+<b>根据索引设置HTML内容</b>
+<code>html(function(index,htmk))</code>
 
-  <h2 class="h2">操作文本</h2>
-  <b>text()</b>
-  <xmp class="block">
-    //获取文本内容
-    var s = $("#id").text();
+<h2 class="h2">操作文本</h2>
+<b>text()</b>
+<xmp class="block">
+  //获取文本内容
+  var s = $("#id").text();
 
-    //设置文本内容
-    $("#id").text("更改");
+  //设置文本内容
+  $("#id").text("更改");
 
-    //根据索引设置文本内容
-    $("#id").text(function(){});
-  </xmp>
+  //根据索引设置文本内容
+  $("#id").text(function(){});
+</xmp>
 
-  <h2 class="h2">操作值</h2>
-  <b>val()</b>
-  <xmp class="block">
-    //获取元素的值
-    var v = $("#id").val();
+<h2 class="h2">操作值</h2>
+<b>val()</b>
+<xmp class="block">
+  //获取元素的值
+  var v = $("#id").val();
 
-    //设置值
-    $("#id").val("value");
+  //设置值
+  $("#id").val("value");
 
-    //根据索引设置元素值
-    $("#id").val(function(){});
-  </xmp>
+  //根据索引设置元素值
+  $("#id").val(function(){});
+</xmp>
 
-  <h1 class="h1">元素属性</h1>
-  <b>attr()</b>
-  <xmp class="block">
-    //读取属性
-    var v = $("#id").attr("key");
+<h1 class="h1">元素属性</h1>
+<b>attr()</b>
+<xmp class="block">
+  //读取属性
+  var v = $("#id").attr("key");
 
-    //设置属性
-    $("#id").attr("key",value);
+  //设置属性
+  $("#id").attr("key",value);
 
-    //根据索引设置属性
-    $("#id").attr("key",function(){});
-  </xmp>
+  //根据索引设置属性
+  $("#id").attr("key",function(){});
+</xmp>
 
-  <b>removeAttr()</b>
-  <xmp class="block">
-    //删除属性
-    $("#id").removeAttr("key");
-  </xmp>
+<b>removeAttr()</b>
+<xmp class="block">
+  //删除属性
+  $("#id").removeAttr("key");
+</xmp>
 
-  <h1 class="h1">元素样式</h1>
-  <b>添加样式类</b>
-  <xmp class="block">
-    addClass(class);
-    addClass(function(){});
-  </xmp>
+<h1 class="h1">元素样式</h1>
+<b>添加样式类</b>
+<xmp class="block">
+  addClass(class);
+  addClass(function(){});
+</xmp>
 
-  <b>移除样式类</b>
-  <xmp class="block">
-    removeClass(class);
-    removeClass(function(){});
-  </xmp>
+<b>移除样式类</b>
+<xmp class="block">
+  removeClass(class);
+  removeClass(function(){});
+</xmp>
 
-  <b>切换样式类</b>
-  <xmp class="block">
-    //如果样式存在，则删除；如果样式不存在，则添加
-    toggleClass(class);
+<b>切换样式类</b>
+<xmp class="block">
+  //如果样式存在，则删除；如果样式不存在，则添加
+  toggleClass(class);
 
-    //switch：true->添加；false->删除
-    toggleClass(class,switch);
+  //switch：true->添加；false->删除
+  toggleClass(class,switch);
 
-    toggleClass(class,function(){});
-  </xmp>
+  toggleClass(class,function(){});
+</xmp>
 
-  <h1 class="h1">元素CSS</h1>
-  <b>css(cssname)</b>
-  <xmp class="block">
-    //读取属性值
-    var c = $("#id").css("color");
+<h1 class="h1">元素CSS</h1>
+<b>css(cssname)</b>
+<xmp class="block">
+  //读取属性值
+  var c = $("#id").css("color");
 
-    //设置
-    $("div").class("key","value");
-  </xmp>
+  //设置
+  $("div").class("key","value");
+</xmp>
 
-  <h2 class="h2">元素CSS位置</h2>
-  <b>offset()</b>
-  可以控制元素相对于文档的当前坐标。
-  <xmp class="block">
-    //返回集合中第一个元素相对于文档的top和left坐标
-    offset();
+<h2 class="h2">元素CSS位置</h2>
+<b>offset()</b>
+可以控制元素相对于文档的当前坐标。
+<xmp class="block">
+  //返回集合中第一个元素相对于文档的top和left坐标
+  offset();
 
-    //实例
-    $("#panel").offset({top:50,left:400});
-    //使用该方法时，如果他的position属性为static，则该属性将被更改为relative。
-  </xmp>
+  //实例
+  $("#panel").offset({top:50,left:400});
+  //使用该方法时，如果他的position属性为static，则该属性将被更改为relative。
+</xmp>
 
-  <b>position()</b>
-  用于获取相对于父元素的当前偏移量。
-  用法同上。
+<b>position()</b>
+用于获取相对于父元素的当前偏移量。
+用法同上。
 
-  <b>scrollLeft(),scrollTop()</b>
-  分别用于获取元素的滚动条距离左端和顶端的距离。
-  <xmp class="block">
-    //获取值
-    var l = $("#id").scrollLeft();
-    var t = $("#id").scrollTop();
+<b>scrollLeft(),scrollTop()</b>
+分别用于获取元素的滚动条距离左端和顶端的距离。
+<xmp class="block">
+  //获取值
+  var l = $("#id").scrollLeft();
+  var t = $("#id").scrollTop();
 
-    //设置该元素内的滚动条滚动到指定位置
-    $("textarea").scrollTop(50);
-    $("textarea").scrollLeft(50);
-  </xmp>
+  //设置该元素内的滚动条滚动到指定位置
+  $("textarea").scrollTop(50);
+  $("textarea").scrollLeft(50);
+</xmp>
 
-  <h2 class="h2">元素CSS尺寸</h2>
-  <b>height(),width()</b>
-  <xmp class="block">
-    //获取高、宽
-    var h = $("#id").height();
-    var w =$("#id").width();
+<h2 class="h2">元素CSS尺寸</h2>
+<b>height(),width()</b>
+<xmp class="block">
+  //获取高、宽
+  var h = $("#id").height();
+  var w =$("#id").width();
 
-    //设置高、宽
-    $("#id").height("300");
-    $("#id").width("20%");
-  </xmp>
+  //设置高、宽
+  $("#id").height("300");
+  $("#id").width("20%");
+</xmp>
 
-  <b>innerHeight(),innerWidth()</b>
+<b>innerHeight(),innerWidth()</b>
 
-  <b>outerHeight(),outerWidth()</b>
+<b>outerHeight(),outerWidth()</b>
 
 </pre>
-  </body>
+</body>
 </html>

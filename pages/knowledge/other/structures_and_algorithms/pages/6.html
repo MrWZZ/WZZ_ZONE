@@ -1,144 +1,144 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+</head>
+<body>
 <pre class="w_doc">
 <h1 class="h1">二叉树</h1>
-  每个节点最多拥有不超过2个子节点的树定义为二叉树。
+每个节点最多拥有不超过2个子节点的树定义为二叉树。
 
 <h2 class="h2">构造二叉查找树</h2>
-  <b>Node类</b>
-  代码：
-  <xmp class="block">
-    public class Node
+<b>Node类</b>
+代码：
+<xmp class="block">
+  public class Node
+  {
+    public int Data;
+    public Node left;
+    public Node right;
+    public void Displaynode()
     {
-      public int Data;
-      public Node left;
-      public Node right;
-      public void Displaynode()
-      {
-        Console.Write(Data);
-      }
+      Console.Write(Data);
     }
-  </xmp>
+  }
+</xmp>
 
-  <b>BinarySearchTree类</b>
-  对二叉树进行操作的类。
-  代码：
-  <xmp class="block">
-    public class BinarySearchTree
+<b>BinarySearchTree类</b>
+对二叉树进行操作的类。
+代码：
+<xmp class="block">
+  public class BinarySearchTree
+  {
+    public Node root;
+    public BinarySearchTree()
     {
-      public Node root;
-      public BinarySearchTree()
-      {
-        root = null;
-      }
+      root = null;
+    }
 
-      //插入操作
-      public void Insert(int i)
+    //插入操作
+    public void Insert(int i)
+    {
+      Node newNode = new Node();
+      newNode.Data = i;
+      if(root == null)
       {
-        Node newNode = new Node();
-        newNode.Data = i;
-        if(root == null)
-        {
-          root = newNode;
-        }
-        else
-        {
-          Node current = root;
-          Node parent;
-          whlie(true)
-          {
-            parent = current;
-            if(i < current.Data)
-            {
-              current = current.Left;
-              if(current == null)
-              {
-                parent.Left = newNode;
-                break;
-              }
-            }
-            else
-            {
-              current = current.Right;
-              if(current == null)
-              {
-                parent.Right = newNode;
-                break;
-              }
-            }
-          }
-        }
+        root = newNode;
       }
-
-      //中序遍历，可按小到大查到树中的内容。
-      public void InOrder(Node theRoot)
-      {
-        if(!(theRoot == null))
-        {
-          InOrder(theRoot.Left);
-          theRoot.DisplayNode();
-          InOrder(theRoot.Right);
-        }
-      }
-
-      //先序遍历,
-      public void PreOrder(Node theRoot)
-      {
-        if(!(theRoot == null))
-        {
-          theRoot.DisplayNode();
-          InOrder(theRoot.Left);
-          InOrder(theRoot.Right);
-        }
-      }
-
-      //后序遍历,
-      public void PostOrder(Node theRoot)
-      {
-        if(!(theRoot == null))
-        {
-          InOrder(theRoot.Left);
-          InOrder(theRoot.Right);
-          theRoot.DisplayNode();
-        }
-      }
-
-      //查找操作
-      public Node Find(int key)
+      else
       {
         Node current = root;
-        while(current.Data != key)
+        Node parent;
+        whlie(true)
         {
-          if(key < current.Data)
+          parent = current;
+          if(i < current.Data)
           {
             current = current.Left;
+            if(current == null)
+            {
+              parent.Left = newNode;
+              break;
+            }
           }
           else
           {
             current = current.Right;
-          }
-
-          if(current == null)
-          {
-            return null;
+            if(current == null)
+            {
+              parent.Right = newNode;
+              break;
+            }
           }
         }
-        return current;
-      }
-
-      //删除操作
-      public bool Delete(int key)
-      {
-        //。。。
       }
     }
-  </xmp>
+
+    //中序遍历，可按小到大查到树中的内容。
+    public void InOrder(Node theRoot)
+    {
+      if(!(theRoot == null))
+      {
+        InOrder(theRoot.Left);
+        theRoot.DisplayNode();
+        InOrder(theRoot.Right);
+      }
+    }
+
+    //先序遍历,
+    public void PreOrder(Node theRoot)
+    {
+      if(!(theRoot == null))
+      {
+        theRoot.DisplayNode();
+        InOrder(theRoot.Left);
+        InOrder(theRoot.Right);
+      }
+    }
+
+    //后序遍历,
+    public void PostOrder(Node theRoot)
+    {
+      if(!(theRoot == null))
+      {
+        InOrder(theRoot.Left);
+        InOrder(theRoot.Right);
+        theRoot.DisplayNode();
+      }
+    }
+
+    //查找操作
+    public Node Find(int key)
+    {
+      Node current = root;
+      while(current.Data != key)
+      {
+        if(key < current.Data)
+        {
+          current = current.Left;
+        }
+        else
+        {
+          current = current.Right;
+        }
+
+        if(current == null)
+        {
+          return null;
+        }
+      }
+      return current;
+    }
+
+    //删除操作
+    public bool Delete(int key)
+    {
+      //。。。
+    }
+  }
+</xmp>
 </pre>
-  </body>
+</body>
 </html>

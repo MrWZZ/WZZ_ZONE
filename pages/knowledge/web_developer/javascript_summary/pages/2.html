@@ -1,214 +1,214 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
-    <title></title>
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+  <title></title>
+</head>
+<body>
 <pre class="w_doc">
 <h1 class="h1">语法</h1>
-  + 区分大小写
-  + 变量是弱类型的
-  + 每行结尾的分号可有可无
-  + 注释与JAVA、C相同
-  + 花括号表明代码块
++ 区分大小写
++ 变量是弱类型的
++ 每行结尾的分号可有可无
++ 注释与JAVA、C相同
++ 花括号表明代码块
 
 <h1 class="h1">变量</h1>
 
 <h2 class="h2">Var关键字</h2>
-  用var来声明一个变量。
-  <xmp class="block">
-    //test的类型为String,age的类型为Integer
-    var test = "h1",age = 25;
-  </xmp>
+用var来声明一个变量。
+<xmp class="block">
+  //test的类型为String,age的类型为Integer
+  var test = "h1",age = 25;
+</xmp>
 
 <h2 class="h2">Let关键字</h2>
-  用<code>let</code>来限制变量只在代码块中使用。
+用<code>let</code>来限制变量只在代码块中使用。
 
-  <xmp class="block">
-    //i只在下面的for代码块中生效
-    for(let i = 0; i < 3; i++)
-    {
-      console.log(i);     //分别输出0，1，2。
-    }
+<xmp class="block">
+  //i只在下面的for代码块中生效
+  for(let i = 0; i < 3; i++)
+  {
+    console.log(i);     //分别输出0，1，2。
+  }
 
-    //但是let在for中有一个特别的地方
-    for(let i = 0; i < 3; i++)
-    {
-      let i = "a";
-      console.log(i);     //输出3次a，在这种情况下i有2个作用域。
-    }
-  </xmp>
+  //但是let在for中有一个特别的地方
+  for(let i = 0; i < 3; i++)
+  {
+    let i = "a";
+    console.log(i);     //输出3次a，在这种情况下i有2个作用域。
+  }
+</xmp>
 
 
 
 <h2 class="h2">Const关键字</h2>
-  const变量在声明时就必须赋值，赋值后不能在改变。
+const变量在声明时就必须赋值，赋值后不能在改变。
 
-  本质是变量地址不能被改变，但可以对这个对象进行其他操作。
-  <xmp class="block">
-    const a = 3;
-    const b;    //error
+本质是变量地址不能被改变，但可以对这个对象进行其他操作。
+<xmp class="block">
+  const a = 3;
+  const b;    //error
 
-    const c = {};
-    c.key = "d";    //可以执行
-    c = {};         //error;
+  const c = {};
+  c.key = "d";    //可以执行
+  c = {};         //error;
 
-    const d = [];
-    d.push("hello");  //可执行
-    d.length = 0;     //可执行
-    d = []            //error
-  </xmp>
+  const d = [];
+  d.push("hello");  //可执行
+  d.length = 0;     //可执行
+  d = []            //error
+</xmp>
 
 <h2 class="h2">异同</h2>
-  <b>变量提升</b>
-  var会出现变量提升的现象，即变量可以在声明前使用，但值是undefined；
-  let、const不会出现变量提升的现象，如果在声明前使用，会报错。
-  <xmp class="block">
-    console.log(a);  //undefined
-    var a = 3;
+<b>变量提升</b>
+var会出现变量提升的现象，即变量可以在声明前使用，但值是undefined；
+let、const不会出现变量提升的现象，如果在声明前使用，会报错。
+<xmp class="block">
+  console.log(a);  //undefined
+  var a = 3;
 
-    console.log(b);  //error
-    let b = 3;
+  console.log(b);  //error
+  let b = 3;
 
-    console.log(c);  //error
-    const c = 3;
-  </xmp>
+  console.log(c);  //error
+  const c = 3;
+</xmp>
 
-  <b>暂时性锁区</b>
-  变量在一个代码块中不受其他代码快的影响，类是于变量提升。
+<b>暂时性锁区</b>
+变量在一个代码块中不受其他代码快的影响，类是于变量提升。
 
-  <b>不允许重复声明</b>
+<b>不允许重复声明</b>
 
-  <b>顶层对象的属性</b>
-  var声明的变量会赋予顶层对象的中，而let、const不会。
-  <xmp class="block">
-    var a = 1;
-    let b = 2;
-    const c = 3;
+<b>顶层对象的属性</b>
+var声明的变量会赋予顶层对象的中，而let、const不会。
+<xmp class="block">
+  var a = 1;
+  let b = 2;
+  const c = 3;
 
-    console.log(window.a);    //outputs 1;
-    console.log(window.b);    //outputs undefined;
-    console.log(window.c);    //outputs undefined;
-  </xmp>
+  console.log(window.a);    //outputs 1;
+  console.log(window.b);    //outputs undefined;
+  console.log(window.c);    //outputs undefined;
+</xmp>
 
-  其他ES6内容，查看<a href="http://es6.ruanyifeng.com/#README">阮一峰的ES6入门</a>
+其他ES6内容，查看<a href="http://es6.ruanyifeng.com/#README">阮一峰的ES6入门</a>
 
 <h2 class="h2">标记法</h2>
-  + Camel标记法：首字母小写，接下来的单词都以大写开头。
-  + Pascal标记法：首字母是大写，接下来的单词都以大写开头。
-  + 匈牙利类型标记法：在以Pascal标记法命名的标量前附加一个小写字母，说明该变量的类型。
-  <style media="screen">
-    table{
-      text-align: center;
-      width: 500px;
-      margin: 0 auto !important;
-      border-top: 2px solid black !important;
-      border-bottom: 2px solid black !important;
-    }
-  </style>
-    <table>
-      <tr> <th>类型</th><th>前缀</th> </tr>
-      <tr> <td>数组</td><td>a</td> </tr>
-      <tr> <td>布尔型</td><td>b</td> </tr>
-      <tr> <td>浮点</td><td>f</td> </tr>
-      <tr> <td>函数</td><td>fn</td> </tr>
-      <tr> <td>整形</td><td>i</td> </tr>
-      <tr> <td>对象</td><td>o</td> </tr>
-      <tr> <td>正则</td><td>re</td> </tr>
-      <tr> <td>字符串</td><td>s</td> </tr>
-      <tr> <td>任意型</td><td>v</td> </tr>
-    </table>
++ Camel标记法：首字母小写，接下来的单词都以大写开头。
++ Pascal标记法：首字母是大写，接下来的单词都以大写开头。
++ 匈牙利类型标记法：在以Pascal标记法命名的标量前附加一个小写字母，说明该变量的类型。
+<style media="screen">
+  table{
+    text-align: center;
+    width: 500px;
+    margin: 0 auto !important;
+    border-top: 2px solid black !important;
+    border-bottom: 2px solid black !important;
+  }
+</style>
+  <table>
+    <tr> <th>类型</th><th>前缀</th> </tr>
+    <tr> <td>数组</td><td>a</td> </tr>
+    <tr> <td>布尔型</td><td>b</td> </tr>
+    <tr> <td>浮点</td><td>f</td> </tr>
+    <tr> <td>函数</td><td>fn</td> </tr>
+    <tr> <td>整形</td><td>i</td> </tr>
+    <tr> <td>对象</td><td>o</td> </tr>
+    <tr> <td>正则</td><td>re</td> </tr>
+    <tr> <td>字符串</td><td>s</td> </tr>
+    <tr> <td>任意型</td><td>v</td> </tr>
+  </table>
 
 <h1 class="h1">原始值、引用值</h1>
-  原始值：储存在栈中的简单字段。
-  引用值：储存在堆中的字段。
+原始值：储存在栈中的简单字段。
+引用值：储存在堆中的字段。
 
-  <h2 class="h2">原始值</h2>
-  原始值分为5类：Undefined、Null、Boolean、Number、String。
+<h2 class="h2">原始值</h2>
+原始值分为5类：Undefined、Null、Boolean、Number、String。
 
-  <b>typeof运算符</b>
-  typeof运算符有一个参数，即要检查的变量或值。
+<b>typeof运算符</b>
+typeof运算符有一个参数，即要检查的变量或值。
 
-  代码：
-  <xmp class="block">
-    var sTemp = "test";
-    alert(typeof sTemp);    //outputs "string"
-  </xmp>
+代码：
+<xmp class="block">
+  var sTemp = "test";
+  alert(typeof sTemp);    //outputs "string"
+</xmp>
 
-  对变量或值调用typeof运算符的返回值：
-  + undefined
-  + boolean
-  + number
-  + string
-  + object：如果变量是引用类型或Null类型的。
+对变量或值调用typeof运算符的返回值：
++ undefined
++ boolean
++ number
++ string
++ object：如果变量是引用类型或Null类型的。
 
-  <b>Undefined类型</b>
-  当变量未初始化时，该标量的默认值是undefined。
+<b>Undefined类型</b>
+当变量未初始化时，该标量的默认值是undefined。
 
-  typeof能对未定义的变量使用，返回的也是undefined。
+typeof能对未定义的变量使用，返回的也是undefined。
 
-  当函数无明确返回值时，返回的也是undefined。
+当函数无明确返回值时，返回的也是undefined。
 
-  <b>Null类型</b>
-  <xmp class="block">
-    alert(null == undefined);    //true
-  </xmp>
-  尽管这两个值相等，但他们的含义不同。
-  undefined是声明了变量但未赋值。
-  null表示尚未存在的变量。
+<b>Null类型</b>
+<xmp class="block">
+  alert(null == undefined);    //true
+</xmp>
+尽管这两个值相等，但他们的含义不同。
+undefined是声明了变量但未赋值。
+null表示尚未存在的变量。
 
-  <b>Boolean类型</b>
-  <code>0</code>、空字符串<code>""</code>、只包含空格的字符串<code>" "</code>也代表false。
-  非空对象、字符串、其他数字也代表true。
+<b>Boolean类型</b>
+<code>0</code>、空字符串<code>""</code>、只包含空格的字符串<code>" "</code>也代表false。
+非空对象、字符串、其他数字也代表true。
 
-  <b>Number类型</b>
-  这个类型既可以表示整数，也可以表示浮点数。
+<b>Number类型</b>
+这个类型既可以表示整数，也可以表示浮点数。
 
-  整数：
-  + 十进制：正常数字。
-  + 八进制：0开头。
-  + 十六进制：0x开头。
+整数：
++ 十进制：正常数字。
++ 八进制：0开头。
++ 十六进制：0x开头。
 
-  <strong>任何数学运算返回的都是十进制的结果。</strong>
+<strong>任何数学运算返回的都是十进制的结果。</strong>
 
-  浮点数：
-  带有小数点和小数点的后一位。
-  2.12e3 = 2.12*10*10*10
-  2.12e-3 = 2.12/1000
-  ECMAScript默认把具有6个或6个以上前导0的浮点数转换成科学计数法。
-  <strong>最高可以储存17个十进制位。</strong>
+浮点数：
+带有小数点和小数点的后一位。
+2.12e3 = 2.12*10*10*10
+2.12e-3 = 2.12/1000
+ECMAScript默认把具有6个或6个以上前导0的浮点数转换成科学计数法。
+<strong>最高可以储存17个十进制位。</strong>
 
-  <b>String类型</b>
-  单引号、双引号都表示字符串。
+<b>String类型</b>
+单引号、双引号都表示字符串。
 
-  <b>instanceof运算符</b>
-  instanceof运算符与typeof运算符类似，用于识别正在处理的对象的类型。
-  <xmp class="block">
-    var oStringObject = new String("hello");
-    alert(oStringObject instanceof String);    //outputs "true"
-  </xmp>
+<b>instanceof运算符</b>
+instanceof运算符与typeof运算符类似，用于识别正在处理的对象的类型。
+<xmp class="block">
+  var oStringObject = new String("hello");
+  alert(oStringObject instanceof String);    //outputs "true"
+</xmp>
 
 <h1 class="h1">一元运算符</h1>
 
-  <b>delete</b>
-  delete运算符删除以前定义的对象属性或方法的引用。
+<b>delete</b>
+delete运算符删除以前定义的对象属性或方法的引用。
 
-  <b>void</b>
-  用与避免输出不应该的值。
+<b>void</b>
+用与避免输出不应该的值。
 
 <h1 class="h1">函数</h1>
-  函数的声明用<code>function</code>。
+函数的声明用<code>function</code>。
 
-  如果函数无明确的返回值，或调用了没有参数的return语句，那么它真正的返回值是undefined。
+如果函数无明确的返回值，或调用了没有参数的return语句，那么它真正的返回值是undefined。
 
-  <b>无重载</b>
-  ECMAScript中的函数不能重载。
+<b>无重载</b>
+ECMAScript中的函数不能重载。
 
-  <b>arguments对象</b>
-  在函数代码中，使用特殊对象arguments，开发者无需声明明确指定的参数名，就能访问它们。
+<b>arguments对象</b>
+在函数代码中，使用特殊对象arguments，开发者无需声明明确指定的参数名，就能访问它们。
 
 </pre>
-  </body>
+</body>
 </html>

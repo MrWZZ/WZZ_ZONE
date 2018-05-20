@@ -1,62 +1,62 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
 <pre class="w_doc">
-  <h1 class="h1">泛型限定</h1>
-  类似C#的泛型约束，Java提供了泛型的限定，不过Java只能限定参数是否 继承/实现 某个 类/接口，或它是否是某个的父类。
+<h1 class="h1">泛型限定</h1>
+类似C#的泛型约束，Java提供了泛型的限定，不过Java只能限定参数是否 继承/实现 某个 类/接口，或它是否是某个的父类。
 
-  <b>类型限定</b>
-  <xmp class="block">
-    //如果是接口的话，将extends换为implements
-    public static <T extends Man> void show(ArrayList<T> elems){}
-    public static int void show(ArrayList<T extends Man> elems){}
+<b>类型限定</b>
+<xmp class="block">
+  //如果是接口的话，将extends换为implements
+  public static <T extends Man> void show(ArrayList<T> elems){}
+  public static int void show(ArrayList<T extends Man> elems){}
+</xmp>
+
+<b>子类型通配符</b>
+限定该类是其的某个未知的子类型。
+<xmp class="block">
+  public static void printName(ArrayList<? extends Man> staff){}
+</xmp>
+
+<b>父类型通配符</b>
+限定该类是其的父类型。
+<xmp class="block">
+  public static void show(ArrayList<? super Man> staff){}
+</xmp>
+
+Java中的泛型实际上是类型擦出，就是将泛型先转为Object类型，在转为其类型。这使得Java的泛型会有很多禁止的操作。
++ 不能将一个类型与数组列表泛型比较。
+  <xmp class="inline_block">
+    if(a instanceof ArrayList<String>)
   </xmp>
-
-  <b>子类型通配符</b>
-  限定该类是其的某个未知的子类型。
-  <xmp class="block">
-    public static void printName(ArrayList<? extends Man> staff){}
++ 不能实例化泛型变量。
+  <xmp class="inline_block">
+    public static <T> T[] repeat(int n,T obj)
+    {
+        T[] result = new T[n];
+        //如果要实现这种方式，需要使用反射
+    }
   </xmp>
-
-  <b>父类型通配符</b>
-  限定该类是其的父类型。
-  <xmp class="block">
-    public static void show(ArrayList<? super Man> staff){}
++ 不能构造参数化的类型数组
+  <xmp class="inline_block">
+    Entry<String,Integer>[] entries = new Entry<String,Integer>[100];
+    //解决方式是将该泛型放入ArrayList中
   </xmp>
++ 泛型类在上下文中是无效的
+  <xmp class="inline_block">
+    public class Entry<K,V>
+    {
+      private static V value;
+    }
+  </xmp>
++ 方法冲突
+  因为是类型擦除，所以声明泛型接口时，可能会出现方法冲突的情况。
++ 不能抛出或捕获泛型异常
 
-  Java中的泛型实际上是类型擦出，就是将泛型先转为Object类型，在转为其类型。这使得Java的泛型会有很多禁止的操作。
-  + 不能将一个类型与数组列表泛型比较。
-    <xmp class="inline_block">
-      if(a instanceof ArrayList<String>)
-    </xmp>
-  + 不能实例化泛型变量。
-    <xmp class="inline_block">
-      public static <T> T[] repeat(int n,T obj)
-      {
-          T[] result = new T[n];
-          //如果要实现这种方式，需要使用反射
-      }
-    </xmp>
-  + 不能构造参数化的类型数组
-    <xmp class="inline_block">
-      Entry<String,Integer>[] entries = new Entry<String,Integer>[100];
-      //解决方式是将该泛型放入ArrayList中
-    </xmp>
-  + 泛型类在上下文中是无效的
-    <xmp class="inline_block">
-      public class Entry<K,V>
-      {
-        private static V value;
-      }
-    </xmp>
-  + 方法冲突
-    因为是类型擦除，所以声明泛型接口时，可能会出现方法冲突的情况。
-  + 不能抛出或捕获泛型异常
-  
 </pre>
-  </body>
+</body>
 </html>

@@ -1,121 +1,121 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+</head>
+<body>
 <pre class="w_doc">
-  <h1 class="h1">基本DOM操作</h1>
-  <h2 class="h2">查找节点</h2>
-  <b>查找元素节点</b>
-  <xmp class="block">
-    $("element");
-    $("#id");
-    $(".class");
-    $("*");
-  </xmp>
+<h1 class="h1">基本DOM操作</h1>
+<h2 class="h2">查找节点</h2>
+<b>查找元素节点</b>
+<xmp class="block">
+  $("element");
+  $("#id");
+  $(".class");
+  $("*");
+</xmp>
 
-  <b>查找文本节点</b>
-  <code>text()</code>
+<b>查找文本节点</b>
+<code>text()</code>
 
-  <b>查找属性节点</b>
-  <code>attr(name)</code>
+<b>查找属性节点</b>
+<code>attr(name)</code>
 
-  <h2 class="h2">创建节点</h2>
-  <xmp>$("<p>...</p>")</xmp>
+<h2 class="h2">创建节点</h2>
+<xmp>$("<p>...</p>")</xmp>
 
-  <h2 class="h2">删除节点</h2>
-  <b>remove([selector])</b>
-  删除匹配的节点，并返回。返回的节点不带有原来的数据和事件。
+<h2 class="h2">删除节点</h2>
+<b>remove([selector])</b>
+删除匹配的节点，并返回。返回的节点不带有原来的数据和事件。
 
-  <b>detach([selector])</b>
-  删除匹配的节点，并返回。返回的节点带有原来的数据和事件。
+<b>detach([selector])</b>
+删除匹配的节点，并返回。返回的节点带有原来的数据和事件。
 
-  <b>empty()</b>
-  删除匹配的节点集合中所有的子节点，但匹配的节点集合本身不会被删除。
+<b>empty()</b>
+删除匹配的节点集合中所有的子节点，但匹配的节点集合本身不会被删除。
 
-  <h2 class="h2">复制节点</h2>
-  <b>clone([true])</b>
-  true:表示复制的节点也包含原来节点所绑定的事件。
+<h2 class="h2">复制节点</h2>
+<b>clone([true])</b>
+true:表示复制的节点也包含原来节点所绑定的事件。
 
-  <h2 class="h2">替换节点</h2>
-  <b>replaceAll(selector)</b>
-  用指定的节点替换所有selector选择器匹配到的节点。
-  <xmp class="block">
-    //把B替换成A
-    $(A).replaceAll(B);
-  </xmp>
+<h2 class="h2">替换节点</h2>
+<b>replaceAll(selector)</b>
+用指定的节点替换所有selector选择器匹配到的节点。
+<xmp class="block">
+  //把B替换成A
+  $(A).replaceAll(B);
+</xmp>
 
-  <b>replaceWith(selector)</b>
-  将所有selector选择器匹配的节点替换成指定的节点。
-  <xmp class="block">
-    //把A替换成B
-    $(A).replaceWith(B);
-  </xmp>
+<b>replaceWith(selector)</b>
+将所有selector选择器匹配的节点替换成指定的节点。
+<xmp class="block">
+  //把A替换成B
+  $(A).replaceWith(B);
+</xmp>
 
-  <h2 class="h2">内部插入</h2>
-  <b>append()</b>
-  指定节点的尾部插入指定内容。
-  <xmp class="block">
-    $(selector).append(content);
+<h2 class="h2">内部插入</h2>
+<b>append()</b>
+指定节点的尾部插入指定内容。
+<xmp class="block">
+  $(selector).append(content);
 
-    $(selector).append(function(index)
-    {
-      //可以用于判断给哪个元素添加
-    });
-  </xmp>
+  $(selector).append(function(index)
+  {
+    //可以用于判断给哪个元素添加
+  });
+</xmp>
 
-  <b>appendTO()</b>
-  把所有匹配的节点追加到另一个指定节点的集合的末尾。A->B,B->A与上面的正好相反。
+<b>appendTO()</b>
+把所有匹配的节点追加到另一个指定节点的集合的末尾。A->B,B->A与上面的正好相反。
 
-  <b>prepend()</b>
-  在指定节点的头部插入指定内容。
+<b>prepend()</b>
+在指定节点的头部插入指定内容。
 
-  <b>prependTo()</b>
+<b>prependTo()</b>
 
-  <h2 class="h2">外部插入</h2>
-  <b>after()</b>
-  在指定节点的后面插入指定内容。
+<h2 class="h2">外部插入</h2>
+<b>after()</b>
+在指定节点的后面插入指定内容。
 
-  <b>insertAfter()</b>
-  <b>before()</b>
-  <b>insertBefore()</b>
+<b>insertAfter()</b>
+<b>before()</b>
+<b>insertBefore()</b>
 
-  <h1 class="h1">包裹操作</h1>
-  包裹节点的意思就是将某个或者一组符合条件的节点用其他元素标记包裹起来。
+<h1 class="h1">包裹操作</h1>
+包裹节点的意思就是将某个或者一组符合条件的节点用其他元素标记包裹起来。
 
-  <b>warp()</b>
-  把所有匹配的节点用指定的结构化标记包裹起来。
-  对每一个元素分别包裹一次。
-  <xmp class="block">
-    $(selector).wrap(wrapper);
+<b>warp()</b>
+把所有匹配的节点用指定的结构化标记包裹起来。
+对每一个元素分别包裹一次。
+<xmp class="block">
+  $(selector).wrap(wrapper);
 
-    $(selector).warp(function);
-  </xmp>
+  $(selector).warp(function);
+</xmp>
 
-  <b>unwarp()</b>
-  该方法能快速取消warp()方法的效果。
-  <xmp class="block">
-    $(selector).unwarp();
-  </xmp>
+<b>unwarp()</b>
+该方法能快速取消warp()方法的效果。
+<xmp class="block">
+  $(selector).unwarp();
+</xmp>
 
-  <b>warpAll()</b>
-  将所有匹配的节点用单个结构化标记包裹起来。
-  对所有元素只包裹一次。
-  <xmp class="block">
-    $(selector).wrapAll(wrapper);
-  </xmp>
+<b>warpAll()</b>
+将所有匹配的节点用单个结构化标记包裹起来。
+对所有元素只包裹一次。
+<xmp class="block">
+  $(selector).wrapAll(wrapper);
+</xmp>
 
-  <b>wrapInner()</b>
-  把所有匹配节点的子节点（包括文本节点）用指定结构化的标记包括起来。
-  <xmp class="block">
-    $(selector).wrapInner(wrapper);
+<b>wrapInner()</b>
+把所有匹配节点的子节点（包括文本节点）用指定结构化的标记包括起来。
+<xmp class="block">
+  $(selector).wrapInner(wrapper);
 
-    $(selector).wrapInner(function(){});
-  </xmp>
+  $(selector).wrapInner(function(){});
+</xmp>
 
 </pre>
-  </body>
+</body>
 </html>

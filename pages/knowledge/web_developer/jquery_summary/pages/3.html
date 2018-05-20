@@ -1,120 +1,120 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+</head>
+<body>
 <pre class="w_doc">
-  <h1 class="h1">搜索操作</h1>
-  <h2 class="h2">搜索父元素</h2>
-  <b>parents()</b>
-  该方法从父元素开始。
-  遍历多个层级。
-  用于获取当前匹配元素集合中每个元素的所有祖先元素，还可以使用一个选择器进行筛选。
-  语法形式:<code>parents([selector])</code>
-  selector是可选的，永爱筛选的表达式。
+<h1 class="h1">搜索操作</h1>
+<h2 class="h2">搜索父元素</h2>
+<b>parents()</b>
+该方法从父元素开始。
+遍历多个层级。
+用于获取当前匹配元素集合中每个元素的所有祖先元素，还可以使用一个选择器进行筛选。
+语法形式:<code>parents([selector])</code>
+selector是可选的，永爱筛选的表达式。
 
-  <b>closest()</b>
-  遍历多个层级。
-  该方法从本身开始，逐级向上级元素匹配，并返回最先匹配的元素。
-  语法形式:<code>cloest(selector[,context])</code>
-  context是可选的，指定一个DOM元素，可以在其中找到匹配元素。
+<b>closest()</b>
+遍历多个层级。
+该方法从本身开始，逐级向上级元素匹配，并返回最先匹配的元素。
+语法形式:<code>cloest(selector[,context])</code>
+context是可选的，指定一个DOM元素，可以在其中找到匹配元素。
 
-  <b>parent()</b>
-  该方法从父元素开始。
-  只遍历一个层级。
-  用于获取当前匹配元素集合中每个元素的父元素，还以使用一个选择器进行筛选。
-  语法形式:<code>parent([selector])</code>
+<b>parent()</b>
+该方法从父元素开始。
+只遍历一个层级。
+用于获取当前匹配元素集合中每个元素的父元素，还以使用一个选择器进行筛选。
+语法形式:<code>parent([selector])</code>
 
-  <b>parentsUntil()</b>
-  用于获取当前匹配元素集合中每个元素的祖先元素，直到给定选择器匹配的元素（但不包括该元素）。
-  语法形式:<code>parentsUntil([selector])</code>
+<b>parentsUntil()</b>
+用于获取当前匹配元素集合中每个元素的祖先元素，直到给定选择器匹配的元素（但不包括该元素）。
+语法形式:<code>parentsUntil([selector])</code>
 
-  <b>offsetParent()</b>
-  用于搜索第一个匹配元素的已定位的父元素。
-  （已定位：postion值为 relative、absolute 或 fixed 的元素。）
-  语法形式:<code>$("selector").offsetParent()</code>
+<b>offsetParent()</b>
+用于搜索第一个匹配元素的已定位的父元素。
+（已定位：postion值为 relative、absolute 或 fixed 的元素。）
+语法形式:<code>$("selector").offsetParent()</code>
 
-  <h2 class="h2">搜索同辈元素</h2>
-  <b>next()</b>
-  用于获取紧跟在每个匹配元素之后的单个同辈元素，还以指定一个选择器进行筛选。
-  语法形式:<code>next([selector])</code>
+<h2 class="h2">搜索同辈元素</h2>
+<b>next()</b>
+用于获取紧跟在每个匹配元素之后的单个同辈元素，还以指定一个选择器进行筛选。
+语法形式:<code>next([selector])</code>
 
-  <b>nextAll()</b>
-  用于获取跟在每个匹配元素之后的所有同辈元素，还可以指定一个选择器进行筛选。
-  语法形式:<code>nextAll([selector])</code>
+<b>nextAll()</b>
+用于获取跟在每个匹配元素之后的所有同辈元素，还可以指定一个选择器进行筛选。
+语法形式:<code>nextAll([selector])</code>
 
-  <b>nextUntil()</b>
-  用于获取跟在每个匹配元素后面的同辈元素，直至匹配给定选择器的元素（但不包括该元素）。
-  语法形式:<code>nextUntil([selector])</code>
+<b>nextUntil()</b>
+用于获取跟在每个匹配元素后面的同辈元素，直至匹配给定选择器的元素（但不包括该元素）。
+语法形式:<code>nextUntil([selector])</code>
 
-  <b>prev()</b>
-  用于搜索紧邻每个匹配元素前面的单个同辈元素，还可以指定一个选择器进行筛选。
-  语法形式:<code>prev([selector])</code>
+<b>prev()</b>
+用于搜索紧邻每个匹配元素前面的单个同辈元素，还可以指定一个选择器进行筛选。
+语法形式:<code>prev([selector])</code>
 
-  <b>prevAll()</b>
-  <b>prevUntil()</b>
+<b>prevAll()</b>
+<b>prevUntil()</b>
 
-  <b>siblings()</b>
-  用于搜索每个匹配元素的所有同辈元素，还可以指定一个选择器进行筛选。
-  语法形式:<code>siblings([selector])</code>
+<b>siblings()</b>
+用于搜索每个匹配元素的所有同辈元素，还可以指定一个选择器进行筛选。
+语法形式:<code>siblings([selector])</code>
 
-  <h2 class="h2">搜索子元素</h2>
-  <b>children()</b>
-  只搜索直接子元素。
-  用于获取一个包含匹配的元素集合中每个元素的所有子元素的元素集合。
-  语法形式:<code>children([selector])</code>
+<h2 class="h2">搜索子元素</h2>
+<b>children()</b>
+只搜索直接子元素。
+用于获取一个包含匹配的元素集合中每个元素的所有子元素的元素集合。
+语法形式:<code>children([selector])</code>
 
-  <b>find()</b>
-  用于从每个匹配元素中查找符合指定选择器表达式的后代元素。
-  语法形式:<code>find(selector)</code>
+<b>find()</b>
+用于从每个匹配元素中查找符合指定选择器表达式的后代元素。
+语法形式:<code>find(selector)</code>
 
 <h1 class="h1">串联操作</h1>
-  <b>andSelf()</b>
-  用于把堆栈中之前的元素集添加到当前集合中。
+<b>andSelf()</b>
+用于把堆栈中之前的元素集添加到当前集合中。
 
-  <b>end()</b>
-  用于结束当前链中最近一次筛选操作，并景匹配元素集合返回到前一次的状态。
+<b>end()</b>
+用于结束当前链中最近一次筛选操作，并景匹配元素集合返回到前一次的状态。
 
-  <b>add()</b>
-  用于把与表达式匹配的元素添加到jQuery对象中。
+<b>add()</b>
+用于把与表达式匹配的元素添加到jQuery对象中。
 
-  <b>contents()</b>
-  用于从每个匹配元素中查找所有子节点（包括文本节点）或者文档中的内容（iframe）。
+<b>contents()</b>
+用于从每个匹配元素中查找所有子节点（包括文本节点）或者文档中的内容（iframe）。
 
 <h1 class="h1">过滤操作</h1>
-  <b>eq(index)</b>
-  用于获取第N个元素。
+<b>eq(index)</b>
+用于获取第N个元素。
 
-  <b>filter(expr)</b>
-  用于筛选出与指定表达式匹配的元素集合，用于缩小范围，用都好分隔多个表达式，那么多个表达式之间是或关系。
+<b>filter(expr)</b>
+用于筛选出与指定表达式匹配的元素集合，用于缩小范围，用都好分隔多个表达式，那么多个表达式之间是或关系。
 
-  <b>filter(fn)</b>
-  用于筛选出与指定函数返回值匹配的元素的集合，true就返回，false就不返回。
+<b>filter(fn)</b>
+用于筛选出与指定函数返回值匹配的元素的集合，true就返回，false就不返回。
 
-  <b>has(expr)</b>
-  用于保留包含特定后代的元素。
+<b>has(expr)</b>
+用于保留包含特定后代的元素。
 
-  <b>hasClass(class)</b>
-  用于检查当前的元素是否含有某个特定的类。
+<b>hasClass(class)</b>
+用于检查当前的元素是否含有某个特定的类。
 
-  <b>is(expr)</b>
-  用一个表达式来检查当前选择的元素集合，如果其中至少有一个元素符合，就返回true。
+<b>is(expr)</b>
+用一个表达式来检查当前选择的元素集合，如果其中至少有一个元素符合，就返回true。
 
-  <b>map(callback)</b>
-  用于将一组元素转换成其他数组（不论是否是元素数组）。
-  callback表示每个元素执行的元素。
+<b>map(callback)</b>
+用于将一组元素转换成其他数组（不论是否是元素数组）。
+callback表示每个元素执行的元素。
 
-  <b>not(expr)</b>
-  用于删除与指定表达式匹配的元素。
+<b>not(expr)</b>
+用于删除与指定表达式匹配的元素。
 
-  <b>slice(start,[end])</b>
-  用于选取一个匹配的子集。
-  start表示开始选取子集的位置，如果是负数，则可以从集合尾部开始选取。
-  end是可选的，表示结束选取子集的位置，默认本身的结尾。
+<b>slice(start,[end])</b>
+用于选取一个匹配的子集。
+start表示开始选取子集的位置，如果是负数，则可以从集合尾部开始选取。
+end是可选的，表示结束选取子集的位置，默认本身的结尾。
 
 </pre>
-  </body>
+</body>
 </html>

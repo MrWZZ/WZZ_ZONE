@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
-    <title></title>
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+  <title></title>
+</head>
+<body>
 <pre class="w_doc">
-  1.在给一类元素设置<xmp>display: inline-block;border: 1px solid red;</xmp>的时候，
-    我们有时候需要让这些元素能紧密的堆叠在一行中，而不是另起一行。
-    直接这样设置的话，我们还需要计算边框的宽度，十分麻烦。
-    而<xmp>box-sizing</xmp>属性可以解决这个问题。
-    其允许的值有两个：
-    + border-box：width、height的值包括边框的高度。
-    + content-box：width、height的值不包括边框的高度。
-    我们只需要把该元素的box-sizeing设置为border-box，就可以很方便的进行计算了。
+1.在给一类元素设置<xmp>display: inline-block;border: 1px solid red;</xmp>的时候，
+  我们有时候需要让这些元素能紧密的堆叠在一行中，而不是另起一行。
+  直接这样设置的话，我们还需要计算边框的宽度，十分麻烦。
+  而<xmp>box-sizing</xmp>属性可以解决这个问题。
+  其允许的值有两个：
+  + border-box：width、height的值包括边框的高度。
+  + content-box：width、height的值不包括边框的高度。
+  我们只需要把该元素的box-sizeing设置为border-box，就可以很方便的进行计算了。
 
-  2.在动画中，为一个元素绑定多个动画时。最后动画的transform会覆盖之前动画中的transform。
+2.在动画中，为一个元素绑定多个动画时。最后动画的transform会覆盖之前动画中的transform。
 
-  3.如果父元素使用
-  display: flex;
-  justify-content: center;
+3.如果父元素使用
+display: flex;
+justify-content: center;
 
-  那么子元素会被强制居中，且当画面宽度不够的时候，部分元素会被隐藏。
+那么子元素会被强制居中，且当画面宽度不够的时候，部分元素会被隐藏。
 </pre>
-  </body>
+</body>
 </html>

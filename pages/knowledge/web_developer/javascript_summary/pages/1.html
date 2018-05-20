@@ -1,205 +1,205 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <meta name="viewport" content="initial-scale=1.0">
-    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="initial-scale=1.0">
+  <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+</head>
+<body>
 <pre class="w_doc">
-  + 文档模型里任何代表某个元素的对象都至少能支持HTMLElement功能，其中一些还支持额外的功能。
-    但不是所有可供使用的对象都代表了HTML元素。
++ 文档模型里任何代表某个元素的对象都至少能支持HTMLElement功能，其中一些还支持额外的功能。
+  但不是所有可供使用的对象都代表了HTML元素。
 
-  + <a href="http://blog.csdn.net/kkkkkxiaofei/article/details/52608394">Element和Node的区别</a>
-  + <a href="http://www.cnblogs.com/snandy/archive/2011/03/12/1981583.html">将HTMLCollection/NodeList/伪数组转换成数组</a>
++ <a href="http://blog.csdn.net/kkkkkxiaofei/article/details/52608394">Element和Node的区别</a>
++ <a href="http://www.cnblogs.com/snandy/archive/2011/03/12/1981583.html">将HTMLCollection/NodeList/伪数组转换成数组</a>
 
 <h1 class="h1">DOM快速查询</h1>
-  - HE代表HTMLElement
+- HE代表HTMLElement
 
-  <h2 class="h2">Document的成员</h2>
-  <b>Document对象</b>
-  + activeElement                       返回代表文档中当前获得焦点的元素
-  + body
-  + characterSet
-  + childNodes                          返回子元素的集合
-  + compatMode
-  + cookie
-  + defaultCharset
-  + defaultView                         返回当前文档的Window对象
-  + dir
-  + domain                              返回或设置当前文档的域名
-  + embeds
-  + firstChild
-  + forms
-  + getElementById(id)
-  + getElementsByClassName(class)
-  + getElementsByName(name)
-  + getElementByTagname(tag)
-  + hasChildnodes()
-  + head
-  + images
-  + implementaion                       提供关于DOM可用功能的信息
-  + lastChild
-  + lastModified                        返回文档最后修改的时间
-  + links
-  + location
-  + nextSibling                         返回位于当前元素之后的兄弟元素
-  + parentNode
-  + previousSibling                     返回位于当前元素之后的兄弟元素
-  + querySelector(selector)
-  + querySelectorAll(selector)
-  + readyState                          返回当前文档的状态
-  + referrer                            返回链接到当前文档的文档URL
-  + scripts
-  + title
+<h2 class="h2">Document的成员</h2>
+<b>Document对象</b>
++ activeElement                       返回代表文档中当前获得焦点的元素
++ body
++ characterSet
++ childNodes                          返回子元素的集合
++ compatMode
++ cookie
++ defaultCharset
++ defaultView                         返回当前文档的Window对象
++ dir
++ domain                              返回或设置当前文档的域名
++ embeds
++ firstChild
++ forms
++ getElementById(id)
++ getElementsByClassName(class)
++ getElementsByName(name)
++ getElementByTagname(tag)
++ hasChildnodes()
++ head
++ images
++ implementaion                       提供关于DOM可用功能的信息
++ lastChild
++ lastModified                        返回文档最后修改的时间
++ links
++ location
++ nextSibling                         返回位于当前元素之后的兄弟元素
++ parentNode
++ previousSibling                     返回位于当前元素之后的兄弟元素
++ querySelector(selector)
++ querySelectorAll(selector)
++ readyState                          返回当前文档的状态
++ referrer                            返回链接到当前文档的文档URL
++ scripts
++ title
 
-  <b>Location对象</b>
-  + assign(URL)                         导航到指定的URL上
-  + hash                                获取或设置文档的锚部分（#）
-  + hostname
-  + host
-  + href                                返回当前文档的URL
-  + pathname
-  + port
-  + protocol
-  + reload()
-  + replace(URL)                        清除当前文档并导航至URL
-  + resolveURL(URL)                     将指定的相对URL解析为绝对URL
-  + search                              获取或设置当前URL的查询部分（？）
+<b>Location对象</b>
++ assign(URL)                         导航到指定的URL上
++ hash                                获取或设置文档的锚部分（#）
++ hostname
++ host
++ href                                返回当前文档的URL
++ pathname
++ port
++ protocol
++ reload()
++ replace(URL)                        清除当前文档并导航至URL
++ resolveURL(URL)                     将指定的相对URL解析为绝对URL
++ search                              获取或设置当前URL的查询部分（？）
 
 <h2 class="h2">Window的成员</h2>
-  <b>Window对象</b>
-  + alert(msg)
-  + blur()
-  + clearInterval(id)
-  + clearTimeout(id)
-  + close()
-  + confirm(msg)
-  + defaultView
-  + focus()
-  + frames
-  + history
-  + innerHeight
-  + innerWidth
-  + length
-  + location
-  + opener                              返回打开当前浏览器上下文环境Window
-  + outerHeight
-  + outerWidth
-  + pageXOffet
-  + pagesYOffset
-  + parent
-  + postMessage(msg,val)                给另一个文档发送信息
-  + print()                             提示用户打印界面
-  + prompt(msg,val)
-  + screen
-  + screenLeft、screenX
-  + screenTop、screenY
-  + scrollBy(x,y)                       让文档相对其当前位置进行滚动
-  + scrollTo(x,y)                       滚动到指定位置
-  + self
-  + setInterval(fun,time)
-  + setTimeout(fun,time)
-  + showmodalDialog(url)                弹出一个窗口，显示指定的URL
-  + stop()                              停止载入文档
-  + top                                 返回最上层的Window
+<b>Window对象</b>
++ alert(msg)
++ blur()
++ clearInterval(id)
++ clearTimeout(id)
++ close()
++ confirm(msg)
++ defaultView
++ focus()
++ frames
++ history
++ innerHeight
++ innerWidth
++ length
++ location
++ opener                              返回打开当前浏览器上下文环境Window
++ outerHeight
++ outerWidth
++ pageXOffet
++ pagesYOffset
++ parent
++ postMessage(msg,val)                给另一个文档发送信息
++ print()                             提示用户打印界面
++ prompt(msg,val)
++ screen
++ screenLeft、screenX
++ screenTop、screenY
++ scrollBy(x,y)                       让文档相对其当前位置进行滚动
++ scrollTo(x,y)                       滚动到指定位置
++ self
++ setInterval(fun,time)
++ setTimeout(fun,time)
++ showmodalDialog(url)                弹出一个窗口，显示指定的URL
++ stop()                              停止载入文档
++ top                                 返回最上层的Window
 
-  <b>History对象</b>
-  + back()
-  + forward()
-  + go(index)
-  + length
-  + pushState(state,title,url)          向浏览器历史添加一个条目
-  + replaceState(state,title,url)       替换浏览器历史中的当前条目
-  + state
+<b>History对象</b>
++ back()
++ forward()
++ go(index)
++ length
++ pushState(state,title,url)          向浏览器历史添加一个条目
++ replaceState(state,title,url)       替换浏览器历史中的当前条目
++ state
 
-  <b>Screen对象</b>
-  + availHeight
-  + availWidth
-  + colorDepth                          返回屏幕的颜色深度
-  + height
-  + width
+<b>Screen对象</b>
++ availHeight
++ availWidth
++ colorDepth                          返回屏幕的颜色深度
++ height
++ width
 
-  <b>HTMLElement对象</b>
-  + checked
-  + classList
-  + className
-  + dir
-  + disabled
-  + hidden
-  + id
-  + lang
-  + spellcheck
-  + tabIndex
-  + tagName
-  + title
-  + add(class)
-  + contains(class)
-  + length
-  + remove(class)
-  + toggle(class)
-  + attributes
-  + dataset
-  + getAttribute(name)
-  + hasAttribute(name)
-  + removeAttribute(name)
-  + setAttribute(name,val)
-  + appendChild(HE)
-  + cloneNode(boolean)
-  + compareDocumentPosition(HE)         判断某个元素的相对位置
-  + innerHTML
-  + insertAdjacentHTMl(pos,text)        相对于元素的位置插入HTML
-  + insetBefore(newElem,childElem)
-  + isEqualNode(HE)                     判断指定元素是否与当前元素等同
-  + isSameNode(HE)                      判断指定元素是否就是当前元素
-  + outerHTML
-  + removeChild(HE)
-  + replaceChild(HE,HE)
-  + createElement(tag)
-  + createTextNode(text)
+<b>HTMLElement对象</b>
++ checked
++ classList
++ className
++ dir
++ disabled
++ hidden
++ id
++ lang
++ spellcheck
++ tabIndex
++ tagName
++ title
++ add(class)
++ contains(class)
++ length
++ remove(class)
++ toggle(class)
++ attributes
++ dataset
++ getAttribute(name)
++ hasAttribute(name)
++ removeAttribute(name)
++ setAttribute(name,val)
++ appendChild(HE)
++ cloneNode(boolean)
++ compareDocumentPosition(HE)         判断某个元素的相对位置
++ innerHTML
++ insertAdjacentHTMl(pos,text)        相对于元素的位置插入HTML
++ insetBefore(newElem,childElem)
++ isEqualNode(HE)                     判断指定元素是否与当前元素等同
++ isSameNode(HE)                      判断指定元素是否就是当前元素
++ outerHTML
++ removeChild(HE)
++ replaceChild(HE,HE)
++ createElement(tag)
++ createTextNode(text)
 
-  <b>Text对象</b>
-  + appendData(string)
-  + data
-  + deleteDate(offset,count)
-  + insertData(offset,string)
-  + length
-  + replaceData(offset,string)
-  + replaceWholeText(string)
-  + splitText(number)
-  + subStringData(offset,count)
-  + wholeText
+<b>Text对象</b>
++ appendData(string)
++ data
++ deleteDate(offset,count)
++ insertData(offset,string)
++ length
++ replaceData(offset,string)
++ replaceWholeText(string)
++ splitText(number)
++ subStringData(offset,count)
++ wholeText
 
 <h2 class="h2">DOM中的事件</h2>
-  + blur
-  + click
-  + dblclick
-  + focus
-  + focusin
-  + focusout
-  + keydown
-  + keypress
-  + keyup
-  + mousedown
-  + mouseenter
-  + mouseleave
-  + mousemove
-  + mouseout
-  + mousevoer
-  + mouseup
-  + onabort                           在文档或资源载入被终止时触发
-  + onafterprint
-  + onbeforeprint
-  + onerror                           在文档或资源载入出错时触发
-  + onhashchange
-  + onload
-  + onpopstate                        触发时会提供一个关联浏览器历史的状态对象
-  + onresize
-  + onunload
-  + readystatechange
-  + reset
-  + submit
++ blur
++ click
++ dblclick
++ focus
++ focusin
++ focusout
++ keydown
++ keypress
++ keyup
++ mousedown
++ mouseenter
++ mouseleave
++ mousemove
++ mouseout
++ mousevoer
++ mouseup
++ onabort                           在文档或资源载入被终止时触发
++ onafterprint
++ onbeforeprint
++ onerror                           在文档或资源载入出错时触发
++ onhashchange
++ onload
++ onpopstate                        触发时会提供一个关联浏览器历史的状态对象
++ onresize
++ onunload
++ readystatechange
++ reset
++ submit
 </pre>
-  </body>
+</body>
 </html>

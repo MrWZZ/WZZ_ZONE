@@ -1,270 +1,270 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+</head>
+<body>
 <pre class="w_doc">
 <h1 class="h1">正则表达式支持</h1>
-  RegExp对象有两个参数，第一个是要匹配的图案，第二个是匹配的规则。
+RegExp对象有两个参数，第一个是要匹配的图案，第二个是匹配的规则。
 
-  第二个参数的值：
-  g:全局匹配
-  i:大小写敏感
-  m:多行模式
+第二个参数的值：
+g:全局匹配
+i:大小写敏感
+m:多行模式
 
-  正则表达式字面量使用Perl风格的语法：<code>/cat/gi</code>
+正则表达式字面量使用Perl风格的语法：<code>/cat/gi</code>
 
 <h2 class="h2">简单模式</h2>
-  <b>元字符</b>
-  <code>( [ { \ ^ $ | ? * + - .</code>
+<b>元字符</b>
+<code>( [ { \ ^ $ | ? * + - .</code>
 
-  如果要匹配这些元字符，必须先进行转义。
+如果要匹配这些元字符，必须先进行转义。
 
-  <b>使用特殊字符</b>
-  可以使用它们的ASCII代码或者Unicode代码指定字符。
-  要使用ASCII来表示一个字符，这必须指定一个两位的十六进制代码，并在前面加上\x。
-  要使用Unicode来表示字符，必须指定字符串的四位的十六进制表示形式，在前面加上\u。
-  <xmp class="block">
-    //字符b，十六进制为62。
-    var reA = /\x62/;     //ASCII
-    var reU = /\u0062/;   //Unicode
-  </xmp>
+<b>使用特殊字符</b>
+可以使用它们的ASCII代码或者Unicode代码指定字符。
+要使用ASCII来表示一个字符，这必须指定一个两位的十六进制代码，并在前面加上\x。
+要使用Unicode来表示字符，必须指定字符串的四位的十六进制表示形式，在前面加上\u。
+<xmp class="block">
+  //字符b，十六进制为62。
+  var reA = /\x62/;     //ASCII
+  var reU = /\u0062/;   //Unicode
+</xmp>
 
-  <b>其他预定意义的特殊字符</b>
-  <style media="screen">
-    table{
-      text-align: left;
+<b>其他预定意义的特殊字符</b>
+<style media="screen">
+  table{
+    text-align: left;
 
-      margin: 0 auto !important;
-      border-top: 2px solid black !important;
-      border-bottom: 2px solid black !important;
-    }
+    margin: 0 auto !important;
+    border-top: 2px solid black !important;
+    border-bottom: 2px solid black !important;
+  }
 
-    th{
-      padding: 0 5px !important;
-    }
+  th{
+    padding: 0 5px !important;
+  }
 
-    td{
-      padding:0 5px !important;
-    }
-  </style>
-  <table>
-    <tr> <th>字符</th><th>描述</th> </tr>
-    <tr> <td>\t</td><td>制表符</td> </tr>
-    <tr> <td>\n</td><td>换行符</td> </tr>
-    <tr> <td>\r</td><td>回车符</td> </tr>
-    <tr> <td>\f</td><td>换页符</td> </tr>
-    <tr> <td>\a</td><td>alert字符</td> </tr>
-    <tr> <td>\e</td><td>escape字符</td> </tr>
-    <tr> <td>\cX</td><td>与X相对应的控制字符</td> </tr>
-    <tr> <td>\b</td><td>回退字符</td> </tr>
-    <tr> <td>\v</td><td>垂直制表符</td> </tr>
-    <tr> <td>\0</td><td>空字符</td> </tr>
-  </table>
+  td{
+    padding:0 5px !important;
+  }
+</style>
+<table>
+  <tr> <th>字符</th><th>描述</th> </tr>
+  <tr> <td>\t</td><td>制表符</td> </tr>
+  <tr> <td>\n</td><td>换行符</td> </tr>
+  <tr> <td>\r</td><td>回车符</td> </tr>
+  <tr> <td>\f</td><td>换页符</td> </tr>
+  <tr> <td>\a</td><td>alert字符</td> </tr>
+  <tr> <td>\e</td><td>escape字符</td> </tr>
+  <tr> <td>\cX</td><td>与X相对应的控制字符</td> </tr>
+  <tr> <td>\b</td><td>回退字符</td> </tr>
+  <tr> <td>\v</td><td>垂直制表符</td> </tr>
+  <tr> <td>\0</td><td>空字符</td> </tr>
+</table>
 
 <h2 class="h2">字符类</h2>
-  <b>简单类</b>
-  <code>[]</code>方括号表示去分别匹配里面的字符。
-  假设想匹配"bat","cat","fat"。使用简单类可以很方便的解决这个问题。
-  <xmp class="block">
-    var sToMatch = "a bat,a cat, a fat";
-    var re = /[bcf]at/g;
-    var arrMatches = sToMatch.match(re);
-  </xmp>
+<b>简单类</b>
+<code>[]</code>方括号表示去分别匹配里面的字符。
+假设想匹配"bat","cat","fat"。使用简单类可以很方便的解决这个问题。
+<xmp class="block">
+  var sToMatch = "a bat,a cat, a fat";
+  var re = /[bcf]at/g;
+  var arrMatches = sToMatch.match(re);
+</xmp>
 
-  <b>负项类</b>
-  <code>^</code>脱字符表示不能匹配后面跟着的字符。
-  假设只想获取包含at但不能以b或c开头的单词。
-  <xmp class="block">
-    var sToMatch = "a bat,a cat, a fat";
-    var re = /[^bc]at/g;
-    var arrMatches = sToMatch.match(re);
-  </xmp>
+<b>负项类</b>
+<code>^</code>脱字符表示不能匹配后面跟着的字符。
+假设只想获取包含at但不能以b或c开头的单词。
+<xmp class="block">
+  var sToMatch = "a bat,a cat, a fat";
+  var re = /[^bc]at/g;
+  var arrMatches = sToMatch.match(re);
+</xmp>
 
-  <b>范围类</b>
-  <code>-</code>减号表示匹配指定范围的字符。
-  假设项匹配num1,num2,num3的字符。
-  <xmp class="block">
-    var sToMatch = "num1,num2,num3,num4,num5";
-    var re = /num[1-3]/g;
-    var arrMatches = sToMatch.match(re);
-  </xmp>
+<b>范围类</b>
+<code>-</code>减号表示匹配指定范围的字符。
+假设项匹配num1,num2,num3的字符。
+<xmp class="block">
+  var sToMatch = "num1,num2,num3,num4,num5";
+  var re = /num[1-3]/g;
+  var arrMatches = sToMatch.match(re);
+</xmp>
 
-  <b>组合类</b>
-  前面元字符的组合应用。
-  假设要匹配所有a~m,1~4的数字。
-  <xmp class="block">
-    [a-m1-4]
-  </xmp>
+<b>组合类</b>
+前面元字符的组合应用。
+假设要匹配所有a~m,1~4的数字。
+<xmp class="block">
+  [a-m1-4]
+</xmp>
 
-  <b>预定义类</b>
-  <table>
-    <tr> <th>代码</th><th>等同于</th><th>匹配</th> </tr>
-    <tr> <td>.</td><td>[^\n\r]</td><td>除了换行和回车之外的任意字符</td> </tr>
-    <tr> <td>\d</td><td>[0-9]</td><td>数字</td> </tr>
-    <tr> <td>\D</td><td>[^0-9]</td><td>非数字字符</td> </tr>
-    <tr> <td>\s</td><td>[\t\n\x0B\f\r]</td><td>空白字符</td> </tr>
-    <tr> <td>\S</td><td>[^\t\n\x0B\f\r]</td><td>非空白字符</td> </tr>
-    <tr> <td>\w</td><td>[a-zA-Z_0-9]</td><td>单词字符（有所字母、数字、下划线）</td> </tr>
-    <tr> <td>\W</td><td>[^a-zA-Z_0-9]</td><td>非单词字符</td> </tr>
-  </table>
+<b>预定义类</b>
+<table>
+  <tr> <th>代码</th><th>等同于</th><th>匹配</th> </tr>
+  <tr> <td>.</td><td>[^\n\r]</td><td>除了换行和回车之外的任意字符</td> </tr>
+  <tr> <td>\d</td><td>[0-9]</td><td>数字</td> </tr>
+  <tr> <td>\D</td><td>[^0-9]</td><td>非数字字符</td> </tr>
+  <tr> <td>\s</td><td>[\t\n\x0B\f\r]</td><td>空白字符</td> </tr>
+  <tr> <td>\S</td><td>[^\t\n\x0B\f\r]</td><td>非空白字符</td> </tr>
+  <tr> <td>\w</td><td>[a-zA-Z_0-9]</td><td>单词字符（有所字母、数字、下划线）</td> </tr>
+  <tr> <td>\W</td><td>[^a-zA-Z_0-9]</td><td>非单词字符</td> </tr>
+</table>
 
 <h2 class="h2">量词</h2>
-  量词可以指定某个特定模式出现的次数。
+量词可以指定某个特定模式出现的次数。
 
-  <b>简单量词</b>
-  <table>
-    <tr> <th>代码</th><th>描述</th> </tr>
-    <tr> <td>?</td><td>出现零次或一次</td> </tr>
-    <tr> <td>*</td><td>任意次</td> </tr>
-    <tr> <td>+</td><td>出现一次或多次</td> </tr>
-    <tr> <td>{n}</td><td>一定出现n次</td> </tr>
-    <tr> <td>{n,m}</td><td>至少出现n次但不超过m次</td> </tr>
-    <tr> <td>{n,}</td><td>至少出现n次</td> </tr>
-  </table>
+<b>简单量词</b>
+<table>
+  <tr> <th>代码</th><th>描述</th> </tr>
+  <tr> <td>?</td><td>出现零次或一次</td> </tr>
+  <tr> <td>*</td><td>任意次</td> </tr>
+  <tr> <td>+</td><td>出现一次或多次</td> </tr>
+  <tr> <td>{n}</td><td>一定出现n次</td> </tr>
+  <tr> <td>{n,m}</td><td>至少出现n次但不超过m次</td> </tr>
+  <tr> <td>{n,}</td><td>至少出现n次</td> </tr>
+</table>
 
-  <b>贪婪的、惰性的和支配性的量词</b>
-  + 贪婪的：先看整个的字符串是否匹配，如果没有发现匹配，就去掉该字符中的最后一个字符，并再次尝试。
-  + 惰性的：先看字符串的第一个字母是否匹配，如果单独这一个字符不够，就读入下一个字符，并再次尝试。
-  + 支配的：只尝试匹配整个字符串，如果整个字符串不能产生匹配，就不再进一步尝试。
-  <table>
-    <tr> <th>贪婪</th><th>惰性</th><th>支配</th> </tr>
-    <tr> <td>?</td><td>??</td><td>?+</td> </tr>
-    <tr> <td>*</td><td>*?</td><td>*+</td> </tr>
-    <tr> <td>+</td><td>+?</td><td>++</td> </tr>
-    <tr> <td>{n}</td><td>{n}?</td><td>{n}+</td> </tr>
-    <tr> <td>{n,m}</td><td>{n,m}?</td><td>{n,m}+</td> </tr>
-    <tr> <td>{n,}</td><td>{n,}?</td><td>{n,}+</td> </tr>
-  </table>
+<b>贪婪的、惰性的和支配性的量词</b>
++ 贪婪的：先看整个的字符串是否匹配，如果没有发现匹配，就去掉该字符中的最后一个字符，并再次尝试。
++ 惰性的：先看字符串的第一个字母是否匹配，如果单独这一个字符不够，就读入下一个字符，并再次尝试。
++ 支配的：只尝试匹配整个字符串，如果整个字符串不能产生匹配，就不再进一步尝试。
+<table>
+  <tr> <th>贪婪</th><th>惰性</th><th>支配</th> </tr>
+  <tr> <td>?</td><td>??</td><td>?+</td> </tr>
+  <tr> <td>*</td><td>*?</td><td>*+</td> </tr>
+  <tr> <td>+</td><td>+?</td><td>++</td> </tr>
+  <tr> <td>{n}</td><td>{n}?</td><td>{n}+</td> </tr>
+  <tr> <td>{n,m}</td><td>{n,m}?</td><td>{n,m}+</td> </tr>
+  <tr> <td>{n,}</td><td>{n,}?</td><td>{n,}+</td> </tr>
+</table>
 
 <h1 class="h1">复杂模式</h1>
-  <h2 class="h2">分组</h2>
-  <code>( )</code>圆括号表示将括号中的字符作为一个整体来匹配。
-  假设匹配出现2次dog。
-  <xmp class="block">
-    var re = /(dog){2}/;
-  </xmp>
+<h2 class="h2">分组</h2>
+<code>( )</code>圆括号表示将括号中的字符作为一个整体来匹配。
+假设匹配出现2次dog。
+<xmp class="block">
+  var re = /(dog){2}/;
+</xmp>
 
-  <h2 class="h2">反向引用</h2>
-  1.使用正则表达式对象的test(),match(),search()方法后，反向引用的值可以从RegExp构造函数中获得。
-  <code>RegExp.$1</code>美元字符加数字可以反向引用匹配中的某个值,顺序是左到右的圆括号排序。
-  <xmp class="block">
-    var sToMatch = "#123";
-    var re = /#(/d+)/;
-    re.test(sToMatch);
-    alert(RegExp.$1);      //outputs "123"
-  </xmp>
+<h2 class="h2">反向引用</h2>
+1.使用正则表达式对象的test(),match(),search()方法后，反向引用的值可以从RegExp构造函数中获得。
+<code>RegExp.$1</code>美元字符加数字可以反向引用匹配中的某个值,顺序是左到右的圆括号排序。
+<xmp class="block">
+  var sToMatch = "#123";
+  var re = /#(/d+)/;
+  re.test(sToMatch);
+  alert(RegExp.$1);      //outputs "123"
+</xmp>
 
-  2.还可以直接在定义分组的表达式中包含反向引用。
-  <code>\1</code>同过特殊的转移来实现。
-  <xmp class="block">
-    var s = "dogdog";
-    var re = /(dog)\1/;
-    alert(re.test(s));      //true
-  </xmp>
+2.还可以直接在定义分组的表达式中包含反向引用。
+<code>\1</code>同过特殊的转移来实现。
+<xmp class="block">
+  var s = "dogdog";
+  var re = /(dog)\1/;
+  alert(re.test(s));      //true
+</xmp>
 
-  3.反向引用可以在String对象的replace()方法中，这通过使用特殊字符序列$1来实现。
-  <code>$1</code>
-  <xmp class="block">
-    var s = "1234 5678";
-    var re = /(\d{4}) (\d{4})/;
-    var sNew = s.replace(re,"$2 $1");
-    alert(s);         //outputs "5678 1234"
-  </xmp>
+3.反向引用可以在String对象的replace()方法中，这通过使用特殊字符序列$1来实现。
+<code>$1</code>
+<xmp class="block">
+  var s = "1234 5678";
+  var re = /(\d{4}) (\d{4})/;
+  var sNew = s.replace(re,"$2 $1");
+  alert(s);         //outputs "5678 1234"
+</xmp>
 
 <h2 class="h2">非捕获行分组</h2>
-  如果在比较大的字符中，反向引用会消耗资源，如果我们不需要反向引用，只需要在左括号加问号+冒号即可。
-  <code>?:</code>
-  <xmp class="block">
-    var re = /#(?:\d+);
-  </xmp>
+如果在比较大的字符中，反向引用会消耗资源，如果我们不需要反向引用，只需要在左括号加问号+冒号即可。
+<code>?:</code>
+<xmp class="block">
+  var re = /#(?:\d+);
+</xmp>
 
 <h2 class="h2">候选</h2>
-  类似方括号的匹配。
-  <code>|</code>
-  假设要匹配"red"或"black"，这两个单词没有相同的地方。
-  <xmp class="block">
-    var re = /(red|black)/;
-  </xmp>
+类似方括号的匹配。
+<code>|</code>
+假设要匹配"red"或"black"，这两个单词没有相同的地方。
+<xmp class="block">
+  var re = /(red|black)/;
+</xmp>
 
 <h2 class="h2">前瞻</h2>
-  有时候，可能希望，当某个特定的字符分组出现在另一个字符串之前的时候，才去捕获它。
+有时候，可能希望，当某个特定的字符分组出现在另一个字符串之前的时候，才去捕获它。
 
-  <b>正向前瞻</b>
-  正向前瞻检查的是接下来出现的是不是某个特定字符集。
-  <code>?=</code>在左括号后紧跟问号+等号。
+<b>正向前瞻</b>
+正向前瞻检查的是接下来出现的是不是某个特定字符集。
+<code>?=</code>在左括号后紧跟问号+等号。
 
-  <b>负向前瞻</b>
-  负向前瞻检查的是接下来不应该出现的特定的字符集。
-  <code>?!</code>在左括号后紧跟问号+感叹号。
+<b>负向前瞻</b>
+负向前瞻检查的是接下来不应该出现的特定的字符集。
+<code>?!</code>在左括号后紧跟问号+感叹号。
 
-  <strong>注意这不是分组，虽然他也用到括号，但分组不会考虑前瞻的存在</strong>
+<strong>注意这不是分组，虽然他也用到括号，但分组不会考虑前瞻的存在</strong>
 
-  <xmp class="block">
-    var reA = /bed(?=room);    //正向
-    var reB = /bed(?!room);    //负向
-  </xmp>
+<xmp class="block">
+  var reA = /bed(?=room);    //正向
+  var reB = /bed(?!room);    //负向
+</xmp>
 
 <h2 class="h2">边界</h2>
 <table>
-  <tr> <th>代码</th><th>描述</th> </tr>
-  <tr> <td>^</td><td>行开头</td> </tr>
-  <tr> <td>$</td><td>行结尾</td> </tr>
-  <tr> <td>\b</td><td>单词的边界</td> </tr>
-  <tr> <td>\B</td><td>非单词的边界</td> </tr>
+<tr> <th>代码</th><th>描述</th> </tr>
+<tr> <td>^</td><td>行开头</td> </tr>
+<tr> <td>$</td><td>行结尾</td> </tr>
+<tr> <td>\b</td><td>单词的边界</td> </tr>
+<tr> <td>\B</td><td>非单词的边界</td> </tr>
 </table>
-  <strong>虽然匹配变量中包含了边界字符，但是返回的值中不包括这些。</strong>
-  <xmp class="block">
-    var s = "Important word is the last one.";
-    var reA = /^(/w+)\./;     //outputs "Important"
-    var reB = /(\w+)\.$/;     //outputs "one"
+<strong>虽然匹配变量中包含了边界字符，但是返回的值中不包括这些。</strong>
+<xmp class="block">
+  var s = "Important word is the last one.";
+  var reA = /^(/w+)\./;     //outputs "Important"
+  var reB = /(\w+)\.$/;     //outputs "one"
 
-    //使用单词边界可以很方便的从字符串中抽取单词。
-    var reWords = /\b(/S+?)\b/g;  //outputs "Important","word",...
-    //而上面的匹配有一个更简单的方法
-    var reWords1 = /(\w+)/g;
-  </xmp>
+  //使用单词边界可以很方便的从字符串中抽取单词。
+  var reWords = /\b(/S+?)\b/g;  //outputs "Important","word",...
+  //而上面的匹配有一个更简单的方法
+  var reWords1 = /(\w+)/g;
+</xmp>
 
 <h2 class="h2">多行模式</h2>
-  默认的情况下是单行模式，如果要匹配的字符串是多行的，要匹配行末要采用多行模式。
-  <xmp class="block">
-    var s = "First second\n Third fourth";
-    var re = /(\w+)$/gm;        //outputs "second","fourth"
-  </xmp>
+默认的情况下是单行模式，如果要匹配的字符串是多行的，要匹配行末要采用多行模式。
+<xmp class="block">
+  var s = "First second\n Third fourth";
+  var re = /(\w+)$/gm;        //outputs "second","fourth"
+</xmp>
 
 <h1 class="h1">理解RegExp对象</h1>
-  <b>实例属性</b>
-  + global：g（全局选项）是否已设置。
-  + ignoreCase:i（忽略大小写选项）是否已设置。
-  + lastIndex:代表下次匹配将会从那个字符位置开始（只有当使用exec(),test()的时候才会填入，否则为0）
-  + multiline:m（多行模式）是否已设置。
-  + source:正则表达式的元字符串形式
+<b>实例属性</b>
++ global：g（全局选项）是否已设置。
++ ignoreCase:i（忽略大小写选项）是否已设置。
++ lastIndex:代表下次匹配将会从那个字符位置开始（只有当使用exec(),test()的时候才会填入，否则为0）
++ multiline:m（多行模式）是否已设置。
++ source:正则表达式的元字符串形式
 
-  <b>静态属性</b>
-  静态属性对所有的正则表达式都有效，它们有两个名字，一个长名和一个短名。
-  <table>
-    <tr> <th>长名</th><th>短名</th><th>描述</th> </tr>
-    <tr> <td>input</td><td>$_</td><td>最后用于匹配的字符串</td> </tr>
-    <tr> <td>lastMatch</td><td>$&</td><td>最后匹配的字符</td> </tr>
-    <tr> <td>lastParen</td><td>$+</td><td>最后匹配的分组</td> </tr>
-    <tr> <td>leftContext</td><td>$`</td><td>在上次匹配的前面的子串</td> </tr>
-    <tr> <td>multiline</td><td>$*</td><td>用于指定是否所有的表达式都使用多行模式</td> </tr>
-    <tr> <td>rightContext</td><td>$'</td><td>在上次匹配之后的子串</td> </tr>
-  </table>
-  <xmp class="block">
-    var s = "This has been a short, short summer";
-    var re = /(s)hort/g;
-    re.test(s);
-    alert(RegExp.input);        //outputs "This has been a short, short summer"
-    alert(RegExp.leftContext);  //outputs "This has been a "
-    alert(RegExp.rightContext); //outputs ", short summer"
-    alert(RegExp.lastMatch);    //outputs "short"
-    alert(RegExp.lastParen);    //outputs "s"
-  </xmp>
+<b>静态属性</b>
+静态属性对所有的正则表达式都有效，它们有两个名字，一个长名和一个短名。
+<table>
+  <tr> <th>长名</th><th>短名</th><th>描述</th> </tr>
+  <tr> <td>input</td><td>$_</td><td>最后用于匹配的字符串</td> </tr>
+  <tr> <td>lastMatch</td><td>$&</td><td>最后匹配的字符</td> </tr>
+  <tr> <td>lastParen</td><td>$+</td><td>最后匹配的分组</td> </tr>
+  <tr> <td>leftContext</td><td>$`</td><td>在上次匹配的前面的子串</td> </tr>
+  <tr> <td>multiline</td><td>$*</td><td>用于指定是否所有的表达式都使用多行模式</td> </tr>
+  <tr> <td>rightContext</td><td>$'</td><td>在上次匹配之后的子串</td> </tr>
+</table>
+<xmp class="block">
+  var s = "This has been a short, short summer";
+  var re = /(s)hort/g;
+  re.test(s);
+  alert(RegExp.input);        //outputs "This has been a short, short summer"
+  alert(RegExp.leftContext);  //outputs "This has been a "
+  alert(RegExp.rightContext); //outputs ", short summer"
+  alert(RegExp.lastMatch);    //outputs "short"
+  alert(RegExp.lastParen);    //outputs "s"
+</xmp>
 
 </pre>
-  </body>
+</body>
 </html>

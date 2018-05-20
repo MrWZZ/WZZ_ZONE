@@ -1,51 +1,51 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
+<head>
+  <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
 <pre class="w_doc">
-  <h1 class="h1">迭代流</h1>
-  类似C#的foreach+委托的操作。
+<h1 class="h1">迭代流</h1>
+类似C#的foreach+委托的操作。
 
-  <b>创建一个流</b>
-  <xmp class="block">
-    //1：将一个数组转为流
-    Stream<String> words = Stream.of(contents.split("\\PL+"));
+<b>创建一个流</b>
+<xmp class="block">
+  //1：将一个数组转为流
+  Stream<String> words = Stream.of(contents.split("\\PL+"));
 
-    //2：创建一个空的流
-    Stream<String> silence = Stream.empty();
+  //2：创建一个空的流
+  Stream<String> silence = Stream.empty();
 
-    //3：使用该流通过方法产生一个值进行填充
-    Stream<String> echos = Stream.generate(()->"Echo");
-    //产生一个包含100随机数的流
-    Stream<Double> randoms = Stream.generate(Math::random).limit(100);
-    //丢弃前n个元素
-    Stream<String> words = Stream.of(contents.split("\\PL+")).skip(1);
+  //3：使用该流通过方法产生一个值进行填充
+  Stream<String> echos = Stream.generate(()->"Echo");
+  //产生一个包含100随机数的流
+  Stream<Double> randoms = Stream.generate(Math::random).limit(100);
+  //丢弃前n个元素
+  Stream<String> words = Stream.of(contents.split("\\PL+")).skip(1);
 
-  </xmp>
+</xmp>
 
-  <b>filter、map、flatMap方法</b>
-  <xmp class="block">
-    //filter类似Linq操作
-    List<String> words = ...
-    Stream<String> longWords = Words.stream().filter(w -> w.length() > 12);
+<b>filter、map、flatMap方法</b>
+<xmp class="block">
+  //filter类似Linq操作
+  List<String> words = ...
+  Stream<String> longWords = Words.stream().filter(w -> w.length() > 12);
 
-    //将所有单词换成小写
-    //map类似C#的ForEach
-    Stream<Stream> lowercase = words.stream().map(String::toLowerCase);
+  //将所有单词换成小写
+  //map类似C#的ForEach
+  Stream<Stream> lowercase = words.stream().map(String::toLowerCase);
 
-    //flatMap是作用于方法，它能将方法返回值进行拆分，在进行map方法
-  </xmp>
+  //flatMap是作用于方法，它能将方法返回值进行拆分，在进行map方法
+</xmp>
 
-  <h1 class="h1">并行流</h1>
-  类似C#的并行操作。
-  <xmp class="block">
-    long result = coll.parallelStream().filter(s -> s.startsWith("A")).count();
-  </xmp>
+<h1 class="h1">并行流</h1>
+类似C#的并行操作。
+<xmp class="block">
+  long result = coll.parallelStream().filter(s -> s.startsWith("A")).count();
+</xmp>
 
 </pre>
-  </body>
+</body>
 </html>

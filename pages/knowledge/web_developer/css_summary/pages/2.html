@@ -1,201 +1,201 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+</head>
+<body>
 <pre class="w_doc">
 <h1 class="h1">盒模型</h1>
-  <a href="http://www.w3school.com.cn/css/css_boxmodel.asp">CSS 框模型概述</a>
+<a href="http://www.w3school.com.cn/css/css_boxmodel.asp">CSS 框模型概述</a>
 
-  <a href="http://www.w3school.com.cn/css/css_margin_collapsing.asp">CSS 外边距合并</a>
-  注意：只有普通文档流中块框的垂直外边距才会发生外边距合并。行内框、浮动框或绝对定位之间的外边距不会合并。
+<a href="http://www.w3school.com.cn/css/css_margin_collapsing.asp">CSS 外边距合并</a>
+注意：只有普通文档流中块框的垂直外边距才会发生外边距合并。行内框、浮动框或绝对定位之间的外边距不会合并。
 
 <h1 class="h1">选择器简明参考</h1>
-  + *                       选取所有元素。
-  + type                    选取指定类型元素。
-  + .class                  选取指定类的元素。
-  + #id                     选取id属性为指定值的元素。
-  + [attr]                  选取定义了attr属性，且属性值任意的元素。
-  + [attr="val"]            选取定义了attr属性，且属性值为val的元素。
-  + [attr^="val"]           选取定义了attr属性，且属性值以val<mark>字符串</mark>开头的元素。
-  + [attr$="val"]           选取定义了attr属性，且属性值以val<mark>字符串</mark>结尾的元素。
-  + [attr*="val"]           选取定义了attr属性，且属性值包含val<mark>字符串</mark>的元素。
-  + [attr~="val"]           选取定义了attr属性，且属性值包含多个值，而其中一个为val的元素。
-  + [attr|="val"]           选取定义了attr属性，且属性值是以连字符分割的一串值，而第一个为val的元素。
++ *                       选取所有元素。
++ type                    选取指定类型元素。
++ .class                  选取指定类的元素。
++ #id                     选取id属性为指定值的元素。
++ [attr]                  选取定义了attr属性，且属性值任意的元素。
++ [attr="val"]            选取定义了attr属性，且属性值为val的元素。
++ [attr^="val"]           选取定义了attr属性，且属性值以val<mark>字符串</mark>开头的元素。
++ [attr$="val"]           选取定义了attr属性，且属性值以val<mark>字符串</mark>结尾的元素。
++ [attr*="val"]           选取定义了attr属性，且属性值包含val<mark>字符串</mark>的元素。
++ [attr~="val"]           选取定义了attr属性，且属性值包含多个值，而其中一个为val的元素。
++ [attr|="val"]           选取定义了attr属性，且属性值是以连字符分割的一串值，而第一个为val的元素。
 
-  + 选择器<xmp>,</xmp>选择器           选取同时匹配所有选择器的元素。
-  + 选择器<xmp> </xmp>选择器           目标元素为匹配第一个选择器元素的后代，且匹配第二个选择器。
-  + 选择器<xmp>></xmp>选择器           目标元素为匹配第一个选择器元素的<mark>直接</mark>后代，且匹配第二个选择器。
-  + 选择器<xmp>+</xmp>选择器           目标元素<mark>紧</mark>跟在匹配第一个选择器元素之后，且匹配第二个选择器。
-  + 选择器<xmp>~</xmp>选择器           目标元素跟在匹配第一个选择器元素之后，且匹配第二个选择器。
++ 选择器<xmp>,</xmp>选择器           选取同时匹配所有选择器的元素。
++ 选择器<xmp> </xmp>选择器           目标元素为匹配第一个选择器元素的后代，且匹配第二个选择器。
++ 选择器<xmp>></xmp>选择器           目标元素为匹配第一个选择器元素的<mark>直接</mark>后代，且匹配第二个选择器。
++ 选择器<xmp>+</xmp>选择器           目标元素<mark>紧</mark>跟在匹配第一个选择器元素之后，且匹配第二个选择器。
++ 选择器<xmp>~</xmp>选择器           目标元素跟在匹配第一个选择器元素之后，且匹配第二个选择器。
 
-  + ::first-line            选取块级元素文本首行。
-  + ::first-letter          选取块级元素文本的首字母。
-  + :before                 在选取元素之前插入内容（还在元素中）
-  + :after                  在选取元素之后插入内容（还在元素中）
-  + :first-child            选取元素的第一个子元素。
-  + :last-child             选取元素的最后一个子元素。
-  + :only-child             选取元素的唯一一个子元素。
-  + :only-of-type           选取属于父元素的特定类型的唯一子元素。
-  + :nth-child(n)           选取父元素的第n个子元素。
-  + :nth-last-child(n)      选取父元素的倒数第n个子元素。
-  + :nth-of-type(n)         选取属于父元素的特定类型的第n个元素。
-  + :nth-last-of-type(n)    选取属于父元素的特定类型的倒数第n个元素。
-  + :enabled                选取已启动的元素。
-  + :disabled               选取被禁用的元素。
-  + :checked                选取所有选中的复选框的单选按钮。
-  + :default                选取默认元素。
-  + :valid                  选取基于输入法验证判定的有效input元素
-  + :invalid                选取基于输入法验证判定的无效input元素
-  + :in-range               选取被限定在指定范围之内的input元素。
-  + :out-of-range           选取被限定在指定范围之外的input元素。
-  + :required               选取允许使用required属性的input元素
-  + :optional               选取不允许使用required属性的input元素
-  + :link                   选取未访问的链接元素。
-  + :visited                选取用户已访问的链接元素。
-  + :active                 选取当前用户激活的元素（这通常意味着用户即将点击该元素）
-  + :hover                  选取鼠标指针悬停在其上面的元素。
-  + :focus                  选取获得焦点的元素。
-  + :not(选择器)      　  　选取所有不匹配（选择器）的元素。
-  + :empty                  选取不包含任何子元素或文本的元素。
-  + :lang(语言)　　　　     选取lang属性为指定值的元素。
-  + :target                 选取URL片段标识符指向的元素。
++ ::first-line            选取块级元素文本首行。
++ ::first-letter          选取块级元素文本的首字母。
++ :before                 在选取元素之前插入内容（还在元素中）
++ :after                  在选取元素之后插入内容（还在元素中）
++ :first-child            选取元素的第一个子元素。
++ :last-child             选取元素的最后一个子元素。
++ :only-child             选取元素的唯一一个子元素。
++ :only-of-type           选取属于父元素的特定类型的唯一子元素。
++ :nth-child(n)           选取父元素的第n个子元素。
++ :nth-last-child(n)      选取父元素的倒数第n个子元素。
++ :nth-of-type(n)         选取属于父元素的特定类型的第n个元素。
++ :nth-last-of-type(n)    选取属于父元素的特定类型的倒数第n个元素。
++ :enabled                选取已启动的元素。
++ :disabled               选取被禁用的元素。
++ :checked                选取所有选中的复选框的单选按钮。
++ :default                选取默认元素。
++ :valid                  选取基于输入法验证判定的有效input元素
++ :invalid                选取基于输入法验证判定的无效input元素
++ :in-range               选取被限定在指定范围之内的input元素。
++ :out-of-range           选取被限定在指定范围之外的input元素。
++ :required               选取允许使用required属性的input元素
++ :optional               选取不允许使用required属性的input元素
++ :link                   选取未访问的链接元素。
++ :visited                选取用户已访问的链接元素。
++ :active                 选取当前用户激活的元素（这通常意味着用户即将点击该元素）
++ :hover                  选取鼠标指针悬停在其上面的元素。
++ :focus                  选取获得焦点的元素。
++ :not(选择器)      　  　选取所有不匹配（选择器）的元素。
++ :empty                  选取不包含任何子元素或文本的元素。
++ :lang(语言)　　　　     选取lang属性为指定值的元素。
++ :target                 选取URL片段标识符指向的元素。
 
 <h1 class="h1">属性简明参考</h1>
-  <b>边框和背景属性</b>
-  + background                      设置所有背景值的简写属性
-  + background-attachment           设置元素的背景附着属性，决定背景图片是否随页面一起滚动。
-  + background-clip                 设置元素背景颜色和图像的裁剪区域。
-  + background-color                设置背景颜色。
-  + background-image                设置元素背景图像。
-  + background-origin               设置背景图像绘制的起始位置。
-  + background-position             设置背景图像在元素盒子中的位置。
-  + background-repeat               设置元素背景图像的重复方式。
-  + background-size                 设置元素背景图像的绘制尺寸。
+<b>边框和背景属性</b>
++ background                      设置所有背景值的简写属性
++ background-attachment           设置元素的背景附着属性，决定背景图片是否随页面一起滚动。
++ background-clip                 设置元素背景颜色和图像的裁剪区域。
++ background-color                设置背景颜色。
++ background-image                设置元素背景图像。
++ background-origin               设置背景图像绘制的起始位置。
++ background-position             设置背景图像在元素盒子中的位置。
++ background-repeat               设置元素背景图像的重复方式。
++ background-size                 设置元素背景图像的绘制尺寸。
 
-  <mark>(bottom、top、left、right四个方向可替换)</mark>
-  + border                          为边界设置所有边框属性的简写属性。
-  + border-bottom                   为下边框设置所有属性的简写属性。
-  + border-bottom-color             为下边框设置颜色。
-  + border-bottom-left-radius       为边框左下角设置圆角。
-  + border-bottom-style             设置元素下边框的样式。
-  + border-bottom-width             设置元素下边框的宽度。
+<mark>(bottom、top、left、right四个方向可替换)</mark>
++ border                          为边界设置所有边框属性的简写属性。
++ border-bottom                   为下边框设置所有属性的简写属性。
++ border-bottom-color             为下边框设置颜色。
++ border-bottom-left-radius       为边框左下角设置圆角。
++ border-bottom-style             设置元素下边框的样式。
++ border-bottom-width             设置元素下边框的宽度。
 
-  + border-image                    设置图像作为边框的简写属性
-  + border-image-outset             指定图像向边框盒外部扩展的区域。
-  + border-image-repeat             指定边框图像的缩放和重复方式。
-  + border-image-slice              指定边框图像的切割方式。
-  + border-image-source             指定边框图像的来源路径。
-  + border-image-width              指定边框图像的宽度。
++ border-image                    设置图像作为边框的简写属性
++ border-image-outset             指定图像向边框盒外部扩展的区域。
++ border-image-repeat             指定边框图像的缩放和重复方式。
++ border-image-slice              指定边框图像的切割方式。
++ border-image-source             指定边框图像的来源路径。
++ border-image-width              指定边框图像的宽度。
 
-  + box-shadow                      设置元素的一个或多个阴影效果。
-  + outline                         设置轮廓所有属性的简写属性。
-  + outline-color                   设置元素边框外轮廓线的颜色。
-  + outline-offset                  设置轮廓距离元素边框边缘的偏移量。
-  + outline-style                   设置轮廓的样式。
-  + outline-width                   设置轮廓的宽度。
++ box-shadow                      设置元素的一个或多个阴影效果。
++ outline                         设置轮廓所有属性的简写属性。
++ outline-color                   设置元素边框外轮廓线的颜色。
++ outline-offset                  设置轮廓距离元素边框边缘的偏移量。
++ outline-style                   设置轮廓的样式。
++ outline-width                   设置轮廓的宽度。
 
-  <b>盒模型属性</b>
-  + box-sizing                      设置要应用盒子尺寸相关属性的元素。
-  + clear                           设置盒子的左边界、右边界或两个边界不允许出现浮动元素。
-  + display                         设置元素盒子的类型。
-  + float                           设置元素的浮动位置。
-  + height                          设置元素盒子的高度。
-  + width                           设置元素盒子的宽度。
-  + max-height                      设置元素的最大高度。
-  + max-width                       设置元素的最大宽度。
-  + min-height
-  + min-width
+<b>盒模型属性</b>
++ box-sizing                      设置要应用盒子尺寸相关属性的元素。
++ clear                           设置盒子的左边界、右边界或两个边界不允许出现浮动元素。
++ display                         设置元素盒子的类型。
++ float                           设置元素的浮动位置。
++ height                          设置元素盒子的高度。
++ width                           设置元素盒子的宽度。
++ max-height                      设置元素的最大高度。
++ max-width                       设置元素的最大宽度。
++ min-height
++ min-width
 
-  <mark>(bottom、top、left、right四个方向可替换)</mark>
-  + margin                          设置元素盒子四个外边距宽度的简写属性。
-  + margin-bottom
+<mark>(bottom、top、left、right四个方向可替换)</mark>
++ margin                          设置元素盒子四个外边距宽度的简写属性。
++ margin-bottom
 
-  + overflow                        设置内容横向和竖向溢出盒子时的处理方式的简写属性。
-  + overflow-x
-  + overflow-y
++ overflow                        设置内容横向和竖向溢出盒子时的处理方式的简写属性。
++ overflow-x
++ overflow-y
 
-  <mark>(bottom、top、left、right四个方向可替换)</mark>
-  + padding                         设置元素盒子四个内边距宽度的简写属性。
-  + padding-bottom
+<mark>(bottom、top、left、right四个方向可替换)</mark>
++ padding                         设置元素盒子四个内边距宽度的简写属性。
++ padding-bottom
 
-  + visibility                      设置元素的可见性。
++ visibility                      设置元素的可见性。
 
-  <b>布局属性</b>
-  <mark>(bottom、top、left、right四个方向可替换)</mark>
-  + bottom                          设置元素下外边距边界与包含块下边界之间的偏移。
+<b>布局属性</b>
+<mark>(bottom、top、left、right四个方向可替换)</mark>
++ bottom                          设置元素下外边距边界与包含块下边界之间的偏移。
 
-  + column-count                    指定多列布局的列数。
-  + column-fill                     多列布局中列于列之间的内容如何分布。
-  + column-gap                      指定多列布局中列于列之间的间隔。
-  + column-rule                     多列布局中定义列于列之间的规则的简写属性。
-  + column-rule-color               设置多列布局中的颜色规则。
-  + column-rule-style               设置多列布局中样式规则。
-  + column-rule-width               设置多列布局中的宽度规则。
++ column-count                    指定多列布局的列数。
++ column-fill                     多列布局中列于列之间的内容如何分布。
++ column-gap                      指定多列布局中列于列之间的间隔。
++ column-rule                     多列布局中定义列于列之间的规则的简写属性。
++ column-rule-color               设置多列布局中的颜色规则。
++ column-rule-style               设置多列布局中样式规则。
++ column-rule-width               设置多列布局中的宽度规则。
 
-  + <a href="http://www.runoob.com/css3/css3-flexbox.html">弹性盒子布局</a>
++ <a href="http://www.runoob.com/css3/css3-flexbox.html">弹性盒子布局</a>
 
-  + position                        设置元素的定位方法。
-  + z-index                         设置定位元素的堆叠顺序。
++ position                        设置元素的定位方法。
++ z-index                         设置定位元素的堆叠顺序。
 
-  <b>文本属性</b>
-  + @font-face                      设置网页使用的字体。
-  + direction                       指定文字的方向。
-  + font                            设置文本字体的简写属性。
-  + font-family                     设置文本所用字体系列。
-  + font-size                       设置字体大小。
-  + font-style                      指定采用正常字体、斜体还是倾斜字体。
-  + font-variant                    指定字体是否以小型大写字母显示。
-  + font-weight                     设置文本粗细。
-  + letter-spacing                  设置字母间距。
-  + word-spacing                    设置单词间距。
-  + line-height                     设置行高。
-  + text-align                      设置文本对齐方式。
-  + text-decoration                 规定添加到文本的修饰。
-  + text-indent                     规定文本块中首行文本的缩进。
-  + text-justify                    设置文本对其方式。
-  + text-shadow                     指定文本块的阴影效果。
-  + text-transform                  控制文本块字母的大小写。
+<b>文本属性</b>
++ @font-face                      设置网页使用的字体。
++ direction                       指定文字的方向。
++ font                            设置文本字体的简写属性。
++ font-family                     设置文本所用字体系列。
++ font-size                       设置字体大小。
++ font-style                      指定采用正常字体、斜体还是倾斜字体。
++ font-variant                    指定字体是否以小型大写字母显示。
++ font-weight                     设置文本粗细。
++ letter-spacing                  设置字母间距。
++ word-spacing                    设置单词间距。
++ line-height                     设置行高。
++ text-align                      设置文本对齐方式。
++ text-decoration                 规定添加到文本的修饰。
++ text-indent                     规定文本块中首行文本的缩进。
++ text-justify                    设置文本对其方式。
++ text-shadow                     指定文本块的阴影效果。
++ text-transform                  控制文本块字母的大小写。
 
-  <b>过渡、动画和变换属性</b>
-  + @keyframes                      为动画指定一个以上的关键帧。
-  + animation                       设置动画的简写属性。
-  + animation-delay                 指定动画开始前的延迟时间。
-  + animation-direction             指定动画重复播放时的播放方向。
-  + animation-duration              指定动画持续时间。
-  + animation-iteration-count       指定动画的循环次数。
-  + animation-name                  指定用于动画的关键帧集合的名字。
-  + animation-play-state            指定动画状态。
-  + animation-timing-function       指定关键帧之间计算属性值的函数。
+<b>过渡、动画和变换属性</b>
++ @keyframes                      为动画指定一个以上的关键帧。
++ animation                       设置动画的简写属性。
++ animation-delay                 指定动画开始前的延迟时间。
++ animation-direction             指定动画重复播放时的播放方向。
++ animation-duration              指定动画持续时间。
++ animation-iteration-count       指定动画的循环次数。
++ animation-name                  指定用于动画的关键帧集合的名字。
++ animation-play-state            指定动画状态。
++ animation-timing-function       指定关键帧之间计算属性值的函数。
 
-  + transform                       指定应用于元素的变换。
-  + transform-origin                指定元素变换的起点。
++ transform                       指定应用于元素的变换。
++ transform-origin                指定元素变换的起点。
 
-  + transition                      指定CSS属性过渡效果的简写属性。
-  + transition-delay                指定触发过渡的延迟时间。
-  + transition-duration             指定过渡的持续时间。
-  + transition-property             指定带有过渡效果的属性。
-  + transition-timing-function      指定过渡期间计算中间属性值的函数。
++ transition                      指定CSS属性过渡效果的简写属性。
++ transition-delay                指定触发过渡的延迟时间。
++ transition-duration             指定过渡的持续时间。
++ transition-property             指定带有过渡效果的属性。
++ transition-timing-function      指定过渡期间计算中间属性值的函数。
 
-  <b>其他属性</b>
-  + border-collapse                 指定表格相邻单元格的边框的显示样式。
-  + border-spacing                  指定相邻单元格的边框的距离。
-  + caption-side                    指定表格标题的位置。
-  + empty-cells                     指定是否显示表格中的空单元格。
-  + table-layout                    指定表格单元格、行、列的算法规则。
+<b>其他属性</b>
++ border-collapse                 指定表格相邻单元格的边框的显示样式。
++ border-spacing                  指定相邻单元格的边框的距离。
++ caption-side                    指定表格标题的位置。
++ empty-cells                     指定是否显示表格中的空单元格。
++ table-layout                    指定表格单元格、行、列的算法规则。
 
-  + color                           设置元素的前景色。
-  + cursor                          指定光标的形状。
++ color                           设置元素的前景色。
++ cursor                          指定光标的形状。
 
-  + list-style                      设置列表样式的简写属性。
-  + list-style-image                指定列表项标记使用的图像。
-  + list-style-position             指定列表项标记相对于列表项内容的位置。
-  + list-style-type                 指定列表项标记的类型。
++ list-style                      设置列表样式的简写属性。
++ list-style-image                指定列表项标记使用的图像。
++ list-style-position             指定列表项标记相对于列表项内容的位置。
++ list-style-type                 指定列表项标记的类型。
 
-  + opacity                         设置元素的透明度。
++ opacity                         设置元素的透明度。
 </pre>
-  </body>
+</body>
 </html>
