@@ -37,6 +37,7 @@ var knowledgeList = [
      {title:"Java",url:"java/java/java.html"},
      {title:"Spring",url:"java/spring/spring.html"},
      {title:"SpringMVC",url:"java/springmvc/springmvc.html"},
+     {title:"MyBatis",url:"java/mybatis/mybatis.html"},
   ]},
   //其他
   {type : "其他",
