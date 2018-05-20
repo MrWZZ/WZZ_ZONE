@@ -7,364 +7,364 @@
   </head>
   <body>
 <pre class="w_doc">
-  <h1 class="h1">类</h1>
-  正式的说，类是是由字段数据（通常叫成员变量）以及操作这个数据的成员（如构造函数，属性，方法，事件等）
-  所构成的自定义类型。
+<h1 class="h1">类</h1>
+正式的说，类是是由字段数据（通常叫成员变量）以及操作这个数据的成员（如构造函数，属性，方法，事件等）
+所构成的自定义类型。
 
-  <xmp class="block">
-    //类的声明
-    class Car
+<xmp class="block">
+  //类的声明
+  class Car
+  {
+    public string name;
+  }
+</xmp>
+
+<h1 class="h1">构造函数</h1>
+在没有自定义构造函数的时候，类里默认有一个隐藏的构造函数，默认的构造函数是public的。
+一旦定义了自定义的构造函数，默认的构造函数就会自动从类中移除，并且不在有效。
+构造函数的类的特殊方法，在使用new关键字创建对象的时候默认调用。
+和普通方法不同，构造函数的声明不能有返回值的关键字，且方法名必须同类名。
+<xmp class="block">
+  class Car
+  {
+    public string name;
+
+    //无参构造函数
+    public Car()
     {
-      public string name;
+      name = "xxx";
     }
-  </xmp>
 
-  <h1 class="h1">构造函数</h1>
-  在没有自定义构造函数的时候，类里默认有一个隐藏的构造函数，默认的构造函数是public的。
-  一旦定义了自定义的构造函数，默认的构造函数就会自动从类中移除，并且不在有效。
-  构造函数的类的特殊方法，在使用new关键字创建对象的时候默认调用。
-  和普通方法不同，构造函数的声明不能有返回值的关键字，且方法名必须同类名。
-  <xmp class="block">
-    class Car
+    //私有的有参构造函数
+    private Car(string _name)
     {
-      public string name;
-
-      //无参构造函数
-      public Car()
-      {
-        name = "xxx";
-      }
-
-      //私有的有参构造函数
-      private Car(string _name)
-      {
-        name = _name;
-      }
+      name = _name;
     }
-  </xmp>
+  }
+</xmp>
 
-  <h1 class="h1">this关键字</h1>
-  this关键字提供对当前类实例的访问。
+<h1 class="h1">this关键字</h1>
+this关键字提供对当前类实例的访问。
 
-  this可以用来进行串联构造函数。让一个接受参数个数<mark>最多</mark>的构造函数最为"主构造函数"，
-  其他的构造函数使用this来调用它，可以节省代码。
-  而一个更简洁的方式是在构造函数中使用可选参数的形式，但这种方式只能在.NET4.0或更高的平台下运行。
-  <xmp class="block">
-    class Car
+this可以用来进行串联构造函数。让一个接受参数个数<mark>最多</mark>的构造函数最为"主构造函数"，
+其他的构造函数使用this来调用它，可以节省代码。
+而一个更简洁的方式是在构造函数中使用可选参数的形式，但这种方式只能在.NET4.0或更高的平台下运行。
+<xmp class="block">
+  class Car
+  {
+    public string name;
+    public int age;
+
+    public Car() {}
+    public Car(string _name):this(_name,0) {}
+    public Car(string _name,int _age)
     {
-      public string name;
-      public int age;
-
-      public Car() {}
-      public Car(string _name):this(_name,0) {}
-      public Car(string _name,int _age)
-      {
-        name = _name;
-        age = _age;
-      }
+      name = _name;
+      age = _age;
     }
-  </xmp>
-  用this调用构造函数的顺序是：
-  1.先调用主构造函数，运行里面的方法。
-  2.在调用this原来的函数，运行里面的方法。
+  }
+</xmp>
+用this调用构造函数的顺序是：
+1.先调用主构造函数，运行里面的方法。
+2.在调用this原来的函数，运行里面的方法。
 
-  <h1 class="h1">static关键字</h1>
-  static关键字用来定义静态成员，这些成员只能通过类级别来访问。
+<h1 class="h1">static关键字</h1>
+static关键字用来定义静态成员，这些成员只能通过类级别来访问。
 
-  <b>静态数据</b>
-  static用来修饰一个字段，其类的每一个对象将共享该字段。
+<b>静态数据</b>
+static用来修饰一个字段，其类的每一个对象将共享该字段。
 
-  <b>静态方法</b>
-  static用来修饰一个方法，使用该方法时可以通过类直接调用，而不用先声明一个对象在使用。
-  静态方法中，不能使用非静态数据，不能使用this关键字。
+<b>静态方法</b>
+static用来修饰一个方法，使用该方法时可以通过类直接调用，而不用先声明一个对象在使用。
+静态方法中，不能使用非静态数据，不能使用this关键字。
 
-  <b>静态构造函数</b>
-  + 一个类只可定义一个静态构造函数，静态构造函数不能被重载。
-  + 静态构造函数不允许访问修饰符并且不能接受任何参数。
-  + 无论参创建了多少类型的对象，讲个构造函数只执行一次。
-  + 运行库创建类实例或调用者首次访问静态成员之前，运行库会调用静态构造函数。
-  + 静态构造函数的执行先于任何实例级别的构造函数。
-  <xmp class="block">
-    class Car
-    {
-      static Car()
-      {
-        //...
-      }
-    }
-  </xmp>
-
-  <b>静态类</b>
-  静态类不能使用new关键字来创建实例，并且只能包含static关键字标记的成员或字段。
-  使用静态类能加快运行速度。
-  <xmp class="block">
-    static class Car
+<b>静态构造函数</b>
++ 一个类只可定义一个静态构造函数，静态构造函数不能被重载。
++ 静态构造函数不允许访问修饰符并且不能接受任何参数。
++ 无论参创建了多少类型的对象，讲个构造函数只执行一次。
++ 运行库创建类实例或调用者首次访问静态成员之前，运行库会调用静态构造函数。
++ 静态构造函数的执行先于任何实例级别的构造函数。
+<xmp class="block">
+  class Car
+  {
+    static Car()
     {
       //...
     }
-  </xmp>
+  }
+</xmp>
 
-  <h1 class="h1">OOP</h1>
-  OOP的3个核心：
-  + 封装。
-  + 继承。
-  + 多态。
+<b>静态类</b>
+静态类不能使用new关键字来创建实例，并且只能包含static关键字标记的成员或字段。
+使用静态类能加快运行速度。
+<xmp class="block">
+  static class Car
+  {
+    //...
+  }
+</xmp>
 
-  <b>访问修饰符</b>
-  <b>修饰符</b>                  <b>使用地点</b>                  <b>作用</b>
-  public                  类型或类型成员            公共的没有限制
-  private                 类型成员或嵌套类型        私有的只能定义它们的类（结构）进行访问
-  protected               类型成员或嵌套类型        受保护的可以由定义他们的类及其子类使用
-  internal                类型或类型成员            内部项只能在当前程序集中访问
-  protected internal      类型成员或嵌套类型        定义在他们的程序集、类及派生类中使用
+<h1 class="h1">OOP</h1>
+OOP的3个核心：
++ 封装。
++ 继承。
++ 多态。
 
-  默认情况下，类型成员是隐式私有的，而类型是类是内部的。
+<b>访问修饰符</b>
+<b>修饰符</b>                  <b>使用地点</b>                  <b>作用</b>
+public                  类型或类型成员            公共的没有限制
+private                 类型成员或嵌套类型        私有的只能定义它们的类（结构）进行访问
+protected               类型成员或嵌套类型        受保护的可以由定义他们的类及其子类使用
+internal                类型或类型成员            内部项只能在当前程序集中访问
+protected internal      类型成员或嵌套类型        定义在他们的程序集、类及派生类中使用
 
-  <b>属性</b>
-  属性是用来封装字段的，控制字段的返回与设置。
-  <xmp class="block">
-    private string name;
-    public string Name
+默认情况下，类型成员是隐式私有的，而类型是类是内部的。
+
+<b>属性</b>
+属性是用来封装字段的，控制字段的返回与设置。
+<xmp class="block">
+  private string name;
+  public string Name
+  {
+    //这里的访问修饰符不能比属性的高
+    private get { return name; }
+    set { name = value; }
+
+    //如果只有一个就是只读或只写属性
+    //get { return name; }
+
+  }
+</xmp>
+
+<b>自动属性</b>
+    实现自动属性时，只指定访问修饰符、数据类型、属性名和空的get/set作用域，编译器会自动生成私有
+字段和适当的get/set实现逻辑。
+    但要get、set同时存在，自动属性不允许只读或只写。
+<xmp class="block">
+  public string Name {get;set;}
+</xmp>
+
+<h1 class="h1">对象初始化语法</h1>
+语法为：大括号内部用逗号分隔的指定值列表，初始化列表中的每个成员都映射为正在初始化对象中公共字段
+或公共属性的名称。
+
+这种方法可以灵活的让我们实现一个新的构造函数出来。
+<xmp class="block">
+  class Car
+  {
+    public string name;
+
+    public int age;
+
+    public Car(){}
+    public Car(int _age)
     {
-      //这里的访问修饰符不能比属性的高
-      private get { return name; }
-      set { name = value; }
-
-      //如果只有一个就是只读或只写属性
-      //get { return name; }
-
+      age = _age;
     }
-  </xmp>
+  }
 
-  <b>自动属性</b>
-      实现自动属性时，只指定访问修饰符、数据类型、属性名和空的get/set作用域，编译器会自动生成私有
-  字段和适当的get/set实现逻辑。
-      但要get、set同时存在，自动属性不允许只读或只写。
-  <xmp class="block">
-    public string Name {get;set;}
-  </xmp>
+  //Main()
+  //这种方法在后台调用的是默认的构造函数。
+  Car c = new Car { name = "xxx" };
+  Car c = new Car() { name = "xxx" };
+  //这种方法调用int参构造函数
+  Car c1 = new Car(1) { name = "xxx" };
+</xmp>
+不止系统自带的类型，自定义类型的成员也能用这种方法。
+<xmp class="block">
+  class UseCar
+  {
+    public Car c;
+  }
 
-  <h1 class="h1">对象初始化语法</h1>
-  语法为：大括号内部用逗号分隔的指定值列表，初始化列表中的每个成员都映射为正在初始化对象中公共字段
-  或公共属性的名称。
+  //Main()
+  UseCar uc = new UseCar { c = new Car { name = "xxx",age = 2 } };
+</xmp>
 
-  这种方法可以灵活的让我们实现一个新的构造函数出来。
-  <xmp class="block">
-    class Car
+<h1 class="h1">常量数据</h1>
+const关键字用来定义常量，类的常量是隐式静态的，也可以定义局部常量，局部常量也是可以直接访问的。
+常量必须在声明时赋值。
+<xmp class="block">
+  class Car
+  {
+    public static string name = "xxx";
+
+    public static void ShowName()
     {
-      public string name;
-
-      public int age;
-
-      public Car(){}
-      public Car(int _age)
-      {
-        age = _age;
-      }
+      const int age = 1;
     }
+  }
+</xmp>
 
-    //Main()
-    //这种方法在后台调用的是默认的构造函数。
-    Car c = new Car { name = "xxx" };
-    Car c = new Car() { name = "xxx" };
-    //这种方法调用int参构造函数
-    Car c1 = new Car(1) { name = "xxx" };
-  </xmp>
-  不止系统自带的类型，自定义类型的成员也能用这种方法。
-  <xmp class="block">
-    class UseCar
+<h1 class="h1">只读字段</h1>
+readonly用来定义只读数据，它的用法和常量类似，但是它的值可以在运行时再确定。
+只读字段默认不是static的，如果要让它是静态的，必须显示声明。
+如果只有到运行时才知道只读字段的值，就必须使用静态构造函数。
+<xmp class="block">
+  class Car
+  {
+    public static readonly string name;
+    static Car()
     {
-      public Car c;
+      name = "xxx";
     }
+  }
+</xmp>
 
-    //Main()
-    UseCar uc = new UseCar { c = new Car { name = "xxx",age = 2 } };
-  </xmp>
+<h1 class="h1">分部类型</h1>
+partial关键字用来声明分布类型。
+可以将一个类分布到多个C#文件中，这样可以使代码分工更明确。
+<xmp class="block">
+  //Car.cs文件中
+  partial class Car
+  {
+    //...
+  }
 
-  <h1 class="h1">常量数据</h1>
-  const关键字用来定义常量，类的常量是隐式静态的，也可以定义局部常量，局部常量也是可以直接访问的。
-  常量必须在声明时赋值。
-  <xmp class="block">
-    class Car
+  //Factory.Car.cs文件中（示意可以是一个类的内部类）
+  partial class Car
+  {
+    //...
+  }
+</xmp>
+
+<h1 class="h1">继承和多态</h1>
+使用冒号可以继承一个类。
+<xmp class="block">
+  class Car
+  {
+    //...
+  }
+
+  class MiniVan : Car
+  {
+    //...
+  }
+</xmp>
+继承的类拥有所有定义在父类中的每个公共成员。
+注意：虽然构造函数一般是公共的，但是继承从不作用在构造函数，构造函数只作用在类的内部。
+一个类只能继承一个父类，但是可以实现多个接口。
+
+<b>sealed关键字</b>
+用sealed修饰的类，将会被密封，别的类不能继承该类。
+<xmp class="block">
+  sealed class Car
+  {
+    //...
+  }
+</xmp>
+
+<b>base关键字</b>
+子类的构造函数可以使用base来调用父类的构造函数。
+<xmp class="block">
+  class Car
+  {
+    public string name;
+    public Car(string _name)
     {
-      public static string name = "xxx";
-
-      public static void ShowName()
-      {
-        const int age = 1;
-      }
+      name = _name;
     }
-  </xmp>
+  }
 
-  <h1 class="h1">只读字段</h1>
-  readonly用来定义只读数据，它的用法和常量类似，但是它的值可以在运行时再确定。
-  只读字段默认不是static的，如果要让它是静态的，必须显示声明。
-  如果只有到运行时才知道只读字段的值，就必须使用静态构造函数。
-  <xmp class="block">
-    class Car
+  class MiniVan
+  {
+    public int age;
+    public MiniVan(_name,_age):base(_name)
     {
-      public static readonly string name;
-      static Car()
-      {
-        name = "xxx";
-      }
+      age = _age;
     }
-  </xmp>
+  }
+</xmp>
 
-  <h1 class="h1">分部类型</h1>
-  partial关键字用来声明分布类型。
-  可以将一个类分布到多个C#文件中，这样可以使代码分工更明确。
-  <xmp class="block">
-    //Car.cs文件中
-    partial class Car
+<h1 class="h1">多态</h1>
+调用父类的某个方法，根据具体类型间接调用子类的方法。
+
+<b>virtual和override关键字</b>
+父类的一个方法需要可以被重写，用virtual修饰，而该方法子类用override用修饰。
+子类方法可以用base来调用父类的该方法，就不需要完成重写了。
+<xmp class="block">
+  //父类
+  public virtual void ShowName(){}
+
+  //子类
+  public override void ShowName()
+  {
+    base.ShowName();
+    //...
+  }
+
+  //假设我们不希望再有子类重写该类，可以用sealed密封
+  public override sealed void ShowName(){}
+</xmp>
+
+<h1 class="h1">抽象类</h1>
+如果一个类不应该被实例化，用abstract来修饰。
+<xmp class="block">
+  abstract class Car
+  {
+
+  }
+</xmp>
+
+用abstract来修饰成员，则将强制子类重写该成员，但在父类中，该成员只能声明，不能定义。
+抽象方法只能存在抽象类（接口也是抽象类）中。
+
+<b>成员投影</b>
+在继承的过程中，很可能我们在子类中声明了同父类相同名称的成员，有一下情况：
+1.我们可以用,virtual、override来避免这个问题。
+2.我们对父文件没有访问权限，这时候，我们可以用new修饰成员来隐藏父成员。
+<xmp class="block">
+  //隐藏任何在我之上的实现
+  public new void ShowName(){}
+  public new string name;
+
+  //要知道，我们也可以显示的调用被隐藏的父类实现。
+  MiniVan mv = new MiniVan();
+  ((Car)mv).ShowName();
+</xmp>
+
+<h1 class="h1">基类/派生类的转换规则</h1>
+子类转换成父类可以直接隐式转换，而父类转换成子类需要强制转换（要承担运行失败的风险）。
+
+<b>as关键字</b>
+用as关键字来进行显示的转换。
+<xmp class="block">
+  Car c = mv as Car;
+  //成功返回Car类型，失败返回null。
+</xmp>
+
+<b>is关键字</b>
+is关键字用来判断两个类是否兼容，返回true/false。
+<xmp class="block">
+  if(mv is Car) { }
+</xmp>
+
+<h1 class="h1">超级父类</h1>
+在.NET世界中，所有的父类都从System.Object的基类继承。
+
+<b>System.Object的核心成员</b>
++ Equals():默认情况下，如果被比较的项指向内存中的同一个项，则返回true。
++ Finalize():在对象销毁之前会调用此方法用来释放所有分配的内存。
++ GetHashCode():这个方法返回int来标识指定的对象实例。
++ ToSting():这个方法返回对象的字符串形式。
++ GetType():这个方法返回Type对象，它完整描述当前指向的对象。
++ MemberwiseClone():这个方法的作用是逐个成员地返回当前对象的副本，通常用于克隆对象。
+
+这里对Equals()的重写进行说明，在自定义的类型中，我们可能要判断两个对象是否相等，是依据它们的成员
+值来进行判断而不是引用地址。这时候就需要重写这个方法，重写这个方法时，还要重写GetHashCode()。
+这个方法是用来返回对象的散列码，我们可以通过给对象一个唯一的字段来获取散列码，或通过重写的ToString()
+来获取散列码。
+<xmp class="block">
+  class Car
+  {
+    public string SSN {get;set;}
+    public override int GethashCode()
     {
-      //...
+      return SSN.GetHashCode();
     }
+  }
+</xmp>
 
-    //Factory.Car.cs文件中（示意可以是一个类的内部类）
-    partial class Car
-    {
-      //...
-    }
-  </xmp>
-
-  <h1 class="h1">继承和多态</h1>
-  使用冒号可以继承一个类。
-  <xmp class="block">
-    class Car
-    {
-      //...
-    }
-
-    class MiniVan : Car
-    {
-      //...
-    }
-  </xmp>
-  继承的类拥有所有定义在父类中的每个公共成员。
-  注意：虽然构造函数一般是公共的，但是继承从不作用在构造函数，构造函数只作用在类的内部。
-  一个类只能继承一个父类，但是可以实现多个接口。
-
-  <b>sealed关键字</b>
-  用sealed修饰的类，将会被密封，别的类不能继承该类。
-  <xmp class="block">
-    sealed class Car
-    {
-      //...
-    }
-  </xmp>
-
-  <b>base关键字</b>
-  子类的构造函数可以使用base来调用父类的构造函数。
-  <xmp class="block">
-    class Car
-    {
-      public string name;
-      public Car(string _name)
-      {
-        name = _name;
-      }
-    }
-
-    class MiniVan
-    {
-      public int age;
-      public MiniVan(_name,_age):base(_name)
-      {
-        age = _age;
-      }
-    }
-  </xmp>
-
-  <h1 class="h1">多态</h1>
-  调用父类的某个方法，根据具体类型间接调用子类的方法。
-
-  <b>virtual和override关键字</b>
-  父类的一个方法需要可以被重写，用virtual修饰，而该方法子类用override用修饰。
-  子类方法可以用base来调用父类的该方法，就不需要完成重写了。
-  <xmp class="block">
-    //父类
-    public virtual void ShowName(){}
-
-    //子类
-    public override void ShowName()
-    {
-      base.ShowName();
-      //...
-    }
-
-    //假设我们不希望再有子类重写该类，可以用sealed密封
-    public override sealed void ShowName(){}
-  </xmp>
-
-  <h1 class="h1">抽象类</h1>
-  如果一个类不应该被实例化，用abstract来修饰。
-  <xmp class="block">
-    abstract class Car
-    {
-
-    }
-  </xmp>
-
-  用abstract来修饰成员，则将强制子类重写该成员，但在父类中，该成员只能声明，不能定义。
-  抽象方法只能存在抽象类（接口也是抽象类）中。
-
-  <b>成员投影</b>
-  在继承的过程中，很可能我们在子类中声明了同父类相同名称的成员，有一下情况：
-  1.我们可以用,virtual、override来避免这个问题。
-  2.我们对父文件没有访问权限，这时候，我们可以用new修饰成员来隐藏父成员。
-  <xmp class="block">
-    //隐藏任何在我之上的实现
-    public new void ShowName(){}
-    public new string name;
-
-    //要知道，我们也可以显示的调用被隐藏的父类实现。
-    MiniVan mv = new MiniVan();
-    ((Car)mv).ShowName();
-  </xmp>
-
-  <h1 class="h1">基类/派生类的转换规则</h1>
-  子类转换成父类可以直接隐式转换，而父类转换成子类需要强制转换（要承担运行失败的风险）。
-
-  <b>as关键字</b>
-  用as关键字来进行显示的转换。
-  <xmp class="block">
-    Car c = mv as Car;
-    //成功返回Car类型，失败返回null。
-  </xmp>
-
-  <b>is关键字</b>
-  is关键字用来判断两个类是否兼容，返回true/false。
-  <xmp class="block">
-    if(mv is Car) { }
-  </xmp>
-
-  <h1 class="h1">超级父类</h1>
-  在.NET世界中，所有的父类都从System.Object的基类继承。
-
-  <b>System.Object的核心成员</b>
-  + Equals():默认情况下，如果被比较的项指向内存中的同一个项，则返回true。
-  + Finalize():在对象销毁之前会调用此方法用来释放所有分配的内存。
-  + GetHashCode():这个方法返回int来标识指定的对象实例。
-  + ToSting():这个方法返回对象的字符串形式。
-  + GetType():这个方法返回Type对象，它完整描述当前指向的对象。
-  + MemberwiseClone():这个方法的作用是逐个成员地返回当前对象的副本，通常用于克隆对象。
-
-  这里对Equals()的重写进行说明，在自定义的类型中，我们可能要判断两个对象是否相等，是依据它们的成员
-  值来进行判断而不是引用地址。这时候就需要重写这个方法，重写这个方法时，还要重写GetHashCode()。
-  这个方法是用来返回对象的散列码，我们可以通过给对象一个唯一的字段来获取散列码，或通过重写的ToString()
-  来获取散列码。
-  <xmp class="block">
-    class Car
-    {
-      public string SSN {get;set;}
-      public override int GethashCode()
-      {
-        return SSN.GetHashCode();
-      }
-    }
-  </xmp>
-  
 </pre>
   </body>
 </html>

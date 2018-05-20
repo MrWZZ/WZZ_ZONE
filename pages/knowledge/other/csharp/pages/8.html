@@ -1,101 +1,101 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+</head>
+<body>
 <pre class="w_doc">
-  <h1 class="h1">索引器方法</h1>
-  索引器方法允许我们对某个自定义的类提供想数据一样的操作。
-  <xmp class="block">
-    class PersonCollection
-    {
-      private ArrayList arPeople = new ArrayList();
+<h1 class="h1">索引器方法</h1>
+索引器方法允许我们对某个自定义的类提供想数据一样的操作。
+<xmp class="block">
+  class PersonCollection
+  {
+    private ArrayList arPeople = new ArrayList();
 
-      //类的自定义索引器
-      public Person this[int index]
-      {
-        get { return (Person)arPeople[index]; }
-        set { arPeople.Insert(index,value); }
-      }
+    //类的自定义索引器
+    public Person this[int index]
+    {
+      get { return (Person)arPeople[index]; }
+      set { arPeople.Insert(index,value); }
     }
-  </xmp>
-  索引器的索引还可以是字符串，对应的存储应该是字典。
-  索引器还可以是多维数组。
-  索引器方法可以被重载。
-  也可以在接口上定义索引器。
+  }
+</xmp>
+索引器的索引还可以是字符串，对应的存储应该是字典。
+索引器还可以是多维数组。
+索引器方法可以被重载。
+也可以在接口上定义索引器。
 
-  <h1 class="h1">操作符重载</h1>
-  <xmp class="block">
-    public class Point
+<h1 class="h1">操作符重载</h1>
+<xmp class="block">
+  public class Point
+  {
+    public int X;
+    pubic int Y;
+
+    //重载+操作符
+    pubic static Point operator + (Point p1,Point p2)
     {
-      public int X;
-      pubic int Y;
-
-      //重载+操作符
-      pubic static Point operator + (Point p1,Point p2)
-      {
-        return new Point(p1.X + p2.X,p1.Y + p2.Y);
-      }
-
-      //其他重载符一样
-    }
-  </xmp>
-
-  <h1 class="h1">自定义类型转换</h1>
-  <xmp class="block">
-    //显示转换(矩形转换为正方形)
-    public static explicit oprator Square(Rectangle r)
-    {
-      Square s = new Square();
-      s.Length = r.Height;
-      return s;
+      return new Point(p1.X + p2.X,p1.Y + p2.Y);
     }
 
-    //隐式转换
-    public static implicit operator Rectangle(Square s)
+    //其他重载符一样
+  }
+</xmp>
+
+<h1 class="h1">自定义类型转换</h1>
+<xmp class="block">
+  //显示转换(矩形转换为正方形)
+  public static explicit oprator Square(Rectangle r)
+  {
+    Square s = new Square();
+    s.Length = r.Height;
+    return s;
+  }
+
+  //隐式转换
+  public static implicit operator Rectangle(Square s)
+  {
+    Rectangle r = new Rectangle();
+    r.Height = s.Length;
+    //...
+    return r;
+  }
+</xmp>
+
+<h1 class="h1">扩展方法</h1>
+允许我们在不直接修改原始类型的情况下，为类或结构添加新的方法。
+
+要求：
++ 必须把方法定义在静态类中，因此每一个扩展方法也必须声明为静态的。
++ 所有的扩展方法都需要使用this对第一参数（仅对第一个参数）进行修饰。
++ 扩展方法所在的类的命名空间应该与原来的在同一个地方，要不就using。否则不可用。
+
+<xmp class="block">
+  static class myExtensions
+  {
+    public static void DisPlay(this object obj)
     {
-      Rectangle r = new Rectangle();
-      r.Height = s.Length;
       //...
-      return r;
     }
-  </xmp>
+  }
+</xmp>
 
-  <h1 class="h1">扩展方法</h1>
-  允许我们在不直接修改原始类型的情况下，为类或结构添加新的方法。
+<h1 class="h1">匿名类型</h1>
+<xmp class="block">
+  var car = new {name = "xxx",age = 3};
+</xmp>
+如果声明了两个内容相同的匿名类型，他们的类型将相等，Equals()为true，==为false;
 
-  要求：
-  + 必须把方法定义在静态类中，因此每一个扩展方法也必须声明为静态的。
-  + 所有的扩展方法都需要使用this对第一参数（仅对第一个参数）进行修饰。
-  + 扩展方法所在的类的命名空间应该与原来的在同一个地方，要不就using。否则不可用。
-
-  <xmp class="block">
-    static class myExtensions
-    {
-      public static void DisPlay(this object obj)
-      {
-        //...
-      }
-    }
-  </xmp>
-
-  <h1 class="h1">匿名类型</h1>
-  <xmp class="block">
-    var car = new {name = "xxx",age = 3};
-  </xmp>
-  如果声明了两个内容相同的匿名类型，他们的类型将相等，Equals()为true，==为false;
-
-  匿名类型本身有很多限制：
-  + 你并没有控制匿名类型的名称
-  + 匿名类型继承System.Object。
-  + 匿名类型的字段和属性总是只读的
-  + 匿名类型不支持事件、自定义方法、自定义操作符和自定义重写。
-  + 匿名类型是隐式sealed
-  + 匿名类型的实例创建只使用默认构造函数
+匿名类型本身有很多限制：
++ 你并没有控制匿名类型的名称
++ 匿名类型继承System.Object。
++ 匿名类型的字段和属性总是只读的
++ 匿名类型不支持事件、自定义方法、自定义操作符和自定义重写。
++ 匿名类型是隐式sealed
++ 匿名类型的实例创建只使用默认构造函数
 
 </pre>
-  </body>
+</body>
 </html>

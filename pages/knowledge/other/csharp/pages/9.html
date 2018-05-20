@@ -7,102 +7,102 @@
   </head>
   <body>
 <pre class="w_doc">
-   <h1 class="h1">得到Type引用</h1>
-   由于Type是个抽象类，不能直接使用new关键词创建一个Type对象。
-   我们可以使用System.Object定义的GetType()方法，它返回一个表示当前对象元数据的Type表示。
-   <xmp class="block">
-     Car c = new Car();
-     Type t =  c.GetType();
+<h1 class="h1">得到Type引用</h1>
+由于Type是个抽象类，不能直接使用new关键词创建一个Type对象。
+我们可以使用System.Object定义的GetType()方法，它返回一个表示当前对象元数据的Type表示。
+<xmp class="block">
+Car c = new Car();
+Type t =  c.GetType();
 
-     //也可以使用typeof()
-     Type t = typeof(Car);
-   </xmp>
+//也可以使用typeof()
+Type t = typeof(Car);
+</xmp>
 
-   我们也可以用Type的静态方法获取
-   该方法的重载允许我们指定两个bool，一个确定当找不到该对象是否抛出异常，另一个指示是否忽略大小写。
-   <xmp class="block">
-     //该类型定义在程序集中
-     Type t = Type.GetType("Car",false,true);
+我们也可以用Type的静态方法获取
+该方法的重载允许我们指定两个bool，一个确定当找不到该对象是否抛出异常，另一个指示是否忽略大小写。
+<xmp class="block">
+//该类型定义在程序集中
+Type t = Type.GetType("Car",false,true);
 
-     //该类型在外部程序集中
-     Type t = Type.GetType("Car.SportCar,Car");
+//该类型在外部程序集中
+Type t = Type.GetType("Car.SportCar,Car");
 
-     //该类型是嵌套类型
-     Type t = Type.GetType("Car.SportCar+Spy");
-   </xmp>
+//该类型是嵌套类型
+Type t = Type.GetType("Car.SportCar+Spy");
+</xmp>
 
-   <b>反射泛型类型</b>
-   如果我们调用Type.GetType()来获取泛型的元素数据描述，就必须使用包含“反勾号”（`）加数字的语法来表示
-   类型支持的类i系那个参数个数。
-   <xmp class="block">
-     //如果该泛型支持一个参数个数，如List<T>
-    System.Collections.Generic.list`1
+<b>反射泛型类型</b>
+如果我们调用Type.GetType()来获取泛型的元素数据描述，就必须使用包含“反勾号”（`）加数字的语法来表示
+类型支持的类i系那个参数个数。
+<xmp class="block">
+//如果该泛型支持一个参数个数，如List<T>
+System.Collections.Generic.list`1
 
-    //如果该泛型支持两个参数个数，如Dictinary<TKey,TValue>
-    System.Collections.Generic.list`2
-   </xmp>
+//如果该泛型支持两个参数个数，如Dictinary<TKey,TValue>
+System.Collections.Generic.list`2
+</xmp>
 
-   <h1 class="h1">晚期绑定</h1>
-   晚期绑定是一种创建一个给定类型的实例并在运行时调用其成员，而不需要在编译时知道它存在的一种技术。
+<h1 class="h1">晚期绑定</h1>
+晚期绑定是一种创建一个给定类型的实例并在运行时调用其成员，而不需要在编译时知道它存在的一种技术。
 
-   <b>System.Activator类</b>
-   该类是.NET晚期绑定的关键所在，Activator.CreateInstance()用来建立一个晚期绑定类型的实例。
-   <xmp class="block">
-     try
-     {
-       Type miniVan = asm.GetType("Car");
+<b>System.Activator类</b>
+该类是.NET晚期绑定的关键所在，Activator.CreateInstance()用来建立一个晚期绑定类型的实例。
+<xmp class="block">
+try
+{
+  Type miniVan = asm.GetType("Car");
 
-       object o = Acrivator.CreateInstance(miniVan);
+  object o = Acrivator.CreateInstance(miniVan);
 
-       //得到该类型的某个方法的引用
-       MethodInfo mi = miniVan.GetMethod("TurboBoost");
+  //得到该类型的某个方法的引用
+  MethodInfo mi = miniVan.GetMethod("TurboBoost");
 
-       //调用方法（无参）
-       mi.Invoke(o,null);
+  //调用方法（无参）
+  mi.Invoke(o,null);
 
-       //调用方法（有参）
-       mi.Invoke(o,new object[] {true,2} );
-     }
-     catch
-     {
-       //...
-     }
-   </xmp>
+  //调用方法（有参）
+  mi.Invoke(o,new object[] {true,2} );
+}
+catch
+{
+  //...
+}
+</xmp>
 
-   <h1 class="h1">特性</h1>
-   简而言之，特性就是用于类型、成员、程序集或模块的代码注释。
-   我的理解是，特性给这些成员提供了说明、限制等，如果不安特性规定的限制编写、将提示错误。
+<h1 class="h1">特性</h1>
+简而言之，特性就是用于类型、成员、程序集或模块的代码注释。
+我的理解是，特性给这些成员提供了说明、限制等，如果不安特性规定的限制编写、将提示错误。
 
-   <b>特性的要点</b>
-   + 特性是派生子System.Attribute的类
-   + 特性导致嵌入的元数据。
-   + 只带被其他代理反射，特性才发挥作用
-   + 特性在C#中用方括号表示
+<b>特性的要点</b>
++ 特性是派生子System.Attribute的类
++ 特性导致嵌入的元数据。
++ 只带被其他代理反射，特性才发挥作用
++ 特性在C#中用方括号表示
 
-   <b>构建自定义特性</b>
-   <xmp class="block">
-     public sealed class VeAttribute : System.Attribute
-     {
-       public string Description {get;set;}
-       public VeAttribute(string _d)
-       {
-         Description = _d;
-       }
+<b>构建自定义特性</b>
+<xmp class="block">
+public sealed class VeAttribute : System.Attribute
+{
+  public string Description {get;set;}
+  public VeAttribute(string _d)
+  {
+    Description = _d;
+  }
 
-       public VeAttribute(){}
-     }
-   </xmp>
+  public VeAttribute(){}
+}
+</xmp>
 
-   <b>限制特性的使用</b>
-   我们可以限制特性所能使用的范围
-   <xmp class="block">
-     public enum AttributeTargets
-     {
-       All,Assembly,Class,Constructor,
-       Delegate,Enum,Event,Field,GenericParameter,
-       ...
-     }
-  </xmp>
+<b>限制特性的使用</b>
+我们可以限制特性所能使用的范围
+<xmp class="block">
+   public enum AttributeTargets
+   {
+     All,Assembly,Class,Constructor,
+     Delegate,Enum,Event,Field,GenericParameter,
+     ...
+   }
+</xmp>
 </pre>
   </body>
 </html>

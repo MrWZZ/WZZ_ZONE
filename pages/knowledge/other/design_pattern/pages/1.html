@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+</head>
+<body>
 <pre class="w_doc">
-  <h1 class="h1">思考工厂模式</h1>
-  <strong>本质：选择实现。</strong>
-  简单工厂的目的在于为客服端来选择相应的实现，从而使得客服端和实现实现之间解耦。
+<h1 class="h1">思考工厂模式</h1>
+<strong>本质：选择实现。</strong>
+简单工厂的目的在于为客服端来选择相应的实现，从而使得客服端和实现实现之间解耦。
 
-  <b>如何实现选择</b>
-  + 静态传参：读取配置文件；直接传入参数。
-  + 动态传参：运行期间读取内存。
+<b>如何实现选择</b>
++ 静态传参：读取配置文件；直接传入参数。
++ 动态传参：运行期间读取内存。
 
-  <b>何时选用简单工厂</b>
-  + 要完全封装隔离具体实现，让外部只能通过借口来操作封装体。
-    让客户端通过工厂来获取相应的接口，而无需关心具体的实现。
+<b>何时选用简单工厂</b>
++ 要完全封装隔离具体实现，让外部只能通过借口来操作封装体。
+  让客户端通过工厂来获取相应的接口，而无需关心具体的实现。
 
-  + 要把对外创建对象的职责及综合那个管理和控制。
++ 要把对外创建对象的职责及综合那个管理和控制。
 
-  <h1 class="h1">优缺点</h1>
-  <b>优点</b>
-  + 帮助封装。
-  + 解耦。
+<h1 class="h1">优缺点</h1>
+<b>优点</b>
++ 帮助封装。
++ 解耦。
 
-  <b>缺点</b>
-  + 可能增加客户端的复杂度。
-  + 不方便扩展子工厂。
+<b>缺点</b>
++ 可能增加客户端的复杂度。
++ 不方便扩展子工厂。
 
-  <h1 class="h1">命名规范</h1>
-  + 类名建议为“模块名称+Factory”。
-  + 方法名称通常为“get+接口名称”或者是“create+接口名称”。
+<h1 class="h1">命名规范</h1>
++ 类名建议为“模块名称+Factory”。
++ 方法名称通常为“get+接口名称”或者是“create+接口名称”。
 
 <h1 class="h1">UML</h1>
 <b>类图</b>
@@ -44,63 +44,63 @@
 <h1 class="h1">代码示例</h1>
 <b>接口</b>
 <xmp class="block">
-  //接口
-  public interface Api
-  {
-    public void operation(String s);
-  }
+//接口
+public interface Api
+{
+  public void operation(String s);
+}
 
-  //实现A
-  public class ImplA implements Api
+//实现A
+public class ImplA implements Api
+{
+  public void operation(String s)
   {
-    public void operation(String s)
-    {
-      //...
-    }
+    //...
   }
+}
 
-  //实现B
-  public class ImplB implements Api
+//实现B
+public class ImplB implements Api
+{
+  public void operation(String s)
   {
-    public void operation(String s)
-    {
-      //...
-    }
+    //...
   }
+}
 </xmp>
 
 <b>工厂</b>
 <xmp class="block">
-  public class Factory
+public class Factory
+{
+  //选择方式：*1.传参；2。反射；3.读取配置文件。
+  public atatic Api createApi(int type)
   {
-    //选择方式：*1.传参；2。反射；3.读取配置文件。
-    public atatic Api createApi(int type)
+    Api api = null;
+    if(type == 1)
     {
-      Api api = null;
-      if(type == 1)
-      {
-        api = new ImplA();
-      }
-      else if(type == 2)
-      {
-        api = new ImplB();
-      }
-      return api;
+      api = new ImplA();
     }
+    else if(type == 2)
+    {
+      api = new ImplB();
+    }
+    return api;
   }
+}
 </xmp>
 
 <b>客户端</b>
 <xmp class="block">
-  public class Client
+public class Client
+{
+  public static void main(String[] args)
   {
-    public static void main(String[] args)
-    {
-      Api api = Factory.createApi();
-      api.operation("hello");
-    }
+    Api api = Factory.createApi();
+    api.operation("hello");
   }
+}
 </xmp>
 </pre>
-  </body>
+</body>
 </html>

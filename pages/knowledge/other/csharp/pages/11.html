@@ -1,290 +1,290 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+</head>
+<body>
 <pre class="w_doc">
-  <h1 class="h1">System.IO命名空间</h1>
-  <b>System.IO命名空间的主要成员</b>
-  + BinaryReader            能以二进制储存和读取基本数据类型
-    BinaryWriter
-  + BufferedStream          为字节流提供了临时的储存空间，可以以后提交
-  + Directory               用来操作计算机的目录结构
-    DirectoryInfo
-  + DriveInfo               提供计算机驱动器的信息
-  + File                    用来错左计算机上单一组文件
-    FileInfo
-  + FileStream              实现文件随机访问（比如寻址能力），并以字节流表示数据
-  + FileSystemWatcher       监控对指定外部文件的更改
-  + MemoryStream            对内存（不是物理文件）中储存的刘数据的随机访问
-  + Path                    对包含文件或目录路径信息的system.String类型执行操作
-  + StreamWriter            在文件中存储（读取）文本信息，不支持随机文件访问
-    StreamReader
-  + StringWriter            和上面的一个差不多和文本信息打交道，是对存储器是字符串的缓冲区
-    StringReader
+<h1 class="h1">System.IO命名空间</h1>
+<b>System.IO命名空间的主要成员</b>
++ BinaryReader            能以二进制储存和读取基本数据类型
+  BinaryWriter
++ BufferedStream          为字节流提供了临时的储存空间，可以以后提交
++ Directory               用来操作计算机的目录结构
+  DirectoryInfo
++ DriveInfo               提供计算机驱动器的信息
++ File                    用来错左计算机上单一组文件
+  FileInfo
++ FileStream              实现文件随机访问（比如寻址能力），并以字节流表示数据
++ FileSystemWatcher       监控对指定外部文件的更改
++ MemoryStream            对内存（不是物理文件）中储存的刘数据的随机访问
++ Path                    对包含文件或目录路径信息的system.String类型执行操作
++ StreamWriter            在文件中存储（读取）文本信息，不支持随机文件访问
+  StreamReader
++ StringWriter            和上面的一个差不多和文本信息打交道，是对存储器是字符串的缓冲区
+  StringReader
 
-  <h1 class="h1">Directoy(Info)和Flie(Info)类型</h1>
-  这个四个类型可以对单个文件和计算机目录结构进行操作，不带Info的可以使用其静态方法操作，而有Info的是
-  实例方法，必须new。
+<h1 class="h1">Directoy(Info)和Flie(Info)类型</h1>
+这个四个类型可以对单个文件和计算机目录结构进行操作，不带Info的可以使用其静态方法操作，而有Info的是
+实例方法，必须new。
 
-  这两个类实现了许多FileSystemInfo抽象基类的行为。
-  <b>FileSystemInfo属性</b>
-  + Attributes                    获取或设置与当前文件关联的特性，由FileAttributes枚举表示
-  + CreationTime                  获取或设置当前文件夹或模具的创建时间
-  + Exists                        用来判定指定文件或模具是否存在的值
-  + Extension                     获取文件的扩展类型
-  + FullName                      获取目录或文件的完整路径
-  + LastAccessTime                获取或设置上次访问当前文件或目录的时间
-  + LastWriteTime                 获取或设置上次写入当前文件或目录的时间
-  + Name                          霍姆当前文件或目录的名称
+这两个类实现了许多FileSystemInfo抽象基类的行为。
+<b>FileSystemInfo属性</b>
++ Attributes                    获取或设置与当前文件关联的特性，由FileAttributes枚举表示
++ CreationTime                  获取或设置当前文件夹或模具的创建时间
++ Exists                        用来判定指定文件或模具是否存在的值
++ Extension                     获取文件的扩展类型
++ FullName                      获取目录或文件的完整路径
++ LastAccessTime                获取或设置上次访问当前文件或目录的时间
++ LastWriteTime                 获取或设置上次写入当前文件或目录的时间
++ Name                          霍姆当前文件或目录的名称
 
-  <h1 class="h1">使用DirectoryInfo类型</h1>
-  它包含一组用来创建、移动、删除和枚举所有目录/子目录的成员。
+<h1 class="h1">使用DirectoryInfo类型</h1>
+它包含一组用来创建、移动、删除和枚举所有目录/子目录的成员。
 
-  <b>DirectoryInfo类型的主要成员</b>
-  + create()和CreateSubdirectory()       按照路径名建立一个目录（或一组子目录）
-  + Delete()                             删除一个目录和它的所有内容
-  + GetDirectories()                     返回一个表示当前目录中所有子目录的DirectoryInfo对象数组
-  + GetFiles()                           返回FileInfo对象数组，便是指定目录下的一组文件
-  + MoveTo()                             将一个目录及其内容移动到一个新的路径
-  + Parent                               获取指定路径的父目录
-  + Root                                 获取路径的根部分
+<b>DirectoryInfo类型的主要成员</b>
++ create()和CreateSubdirectory()       按照路径名建立一个目录（或一组子目录）
++ Delete()                             删除一个目录和它的所有内容
++ GetDirectories()                     返回一个表示当前目录中所有子目录的DirectoryInfo对象数组
++ GetFiles()                           返回FileInfo对象数组，便是指定目录下的一组文件
++ MoveTo()                             将一个目录及其内容移动到一个新的路径
++ Parent                               获取指定路径的父目录
++ Root                                 获取路径的根部分
 
-  <xmp class="block">
-    //绑定到当前应用程序目录
-    DirectoryInfo dir1 = new DirectoryInfo(".");
+<xmp class="block">
+  //绑定到当前应用程序目录
+  DirectoryInfo dir1 = new DirectoryInfo(".");
 
-    //绑定到指定目录
-    DirectoryInfo dir2 = new DirectoryInfo(@"C:\Windows");
+  //绑定到指定目录
+  DirectoryInfo dir2 = new DirectoryInfo(@"C:\Windows");
 
-    //绑定到一个不存在的目录，然后创建
-    DirectoryInfo dir3 = new DirectoryInfo(@"C:\MyCode");
-    dir3.Create();
+  //绑定到一个不存在的目录，然后创建
+  DirectoryInfo dir3 = new DirectoryInfo(@"C:\MyCode");
+  dir3.Create();
 
-    //获取所有*.jpg文件
-    FileInfo[] imageFiles = dir.GetFiles("*.jpg",SearchOption.AllDirectories);
+  //获取所有*.jpg文件
+  FileInfo[] imageFiles = dir.GetFiles("*.jpg",SearchOption.AllDirectories);
 
-    //创建子目录
-    DirectoryInfo dir = new DirectoryInfo(@"C:\");
-    dir.CreateSubdirectory(@"MyFolder\Data");
-  </xmp>
+  //创建子目录
+  DirectoryInfo dir = new DirectoryInfo(@"C:\");
+  dir.CreateSubdirectory(@"MyFolder\Data");
+</xmp>
 
-  <h1 class="h1">FileInfo类</h1>
-  该类能获取文件的详细信息（创建时间、大小等），并帮助我们创建、复制、移动和删除文件。
+<h1 class="h1">FileInfo类</h1>
+该类能获取文件的详细信息（创建时间、大小等），并帮助我们创建、复制、移动和删除文件。
 
-  <b>FileInfo核心成员</b>
-  + AppendText()                创建一个StreamWrite类型，用来向文件追加文本
-  + CopyTo()                    将现有文件复制到新文件
-  + Create()                    创建一个新文件并返回一个FileStream类型，其用来和新文件进行交互
-  + CreateText()                创建一个写入新文本文件的StreamWriter对象
-  + Delete()                    删除FileInfo实例绑定的文件
-  + Directory                   获取父目录的实例
-  + DirectoryName               获取父目录的完整路径
-  + Length                      获取当前文件的大小
-  + MoveTo()                    将指定文件移动到新位置，并提供指定新文件名的选项
-  + Name                        获取文件名
-  + Open()                      用各种读写访问权限和共享权限打开文件
-  + OpenRead()                  创建只读FileStream对象
-  + OpenText()                  穿件从现有文本文件中读取数据的StreamReader
-  + OpenWrite()                 创建只写FileStream类型
+<b>FileInfo核心成员</b>
++ AppendText()                创建一个StreamWrite类型，用来向文件追加文本
++ CopyTo()                    将现有文件复制到新文件
++ Create()                    创建一个新文件并返回一个FileStream类型，其用来和新文件进行交互
++ CreateText()                创建一个写入新文本文件的StreamWriter对象
++ Delete()                    删除FileInfo实例绑定的文件
++ Directory                   获取父目录的实例
++ DirectoryName               获取父目录的完整路径
++ Length                      获取当前文件的大小
++ MoveTo()                    将指定文件移动到新位置，并提供指定新文件名的选项
++ Name                        获取文件名
++ Open()                      用各种读写访问权限和共享权限打开文件
++ OpenRead()                  创建只读FileStream对象
++ OpenText()                  穿件从现有文本文件中读取数据的StreamReader
++ OpenWrite()                 创建只写FileStream类型
 
-  <xmp class="block">
-    //创建一个新文件
-    static void Main(string[] args)
+<xmp class="block">
+  //创建一个新文件
+  static void Main(string[] args)
+  {
+    FileInfo f = new FileInfo(@"C:\Test.dat");
+    FileStream fs = f.Create();
+
+    //使用FileStream对象
+
+    //关闭文件流
+    fs.Close
+  }
+
+  //我们也可以使用using来关闭文件
+  FileInfo f = new FileInfo(@"C:\test.dat");
+  using(FileStream fs = f.Create())
+  {
+    //使用FileStream对象
+  }
+</xmp>
+
+<b>FileInfo.Open()</b>
+我们可以用这个方法来打开现有文件，同时也能使用它来创建文件，它有多个枚举值，指定更多细节。
+
+<xmp class="block">
+  static void Main(string[] args)
+  {
+    FileInfo f2 = new FileInfo(@"C:\test2.dat");
+    using(FileStream fs2 = f2.Open(FileMode.OpenOrCreate,FileAccess.ReadWrite,FileShare.None))
     {
-      FileInfo f = new FileInfo(@"C:\Test.dat");
-      FileStream fs = f.Create();
-
       //使用FileStream对象
-
-      //关闭文件流
-      fs.Close
     }
+  }
+</xmp>
+Open()方法的参数枚举
+<b>FileMode枚举</b>
++ CreateNew              新建文件。如果存在，抛出异常
++ Create                 新建文件。如果存在，覆盖
++ Open                   打开既有文件。如果不存在，抛出异常
++ OpenOrCreate           如果文件存在，则打开，否则新建文件
++ Truncate               打开文件并截断文件为0字节大小
++ Append                 打开文件，移动到文件尾部，开始写操作。如果不存在，则新建文件
 
-    //我们也可以使用using来关闭文件
-    FileInfo f = new FileInfo(@"C:\test.dat");
-    using(FileStream fs = f.Create())
-    {
-      //使用FileStream对象
-    }
-  </xmp>
+<b>FileAccess枚举</b>
+用来决定基层流的读写行为。
++ Read
++ Write
++ ReadWrite
 
-  <b>FileInfo.Open()</b>
-  我们可以用这个方法来打开现有文件，同时也能使用它来创建文件，它有多个枚举值，指定更多细节。
+<b>FileShare枚举</b>
+指定文件在其他文件处理程序中的共享方式。
++ Delete
++ Inheritable
++ None
++ Read
++ ReadWrite
++ Write
 
-  <xmp class="block">
-    static void Main(string[] args)
-    {
-      FileInfo f2 = new FileInfo(@"C:\test2.dat");
-      using(FileStream fs2 = f2.Open(FileMode.OpenOrCreate,FileAccess.ReadWrite,FileShare.None))
-      {
-        //使用FileStream对象
-      }
-    }
-  </xmp>
-  Open()方法的参数枚举
-  <b>FileMode枚举</b>
-  + CreateNew              新建文件。如果存在，抛出异常
-  + Create                 新建文件。如果存在，覆盖
-  + Open                   打开既有文件。如果不存在，抛出异常
-  + OpenOrCreate           如果文件存在，则打开，否则新建文件
-  + Truncate               打开文件并截断文件为0字节大小
-  + Append                 打开文件，移动到文件尾部，开始写操作。如果不存在，则新建文件
-
-  <b>FileAccess枚举</b>
-  用来决定基层流的读写行为。
-  + Read
-  + Write
-  + ReadWrite
-
-  <b>FileShare枚举</b>
-  指定文件在其他文件处理程序中的共享方式。
-  + Delete
-  + Inheritable
-  + None
-  + Read
-  + ReadWrite
-  + Write
-
-  <b>FileInfo.OpenRead()、FileInfo.OpenWrite()</b>
-  这些方法不需要提供各种枚举值，就能返回一个正确配置的只读或只写的FileStream类型。
-  <xmp class="block">
-    static void Main(string[] args)
-    {
-      //得到一个只读的FileStream对象
-      FileInfo f3 = new FileInfo(@"C:\Test3.dat");
-      using(FileStream readOnlyStream = f3.OpenRead())
-      {
-        //...
-      }
-
-      //得到一个只写的FileStream对象
-      FileInfo f4 = new FileInfo(@"C:\Test4.dat");
-      using(FileStream writeOnlyStream = f4.OnepWrite())
-      {
-        //...
-      }
-    }
-  </xmp>
-
-  <h1 class="h1">Stream抽象类</h1>
-  <b>抽象Stream成员</b>
-  + CanRead、CanWrite、CanSeek     检测当前流是否支持持续、寻址、写
-  + Close()                        关闭当前流并释放与之关联的所有资源
-  + Flush()                        使用当前的缓冲状态更新基层的数据源或储存库
-  + Length                         返回流的长度
-  + Position                       检测在当前流中的位置
-  + Read()、ReadByte()             从当前流读取字节序列，并将此流中的位置偏移读取的字节数
-  + Seed()                         设置当前流中的位置
-  + SetLength()                    设置当前流的长度
-  + Write()、WriteByte()           向当前流中写入字节序列，并将此流中的当前位置偏移写入的字节数
-
-  <h1 class="h1">StreamWriter、StreamReader类型</h1>
-  StreamWriter类型从TextWrite抽象基类派生。
-  <b>TextWriter核心成员</b>
-  + Close()                        关闭当前流并释放与之关联的所有资源，同时缓冲区将被清理
-  + Flush()                        清理缓冲区，并将缓冲区数据写入设备，但不关闭编译器
-  + NewLine                        代表行结束字符串
-  + Write()                        将一行写入文本，不跟行结束符
-  + WriteLine()                    将一行写入文本，跟行结束符
-
-  StreamReader类型从TextReader派生。
-  <b>TextReader核心成员</b>
-  + Peek()                         返回写一个可用字符，而不更改读取器位置。返回-1表示到了流末尾
-  + Read()                         从输入流中读取数据
-  + ReadBlock()                    从当前流中读取最大计数字符，并从索引开始将该数据写入缓冲区
-  + ReadLine()                     从当前流中读取一行字符，并将数据作为字符串返回
-  + ReadToEnd()                    读取从当前位置到流结尾的所有字符，并将他们作为一个字符串返回
-
-  <xmp class="block">
-    //得到一个StreamWriter
-    using(StreamWriter writer = new StreamWriter("reminders.txt"))
+<b>FileInfo.OpenRead()、FileInfo.OpenWrite()</b>
+这些方法不需要提供各种枚举值，就能返回一个正确配置的只读或只写的FileStream类型。
+<xmp class="block">
+  static void Main(string[] args)
+  {
+    //得到一个只读的FileStream对象
+    FileInfo f3 = new FileInfo(@"C:\Test3.dat");
+    using(FileStream readOnlyStream = f3.OpenRead())
     {
       //...
     }
 
-    //从文件读取数据
-    using(StreamReader sr = new StreamReader("reminders.txt"))
+    //得到一个只写的FileStream对象
+    FileInfo f4 = new FileInfo(@"C:\Test4.dat");
+    using(FileStream writeOnlyStream = f4.OnepWrite())
     {
       //...
     }
-  </xmp>
+  }
+</xmp>
 
-  <h1 class="h1">以编程的方式观察文件</h1>
-  我们可以使用FileSystemWatcher类监控文件的状态（如被删除、被更改等）。
-  特别的是，我们能通过System.IO.NotifyFilters枚举来决定需要监控的行为。
-  <b>NotifyFilters</b>
-  + Attributes
-  + CreationTime
-  + DirectoryName
-  + FileName
-  + LastAccess
-  + Security
-  + Size
+<h1 class="h1">Stream抽象类</h1>
+<b>抽象Stream成员</b>
++ CanRead、CanWrite、CanSeek     检测当前流是否支持持续、寻址、写
++ Close()                        关闭当前流并释放与之关联的所有资源
++ Flush()                        使用当前的缓冲状态更新基层的数据源或储存库
++ Length                         返回流的长度
++ Position                       检测在当前流中的位置
++ Read()、ReadByte()             从当前流读取字节序列，并将此流中的位置偏移读取的字节数
++ Seed()                         设置当前流中的位置
++ SetLength()                    设置当前流的长度
++ Write()、WriteByte()           向当前流中写入字节序列，并将此流中的当前位置偏移写入的字节数
 
-  使用FileSystemWatcher类的第一步是设置Path属性，指定需要监控的文件所在文件夹的名字（或则位置），
-  还有就是定义需要监控文件的扩展名的Filter属性。
+<h1 class="h1">StreamWriter、StreamReader类型</h1>
+StreamWriter类型从TextWrite抽象基类派生。
+<b>TextWriter核心成员</b>
++ Close()                        关闭当前流并释放与之关联的所有资源，同时缓冲区将被清理
++ Flush()                        清理缓冲区，并将缓冲区数据写入设备，但不关闭编译器
++ NewLine                        代表行结束字符串
++ Write()                        将一行写入文本，不跟行结束符
++ WriteLine()                    将一行写入文本，跟行结束符
 
-  <xmp class="block">
-    //Main()
+StreamReader类型从TextReader派生。
+<b>TextReader核心成员</b>
++ Peek()                         返回写一个可用字符，而不更改读取器位置。返回-1表示到了流末尾
++ Read()                         从输入流中读取数据
++ ReadBlock()                    从当前流中读取最大计数字符，并从索引开始将该数据写入缓冲区
++ ReadLine()                     从当前流中读取一行字符，并将数据作为字符串返回
++ ReadToEnd()                    读取从当前位置到流结尾的所有字符，并将他们作为一个字符串返回
 
-    //确定指向要观察的目录路径
-    FileSystemWatcher watcher = new FileSystemWatcher();
-    try
-    {
-      watcher.Path = @"C:\MyFolder"
-    }
+<xmp class="block">
+  //得到一个StreamWriter
+  using(StreamWriter writer = new StreamWriter("reminders.txt"))
+  {
     //...
+  }
 
-    //设置需要“留意的事情”
-    watcher.NotifyFilter = NotifyFilters.LastAccess
-                         | NotifyFilters.LastWrite
-                         | NotifyFilters.FileName
-                         | NotifyFilters.DirectoryName;
+  //从文件读取数据
+  using(StreamReader sr = new StreamReader("reminders.txt"))
+  {
+    //...
+  }
+</xmp>
 
-    //只观察文本文件
-    watcher.Filter = "*.txt";
+<h1 class="h1">以编程的方式观察文件</h1>
+我们可以使用FileSystemWatcher类监控文件的状态（如被删除、被更改等）。
+特别的是，我们能通过System.IO.NotifyFilters枚举来决定需要监控的行为。
+<b>NotifyFilters</b>
++ Attributes
++ CreationTime
++ DirectoryName
++ FileName
++ LastAccess
++ Security
++ Size
 
-    //增加事件处理程序
-    watcher.Changed += new FileSystemEventHandler(OnChanged);
-    //Created事件
-    //Deleted事件
-    //Renamed事件
+使用FileSystemWatcher类的第一步是设置Path属性，指定需要监控的文件所在文件夹的名字（或则位置），
+还有就是定义需要监控文件的扩展名的Filter属性。
 
-    //开始观察目录
-    watcher.EnableRaisingEvents = true;
-  </xmp>
+<xmp class="block">
+  //Main()
 
-  <h1 class="h1">对象序列化</h1>
-  序列化：可以将一个字段、对象等保存在本地。
+  //确定指向要观察的目录路径
+  FileSystemWatcher watcher = new FileSystemWatcher();
+  try
+  {
+    watcher.Path = @"C:\MyFolder"
+  }
+  //...
 
-  <xmp class="block">
-    [Serializable]
-    public class UserPrefs
-    {
-      //...
-    }
+  //设置需要“留意的事情”
+  watcher.NotifyFilter = NotifyFilters.LastAccess
+                       | NotifyFilters.LastWrite
+                       | NotifyFilters.FileName
+                       | NotifyFilters.DirectoryName;
 
-    //Main
+  //只观察文本文件
+  watcher.Filter = "*.txt";
 
-    UserPrefs user = new UserPrefs();
+  //增加事件处理程序
+  watcher.Changed += new FileSystemEventHandler(OnChanged);
+  //Created事件
+  //Deleted事件
+  //Renamed事件
 
-    //BinaryFormatter以二进制格式持久化状态数据
-    BinaryFormatter binFormat = new BinaryFormatter();
+  //开始观察目录
+  watcher.EnableRaisingEvents = true;
+</xmp>
 
-    //现在将对象保存到一个本地文件中
-    using(Stream fStream = new FileStream("user.dat",FileMode.Create,FileAccess.Write,FileShare.None))
-    {
-      BinFormat.Serialize(fStream,user);
-    }
-  </xmp>
+<h1 class="h1">对象序列化</h1>
+序列化：可以将一个字段、对象等保存在本地。
 
-  [Serializable]特性不能被继承，如果子类要被序列化，应该重新使用该特性。
-  不管是公有还是私有，都会被序列化，除非某个成员被[NoSerializable]标记。
+<xmp class="block">
+  [Serializable]
+  public class UserPrefs
+  {
+    //...
+  }
+
+  //Main
+
+  UserPrefs user = new UserPrefs();
+
+  //BinaryFormatter以二进制格式持久化状态数据
+  BinaryFormatter binFormat = new BinaryFormatter();
+
+  //现在将对象保存到一个本地文件中
+  using(Stream fStream = new FileStream("user.dat",FileMode.Create,FileAccess.Write,FileShare.None))
+  {
+    BinFormat.Serialize(fStream,user);
+  }
+</xmp>
+
+[Serializable]特性不能被继承，如果子类要被序列化，应该重新使用该特性。
+不管是公有还是私有，都会被序列化，除非某个成员被[NoSerializable]标记。
 
 </pre>
-  </body>
+</body>
 </html>

@@ -1,516 +1,516 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+</head>
+<body>
 <pre class="w_doc">
-  <h1 class="h1">概述</h1>
-  应用程序域和线程之间并不是意义对应的，事实上，在任何时间，一个应用程序域内都可能有多个线程。
+<h1 class="h1">概述</h1>
+应用程序域和线程之间并不是意义对应的，事实上，在任何时间，一个应用程序域内都可能有多个线程。
 
-  <h1 class="h1">异步调用委托</h1>
-  异步调用委托实际是创建了一个新的线程去执行委托。
+<h1 class="h1">异步调用委托</h1>
+异步调用委托实际是创建了一个新的线程去执行委托。
 
-  C#编译器处理delegate关键字的时候，其动态生成的类定义了两个方法：
-  + BeginInvoke()
-  + EndInvoke()
-  <xmp class="block">
-    public delegate int BinaryOp(int x,int y);
+C#编译器处理delegate关键字的时候，其动态生成的类定义了两个方法：
++ BeginInvoke()
++ EndInvoke()
+<xmp class="block">
+  public delegate int BinaryOp(int x,int y);
 
-    public sealed  class BinaryOp : System.MulticastDelegate
-    {
-      //...
-
-      //用于异步调用方法
-      public IAsyncResult BeginInvoke(int x,int y,AsyncCallback cb,object state);
-
-      //用于获取被调用方法的返回值
-      public int EndInvoke(IAsyncResult result);
-    }
-  </xmp>
-
-  <b>异步调用方法</b>
-  <xmp class="block">
-    static void Main(string[] args)
-    {
-      //在次线程中调用Add()
-      Binary b = new BinaryOp(Add);
-      IAsyncResult iftAR = b.BeginInvoke(10,10,null,null);
-
-      //在主线程中做其他事
-      Console.WriteLine("xxx");
-
-      //当执行完后获取Add()方法的结果，但实际上会在这里阻塞
-      int answer = b.EndInvoke(iftAR);
-    }
-  </xmp>
-  IAsyncResult接口提供了IsCompleted属性，这个属性说明异步委托是否执行完毕
-  <xmp class="block">
-    static void Main(string[] args)
-    {
-      BinaryOp b = new BinaryOp(Add);
-      IAsyncResult iftAR = b.BeginInvoke(10,10,null,null);
-
-      //直到Add()方法完成
-      While(!iftAR.IsCompleted)
-      {
-        //...
-        Thread.Sleep(1000);
-      }
-      //现在，Add()完成了
-      int answer = b.EndInvoke(IftAR);
-    }
-  </xmp>
-  但是这种方法实在主线程中轮训的，而像创建窗口应用得要创建它的线程权限执行。
-  我们可以使用回调的方法，让次线程执行该方法告诉主线程。
-  <xmp class="block">
-    void MyAsyncCallbackMethod(IAsyncResult itfAR)
-
+  public sealed  class BinaryOp : System.MulticastDelegate
+  {
     //...
+
+    //用于异步调用方法
+    public IAsyncResult BeginInvoke(int x,int y,AsyncCallback cb,object state);
+
+    //用于获取被调用方法的返回值
+    public int EndInvoke(IAsyncResult result);
+  }
+</xmp>
+
+<b>异步调用方法</b>
+<xmp class="block">
+  static void Main(string[] args)
+  {
+    //在次线程中调用Add()
+    Binary b = new BinaryOp(Add);
+    IAsyncResult iftAR = b.BeginInvoke(10,10,null,null);
+
+    //在主线程中做其他事
+    Console.WriteLine("xxx");
+
+    //当执行完后获取Add()方法的结果，但实际上会在这里阻塞
+    int answer = b.EndInvoke(iftAR);
+  }
+</xmp>
+IAsyncResult接口提供了IsCompleted属性，这个属性说明异步委托是否执行完毕
+<xmp class="block">
+  static void Main(string[] args)
+  {
     BinaryOp b = new BinaryOp(Add);
-    IAsyncResult iftAR = b.BeginInvoke(10,10,new AsyncCallback(AddComplete),null);
+    IAsyncResult iftAR = b.BeginInvoke(10,10,null,null);
 
-    while(!isDone)
+    //直到Add()方法完成
+    While(!iftAR.IsCompleted)
     {
       //...
+      Thread.Sleep(1000);
     }
+    //现在，Add()完成了
+    int answer = b.EndInvoke(IftAR);
+  }
+</xmp>
+但是这种方法实在主线程中轮训的，而像创建窗口应用得要创建它的线程权限执行。
+我们可以使用回调的方法，让次线程执行该方法告诉主线程。
+<xmp class="block">
+  void MyAsyncCallbackMethod(IAsyncResult itfAR)
 
-    static int Add(int x;int y)
-    {
-      //..
-    }
+  //...
+  BinaryOp b = new BinaryOp(Add);
+  IAsyncResult iftAR = b.BeginInvoke(10,10,new AsyncCallback(AddComplete),null);
 
-    static void AddComplete(IAsyncResult itfAR)
-    {
-      isDone = true;
-    }
-  </xmp>
-  获取发起异步委托的对象引用，IAsyncResult参数传入了AsyncCallback委托目标中，它实际是定义在
-  System.Remoting.Messageing命名空间下的AsyncResult类的一个实例。 该类的只读属性AsyncDelegate
-  返回了别处创建的原始异步委托的引用。
-  <xmp class="block">
-    static void AddComplete(IAsyncResult itfAR)
-    {
-      //...
-      AsyncResult ar = (AsyncResult)itfAR;
-      BinaryOp b = (BinaryOp)ar.AsyncDelegate;
-      Console.WriteLine("...",b.EndInvoke(itfAR));
-      isDone = true;
-    }
-  </xmp>
-  异步委托的最后一个需要关注的参数是BeginInvoke()方法最后一个参数（默认为NULL）。
-  该参数允许从主线程传递额外的状态信息给回调方法。
-  这个参数的类型是System.Object，所以可以传入任何回调方法所希望的类型。
-  <xmp class="block">
-    static void Main(String[] args)
-    {
-      //...
-      IAsyncResult iftAR = b.BeginInvoke(10,10,new AsyncCallback(AddComplete),
-      "Main() thanks you for adding these numbers.");
-      //...
-    }
-
-    static void AddComplete(IAsyncResult iftAR)
-    {
-      //...
-      string msg = (string)iftAR.AsyncStatic;
-      console.WriteLine(msg);
-      idDone = true;
-    }
-  </xmp>
-
-  <h1 class="h1">System.Threading命名空间</h1>
-  <b>该命名空间中的部分类型</b>
-  + Interlocked                      为多个线程共享访问的类型提供原子操作
-  + Monitor                          使用锁定和等待来同步线程对象，lock后台使用的就是这个对象
-  + Mutex                            互斥体，可用于应用应用程序域边界之间的同步
-  + ParameterizedThreadStart         委托，它允许线程调用包含任意多个参数的方法
-  + Semahpore                        用于限制对一个资源或一类资源的并发访问的线程数量
-  + Thread                           创建线程
-  + ThreadPool                       用于和一个进程中的线程池进行交互
-  + ThreadPrority                    代表了一个线程的优先级
-  + ThreadStart                      该委托用于定义一个线程所调用的方法
-  + ThreadState                      代表线程处于的状态
-  + Timer                            提供以指定的时间间隔执行方法的机制
-  + TimerCallback                    该委托类型与Timer类型一起使用
-
-  <b>Thread类型的主要静态成员</b>
-  + CurrentContext                   只读，返回当前线程的上下文
-  + CurrentThread                    只读，返回当前线程的引用
-  + GetDomain()、GetDomainID()       返回当前应用程序域的引用或正在运行的域ID
-  + Sleep()                          将当前线程挂起指定的时间
-
-  <b>线程类型的主要实例成员</b>
-  + IsAlive                          线程是否开始了
-  + Isbackground                     线程是否为后台线程
-  + Name                             给线程指定的友好名字
-  + Priority                         获取或设置线程的调度优先级
-  + ThreadState                      获取当前线程的状态
-  + Abort()                          尽快终止本线程
-  + Interrupt()                      中断当前线程，唤醒处于等待中的线程
-  + Join()                           阻塞调用线程，直到某个（调用Join()的）线程终止
-  + Resume()                         使已挂起的线程继续执行
-  + Start()                          尽快执行本线程
-  + Suspend()                        挂起当前线程，如果线程已挂起，调用该方法无效
-
-  如果该线程的优先级指定一个非默认值，应当知道这并不能控制线程调度切换线程的过程。
-  实际上，一个线程的优先级仅仅是把线程活动的重要程度提供给CLR。
-  因此，一个带有最高优先级的线程并不一定能得到最高的优先级。
-
-  <h1 class="h1">手工创建次线程</h1>
-  1.创建一个方法作为线程的入口点
-  2.创建一个ParameterizedThreadStart（或ThreadStart）委托,并把上一步的方法地址传给委托的构造函数
-  3.创建一个Thread对象，并把ParameterizedThreadStart（或ThreadStart）委托作为构造函数的参数
-  4.建立任意初始化线程的特性（名称，优先级）
-  5.调用Thread.Start()方法
-
-  <xmp class="block">
-    //次线程类
-    public class Printer
-    {
-      //次线程要执行的方法
-      public void PrintNumber()
-      {
-        //...
-      }
-    }
-
-    //Main()
-
-    //创建执行任务的类
-    Printer p = new Printer();
-    //创建的线程默认为前台线程
-    Thread backgroundThread = new Thread(new ThreadStart(p.PrintNumber));
-    backgroundThread.Start()；
-  </xmp>
-
-  ThreadStart委托仅仅指向无返回值，无参数的方法。
-  ParameterizedThreadStart委托能传入参数。
-  <xmp class="block">
-    class AddParames
-    {
-      public int a,b;
-      public AddParams(int _a,int _b)
-      {
-        a = _a;
-        b = _b;
-      }
-    }
-
-    //一个方法
-    static void Add(object data)
-    {
-      //...
-    }
-
-    //Main
-    AddParams ap = new addParams(10,10);
-    Thread t = new Thread(new ParameterizedThreadStart(Add));
-    t.Start(ap);
-  </xmp>
-
-  AutoResetEvent类能让其他线程不是等待一个固定的时间，它能监听其他线程是否结束。
-  <xmp class="block">
-    //Main()
-    //等待，直到收到通知
-    waitHandle.WaitOne();
+  while(!isDone)
+  {
     //...
+  }
 
-    //次线程
-    //通知其他线程，该线程已结束
-    waitHandle.Set();
-  </xmp>
+  static int Add(int x;int y)
+  {
+    //..
+  }
 
-  <h1 class="h1">线程同步</h1>
-  <b>使用lock关键字进行同步</b>
-  <xmp class="block">
-    private object lock0 = new object();
+  static void AddComplete(IAsyncResult itfAR)
+  {
+    isDone = true;
+  }
+</xmp>
+获取发起异步委托的对象引用，IAsyncResult参数传入了AsyncCallback委托目标中，它实际是定义在
+System.Remoting.Messageing命名空间下的AsyncResult类的一个实例。 该类的只读属性AsyncDelegate
+返回了别处创建的原始异步委托的引用。
+<xmp class="block">
+  static void AddComplete(IAsyncResult itfAR)
+  {
+    //...
+    AsyncResult ar = (AsyncResult)itfAR;
+    BinaryOp b = (BinaryOp)ar.AsyncDelegate;
+    Console.WriteLine("...",b.EndInvoke(itfAR));
+    isDone = true;
+  }
+</xmp>
+异步委托的最后一个需要关注的参数是BeginInvoke()方法最后一个参数（默认为NULL）。
+该参数允许从主线程传递额外的状态信息给回调方法。
+这个参数的类型是System.Object，所以可以传入任何回调方法所希望的类型。
+<xmp class="block">
+  static void Main(String[] args)
+  {
+    //...
+    IAsyncResult iftAR = b.BeginInvoke(10,10,new AsyncCallback(AddComplete),
+    "Main() thanks you for adding these numbers.");
+    //...
+  }
 
-    private void Method()
+  static void AddComplete(IAsyncResult iftAR)
+  {
+    //...
+    string msg = (string)iftAR.AsyncStatic;
+    console.WriteLine(msg);
+    idDone = true;
+  }
+</xmp>
+
+<h1 class="h1">System.Threading命名空间</h1>
+<b>该命名空间中的部分类型</b>
++ Interlocked                      为多个线程共享访问的类型提供原子操作
++ Monitor                          使用锁定和等待来同步线程对象，lock后台使用的就是这个对象
++ Mutex                            互斥体，可用于应用应用程序域边界之间的同步
++ ParameterizedThreadStart         委托，它允许线程调用包含任意多个参数的方法
++ Semahpore                        用于限制对一个资源或一类资源的并发访问的线程数量
++ Thread                           创建线程
++ ThreadPool                       用于和一个进程中的线程池进行交互
++ ThreadPrority                    代表了一个线程的优先级
++ ThreadStart                      该委托用于定义一个线程所调用的方法
++ ThreadState                      代表线程处于的状态
++ Timer                            提供以指定的时间间隔执行方法的机制
++ TimerCallback                    该委托类型与Timer类型一起使用
+
+<b>Thread类型的主要静态成员</b>
++ CurrentContext                   只读，返回当前线程的上下文
++ CurrentThread                    只读，返回当前线程的引用
++ GetDomain()、GetDomainID()       返回当前应用程序域的引用或正在运行的域ID
++ Sleep()                          将当前线程挂起指定的时间
+
+<b>线程类型的主要实例成员</b>
++ IsAlive                          线程是否开始了
++ Isbackground                     线程是否为后台线程
++ Name                             给线程指定的友好名字
++ Priority                         获取或设置线程的调度优先级
++ ThreadState                      获取当前线程的状态
++ Abort()                          尽快终止本线程
++ Interrupt()                      中断当前线程，唤醒处于等待中的线程
++ Join()                           阻塞调用线程，直到某个（调用Join()的）线程终止
++ Resume()                         使已挂起的线程继续执行
++ Start()                          尽快执行本线程
++ Suspend()                        挂起当前线程，如果线程已挂起，调用该方法无效
+
+如果该线程的优先级指定一个非默认值，应当知道这并不能控制线程调度切换线程的过程。
+实际上，一个线程的优先级仅仅是把线程活动的重要程度提供给CLR。
+因此，一个带有最高优先级的线程并不一定能得到最高的优先级。
+
+<h1 class="h1">手工创建次线程</h1>
+1.创建一个方法作为线程的入口点
+2.创建一个ParameterizedThreadStart（或ThreadStart）委托,并把上一步的方法地址传给委托的构造函数
+3.创建一个Thread对象，并把ParameterizedThreadStart（或ThreadStart）委托作为构造函数的参数
+4.建立任意初始化线程的特性（名称，优先级）
+5.调用Thread.Start()方法
+
+<xmp class="block">
+  //次线程类
+  public class Printer
+  {
+    //次线程要执行的方法
+    public void PrintNumber()
     {
-      //使用当前对象作为标记
-      lock(lock0)
-      {
-        //在这里面的代码是线程安全的
-      }
+      //...
     }
-  </xmp>
+  }
 
-  <h1 class="h1">TimerCallback编程</h1>
-  许多程序需要定期调用具体的方法。System.Threading.Timer类型可以与其相关的TimerCallback委托配合。
-  TimerCallback委托接受void返回，一个object参数的方法。
-  <xmp class="block">
-    //为Timer类型创建委托
-    TimerCallback timeCB = new TimerCallback(Method);
+  //Main()
 
-    //设置Timer类
-    Timer t = new Timer(
-      timeCB,             //TimerCallback委托对象
-      null,               //想传入的参数
-      0,                  //在开始之前，等待的时间
-      1000                //每次调用的时间间隔
-    );
-  </xmp>
+  //创建执行任务的类
+  Printer p = new Printer();
+  //创建的线程默认为前台线程
+  Thread backgroundThread = new Thread(new ThreadStart(p.PrintNumber));
+  backgroundThread.Start()；
+</xmp>
 
-  <h1 class="h1">线程池</h1>
-  采用线程池的优点
-  + 线程池减少了线程创建、开始和停止的次数，可以提高效率
-
-  然而在某些情况下，还是应该优先使用手工线程管理
-  + 如果需要前台线程或设置优先级别。线程池中的线程总是后台线程，且他的优先级是默认的
-  + 如果需要有一个带有固定标识的线程便于退出，挂起或通过名字发现他
-
-  <h1 class="h1">使用任务并行库进行并行编程</h1>
-  使用System.Threading.Tasks能最大限度地提升.NET应用程序的性能，且并避免直接操作线程所带来的复杂性。
-
-  System.Threading.Tasks.Parallel类可以并行执行迭代的方法，它可以开启多个线程进行迭代操作。
-  它的一个重载方式一个实现IEnumerbale的参数和要执行的方法。
-  <xmp class="block">
-    Parallel.ForEaach(files,currentFile =>
+ThreadStart委托仅仅指向无返回值，无参数的方法。
+ParameterizedThreadStart委托能传入参数。
+<xmp class="block">
+  class AddParames
+  {
+    public int a,b;
+    public AddParams(int _a,int _b)
     {
-      string filename = Path.GetFileName(currentFile);
-      //...
-    });
-  </xmp>
-
-  Task类可以轻松地在次线程冲调用方法，可以作为异步委托的简单替代品。
-  <xmp class="block">
-    private void btnProcessImages_Click(object sender,EbentArgs e)
-    {
-      //启用新的任务来处理方法
-      Test.Factory.StartNew(() =>
-      {
-        Method();
-      });
+      a = _a;
+      b = _b;
     }
-  </xmp>
+  }
 
-  <b>处理取消请求</b>
-  Parallel.For()、Parallel.ForEach()方法都支持取消标记。
-  调用Parallel的方法时，可以传入一个ParallelOptions对象，它包含一个CancellationTokenSource对象
-  <xmp class="block">
-    ParallelOptions parOpts = new ParallelOptions();
-    private CancellationTokenSource cancelTonken = new CancellationTokenSource();
+  //一个方法
+  static void Add(object data)
+  {
+    //...
+  }
 
-    parOpts.CancellationToken = cancelTonken.Token;
+  //Main
+  AddParams ap = new addParams(10,10);
+  Thread t = new Thread(new ParameterizedThreadStart(Add));
+  t.Start(ap);
+</xmp>
 
-    Parallel.ForEach(files,paropts,currentFile =>
+AutoResetEvent类能让其他线程不是等待一个固定的时间，它能监听其他线程是否结束。
+<xmp class="block">
+  //Main()
+  //等待，直到收到通知
+  waitHandle.WaitOne();
+  //...
+
+  //次线程
+  //通知其他线程，该线程已结束
+  waitHandle.Set();
+</xmp>
+
+<h1 class="h1">线程同步</h1>
+<b>使用lock关键字进行同步</b>
+<xmp class="block">
+  private object lock0 = new object();
+
+  private void Method()
+  {
+    //使用当前对象作为标记
+    lock(lock0)
     {
-      //取消该并行操作
-      cancelTonken.Cancel();
+      //在这里面的代码是线程安全的
+    }
+  }
+</xmp>
+
+<h1 class="h1">TimerCallback编程</h1>
+许多程序需要定期调用具体的方法。System.Threading.Timer类型可以与其相关的TimerCallback委托配合。
+TimerCallback委托接受void返回，一个object参数的方法。
+<xmp class="block">
+  //为Timer类型创建委托
+  TimerCallback timeCB = new TimerCallback(Method);
+
+  //设置Timer类
+  Timer t = new Timer(
+    timeCB,             //TimerCallback委托对象
+    null,               //想传入的参数
+    0,                  //在开始之前，等待的时间
+    1000                //每次调用的时间间隔
+  );
+</xmp>
+
+<h1 class="h1">线程池</h1>
+采用线程池的优点
++ 线程池减少了线程创建、开始和停止的次数，可以提高效率
+
+然而在某些情况下，还是应该优先使用手工线程管理
++ 如果需要前台线程或设置优先级别。线程池中的线程总是后台线程，且他的优先级是默认的
++ 如果需要有一个带有固定标识的线程便于退出，挂起或通过名字发现他
+
+<h1 class="h1">使用任务并行库进行并行编程</h1>
+使用System.Threading.Tasks能最大限度地提升.NET应用程序的性能，且并避免直接操作线程所带来的复杂性。
+
+System.Threading.Tasks.Parallel类可以并行执行迭代的方法，它可以开启多个线程进行迭代操作。
+它的一个重载方式一个实现IEnumerbale的参数和要执行的方法。
+<xmp class="block">
+  Parallel.ForEaach(files,currentFile =>
+  {
+    string filename = Path.GetFileName(currentFile);
+    //...
+  });
+</xmp>
+
+Task类可以轻松地在次线程冲调用方法，可以作为异步委托的简单替代品。
+<xmp class="block">
+  private void btnProcessImages_Click(object sender,EbentArgs e)
+  {
+    //启用新的任务来处理方法
+    Test.Factory.StartNew(() =>
+    {
+      Method();
     });
-  </xmp>
+  }
+</xmp>
 
-  <b>Parallel.Invoke()</b>
-  该方法接受Action委托的参数数组，我们可以间接的使用Lambda表达式。
-  使用TPL方式可以让计算机中可用的处理器都用来并行的调用各个方法。
-  <xmp class="block">
-    Parallel.Invoke(
-    ()=>
-    {
-      //...
-    },
-    ()=>
-    {
-      //...
-    });
-  </xmp>
+<b>处理取消请求</b>
+Parallel.For()、Parallel.ForEach()方法都支持取消标记。
+调用Parallel的方法时，可以传入一个ParallelOptions对象，它包含一个CancellationTokenSource对象
+<xmp class="block">
+  ParallelOptions parOpts = new ParallelOptions();
+  private CancellationTokenSource cancelTonken = new CancellationTokenSource();
+
+  parOpts.CancellationToken = cancelTonken.Token;
+
+  Parallel.ForEach(files,paropts,currentFile =>
+  {
+    //取消该并行操作
+    cancelTonken.Cancel();
+  });
+</xmp>
+
+<b>Parallel.Invoke()</b>
+该方法接受Action委托的参数数组，我们可以间接的使用Lambda表达式。
+使用TPL方式可以让计算机中可用的处理器都用来并行的调用各个方法。
+<xmp class="block">
+  Parallel.Invoke(
+  ()=>
+  {
+    //...
+  },
+  ()=>
+  {
+    //...
+  });
+</xmp>
 
 <div class="supplement">
-  <h1 class="h1">LINQ</h1>
-  使用LINQ查询的时候是延迟执行的，即写该语句的时候，这时并没有直接进行查询，而是在对该变量进行
-  迭代的时候，才开始查询。如果想要直接得到结果，可以这样：
-  <xmp class="block">
-    int[] array = (form i in numbers ...).ToArray<int>();
-  </xmp>
+<h1 class="h1">LINQ</h1>
+使用LINQ查询的时候是延迟执行的，即写该语句的时候，这时并没有直接进行查询，而是在对该变量进行
+迭代的时候，才开始查询。如果想要直接得到结果，可以这样：
+<xmp class="block">
+  int[] array = (form i in numbers ...).ToArray<int>();
+</xmp>
 
-  <b>form子句</b>
-  from子句指定了要作为数据源使用的数据集合。
-  可使用多个from子句。
-  语法： <code>form</code> [Type] Item <code>in</code> Items
-  + Type：集合中元素的类型，会自动推断，是可选的。
-  + Item：迭代变量的的名字
-  + Items：要进行查询的集合的名字，必须是可迭代的
+<b>form子句</b>
+from子句指定了要作为数据源使用的数据集合。
+可使用多个from子句。
+语法： <code>form</code> [Type] Item <code>in</code> Items
++ Type：集合中元素的类型，会自动推断，是可选的。
++ Item：迭代变量的的名字
++ Items：要进行查询的集合的名字，必须是可迭代的
 
-  <b>let子句</b>
-  let子句接受一个表达式的运算并且把它赋值给一个需要在其他运算中使用的标识符。
-  语法：<code>let</code> Identifier=Expression
-  <xmp class="block">
-    var someInts = from a in groupA
-                   from b in groupB
-                   let sum=a+b         //在新的变量中保存结果
-                   where sum==12
-                   select new{a,b,sum};
-  </xmp>
+<b>let子句</b>
+let子句接受一个表达式的运算并且把它赋值给一个需要在其他运算中使用的标识符。
+语法：<code>let</code> Identifier=Expression
+<xmp class="block">
+  var someInts = from a in groupA
+                 from b in groupB
+                 let sum=a+b         //在新的变量中保存结果
+                 where sum==12
+                 select new{a,b,sum};
+</xmp>
 
-  <b>where子句</b>
-  where子句根据之后的运算来筛选指定项。
-  可以有多个where子句。
-  语法：<code>where</code> Expression
+<b>where子句</b>
+where子句根据之后的运算来筛选指定项。
+可以有多个where子句。
+语法：<code>where</code> Expression
 
-  <b>join子句</b>
-  使用联结来结合两个多多个集合中的数据。
-  联结操作接受两个集合然后创建一个临时的对象集合，每个对象包含原始集合对象中的所有字段。
-  语法：<code>join</code> Identifier <code>in</code> Collection2 <code>on</code> Field1 <code>equals</code> FieId1
-  <xmp class="block">
-  var innerJoin = from s1 in list1
-                  join s2 in list2 on s1.ID equals s2.ID
-                  select new {
-                                StudentName = s1.StudentName,
-                                StandardName = s2.StandardName
-                              };
-  </xmp>
-  意义：将list1和list2两个集合结合在一起，s1是list1中的当前迭代元素，s2是list2中的当前迭代元素，
-        然后比较s1.ID和s2.ID是否相等：
-        + 如果相等，则记住s1、s2并进行下一步；
-        + 如果不相等，则跳过当前元素，进行下一次迭代。
+<b>join子句</b>
+使用联结来结合两个多多个集合中的数据。
+联结操作接受两个集合然后创建一个临时的对象集合，每个对象包含原始集合对象中的所有字段。
+语法：<code>join</code> Identifier <code>in</code> Collection2 <code>on</code> Field1 <code>equals</code> FieId1
+<xmp class="block">
+var innerJoin = from s1 in list1
+                join s2 in list2 on s1.ID equals s2.ID
+                select new {
+                              StudentName = s1.StudentName,
+                              StandardName = s2.StandardName
+                            };
+</xmp>
+意义：将list1和list2两个集合结合在一起，s1是list1中的当前迭代元素，s2是list2中的当前迭代元素，
+      然后比较s1.ID和s2.ID是否相等：
+      + 如果相等，则记住s1、s2并进行下一步；
+      + 如果不相等，则跳过当前元素，进行下一次迭代。
 
-  <b>orderby子句</b>
-  排序。默认升序，descending进行标记则改变为降序。
-  语法： <code>orderby</code> student.Age <code>[descending]</code>
-  <xmp class="block">
-    var query = from student in students
-                orderby student.Age
-                select student;
-  </xmp>
+<b>orderby子句</b>
+排序。默认升序，descending进行标记则改变为降序。
+语法： <code>orderby</code> student.Age <code>[descending]</code>
+<xmp class="block">
+  var query = from student in students
+              orderby student.Age
+              select student;
+</xmp>
 
-  <b>select子句</b>
-  select子句指定所选对象的哪部分应该被select。它可以指定下面的任意一项。
-    + 整个数据项
-    + 数据项的一个字段
-    + 数据项的几个字段组成的新对象（或类似其他值）
+<b>select子句</b>
+select子句指定所选对象的哪部分应该被select。它可以指定下面的任意一项。
+  + 整个数据项
+  + 数据项的一个字段
+  + 数据项的几个字段组成的新对象（或类似其他值）
 
-  <b>group-by</b>
-  用来指定选择的项如何分组。
-  语法：<code>group</code> s <code>by</code> s.Major;
-  <xmp class="block">
-    var cityGroup = from city in cities
-                    //先通过每个城市的名称来分组，每组的子项就是group关键字后面的city对象实例
-                    group city by city.Name
-                    //接着将该组赋给一个变量g
-                    into g
-                    //然后就可以通过g的Key去排序，g.Key就是by关键字后面的那个参数，即city.Name
-                    orderby g.Key
-                    //最后选中该组
-                    select g;
+<b>group-by</b>
+用来指定选择的项如何分组。
+语法：<code>group</code> s <code>by</code> s.Major;
+<xmp class="block">
+  var cityGroup = from city in cities
+                  //先通过每个城市的名称来分组，每组的子项就是group关键字后面的city对象实例
+                  group city by city.Name
+                  //接着将该组赋给一个变量g
+                  into g
+                  //然后就可以通过g的Key去排序，g.Key就是by关键字后面的那个参数，即city.Name
+                  orderby g.Key
+                  //最后选中该组
+                  select g;
 
 
-    var cityGroup = from city in cities
-                    //by关键字后面的参数一定要和group关键字后面的参数有一定的关联，否则无法进行分组
-                    group new{city.Name,city.PeopleCount,SomeParam="自定义"} by city.Name
-  </xmp>
+  var cityGroup = from city in cities
+                  //by关键字后面的参数一定要和group关键字后面的参数有一定的关联，否则无法进行分组
+                  group new{city.Name,city.PeopleCount,SomeParam="自定义"} by city.Name
+</xmp>
 
-  <b>into子句</b>
-  查询延续子句,该子句可以接受查询的一部分结果并赋予一个名字，从而可以在查询的另一部分中使用。
-  语法：<code>into</code> Identifier
-  <xmp class="block">
-    var someInts = from a in groupA
-                   join b in groupB on a equals b
-                   into groupAandB
-                   from c in groupAandB
-                   select c;
-  </xmp>
+<b>into子句</b>
+查询延续子句,该子句可以接受查询的一部分结果并赋予一个名字，从而可以在查询的另一部分中使用。
+语法：<code>into</code> Identifier
+<xmp class="block">
+  var someInts = from a in groupA
+                 join b in groupB on a equals b
+                 into groupAandB
+                 from c in groupAandB
+                 select c;
+</xmp>
 
-  <h1 class="h1">IEnumerable接口类型可以执行的方法</h1>
-  <img src="resources/10_0.jpg" alt="">
+<h1 class="h1">IEnumerable接口类型可以执行的方法</h1>
+<img src="resources/10_0.jpg" alt="">
 </div>
 
-  <h1 class="h1">并行LINQ查询</h1>
-  与使用Parallel类编写的并行代码类似，PLINQ也可以在需要时忽略并行处理集合的请求。
+<h1 class="h1">并行LINQ查询</h1>
+与使用Parallel类编写的并行代码类似，PLINQ也可以在需要时忽略并行处理集合的请求。
 
-  <b>ParallelEnmerable类中的部分成员</b>
-  + AsParallel()                     指明如果可能的话，查询的其余部分应该并行化
-  + WithCancelation()                指明QLINQ应该定期检视取消标记的状态，并在需要的时候取消标记
-  + WithDegreeOfParallelism()        指明QLINQ进行并行查询时能使用的最大处理器数
-  + ForAll()                         使用foreach关键字枚举LINQ结果时进行并行处理，无返回值
+<b>ParallelEnmerable类中的部分成员</b>
++ AsParallel()                     指明如果可能的话，查询的其余部分应该并行化
++ WithCancelation()                指明QLINQ应该定期检视取消标记的状态，并在需要的时候取消标记
++ WithDegreeOfParallelism()        指明QLINQ进行并行查询时能使用的最大处理器数
++ ForAll()                         使用foreach关键字枚举LINQ结果时进行并行处理，无返回值
 
-  <xmp class="block">
-    int[] mods = (form num in source.AsParallel()
-                  where num % 3 == 0
-                  orderby num descending
-                  select num).ToArray();
+<xmp class="block">
+  int[] mods = (form num in source.AsParallel()
+                where num % 3 == 0
+                orderby num descending
+                select num).ToArray();
 
 
-    //取消并行
-    public class MainForm : Form
+  //取消并行
+  public class MainForm : Form
+  {
+    private CancellationTokenSource cancelToken = new CancellationTokenSource();
+    private void btnCancel_Click(object sender,EventArgs e)
     {
-      private CancellationTokenSource cancelToken = new CancellationTokenSource();
-      private void btnCancel_Click(object sender,EventArgs e)
-      {
-        cancelToken.Cancel();
-      }
-
-      //...
-      try
-      {
-        int[] mods = (from num in source.AsParallel().WithCancellation(cancelToken.Token)
-                     where num % 3 == 0
-                     orderby num
-                     select num).ToArray();
-      }
-      //...
+      cancelToken.Cancel();
     }
-  </xmp>
 
-  <h1 class="h1">.NET4.5下的异步调用</h1>
-
-  <b>总结</b>
-  + 方法（包括Lambda表达式和匿名方法）可以用async关键字标记，允许该方法以非阻塞的形式进行工作。
-  + 用async关键字标记的方法在遇到await关键字之前将以阻塞的形式运行。
-  + 单个async方法可以用多个await上下文。
-  + 当遇到await表达式时，调用线程将挂起，直到await的任务完成。同时，控制将返回给方法的调用者。
-  + await关键字将从视图中隐藏返回Task对象，直接返回实际的返回值。没有返回值的方法可以简单返回void。
-  + 根据命名约定，要被异步的方法应该以“Async”作为后缀。
-
-  <xmp class="block">
-    public class MainForm : Form
+    //...
+    try
     {
-      private async void btnCallMethod_Click(object sender,EventArgs e)
-      {
-        this.Text = await DoWorkAsync();
-      }
-
-      //有返回值，使用泛型Task
-      private async Task<string> DoworkAsync()
-      {
-        return await Task.Run(()=>
-        {
-          Thread.Sleep(10000);
-          return "Done with work!";
-        });
-      }
-
-      //无返回值，使用非泛型Task   -------------------------------------------
-      private async Task MethodAsync()
-      {
-        await Task.Run(()=>
-        {
-          Thread.sleep(10000);
-        });
-      }
-
-      private async void btnVoidMethod_Click(object sender,EventArgs e)
-      {
-        await MethodAsync();
-      }
-
-      //具有多个await的异步方法   -------------------------------------------
-      private async void btnMutliAwaits_Click(object sender,EventArgs e)
-      {
-        await Task.Run(()=>{Thread.Sleep(2000);});
-        MessageBox.Show("xxx");
-
-        await Task.Run(()=>{Thread.Sleep(2000);});
-        MessageBox.Show("xxx");
-
-        await Task.Run(()=>{Thread.Sleep(2000);});
-        MessageBox.Show("xxx");
-      }
+      int[] mods = (from num in source.AsParallel().WithCancellation(cancelToken.Token)
+                   where num % 3 == 0
+                   orderby num
+                   select num).ToArray();
     }
-  </xmp>
+    //...
+  }
+</xmp>
+
+<h1 class="h1">.NET4.5下的异步调用</h1>
+
+<b>总结</b>
++ 方法（包括Lambda表达式和匿名方法）可以用async关键字标记，允许该方法以非阻塞的形式进行工作。
++ 用async关键字标记的方法在遇到await关键字之前将以阻塞的形式运行。
++ 单个async方法可以用多个await上下文。
++ 当遇到await表达式时，调用线程将挂起，直到await的任务完成。同时，控制将返回给方法的调用者。
++ await关键字将从视图中隐藏返回Task对象，直接返回实际的返回值。没有返回值的方法可以简单返回void。
++ 根据命名约定，要被异步的方法应该以“Async”作为后缀。
+
+<xmp class="block">
+  public class MainForm : Form
+  {
+    private async void btnCallMethod_Click(object sender,EventArgs e)
+    {
+      this.Text = await DoWorkAsync();
+    }
+
+    //有返回值，使用泛型Task
+    private async Task<string> DoworkAsync()
+    {
+      return await Task.Run(()=>
+      {
+        Thread.Sleep(10000);
+        return "Done with work!";
+      });
+    }
+
+    //无返回值，使用非泛型Task   -------------------------------------------
+    private async Task MethodAsync()
+    {
+      await Task.Run(()=>
+      {
+        Thread.sleep(10000);
+      });
+    }
+
+    private async void btnVoidMethod_Click(object sender,EventArgs e)
+    {
+      await MethodAsync();
+    }
+
+    //具有多个await的异步方法   -------------------------------------------
+    private async void btnMutliAwaits_Click(object sender,EventArgs e)
+    {
+      await Task.Run(()=>{Thread.Sleep(2000);});
+      MessageBox.Show("xxx");
+
+      await Task.Run(()=>{Thread.Sleep(2000);});
+      MessageBox.Show("xxx");
+
+      await Task.Run(()=>{Thread.Sleep(2000);});
+      MessageBox.Show("xxx");
+    }
+  }
+</xmp>
 
 </pre>
-  </body>
+</body>
 </html>
