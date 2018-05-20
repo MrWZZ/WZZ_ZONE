@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+<pre class="w_doc">
+<h1 class="h1">Form标签</h1>
+使用标签库，需要导入spring-webmvc.jar包。
+然后还需要在jsp文件的开头加上：
+<xmp><%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %></xmp>
+
+<b>spring mvc的form标签主要有两个作用：</b>
++ 自动绑定Model中的一个属性值到当前form的实体对象，默认为command属性。
++ 支持我们在提交表单时使用GET和POST之外的其他方法进行交互，包括DELETE和PUT等。
+
+<b>Form标签的属性</b>
++ modelAttribute：form绑定的模型属性的名称，默认为command。
++ commandName：form绑定的模型属性的名称，默认为command。
++ acceptCharset：定义服务器接受的字符编码。
++ cssClass：定义要应用到被渲染form元素的CSS类。
++ cssStyle：定义要应用到被渲染form元素的CSS样式。
++ hemlEscape：boolean值，表示被渲染的值是否应该进行HTML转义。
+
+<h2 class="h2">input标签</h2>
++ cssClass
++ cssStyle
++ cssErrorClass
++ htmlEscape
++ path：要绑定的属性路径。
+
+<b>使用示例</b>
+1.jsp页面。
+<xmp class="block">
+  <form:form method="post" action="form">
+          <table>
+              <tr>
+                  <td>name:</td>
+                  <td><form:input path="name"/></td>
+              </tr>
+              <tr>
+                  <td>gender:</td>
+                  <td><form:input path="gender"/></td>
+              </tr>
+              <tr>
+                  <td>age:</td>
+                  <td><form:input path="age"/></td>
+              </tr>
+          </table>
+      </form:form>
+</xmp>
+
+2.模型。
+<xmp class="block">
+public class User
+{
+    private String name;
+    private String gender;
+    private Integer age;
+
+    // 省略getter，setter，controller
+}
+</xmp>
+
+3.控制器。
+<xmp class="block">
+@Controller
+public class HomeController
+{
+    @RequestMapping(path = "/form")
+    public String registerForm(Model model)
+    {
+        User user = new User("tom","man",25);
+        model.addAttribute("command",user);
+        return "registerForm";
+    }
+}
+</xmp>
+
+这样，在返回该form页面的时候，表单里面的input就会自动填上user的对应的值。
+
+<h1 class="h1">其他标签</h1>
+<h2 class="h2">passwrod标签</h2>
++ cssClass
++ cssStyle
++ cssErrorClass
++ htmlEscape
++ path
++ showPassword：表示是否应该显示或遮盖密码，默认值为false。
+
+jsp样式：
+<xmp><form:password path="password" /></xmp>
+html样式：
+<xmp><input id="password" name="password" type="password" value=""></xmp>
+
+<h2 class="h2">hidden标签</h2>
++ htmlEscape
++ path
+
+jsp样式：
+<xmp><form:hidden path="id"/></xmp>
+html样式：
+<xmp><input id="id" name="id" type="hidden" value=""></xmp>
+
+<h2 class="h2">textare标签</h2>
++ cssClass
++ cssStyle
++ cssErrorClass
++ htmlEscape
++ path
+
+jsp样式：
+<xmp><form:textarea path="remark" rows="5" cols="20"/></xmp>
+html样式：
+<xmp><textarea id="remark" name="remark" rows="5" cols="20"></textarea></xmp>
+
+待完成：
++ cheackbox标签
++ cheackboxs
++ radiobutton
++ radiobuttons
++ select
++ option
++ options
++ errors
+
+</pre>
+  </body>
+</html>

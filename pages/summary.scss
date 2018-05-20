@@ -1,61 +1,5 @@
 @import "base";
 
-// 中部内容=============================================
-
-.content{
-
-  // 左侧=============================================
-
-  .left{
-    nav{
-      padding: 10px 50px 0 0;
-      a{
-        box-shadow: 0px 1px silver;
-        display: block;
-        padding: 3px 0;
-        color: blue;
-        text-decoration: none;
-        &:hover{
-          cursor: pointer;
-          text-decoration: underline;
-        }
-      }
-    }
-  }
-
-  // 右侧=============================================
-
-  .right{
-    .to_top{
-      position: fixed;
-      right: 2%;
-      bottom: $footer_height;
-      width: 50px;
-      height: 50px;
-      background-color: #c6c6c6;
-
-      div{
-        position: absolute;
-        width: 50%;
-        height: 10%;
-        background-color: #0097A7;
-      }
-
-      div:first-child {
-        transform: rotate(45deg);
-        margin: 45% 40%;
-      }
-
-      div:last-child {
-        transform: rotate(-45deg);
-        margin: 45% 10%;
-      }
-    }
-  }
-}
-
-// 标签=============================================
-
 .w_doc{
   margin: 0 0;
   padding: 0 0;
@@ -143,4 +87,7 @@ code,xmp{
   border: 2px #E0E0E0 solid;
   font-size: 15px;
 
+  &::first-line{
+    line-height: 0;
+  }
 }

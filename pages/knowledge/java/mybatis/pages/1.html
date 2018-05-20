@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+<pre class="w_doc">
+<h1 class="h1">一、视频笔记</h1>
+
+<strong>可以查看官方的使用说明</strong>
+
+1.下载jar包并导入（或使用maven）。
+1.1 mybatis包，mysql包。
+
+
+2.建立mysql库。
+
+3.创建实体类Employee。
+<xmp class="block">
+p i id;
+p s lastName;
+p s email;
+p s gender;
+
+//getter,setter
+</xmp>
+
+4.从XML中构建SqlSessionFactory
+4.1 创建xml文件mybatis-config
+<xmp class="block">
+  <?xml version="1.0" encoding="UTF-8" ?>
+  <!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  <configuration>
+    <environments default="development">
+      <environment id="development">
+        <transactionManager type="JDBC"/>
+        <dataSource type="POOLED">
+          // 需要修改（自己的MySQL数据）---------
+          <property name="driver" value="com.mysql.jdbc.Driver"/>
+          <property name="url" value="jdbc:mysql://localhost:3306/(数据库名)"/>
+          <property name="username" value="root"/>
+          <property name="password" value="1234567"/>
+          // 修改-------------
+        </dataSource>
+      </environment>
+    </environments>
+
+    <mappers>
+      // 步骤5文件的路径。如果直接在类路径下，就直接是文件名，如果在包下，就是包名加文件名。
+      <mapper resource="org/mybatis/example/BlogMapper.xml"/>
+    </mappers>
+  </configuration>
+</xmp>
+
+4.2 创建加载的类MyBatisTest(需要抛出异常和导入相应包)
+<xmp class="block">
+  public void Test()
+  {
+    // 1.根据xml配置文件（全局配置文件）创建一个SqlSessionFactory对象
+    // 配置文件路径
+    String resource = "org/mybatis/example/mybatis-config.xml";
+    InputStream inputStream = Resources.getResourceAsStream(resource);
+    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+    // 2.获取SqlSessionFactory实例，能直接实行已经映射的sql语句
+    SqlSession session = sqlSessionFactory.openSession();
+    try
+    {
+      // 参数1：sql语句的唯一辨识符(步骤5)
+      // 参数2：sql语句需要的参数
+      Employee blog = (Employee) session.selectOne("org.mybatis.example.BlogMapper.selectBlog", 101);
+
+      // 对blog进行操作。。。
+
+    } finally {
+
+      // 需要关闭
+      session.close();
+    }
+  }
+</xmp>
+
+5. 创建已映射的sql语句的xml文件（名：EmployeeMapper）
+<xmp class="block">
+  <?xml version="1.0" encoding="UTF-8" ?>
+  <!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.wzz.EmployeeMapper">
+    <select id="selectBlog" resultType="com.wzz.Employee">
+      select * from Blog where id = #{id}
+    </select>
+  </mapper>
+
+  // namespace：名称空间【二、1中进行绑定】
+  // id：该查询语句的唯一标识。 -- 步骤4.2中的位移标识就是namespace.id的组合
+  // resultType：返回值类型，和步骤3相关
+  // #{id}：从传过来的参数中取出ID值
+</xmp>
+
+6.运行Test方法，即可执行。
+
+--------------------------
+
+如果sql库中的列名和Employee类中的字段名不一致，该字段就会获取不到值。
+解决方法：
+1. 给sql中取别名
+
+
+<h1 class="h1">二、向sql映射中传入对象</h1>
+1. 定义接口(名：EmployeeMapper)
+<xmp class="block">
+public interface EmployeeMapper
+{
+  public Employee getEmpById(Integer id);
+}
+</xmp>
+
+在mybatis中，接口可以和配置文件进行动态绑定，不需要为上面的接口进行实现了。
+和一、5中配置文件的命名空间进行绑定。
+
+在和接口进行绑定后，；配置中的id就可以取名为接口中和该属性对应的方法（getEmpId）
+<xmp class="block">
+<select id="getEmpById" resultType="com.wzz.Employee">
+</xmp>
+
+这时候我们进行方法更新
+<xmp class="block">
+  public void Test()
+  {
+    // 下面3行可以做成方法
+    String resource = "org/mybatis/example/mybatis-config.xml";
+    InputStream inputStream = Resources.getResourceAsStream(resource);
+    // 1：获取SqlSessionFactory对象
+    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+    // 2：获取SqlSession对象
+    // 每一个SqlSession都是一个会话，且不是线程安全的，不能做成成员变量。
+    SqlSession session = sqlSessionFactory.openSession();
+
+    try{
+      // 3：获取接口的实现类的对象
+      // 这里已经返回代理对象
+      EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
+
+      // 4：进行查询(这里mybatis会为接口自动创建一个代理对象，代理对象去执行curd)
+      Employee employee = mapper.getEmpById(1);
+    }
+    finally{
+      session.close();
+    }
+  }
+</xmp>
+
+</pre>
+  </body>
+</html>

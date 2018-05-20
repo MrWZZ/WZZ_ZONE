@@ -26,14 +26,50 @@ body {
       text-decoration: underline; }
 
 .content {
-  display: flex;
-  justify-content: center; }
+  width: 100%; }
+  .content .left {
+    float: left;
+    padding-left: 20px;
+    padding-top: 20px; }
+    @media screen and (max-width: 1460px) {
+      .content .left {
+        padding: 0 10px;
+        float: none;
+        width: 1000px;
+        margin: 10px auto; } }
+    .content .left nav a {
+      display: block;
+      padding: 3px 0;
+      color: blue;
+      text-decoration: none; }
+      .content .left nav a:hover {
+        cursor: pointer;
+        text-decoration: underline; }
   .content .center {
+    margin: 0 auto;
     box-shadow: 2px 2px 2px #9E9E9E;
     width: 1000px;
     padding: 10px;
     border-radius: 10px;
     background-color: #FAFAFA; }
+  .content .right .to_top {
+    position: fixed;
+    right: 2%;
+    bottom: 60px;
+    width: 50px;
+    height: 50px;
+    background-color: #c6c6c6; }
+    .content .right .to_top div {
+      position: absolute;
+      width: 50%;
+      height: 10%;
+      background-color: #0097A7; }
+    .content .right .to_top div:first-child {
+      transform: rotate(45deg);
+      margin: 45% 40%; }
+    .content .right .to_top div:last-child {
+      transform: rotate(-45deg);
+      margin: 45% 10%; }
 
 .pro {
   color: black;
