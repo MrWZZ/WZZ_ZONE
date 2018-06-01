@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+<pre class="w_doc">
+<h1 class="h1">全局配置文件</h1>
+在上章中的mybatis-config文件
+<xmp class="block">
+  <?xml version="1.0" encoding="UTF-8" ?>
+  <!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  <configuration>
+
+    // 可以使用properties来引入外部properties配置文件
+    // resource：是引入类路径下。     |   两者用其中一个。
+    // url：在网络路径或则磁盘路径。   |
+
+    <properties url="" resource="步骤1中的文件位置"></properties>
+
+    <environments default="development">
+      <environment id="development">
+        <transactionManager type="JDBC"/>
+        <dataSource type="POOLED">
+          <property name="driver" value="${jdbc.driver}"/>
+          <property name="url" value="${jdbc.url}"/>
+          <property name="username" value="${jdbc.username}"/>
+          <property name="password" value="${jdbc.password}"/>
+        </dataSource>
+      </environment>
+    </environments>
+
+    <mappers>
+
+      <mapper resource="org/mybatis/example/BlogMapper.xml"/>
+    </mappers>
+  </configuration>
+</xmp>
+
+1. 创建datasource的properties文件（名：dbconfig.properties）
+<xmp class="block">
+jdbc.dricer = com.mysql.jdbc.driver
+jdbc.url = jdbc:mydql://localhost:3306/mybaties
+jdbc.username = root
+jdbc.password=1234
+</xmp>
+
+了解：配置文件一般都交给spring来做。一般很少使用properties标签。
+
+<b>Setting</b>
+
+如驼峰命名：mapUnderscoreToCamelCase
+
+当开启驼峰命名策略的时候，就会使数据库中的last_name和实体类中的lastName进行匹配。
+
+<b>typeAliases</b>
+取别名，这样在sql的映射配置文件中的resultType就可以使用别名，简化输入。
+使用package对包下所有类取别名。（大小写不敏感）
+当别名冲突的时候，使用@Alias("..")进行重新命名。
+
+<strong>但是引用是时候还是建议使用全类名。</strong>
+
+<b>typeHandlers</b>
+数据库类型取出时和实体类进行转换。
+
+<b>databaseIdProvider</b>
+同一个sql语句在不同的数据库厂商软件下使用。
+
+首先，给不同的数据库起名。
+<xmp class="block">
+<databaseIdProvider type="DB_VENDOR">
+  <property name="SQL Server" value="sqlserver"/>
+  <property name="DB2" value="db2"/>
+  <property name="Oracle" value="oracle" />
+</databaseIdProvider>
+</xmp>
+
+然后，在select中指定数据库类型。(databaseId属性)
+<xmp class="block">
+<select id="getEmpById" resultMap="usermap" databaseId="mysql">
+	select * from users
+</select>
+
+<select id="getEmpById" resultMap="usermap" databaseId="oracle">
+  // oracle中where不能使用别名
+	select EMPLOYEE_ID id,LAST_NAME lastName form where EMPLOYEE_ID=#{id}
+</select>
+</xmp>
+
+然后配置enviornments中在配置一个数据库。在perproties文件中配置数据库账号密码。
+
+<xmp class="block">
+  <environments default="mysql">      // 指定默认使用那个开发环境
+    <environment id="mysql">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+      </dataSource>
+    </environment>
+
+    <environment id="oracle">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="${orcle.driver}"/>
+        <property name="url" value="${orcle.url}"/>
+        <property name="username" value="${orcle.username}"/>
+        <property name="password" value="${orcle.password}"/>
+      </dataSource>
+    </environment>
+  </environments>
+</xmp>
+
+<b>mappers</b>
+将sql映射注册到全局配置中。
+
+还可以基于注解的形势写sql。
+<xmp class="block">
+<mapper class="接口">
+
+// 接口
+public interface Ixxx{
+
+  @Select("select * from tbl_employee where id=#{id}")
+  public Employee xxx();
+}
+</xmp>
+但是不建议使用注解的方式写在源码上。
+
+</pre>
+  </body>
+</html>

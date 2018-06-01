@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+<pre class="w_doc">
+<h1 class="h1">curd</h1>
+
+1. 在接口中定义curd方法。
+<xmp class="block">
+public Employee getEmpById(Integer id);
+public void addEmp(Employee emp);
+public updateEmp(Employee emp);
+public void deleteEmpById(Integer id);
+</xmp>
+
+2. 在sql映射文件文件中为方法进行绑定。
+<xmp class="block">
+  // id:命名空间中的唯一标识符，可被用来代表这条语句。（接口方法名）
+  // parameterType：将要传入语句的参数的完全限定类名或别名。（可省略）
+
+  <insert id="insertAuthor" parameterType="">
+    insert into Author (id,username,password,email,bio)
+    values (#{id},#{username},#{password},#{email},#{bio})
+  </insert>
+
+</xmp>
+
+<h1 class="h1">多个参数查询</h1>
+
+单个参数：不会做特殊处理，不论名字是什么。
+  #{参数名}：取出参数值。
+
+多个参数：会做特殊处理，多个参数会被封装成一个Map，key=param1...paramN,value=传入的值。==> #{param1}
+        解决方法：使用@Param("xx")注解,命名参数法。
+<xmp class="block">
+// 接口中
+public Employee getEmpByidAndLastName(@Param("id")Integer id,@Param("lastName")String lastName);
+
+// EmployeeMapper.xml文件中
+<select id="getEmpByidAndLastName" resultType="包名+类型">
+  select * form tbl_employee where id = #{id} and last_name=#{lastName}
+</select>
+</xmp>
+
+POJO方法：
+如果多个参数正好是我们业务模型，可以直接传入MODEL。
+    #{属性名}，取出对应的值。
+
+Map：
+如果多个参数不是我们的业务模型。传入Map。#{key}取出对应值。
+<xmp class="block">
+// 接口中
+public Employee getEmpByMap(Map<String,Integer> map);
+
+// xml中
+// 一样
+</xmp>
+
+<strong>特别情况，如果是Collection(list、set)或数组</strong>
+会被特殊处理：它的key会被预定义，key会被命名为它的类型，其中数组是array，取值为#{array[0]}。
+
+<h1 class="h1">参数值的获取</h1>
+#{}:可以获取map中的值或pojo中的值。       ==》得出占位符（ 预编译的方式）
+${}:和上面一样，但有点区别。              ==》得出值直接拼装sql中，会有安全问题。
+大多情况下我们应该使用#{}。
+但对于原生不支持占位符的情况，我们就可以使用${}的形式。
+  select * from ${year}_salary where xxx;
+
+#{}:更丰富的使用方式。
+  规定参数的一些规则：
+  javaType.jdbcType、mode(储存过程)，resultMap、typeHandler。
+
+  jdbcType通常需要设置。
+  在我们数据为null的时候，有些数据库可能不能识别mybatis的null的默认处理。
+  对所有的null都是映射mysql的other类型。
+
+  #{email,jdbcType=NULL}。
+  由于全局配置中，jdbcTypeForNull=Other;oracle不支持。
+  所以也可以改全局配置。
+
+<h1 class="h1">select元素</h1>
+查询返回的是一个list[Employee] 集合。
+ressultType写为集合中的类型。
+
+返回一条记录map，可以就是列名，值就是对应的值。
+<xmp class="block">
+<select id="方法名" resultType="map">
+  sql语句
+<select>
+</xmp>
+
+多条记录返回map，Map[Integer,Employee]:键是记录的主键，值时记录封装后的javaBean。
+
+@MapKey("id")
+public Map[Integer,Employee] getEmpByuLastLikeMap(String lastName);
+
+[select id="方法名" resultType="Employeer"]
+  select * from tbl_employee where last_name like #{lastName}
+[/select]
+
+<h1 class="h1">自定义ResultMap,实现高级结果映射</h1>
+resultType和resultMap两者使用其中的一个。
+
+定义一个javaBean的封装规则。
+type:自定义的Java类型
+id：唯一id，方便引用
+[resultMap type="包+类" id="MyEmp"]
+  //指定主键列的封装规则
+  //column:指定哪一列
+  //property:指定对应的JavaBean属性
+  [id column="id" property="id"/]
+  //定义普通列的封装规则
+  [result column="last_name" property="LastName"/]
+
+  //其他不指定的列会自动封装，我们只要写resultMap就会把全部的映射都写上。列名和属性名会一致。
+[/resultMap]
+
+在一个对象中包含另一个对象。
+<xmp class="block">
+<resultMap type="package+class" id="xxx">
+  <id /> 
+</resultMap>
+</xmp>
+
+</pre>
+  </body>
+</html>
