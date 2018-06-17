@@ -31,16 +31,10 @@ var pros = [
   },
   {
     title:"曲行子弹",
-    description:"用unity3d引擎做的一个游戏，当时也是挺热爱游戏的，就做了一个，写3个月左右。图片、音效什么的也是自己画的。哎呀，一开始还想做个游戏的独立开发者来着。",
+    description:"用unity3d引擎做的一个游戏，当时也是挺热爱游戏的，就做了一个，写3个月左右。图片、音效什么的也是自己弄的。哎呀，一开始还想做个游戏的独立开发者来着。",
     url:"u3d_game/index.html",
     imgUrl:"u3d_game/demo.jpg"
   },
-  {
-    title:"简单实现u3d的一些功能（太少了，不好看，就重复了一个）",
-    description:"使用javascript简单模仿u3d游戏的编写模式，提供了html游戏开发的简单模版。该模版提供了简单的物体碰撞检测，帧动画切换，角色动作逻辑套版等基本实现。",
-    url:"u3d_js/u3d_js.html",
-    imgUrl:"u3d_js/demo.png"
-  }
 ];
 
 //作品生成
