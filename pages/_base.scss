@@ -49,12 +49,12 @@ body{
     padding-left: 20px;
     padding-top: 20px;
 
-    @media screen and (max-width: 1460px) {
-      padding: 0 10px;
-      float: none;
-      width: 1000px;
-      margin: 10px auto;
-    }
+    // @media screen and (max-width: 1460px) {
+    //   padding: 0 10px;
+    //   float: none;
+    //   width: 1000px;
+    //   margin: 10px auto;
+    // }
 
     nav{
       a{
@@ -110,4 +110,23 @@ body{
       }
     }
   }
+}
+
+@media screen and (max-width: 1460px) {
+
+  body > header,body > footer,.home_nav{
+    padding: 0 10px;
+    width: 1000px;
+    margin: 10px auto;
+  }
+
+  .content{
+    .left{
+      padding: 0 10px;
+      float: none;
+      width: 1000px;
+      margin: 10px auto;
+    }
+  }
+
 }

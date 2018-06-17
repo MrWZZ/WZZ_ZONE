@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+<pre class="w_doc">
+<h1 class="h1">引入jar包</h1>
+4+1：4个核心，一个依赖。
+核心：bean、core、context、expression
+依赖：commons-logging
+
+<b>配置文件</b>
+位置：任意，开发中在classpath(src)下。
+名称：任意：开发中常用applicationCOntent
+内容：约束、
+<xmp class="block">
+  <?xml version="1.0" encoding="UTF-8"?>
+  <beans xmlns="http://www.springframework.org/schema/beans"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+      <bean id="..." class="...">
+          <!-- collaborators and configuration for this bean go here -->
+      </bean>
+
+      <bean id="..." class="...">
+          <!-- collaborators and configuration for this bean go here -->
+      </bean>
+
+      <!-- more bean definitions go here -->
+
+  </beans>
+</xmp>
+
+使用静态工厂
+<xmp class="block">
+<bean id="xxx" class="xxx" factory-method="静态工厂方法"></bean>
+</xmp>
+
+使用实例工厂
+<xmp class="block">
+// 实例工厂bean
+<bean id="beanF" class="xxx"></bean>
+
+//通过实例工厂获取类
+<bean id="xxx" factory-bean="beanF" factory-method="实例工厂中的方法"></bean>
+</xmp>
+
+生命周期：
+
+
++ B.before        [BeanPostProcessor]
+- a.init()
++ B.after         [BeanPostProcessor]  //在这里生成代理
+
+- a.addUser()
+
+- a.destory()
+
+初始化：init-method
+销毁：destory-method。
+  要求：必须close，单例。
+
+BeanPostProcessor接口，接口中用两个方法，他将在初始化方法之前和之后调用特定方法。
+
+</pre>
+  </body>
+</html>
