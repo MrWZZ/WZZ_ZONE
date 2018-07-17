@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/WZZ_ZONE/pages/summary.css">
+    <title></title>
+  </head>
+<body>
+<pre class="w_doc">
+<h1 class="h1">Random函数</h1>
+<xmp class="block">
+/**
+ * 返回$min（包含）到$max（包含）到随机整数
+ */
+public static getInteger($min:number,$max:number):number
+{
+   let offset = $max - $min;
+   return $min + Math.round(Math.random() * offset);
+}
+</xmp>
+</pre>
+</body>
+</html>
