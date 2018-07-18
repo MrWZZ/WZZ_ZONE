@@ -1,4 +1,5 @@
 //页面数组
 var pages = [
-  { title:"js", url:"pages/java_script.html" },
+  { title:"js", url:"pages/js.html" },
+  { title:"tool", url:"pages/tool.html" },
 ];
