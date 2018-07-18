@@ -2,7 +2,7 @@
 var homeLinks = [
   { title:"主页", url:"/index.html" },
   { title:"知识总结", url:"/pages/knowledge/knowledge.html" },
-  { title:"方法库", url:"pages/method/method.html" },
+  { title:"方法库", url:"/pages/method/method.html" },
   { title:"收藏", url:"/pages/collection/collection.html" },
   { title:"作品", url:"/pages/production/production.html" },
   { title:"踩过的坑", url:"/pages/mistake/mistake.html" }
