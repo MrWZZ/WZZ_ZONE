@@ -9,12 +9,12 @@
 
 <h1 class="h1">大小写转换</h1>
 <b>小写转大写</b>
-<input id="lower_to_upper_input" type="text" name="" value="" placeholder="输入" onchange="caseChange(this)">
+<input id="lower_to_upper_input" type="text" name="" value="" placeholder="输入">
 <br>
 输出：<span id="lower_to_upper_output"></span>
 
 <b>大写转小写</b>
-<input id="upper_to_lower_input" type="text" name="" value="" placeholder="输入" onchange="caseChange(this)">
+<input id="upper_to_lower_input" type="text" name="" value="" placeholder="输入">
 <br>
 输出：<span id="upper_to_lower_output"></span>
 
@@ -24,18 +24,20 @@
 <script type="text/javascript">
   var lower_to_upper_input = document.getElementById("lower_to_upper_input");
   var lower_to_upper_output = document.getElementById("lower_to_upper_output");
+  lower_to_upper_input.addEventListener("change",caseChange);
 
   var upper_to_lower_input = document.getElementById("upper_to_lower_input");
   var upper_to_lower_output = document.getElementById("upper_to_lower_output");
+  upper_to_lower_input.addEventListener("change",caseChange);
 
   //大小写转换
-  function caseChange(_element) {
-    if(_element.id == lower_to_upper_input.id)
+  function caseChange(e) {
+    if(e.target.id == lower_to_upper_input.id)
     {
-      lower_to_upper_output.innerHTML = _element.value.toUpperCase();
+      lower_to_upper_output.innerHTML = e.target.value.toUpperCase();
     }
     else {
-      upper_to_lower_output.innerHTML = _element.value.toLowerCase();
+      upper_to_lower_output.innerHTML = e.target.value.toLowerCase();
     }
   }
 </script>
@@ -44,18 +46,20 @@
 <script class="execute_fun" type="text/javascript">
   var lower_to_upper_input = document.getElementById("lower_to_upper_input");
   var lower_to_upper_output = document.getElementById("lower_to_upper_output");
+  lower_to_upper_input.addEventListener("change",caseChange);
 
   var upper_to_lower_input = document.getElementById("upper_to_lower_input");
   var upper_to_lower_output = document.getElementById("upper_to_lower_output");
+  upper_to_lower_input.addEventListener("change",caseChange);
 
   //大小写转换
-  function caseChange(_element) {
-    if(_element.id == lower_to_upper_input.id)
+  function caseChange(e) {
+    if(e.target.id == lower_to_upper_input.id)
     {
-      lower_to_upper_output.innerHTML = _element.value.toUpperCase();
+      lower_to_upper_output.innerHTML = e.target.value.toUpperCase();
     }
     else {
-      upper_to_lower_output.innerHTML = _element.value.toLowerCase();
+      upper_to_lower_output.innerHTML = e.target.value.toLowerCase();
     }
   }
 </script>
