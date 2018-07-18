@@ -18,8 +18,10 @@
 <br>
 输出：<span id="upper_to_lower_output"></span>
 
-<script type="text/javascript">
+<!-- ====================================================================================== -->
 
+<!-- 本地代码 -->
+<script type="text/javascript">
   var lower_to_upper_input = document.getElementById("lower_to_upper_input");
   var lower_to_upper_output = document.getElementById("lower_to_upper_output");
 
@@ -36,8 +38,26 @@
       upper_to_lower_output.innerHTML = _element.value.toLowerCase();
     }
   }
+</script>
 
+<!-- 网页加入时执行代码 -->
+<script class="execute_fun" type="text/javascript">
+  var lower_to_upper_input = document.getElementById("lower_to_upper_input");
+  var lower_to_upper_output = document.getElementById("lower_to_upper_output");
 
+  var upper_to_lower_input = document.getElementById("upper_to_lower_input");
+  var upper_to_lower_output = document.getElementById("upper_to_lower_output");
+
+  //大小写转换
+  function caseChange(_element) {
+    if(_element.id == lower_to_upper_input.id)
+    {
+      lower_to_upper_output.innerHTML = _element.value.toUpperCase();
+    }
+    else {
+      upper_to_lower_output.innerHTML = _element.value.toLowerCase();
+    }
+  }
 </script>
 
 </pre>
