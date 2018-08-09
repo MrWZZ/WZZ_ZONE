@@ -62,6 +62,27 @@ atom-text-editor .wrap-guide{
       'shift-alt-u':'editor:move-to-first-character-of-line' #光标移动到行首
       'shift-alt-o':'editor:move-to-end-of-screen-line' #光标移动到行尾
 </xmp>
+
+<h1 class="h1">Egret</h1>
+数据容器中的皮肤需要提前加载，否则在使用时候在加载的话会导致加载过慢，属性没有附上。
+
+有时候报某一个控件未定义错误，很大可能是因为皮肤没有加载完成引起的。这时候要做一个初始化方法，判定控件时候初始化完成。
+
+在监听touch_begin、touch_end、touch_move的事件中，可能因为移动太快，move事件跟不上。
+在抬起的时候会触发TOUCH_RELEASE_OUTSIDE事件，导致touch_begin、touch_end不能成对触发。
+
+在获取舞台宽、高的时候，直接通过this.stage.width/height获取到的是零。
+需要通过egret.MainContext.instance.stage来获取。
+
+<h1 class="h1">Chrom</h1>
+插件存放位置
+C:\Users\xxx\AppData\Local\Google\Chrome\User Data\Default\Extensions
+
+<h1 class="h1">其他</h1>
+微信GIF表情导出：
+电脑版->设置->通用设置->找到CustomEmoV1->新建文件ren.txt->内容：ren * *.gif
+->改后缀.bat->双击。
+
 </pre>
 </body>
 </html>
