@@ -19,28 +19,28 @@
     'prefix': 'block'
     'body': '''
            <xmp class="block">
-             $1
+           $1
            </xmp>
            '''
   'inline_block':
     'prefix': 'inline_block'
     'body':'''
            <xmp class="inline_block">
-             $1
+           $1
            </xmp>
            '''
    'demo':
      'prefix': 'demo'
      "body":'''
            <div class="demo">
-             $1
+           $1
            </div>
            '''
   'execute_fun':
     'prefix': "exe"
     'body': '''
             <script class="execute_fun" type="text/javascript">
-              $1
+            $1
             </script>
             '''
   '.h1':
@@ -53,6 +53,34 @@
     'prefix': "w_doc"
     'body': '''
             <pre class="w_doc">
-              $1
+            $1
             </pre>
             '''
+
+wing 快捷键 ====================================================
+
+[{
+    "key": "shift+alt+k",
+    "command": "cursorDown",
+    "when": "editorTextFocus"
+},{
+    "key": "shift+alt+o",
+    "command": "cursorEnd",
+    "when": "editorTextFocus"
+},{
+    "key": "shift+alt+u",
+    "command": "cursorHome",
+    "when": "editorTextFocus"
+},{
+    "key": "shift+alt+j",
+    "command": "cursorLeft",
+    "when": "editorTextFocus"
+},{
+    "key": "shift+alt+i",
+    "command": "cursorUp",
+    "when": "editorTextFocus"
+},{
+    "key": "shift+alt+l",
+    "command": "cursorRight",
+    "when": "editorTextFocus"
+}]

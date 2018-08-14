@@ -74,6 +74,8 @@ atom-text-editor .wrap-guide{
 在获取舞台宽、高的时候，直接通过this.stage.width/height获取到的是零。
 需要通过egret.MainContext.instance.stage来获取。
 
+遇到页面没有正常调用方法、没有正常开启或关闭的时候，先想想有没有可能是页面还没有初始化完毕。
+
 <h1 class="h1">Chrom</h1>
 插件存放位置
 C:\Users\xxx\AppData\Local\Google\Chrome\User Data\Default\Extensions
