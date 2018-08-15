@@ -84,7 +84,7 @@ function Controller() {
     {
       pageContent.innerHTML = iframe.contentWindow.document.body.innerHTML;
       // 执行本页面下的script元素
-      self.ExecuteFunList();
+      self.executeFun();
     }
     pageContent.appendChild(iframe);
   }
