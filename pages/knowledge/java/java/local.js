@@ -1,6 +1,6 @@
 var info = {
   title : "Java",
-  description : "摘抄自《写给大忙人看Java核心技术》";
+  description : "摘抄自《写给大忙人看Java核心技术》"
 }
 var pages = [
   { title:"基本的编程结构", url:"pages/1.html" },
