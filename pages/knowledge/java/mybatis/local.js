@@ -4,3 +4,5 @@ var pages = [
   { title:"全局配置", url:"pages/2.html" },
   { title:"xml映射文件", url:"pages/3.html" },
 ];
+
+Controller.pageInit(pages);

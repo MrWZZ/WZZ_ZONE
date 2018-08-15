@@ -4,3 +4,5 @@ var pages = [
   { title:"AOP", url:"pages/2.html" },
   { title:"JDBC和事务", url:"pages/3.html" }
 ];
+
+Controller.pageInit(pages);

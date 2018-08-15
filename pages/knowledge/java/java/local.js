@@ -8,3 +8,5 @@ var pages = [
   { title:"Stream", url:"pages/6.html" },
   { title:"并发操作", url:"pages/7.html" },
 ];
+
+Controller.pageInit(pages);

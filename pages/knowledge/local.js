@@ -1,26 +1,3 @@
-//首页导航数组(通用、作品模块有这个的副本，需要一起修改)
-var homeLinks = [
-  { title:"主页", url:"/index.html" },
-  { title:"知识总结", url:"/pages/knowledge/knowledge.html" },
-  { title:"方法库", url:"/pages/method/method.html" },
-  { title:"收藏", url:"/pages/collection/collection.html" },
-  { title:"作品", url:"/pages/production/production.html" },
-  { title:"踩过的坑", url:"/pages/mistake/mistake.html" }
-];
-
-//首页导航生成(通用、作品模块有这个的副本，需要一起修改)
-function CreateHomeLinks()
-{
-  var homeNavPanel = document.querySelector(".home_nav");
-  for(var i in homeLinks)
-  {
-    var a = document.createElement("a");
-    a.setAttribute("href",homeLinks[i].url);
-    a.text = homeLinks[i].title;
-    homeNavPanel.appendChild(a);
-  }
-}
-
 //知识数组
 var knowledgeList = [
   //前端
@@ -76,4 +53,5 @@ function CreateModel()
 }
 
 CreateModel();
-CreateHomeLinks();
+Controller.createTopLinks();
+Controller.loadCss(mainData.css.knowledge);
