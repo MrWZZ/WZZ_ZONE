@@ -54,4 +54,3 @@ function CreateModel()
 
 CreateModel();
 Controller.createTopLinks();
-Controller.loadCss(mainData.css.knowledge);

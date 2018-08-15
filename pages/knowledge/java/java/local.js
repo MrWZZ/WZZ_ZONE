@@ -1,4 +1,7 @@
-//页面数组
+var info = {
+  title : "Java",
+  description : "摘抄自《写给大忙人看Java核心技术》";
+}
 var pages = [
   { title:"基本的编程结构", url:"pages/1.html" },
   { title:"面向对象编程", url:"pages/2.html" },
@@ -9,4 +12,4 @@ var pages = [
   { title:"并发操作", url:"pages/7.html" },
 ];
 
-Controller.pageInit(pages);
+Controller.loadView(mainData.view.summary,Controller.pageInit,[pages,info]]);

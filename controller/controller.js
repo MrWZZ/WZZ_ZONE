@@ -1,6 +1,6 @@
 mainData = {
-  "rootPath" : "/wzz/",
-  "homeLinks" : [
+  rootPath : "/wzz/",
+  homeLinks : [
     { title:"主页", url:"/wzz/index.html" },
     { title:"知识总结", url:"/wzz/pages/knowledge/knowledge.html" },
     { title:"方法库", url:"/wzz/pages/method/method.html" },
@@ -8,9 +8,15 @@ mainData = {
     { title:"作品", url:"/wzz/pages/production/production.html" },
     { title:"踩过的坑", url:"/wzz/pages/mistake/mistake.html" }
   ],
-  "css" : {
+  css : {
     "summary" : "/wzz//pages/summary.css",
     "knowledge" : "knowledge.css"
+  },
+  image : {
+    "favicon" : "/wzz/favicon.png"
+  },
+  view : {
+    "summary" : "/wzz/view/summary.html"
   }
 }
 
@@ -34,10 +40,10 @@ function Controller() {
 
   // 加载CSS
   self.loadCss = function(url) {
-    var head = document.getElementsByTagName('head')[0];
-    var link = document.createElement('link');
-    link.type='text/css';
-    link.rel = 'stylesheet';
+    var head = document.getElementsByTagName("head")[0];
+    var link = document.createElement("link");
+    link.type="text/css";
+    link.rel = "stylesheet";
     link.href = url;
     head.appendChild(link);
   }
@@ -55,24 +61,24 @@ function Controller() {
   }
 
   // 左侧导航生成
-  self.createLeftLinks = function() {
+  self.createLeftLinks = function(_pages) {
     var navContent = document.querySelector(".left nav");
     // pages为本页面loacl.js中的页面数据
-    for(var i in pages)
+    for(var i in _pages)
     {
       var a = document.createElement("a");
-      a.setAttribute("data-url",pages[i].url);
-      a.text = pages[i].title;
-      a.onclick = function(e) {self.CreateContent(e.target.getAttribute("data-url"));}
+      a.setAttribute("data-url",_pages[i].url);
+      a.text = _pages[i].title;
+      a.onclick = function(e) {self.createContent(e.target.getAttribute("data-url"));}
       navContent.appendChild(a);
     }
   }
 
   // 生成内容
-  self.createContent = function(url) {
+  self.createContent = function(_url) {
     var pageContent = document.querySelector(".center");
     var iframe = document.createElement("iframe");
-    iframe.src = url;
+    iframe.src = _url;
     iframe.style.display = "none";
     iframe.onload = function()
     {
@@ -92,17 +98,53 @@ function Controller() {
     }
   }
 
+  // 设置小页面信息
+  self.setInfo = function(_info) {
+    var title = document.getElementsByTagName("title")[0];
+    title.innerHTML = _info.title;
+    var header = document.getElementsByTagName("header")[0];
+    var h1 = header.getElementsByTagName("h1")[0];
+    h1.innerHTML = _info.title;
+    var p = header.getElementsByTagName("p")[0];
+    p.innerHTML = _info.description;
+  }
+
+  // 设置网站图标
+  self.setFavicon = function() {
+    var head = document.getElementsByTagName("head")[0];
+    var link = document.createElement("link");
+    link.rel = "shortcut icon";
+    link.href = mainData.image.favicon;
+    head.appendChild(link);
+  }
+
+  // 加载视图
+  set.loadView = function(view,callback,args) {
+    var body = document.getElementsByTagName("body")[0];
+    var iframe = document.createElement("iframe");
+    iframe.src = view;
+    iframe.style.display = "none";
+    iframe.onload = function()
+    {
+      body.innerHTML = iframe.contentWindow.document.body.innerHTML;
+      if(typeof callback === "function") {
+        callback.apply(this,args);
+      }
+    }
+    body.appendChild(iframe);
+  }
+
   // 小页面初始化
-  self.pageInit = function(pages) {
+  self.pageInit = function(_pages,_info) {
     self.createTopLinks();
-    self.createLeftLinks();
-    self.loadCss(mainData.css.summary);
-    document.querySelector(".to_top").setAttribute("onclick","window.scrollTo(0,0)");
+    self.createLeftLinks(_pages);
+    self.setInfo(_info);
     // 一开始显示第一个页面
-    self.createContent(pages[0].url);
+    self.createContent(_pages[0].url);
   }
 }
 
 // 运行脚本
 var Controller = new Controller();
 Controller.loadScript("local.js");
+Controller.setFavicon();
