@@ -119,7 +119,7 @@ function Controller() {
   }
 
   // 加载视图
-  set.loadView = function(view,callback,args) {
+  self.loadView = function(view,callback,args) {
     var body = document.getElementsByTagName("body")[0];
     var iframe = document.createElement("iframe");
     iframe.src = view;
