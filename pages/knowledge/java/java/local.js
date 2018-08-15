@@ -12,4 +12,4 @@ var pages = [
   { title:"并发操作", url:"pages/7.html" },
 ];
 
-Controller.loadView(mainData.view.summary,Controller.pageInit,[pages,info]]);
+Controller.loadView(mainData.view.summary,Controller.pageInit,[pages,info]);
