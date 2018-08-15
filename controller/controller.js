@@ -99,7 +99,7 @@ function Controller() {
     self.loadCss(mainData.css.summary);
     document.querySelector(".to_top").setAttribute("onclick","window.scrollTo(0,0)");
     // 一开始显示第一个页面
-    self.CreateContent(pages[0].url);
+    self.createContent(pages[0].url);
   }
 }
 
