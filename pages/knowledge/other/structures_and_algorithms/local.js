@@ -9,3 +9,8 @@ var pages = [
   { title:"集合", url:"pages/7.html" },
   { title:"高级排序算法", url:"pages/8.html" },
 ];
+var info = {
+  title : "数据结构与算法",
+  description : "————摘抄自《数据结构与算法C#语言描述》"
+}
+Controller.loadView(mainData.view.summary,Controller.pageInit,[pages,info]);

@@ -9,3 +9,8 @@ var pages = [
   { title:"jQuery与Ajax", url:"pages/7.html" },
   { title:"应用jQuery动画效果", url:"pages/8.html" },
 ];
+var info = {
+  title : "JQuery总结",
+  description : ""
+}
+Controller.loadView(mainData.view.summary,Controller.pageInit,[pages,info]);

@@ -8,3 +8,8 @@ var pages = [
   { title:"表单", url:"pages/6_form.html" },
   { title:"嵌入元素", url:"pages/7_inset.html" }
 ];
+var info = {
+  title : "HTML5总结",
+  description : "————内容摘抄自《HTML5权威指南》"
+}
+Controller.loadView(mainData.view.summary,Controller.pageInit,[pages,info]);

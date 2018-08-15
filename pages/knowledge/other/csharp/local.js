@@ -15,3 +15,8 @@ var pages = [
   { title:"WPF", url:"pages/13.html" },
   { title:"ASP", url:"pages/14.html" },
 ];
+var info = {
+  title : "C#",
+  description : "————摘抄自《精通c#（第六版）》"
+}
+Controller.loadView(mainData.view.summary,Controller.pageInit,[pages,info]);

@@ -5,3 +5,8 @@ var pages = [
   { title:"CSS", url:"pages/css.html" },
   { title:"其他", url:"pages/other.html" },
 ];
+var info = {
+  title : "踩过的坑",
+  description : ""
+}
+Controller.loadView(mainData.view.summary,Controller.pageInit,[pages,info]);
