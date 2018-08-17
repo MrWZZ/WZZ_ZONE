@@ -303,6 +303,15 @@ GetPosition()方法允许我们获取窗口上相对UI元素的（x,y）值。
 
 <h1 class="h1">窗口设计器</h1>
 文本大纲窗口：查看控件层级结构。
+
+<b>焦点设置</b>
+<xmp class="block">
+<Grid FocusManager.FocusedElement="{Binding ElementName=txtInput}">
+    <TextBox x:Name="txtInput" />
+</Grid>
+</xmp>
+
+
 </pre>
 </body>
 </html>

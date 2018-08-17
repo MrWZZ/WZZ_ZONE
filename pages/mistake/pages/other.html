@@ -11,6 +11,9 @@
 在可选配置中，把 <mark>类图</mark>给勾上，就可以使用UML了。
 
 <h1 class="h1">Git</h1>
+
+<a href="https://blog.csdn.net/qq_38826163/article/details/78681983">个人博客</a>
+
 <b>丢弃本地所有修改（新增、删除、更改）</b>
 <code>git checkout .</code>
 
@@ -22,6 +25,30 @@
 <code>git checkout master</code>
 3.进行合并
 <code>git merge dev -m "进行合并"</code>
+
+<b>克隆远程分支</b>
+<code>git clone -b gh-pages [地址]</code>
+
+<b>版本回退</b>
+1.查询版本
+<code>git log --pretty=oneline</code>
+2.回退到制定版本
+<code>git reset --hard [版本号前6、7个字符]</code>
+3.更新回退命令到远程（可选）
+<code>git push -f origin [分支]</code>
+
+<b>新建仓库</b>
+1.本地初始化
+<code>git init</code>
+2.添加本地文件
+<code>git add .</code>
+3.创建版本
+<code>git commit -m "说明"</code>
+4.在github创建新的仓库并拿到地址
+5.本地仓库链接远程仓库
+<code>git remote add origin [地址]</code>
+6.推送到远程仓库
+<code>git push origin master</code>
 
 <h1 class="h1">Atom</h1>
 Atom软件安装完第一次使用时中间会有一条白线。
@@ -75,6 +102,23 @@ atom-text-editor .wrap-guide{
 
 遇到页面没有正常调用方法、没有正常开启或关闭的时候，先想想有没有可能是页面还没有初始化完毕。
 
+<b>储存信息到本地</b>
+<xmp class="block">
+// 存储
+var key:string = "bestscore";
+var value:string = "95";
+egret.localStorage.setItem(key,value);
+
+// 读取
+var score:string = egret.localStorage.getItem(key);
+
+// 删除
+egret.localStorage.removeItem(key);
+
+// 清空所有数据
+egret.localStorage.removeItem(key);
+</xmp>
+
 <h1 class="h1">Chrom</h1>
 插件存放位置
 C:\Users\xxx\AppData\Local\Google\Chrome\User Data\Default\Extensions
@@ -84,6 +128,10 @@ C:\Users\xxx\AppData\Local\Google\Chrome\User Data\Default\Extensions
 电脑版->设置->通用设置->找到CustomEmoV1->新建文件ren.txt->内容：ren * *.gif
 ->改后缀.bat->双击。
 
+<h1 class="h1">VisualStidio</h1>
+注释：<code>Ctrl + K + C</code>
+取消注释：<code>Ctrl + K + U</code>
+整理代码：<code>Ctrl + K + F</code>
 </pre>
 </body>
 </html>
