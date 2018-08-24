@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+<pre class="w_doc">
+<h1 class="h1">Egret</h1>
+数据容器中的皮肤需要提前加载，否则在使用时候在加载的话会导致加载过慢，属性没有附上。
+
+有时候报某一个控件未定义错误，很大可能是因为皮肤没有加载完成引起的。这时候要做一个初始化方法，判定控件时候初始化完成。
+
+在监听touch_begin、touch_end、touch_move的事件中，可能因为移动太快，move事件跟不上。
+在抬起的时候会触发TOUCH_RELEASE_OUTSIDE事件，导致touch_begin、touch_end不能成对触发。
+
+在获取舞台宽、高的时候，直接通过this.stage.width/height获取到的是零。
+需要通过egret.MainContext.instance.stage来获取。
+
+遇到页面没有正常调用方法、没有正常开启或关闭的时候，先想想有没有可能是页面还没有初始化完毕。
+
+<b>储存信息到本地</b>
+<xmp class="block">
+// 存储
+var key:string = "bestscore";
+var value:string = "95";
+egret.localStorage.setItem(key,value);
+
+// 读取
+var score:string = egret.localStorage.getItem(key);
+
+// 删除
+egret.localStorage.removeItem(key);
+
+// 清空所有数据
+egret.localStorage.removeItem(key);
+</xmp>
+
+<b>骨骼动画限制</b>
+帧动画前后必须有改动，否则会被当做无用帧清除，这样在程序中才能控制移动。
+</pre>
+  </body>
+</html>
