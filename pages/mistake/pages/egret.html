@@ -43,6 +43,17 @@ egret.localStorage.removeItem(key);
 骨骼动画的offset坐标系中，使用的是左手坐标系。
 而骨骼的global坐标系中，使用的是右手坐标系。
 
+<b>微信小游戏</b>
+有时候发布到微信小游戏的时候，皮肤会加载不出来。提示缺少xml解析库。
+解决方法是：使用5.2.5的引擎版本的，会自动生成皮肤类的引擎版本。
+
+微信不支持show_all适配，要达到这种效果应该选用fixedNarrow适配。
+然后在相关的视图上加上：
+<xmp class="block">
+this.percentWidth = 100;
+this.percentHeight = 100;
+</xmp>
+我这个是要在baseLayer和baseView里面加上。
 </pre>
   </body>
 </html>

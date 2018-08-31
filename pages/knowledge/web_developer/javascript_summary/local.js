@@ -4,6 +4,7 @@ var pages = [
   { title:"基础入门", url:"pages/2.html" },
   { title:"对象", url:"pages/3.html" },
   { title:"正则表达式", url:"pages/4.html" },
+  { title:"TypeScript", url:"pages/5.html" },
 ];
 var info = {
   title : "JavaScript总结",
