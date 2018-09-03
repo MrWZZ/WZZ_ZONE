@@ -45,7 +45,8 @@ egret.localStorage.removeItem(key);
 
 <b>微信小游戏</b>
 有时候发布到微信小游戏的时候，皮肤会加载不出来。提示缺少xml解析库。
-解决方法是：使用5.2.5的引擎版本的，会自动生成皮肤类的引擎版本。
+解决方法是：皮肤资源需要放在resource文件夹里面，放在这个文件夹下面，引擎会编译成类文件。
+而放在其他其他文件夹下面，就不会自动编译导致微信中运行报缺少xml。
 
 微信不支持show_all适配，要达到这种效果应该选用fixedNarrow适配。
 然后在相关的视图上加上：
@@ -53,7 +54,7 @@ egret.localStorage.removeItem(key);
 this.percentWidth = 100;
 this.percentHeight = 100;
 </xmp>
-我这个是要在baseLayer和baseView里面加上。
+我这个是要在baseLayer和baseView里面加上。这个是居中操作，也可以使用其他居中操作。
 </pre>
   </body>
 </html>
