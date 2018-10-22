@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+<pre class="w_doc">
+<h1 class="h1">清空绘图区域</h1>
+<b>基本步骤</b>
+1.声明canvas标签。
+<xmp><canvas id="canvas" width="300" height="300"></canvas></xmp>
+2.获取标签。
+<xmp>var canvas = document.getElementById("canvas");</xmp>
+3.获取绘图上文。
+<xmp>var gl = canvas.getContext("webgl");</xmp>
+4.设置背景色。
+<xmp>gl.clearColor(0.0, 0.0, 0.0, 1.0);</xmp>
+5.清空绘图区域。
+<xmp>gl.clear(gl.COLOR_BUFFER_BIT);</xmp>
+
+<h1 class="h1">绘制一个点</h1>
+<b>基本步骤</b>
+1.上面的5步骤。
+2.声明顶点着色器
+<xmp class="block">
+var VSHADER_SOURCE =
+  'void main() {\n' +
+  '  gl_Position = vec4(0.0,0.0,0.0,1.0);\n' +  //设置坐标
+  '  gl_PointSize = 10.0;\n' + //设置尺寸
+  '}\n';
+</xmp>
+3.声明片元着色器
+<xmp class="block">
+var FSHADER_SOURCE =
+  'void main() {' +
+  '  gl_FargColor = vec4(1.0,0.0,0.0,1.0);' + //设置颜色
+  '}';
+</xmp>
+4.初始化着色器
+  4.1 创建着色器对象
+  <xmp>gl.createShader(type)</xmp>
+  type取值：gl.VERTEX_SHADER、gl.FRAGMENT_SHADER
+  
+  4.2 向着色器对象中填充着色器程序的源代码
+  <xmp>gl.shaderSource(shader,source)</xmp>
+  4.3 编译着色器
+  <xmp>gl.compileShader(shader)</xmp>
+  4.4 创建程序对象
+  <xmp>gl.createProgram()</xmp>
+  4.5 为程序对象分配着色器
+  <xmp>gl.attachShader(program,shader)</xmp>
+  4.6 链接程序对象
+  <xmp>gl.linkProgram(program)</xmp>
+  4.7 使用程序对象
+  <xmp>gl.useProgram(program)</xmp>
+5.绘制一个点
+<xmp class="block">
+gl.drawArray(gl.POINTS,0,1);
+</xmp>
+</pre>
+  </body>
+</html>

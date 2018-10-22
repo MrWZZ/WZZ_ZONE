@@ -18,10 +18,16 @@
 <br>
 输出：<span id="upper_to_lower_output"></span>
 
+<b>位运算</b>
+
+<h1 class="h1">shader文本转换</h1>
+<textarea id="shader_input" rows="8" cols="80" style="height:500px;width:600px;"></textarea>
+输出:
+<textarea id="shader_output" rows="8" cols="80" style="height:500px;width:600px;"></textarea>
+
 <!-- ====================================================================================== -->
 
-<!-- 本地代码 -->
-<script type="text/javascript">
+<script class="execute_fun" type="text/javascript">
   var lower_to_upper_input = document.getElementById("lower_to_upper_input");
   var lower_to_upper_output = document.getElementById("lower_to_upper_output");
   lower_to_upper_input.addEventListener("change",caseChange);
@@ -29,6 +35,10 @@
   var upper_to_lower_input = document.getElementById("upper_to_lower_input");
   var upper_to_lower_output = document.getElementById("upper_to_lower_output");
   upper_to_lower_input.addEventListener("change",caseChange);
+
+  var shader_input = document.getElementById("shader_input");
+  var shader_output = document.getElementById("shader_output");
+  shader_input.addEventListener("change",formatChange);
 
   //大小写转换
   function caseChange(e) {
@@ -40,27 +50,14 @@
       upper_to_lower_output.innerHTML = e.target.value.toLowerCase();
     }
   }
-</script>
 
-<!-- 网页加入时执行代码 -->
-<script class="execute_fun" type="text/javascript">
-  var lower_to_upper_input = document.getElementById("lower_to_upper_input");
-  var lower_to_upper_output = document.getElementById("lower_to_upper_output");
-  lower_to_upper_input.addEventListener("change",caseChange);
-
-  var upper_to_lower_input = document.getElementById("upper_to_lower_input");
-  var upper_to_lower_output = document.getElementById("upper_to_lower_output");
-  upper_to_lower_input.addEventListener("change",caseChange);
-
-  //大小写转换
-  function caseChange(e) {
-    if(e.target.id == lower_to_upper_input.id)
-    {
-      lower_to_upper_output.innerHTML = e.target.value.toUpperCase();
-    }
-    else {
-      upper_to_lower_output.innerHTML = e.target.value.toLowerCase();
-    }
+  //将shader代码变成字符串
+  function formatChange(e) {
+    //给行首行尾添加引号
+    var text = shader_input.value.replace(/^/gm,'"').replace(/$/gm,'\\n" +');
+    //去除最后的一个加号
+    text = text.replace(/\+$/,'');
+    shader_output.value = text;
   }
 </script>
 

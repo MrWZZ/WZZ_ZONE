@@ -54,6 +54,22 @@
 6.推送到远程仓库
 <code>git push origin master</code>
 
+<b>在克隆主分支后获取其他分支</b>
+1.克隆主分支
+<code>git clone [地址]</code>
+2.查看远程分支
+<code>git branch -a</code>
+3.遥控远程分支
+<code>git checkout -b [本地起名(随意)] origin/[分支名] </code>
+
+<b>amend操作</b>
+amend在于提交的时候不创建新的节点，而是覆盖上一个节点。
+如果在amend操作之后再加上no-edit的话，就不修改提交的说明。
+完整外码: <code>git commit --amend --no-edit</code>
+这时候在推送就需要强制推送。
+<code>git push -f</code>
+
+
 <h1 class="h1">Atom</h1>
 Atom软件安装完第一次使用时中间会有一条白线。
 这条白线是用于指示内容超出该线后在网页上的排版可能会和Atom显示的不一样。
