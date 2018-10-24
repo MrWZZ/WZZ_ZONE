@@ -34,6 +34,7 @@ var VSHADER_SOURCE =
 <xmp class="block">
 var FSHADER_SOURCE =
   'void main() {' +
+
   '  gl_FargColor = vec4(1.0,0.0,0.0,1.0);' + //设置颜色
   '}';
 </xmp>
@@ -41,7 +42,7 @@ var FSHADER_SOURCE =
   4.1 创建着色器对象
   <xmp>gl.createShader(type)</xmp>
   type取值：gl.VERTEX_SHADER、gl.FRAGMENT_SHADER
-  
+
   4.2 向着色器对象中填充着色器程序的源代码
   <xmp>gl.shaderSource(shader,source)</xmp>
   4.3 编译着色器

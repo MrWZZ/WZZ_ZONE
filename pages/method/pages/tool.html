@@ -54,7 +54,7 @@
   //将shader代码变成字符串
   function formatChange(e) {
     //给行首行尾添加引号
-    var text = shader_input.value.replace(/^/gm,'"').replace(/$/gm,'\\n" +');
+    var text = shader_input.value.replace(/^/gm,"'").replace(/$/gm,"\\n' +");
     //去除最后的一个加号
     text = text.replace(/\+$/,'');
     shader_output.value = text;
