@@ -23,7 +23,6 @@ var Log = /** @class */ (function () {
      * 导致游戏运行停止、图片不显示等严重错误
      */
     Log.error = function ($msg) {
-        // 强制终止代码并卡住调用堆栈
         console.error.call(console, $msg);
     };
     return Log;

@@ -76,5 +76,35 @@ var Shader = /** @class */ (function () {
         }
         return program;
     };
+    /**
+     * 获取变量地址
+     * @param $gl 上下文对象
+     * @param $program 着色器程序
+     * @param $name 变量名字
+     */
+    Shader.getAttribLocation = function ($gl, $program, $name) {
+        var address = $gl.getAttribLocation($program, $name);
+        //获取地址失败
+        if (address < 0) {
+            Log.warn(name + ":can not get address!");
+            return -1;
+        }
+        return address;
+    };
+    /**
+     * 获取变量地址
+     * @param $gl 上下文对象
+     * @param $program 着色器程序
+     * @param $name 变量名字
+     */
+    Shader.getUniformLocation = function ($gl, $program, $name) {
+        var address = $gl.getUniformLocation($program, $name);
+        //获取地址失败
+        if (address < 0) {
+            Log.warn(name + ":can not get address!");
+            return -1;
+        }
+        return address;
+    };
     return Shader;
 }());

@@ -76,5 +76,37 @@ class Shader {
         }
         return program;
     }
+
+    /**
+     * 获取变量地址
+     * @param $gl 上下文对象
+     * @param $program 着色器程序
+     * @param $name 变量名字
+     */
+    public static getAttribLocation($gl:WebGLRenderingContext,$program:WebGLProgram,$name:string):number {
+        let address = $gl.getAttribLocation($program,$name); 
+        //获取地址失败
+        if(address < 0) {
+            Log.warn(`${name}:can not get address!`);
+            return -1;
+        }
+        return address;
+    }
+
+    /**
+     * 获取变量地址
+     * @param $gl 上下文对象
+     * @param $program 着色器程序
+     * @param $name 变量名字
+     */
+    public static getUniformLocation($gl:WebGLRenderingContext,$program:WebGLProgram,$name:string):WebGLUniformLocation {
+        let address = $gl.getUniformLocation($program,$name); 
+        //获取地址失败
+        if(address < 0) {
+            Log.warn(`${name}:can not get address!`);
+            return -1;
+        }
+        return address;
+    }
 }
 

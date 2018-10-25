@@ -29,7 +29,6 @@ abstract class Log{
      */
     public static error($msg):void
     {
-        // 强制终止代码并卡住调用堆栈
         console.error.call(console,$msg);
     }
 }
