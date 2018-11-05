@@ -1,5 +1,5 @@
 /**
- * 平移、旋转、缩放
+ * 使用缓冲区,绘制三角形
  */
 
 class Main {
@@ -9,9 +9,8 @@ class Main {
         let gl = Shader.getGl("canvas");
         let vSource =
             'attribute vec4 a_Position;\n' +
-            'uniform mat4 u_xformMatrix;\n' +
             'void main() {\n' +
-            '  gl_Position = u_xformMatrix * a_Position;\n' +
+            '  gl_Position = a_Position;\n' +
             '}\n';
 
         let fSource =
@@ -47,40 +46,6 @@ class Main {
         gl.vertexAttribPointer(a_Position,2,gl.FLOAT,false,0,0);
         //开启attribute变量
         gl.enableVertexAttribArray(a_Position);
-
-        //变换矩阵获取
-        let u_xformMatrix = Shader.getUniformLocation(gl,program,"u_xformMatrix");
-        //旋转角度
-        let angle = 90;
-        let radian = angle * Math.PI/180;
-        let cosB = Math.cos(radian);
-        let sinB = Math.sin(radian);
-        //旋转矩阵（列主序）
-        let xformMatrix = new Float32Array([
-            cosB,sinB,0.0,0.0,
-            -sinB,cosB,0.0,0.0,
-            0.0,0.0,1.0,0.0,
-            0.0,0.0,0.0,1.0
-        ]);
-        //平移矩阵
-        // let Tx = 0.5,Ty = 0.5,Tz = 0.5;
-        // let xformMatrix = new Float32Array([
-        //     1.0,0.0,0.0,0.0,
-        //     0.0,1.0,0.0,0.0,
-        //     0.0,0.0,1.0,0.0,
-        //     Tx,Ty,Tz,1.0
-        // ]);
-        //缩放矩阵
-        // let Sx = 1.0,Sy = 1.5,Sz = 1.0;
-        // let xformMatrix = new Float32Array([
-        //     Sx,0.0,0.0,0.0,
-        //     0.0,Sy,0.0,0.0,
-        //     0.0,0.0,Sz,0.0,
-        //     0.0,0.0,0.0,1.0
-        // ]);
-
-        //将许旋转矩阵传输给顶点着色器
-        gl.uniformMatrix4fv(u_xformMatrix,false,xformMatrix);
 
         //绘制
         gl.clear(gl.COLOR_BUFFER_BIT);

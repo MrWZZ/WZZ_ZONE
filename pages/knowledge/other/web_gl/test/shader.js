@@ -106,5 +106,14 @@ var Shader = /** @class */ (function () {
         }
         return address;
     };
+    //创建缓冲区对象
+    Shader.createBuffer = function ($gl) {
+        var buffer = $gl.createBuffer();
+        if (!buffer) {
+            Log.warn("can note create buffer!");
+            return -1;
+        }
+        return buffer;
+    };
     return Shader;
 }());
