@@ -25,7 +25,6 @@ var Main = /** @class */ (function () {
             '}\n';
         var program = Shader.createProgram(gl, vSource, fSource);
         gl.useProgram(program);
-        gl.clearColor(0.0, 0.0, 0.0, 1.0);
         //缓冲数据:顶点坐标、纹理坐标
         var vArray = new Float32Array([
             -0.5, 0.5, 0.0, 1.0,
@@ -41,7 +40,7 @@ var Main = /** @class */ (function () {
         gl.bufferData(gl.ARRAY_BUFFER, vArray, gl.STATIC_DRAW);
         //获取分量长度
         var FSIZE = vArray.BYTES_PER_ELEMENT;
-        //获取attribute变量
+        //获取attribute变量 
         var a_Position = Shader.getAttribLocation(gl, program, "a_Position");
         //将缓冲区对象分配给一个attribute变量
         gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, FSIZE * 4, 0);
@@ -53,38 +52,31 @@ var Main = /** @class */ (function () {
         gl.vertexAttribPointer(a_TexCoord, 2, gl.FLOAT, false, FSIZE * 4, FSIZE * 2);
         //开启attribute变量
         gl.enableVertexAttribArray(a_TexCoord);
-        //加载纹理
-        initTextures(gl, program);
-        //绘制
-        gl.clear(gl.COLOR_BUFFER_BIT);
-        gl.drawArrays(gl.TRIANGLES, 0, 4);
+        //加载图片
+        var image = new Image();
+        image.onload = this.onImageLoad.bind(this, gl, program, image);
+        image.src = "sky.jpg";
     };
-    Main.initTextures = function ($gl, $program) {
+    Main.onImageLoad = function (gl, program, image) {
+        //创建纹理对象
+        var texture = gl.createTexture();
+        var u_Sampler = Shader.getUniformLocation(gl, program, "u_Sampler");
+        //对纹理对象进行y轴反转
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
+        //开启0号纹理单元
+        gl.activeTexture(gl.TEXTURE0);
+        //向目标绑定纹理对象
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        //配置纹理参数
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        //配置纹理图像
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, image);
+        //将0号纹理传递给着色器
+        gl.uniform1i(u_Sampler, 0);
+        gl.clearColor(0.0, 0.0, 0.0, 1.0);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     };
     return Main;
 }());
 Main.start();
-function initTextures($gl, $program) {
-    var texture = $gl.createTexture();
-    var u_Sampler = Shader.getUniformLocation($gl, $program, "u_Sampler");
-    //加载图片
-    var image = new Image();
-    image.onload = function () {
-        onLoadImage($gl, texture, u_Sampler, image);
-    };
-    image.src = "sky.JPG";
-}
-function onLoadImage($gl, $texture, $u_Sampler, $image) {
-    //对纹理图像进行y轴反转
-    $gl.pixelStorei($gl.UNPACK_FLIP_Y_WEBGL, 1);
-    //开启0号纹理单元
-    $gl.activeTexture($gl.TEXTURE0);
-    //向target绑定纹理对象
-    $gl.bindTexture($gl.TEXTURE_2D, $texture);
-    //配置纹理参数
-    $gl.texParameteri($gl.TEXTURE_2D, $gl.TEXTURE_MIN_FILTER, $gl.LINEAR);
-    //配置纹理图像
-    $gl.texImage2D($gl.TEXTURE_2D, 0, $gl.RGB, $gl.RGB, $gl.UNSIGNED_BYTE, $image);
-    //将0号纹理传给着色器参数
-    $gl.uniform1i($u_Sampler, 0);
-}
