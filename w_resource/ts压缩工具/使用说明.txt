@@ -1,0 +1,1 @@
+下载node，将ts文件夹放入app.js同级目录，打开控制台，调用 node app.js。
