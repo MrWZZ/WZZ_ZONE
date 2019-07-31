@@ -32,207 +32,381 @@
         </tr>
     </table>
 
-    <script class="execute_fun" type="text/javascript">
-        var struct_input = document.getElementById("struct_input");
-        var struct_output = document.getElementById("struct_output");
-        var struct_button = document.getElementById("struct_button");
-        struct_button.addEventListener("click", FormatChange);
 
-        function FormatChange(event) {
-            var input_value = struct_input.value;
+<script class="execute_fun" type="text/javascript">
 
-            //识别当前类型
-            var structName = input_value.match(/(?<=^(\s*struct\s*))\S+/gm);
-            //获取括号中的内容
-            var structBody = input_value.match(/(?<=\{)[^\}]+(?=\})/);
-            //读取其中的属性类型
-            var propertyTypes = structBody[0].match(/(?<=^(\s)*)\w+/gm);
-            //读取其中的属性名
-            var propertyNames = structBody[0].match(/[^\s]+(?=;)/gm);
-            //如果是数组，保存该数组的数值
-            var propertyArr = {};
-            //如果是数组，保存去掉[]后的名字
-            var propertyNameArr = {};
+var struct_input = document.getElementById("struct_input");
+var struct_output = document.getElementById("struct_output");
+var struct_button = document.getElementById("struct_button");
+struct_button.addEventListener("click", FormatChange);
 
-            //需要输出的内容
-            var output_text = "";
-            //在开头添加特性
-            output_text += "[Serializable]";
+function FormatChange() {
+    //把注释的行全部删除
+    var delect = struct_input.value.replace(/^(\s*\/+).+/gm, "");
+
+    ReadAllDefine(delect);
+    ReadAllStruct(delect);
+}
+
+
+//定义列表
+var defineList = {};
+
+//读取所有定义
+function ReadAllDefine(content) {
+    var defineName = content.match(/(?<=^(#define(\s)+))\S+/gm);
+    var defineValue = content.match(/(?<=^(#define(\s)+(\S)+(\s)+))\S+/gm);
+
+    if (!defineName) return;
+
+    for (var i = 0; i < defineName.length; i++) {
+        defineList[defineName[i]] = defineValue[i];
+    }
+}
+
+//读取所有结构
+function ReadAllStruct(content) {
+    var structBody = content.replace(/};/g, "};`").match(/struct\s+[^`]+/g);
+
+    //需要输出的内容
+    var output_text = "";
+
+    for (var i = 0; i < structBody.length; i++) {
+        output_text += ChangeContent(structBody[i])
+        output_text += "\n\n";
+    }
+
+    struct_output.value = output_text;
+}
+
+function ChangeContent(content) {
+
+    //识别当前类型
+    var structName = content.match(/(?<=^(\s*struct\s*))\S+/gm);
+    //匹配分号行
+    var line = content.match(/\s*\S+\s+\S+;/gm);
+    //读取其中的属性类型
+    var propertyTypes = [];
+    //读取其中的属性名
+    var propertyNames = [];
+    //对分号行进行筛选
+    for (i = 0; i < line.length; i++) {
+        var re = /[\{\}\(\)=]|return\s+/;
+        if (!re.test(line[i])) {
+            propertyTypes.push(line[i].match(/(?<=^\s*)\S+/));
+            propertyNames.push(line[i].match(/\S+(?=;)/));
+        }
+    }
+
+    //如果是数组，保存该数组的数值
+    var propertyArr = {};
+    //如果是数组，保存去掉[]后的名字
+    var propertyNameArr = {};
+
+    //需要输出的内容
+    var output_text = "";
+    //在开头添加特性
+    output_text += "[Serializable]";
+    output_text += "\n";
+    output_text += "[StructLayout(LayoutKind.Sequential, Pack = 1)]";
+    output_text += "\n";
+
+    //添加类型声明
+    output_text += `public struct ${structName[0]}`;
+    output_text += "\n";
+    output_text += "{";
+    output_text += "\n";
+
+    var span4 = "    ";
+    var span8 = "        ";
+
+    //添加属性
+    for (var i = 0; i < propertyNames.length; i++) {
+
+        var type = TypeChange(propertyTypes[i][0]);
+        var name = propertyNames[i][0];
+        var arrLength = propertyNames[i][0].match(/(?<=\[)\w+(?=])/g);
+        //是否是数组
+        if (arrLength && arrLength.length > 0) {
+
+            type += "[]";
+            name = name.replace(/\[\w+\]/g, "")
+
+            //查找定义中是否有
+            for (var j = 0; j < arrLength.length; j++) {
+                if (defineList[arrLength[j]]) {
+                    arrLength[j] = Number(defineList[arrLength[j]]);
+                }
+            }
+
+            var totalLength = 1;
+            for (var k = 0; k < arrLength.length; k++) {
+                totalLength *= arrLength[k];
+            }
+
+            output_text += span4 + `[MarshalAs(UnmanagedType.ByValArray, SizeConst = ${totalLength})]`;
             output_text += "\n";
-            output_text += "[StructLayout(LayoutKind.Sequential, Pack = 1)]";
+
+            propertyArr[i] = totalLength;
+            propertyNameArr[i] = name;
+        }
+
+        output_text += span4 + `public ${type} ${name};`;
+        output_text += "\n";
+    }
+
+    //添加二进制转结构方法
+    output_text += "\n";
+    output_text += span4 + `public static ${structName} BytesToStruct(byte[] data)`;
+    output_text += "\n";
+    output_text += span4 + "{";
+    output_text += "\n";
+
+    var rtn = "rtn";
+    var bts = "bts";
+    output_text += span8 + `${structName} ${rtn} = new ${structName}();`;
+    output_text += "\n";
+    output_text += span8 + `BytesToStruct ${bts} = new BytesToStruct(data, typeof(${structName}));`;
+    output_text += "\n\n";
+
+    //对于结构体转换，本次转换中是否已经出现过
+    var readStructHaveList = {};
+
+    //添加读转换
+    for (var i = 0; i < propertyNames.length; i++) {
+        var readName = TypeChangeRead(propertyTypes[i][0]);
+        var propertyName = propertyNames[i][0];
+        //是否是数组
+        if (propertyArr[i]) {
+            propertyName = propertyNameArr[i];
+        }
+        //如果转换出来的没有变化，说明这个是嵌套结构体，需要使用另一种转换方式
+        if (readName == propertyTypes[i][0]) {
+
             output_text += "\n";
-
-            //添加类型声明
-            output_text += `public struct ${structName[0]}`;
-            output_text += "\n";
-            output_text += "{";
-            output_text += "\n";
-
-            var span4 = "    ";
-            var span8 = "        ";
-
-            //添加属性
-            for (var i = 0; i < propertyNames.length; i++) {
-
-                var type = TypeChange(propertyTypes[i]);
-                var name = propertyNames[i];
-                //是否是数组
-                if (propertyNames[i].indexOf("[") > -1) {
-                    type = type + "[]";
-                    name = name.replace(/\[\w+\]/, "")
-
-                    var arrLength = propertyNames[i].match(/(?<=\[)\w+(?=])/);
-                    output_text += span4 + `[MarshalAs(UnmanagedType.ByValArray, SizeConst = ${arrLength})]`;
+            if (!readStructHaveList[readName]) {
+                output_text += span8 + `int ${readName}Size = Marshal.SizeOf(typeof(${readName}));`;
+                output_text += "\n";
+                output_text += span8 + `byte[] ${readName}Bytes = new byte[${readName}Size];`;
+                output_text += "\n";
+            }
+            //是否是数组
+            if (propertyArr[i]) {
+                if (!readStructHaveList[readName + "Arr"]) {
+                    output_text += span8 + `${readName}[] ${readName}Arr = new ${readName}[${propertyArr[i]}];`
                     output_text += "\n";
-
-                    propertyArr[i] = arrLength;
-                    propertyNameArr[i] = name;
                 }
-
-                output_text += span4 + `public ${type} ${name};`;
+                output_text += span8 + `for(int i = 0; i < ${propertyArr[i]}; i++)`;
                 output_text += "\n";
+                output_text += span8 + `{`;
+                output_text += "\n";
+                output_text += span8 + `Array.Copy(data, ${bts}.offset, ${readName}Bytes, 0, ${readName}Size);`;
+                output_text += "\n";
+                output_text += span8 + `${readName}Arr[i] = ${readName}.BytesToStruct(${readName}Bytes);`;
+                output_text += "\n";
+                output_text += span8 + `${bts}.offset += ${readName}Size;`;
+                output_text += "\n";
+                output_text += span8 + "}";
+                output_text += "\n";
+                output_text += span8 + `${rtn}.${propertyName} = ${readName}Arr;`;
+                output_text += "\n\n";
+
+                readStructHaveList[readName + "Arr"] = readName + "Arr"
+            } else {
+                output_text += span8 + `Array.Copy(data, ${bts}.offset, ${readName}Bytes, 0, ${readName}Size);`;
+                output_text += "\n";
+                output_text += span8 + `${rtn}.${propertyName} = ${readName}.BytesToStruct(${readName}Bytes);`;
+                output_text += "\n";
+                output_text += span8 + `${bts}.offset += ${readName}Size;`;
+                output_text += "\n\n";
             }
 
-            //添加二进制转结构方法
-            output_text += "\n";
-            output_text += span4 + `public static ${structName} BytesToStruct(byte[] data)`;
-            output_text += "\n";
-            output_text += span4 + "{";
-            output_text += "\n";
-
-            var rtn = "rtn";
-            var bts = "bts";
-            output_text += span8 + `${structName} ${rtn} = new ${structName}();`;
-            output_text += "\n";
-            output_text += span8 + `BytesToStruct ${bts} = new BytesToStruct(data, typeof(${structName}));`;
-            output_text += "\n\n";
-            //添加读转换
-            for (var i = 0; i < propertyNames.length; i++) {
-
-                var readName = TypeChangeRead(propertyTypes[i]);
-                var propertyName = propertyNames[i];
-                //是否是数组
-                if (propertyArr[i]) {
-                    readName = `${readName}Array(${propertyArr[i]})`;
-                    propertyName = propertyNameArr[i];
+            readStructHaveList[readName] = readName;
+        } else {
+            //是否是数组
+            if (propertyArr[i]) {
+                if (readName == "ReadByte") {
+                    readName = `${readName}s(${propertyArr[i]})`;
                 } else {
-                    readName = `${readName}()`;
+                    readName = `${readName}Array(${propertyArr[i]})`;
                 }
-                output_text += span8 + `${rtn}.${propertyName} = ${bts}.${readName};`;
+            } else {
+                readName = `${readName}()`;
+            }
+            output_text += span8 + `${rtn}.${propertyName} = ${bts}.${readName};`;
+            output_text += "\n";
+        }
+    }
+
+    output_text += "\n";
+    output_text += span8 + `return ${rtn};`;
+
+    output_text += "\n";
+    output_text += span4 + "}";
+
+    //添加结构转二进制方法
+    output_text += "\n\n";
+    output_text += span4 + `public static byte[] StructToBytes(${structName} st)`;
+    output_text += "\n";
+    output_text += span4 + "{";
+    output_text += "\n";
+
+    var stb = "stb";
+    output_text += span8 + `StructToBytes ${stb} = new StructToBytes(typeof(${structName}));`;
+    output_text += "\n\n";
+
+    //对于结构体转换，本次转换中是否已经出现过
+    var writeStructHaveList = {};
+
+    //添加写转换
+    for (var i = 0; i < propertyNames.length; i++) {
+
+        var writeName = TypeChangeWrite(propertyTypes[i][0]);
+        var propertyName = propertyNames[i][0];
+        //是否是数组
+        if (propertyArr[i]) {
+            propertyName = propertyNameArr[i];
+        }
+        //如果转换出来的没有变化，说明这个是嵌套结构体，需要使用另一种转换方式
+        if (writeName == propertyTypes[i][0]) {
+            output_text += "\n";
+
+            //是否是数组
+            if (propertyArr[i]) {
+                if (!writeStructHaveList[writeName]) {
+                    output_text += span8 + `int ${writeName}Size = Marshal.SizeOf(typeof(${writeName}));`;
+                    output_text += "\n";
+                    output_text += span8 + `byte[] ${writeName}Bytes = new byte[${writeName}Size * ${propertyArr[i]}];`;
+                    output_text += "\n";
+                } else {
+                    output_text += span8 + `${writeName}Bytes = new byte[${writeName}Size * ${propertyArr[i]}];`;
+                    output_text += "\n";
+                }
+                output_text += span8 + `for (int i = 0; i < ${propertyArr[i]}; i++)`;
+                output_text += "\n";
+                output_text += span8 + `{`;
+                output_text += "\n";
+                output_text += span8 + `byte[] ${writeName}Byte = ${writeName}.StructToBytes(st.${propertyName}[i]);`;
+                output_text += "\n";
+                output_text += span8 + `Array.Copy(${writeName}Byte, 0, ${writeName}Bytes, ${writeName}Size * i, ${writeName}Size);`;
+                output_text += "\n";
+                output_text += span8 + `}`;
+                output_text += "\n";
+            } else {
+                if (!writeStructHaveList[writeName]) {
+                    output_text += span8 + `byte[] ${writeName}Bytes = ${writeName}.StructToBytes(st.${propertyName});`;
+                } else {
+                    output_text += span8 + `${writeName}Bytes = ${writeName}.StructToBytes(st.${propertyName});`;
+                }
                 output_text += "\n";
             }
-
-            output_text += "\n";
-            output_text += span8 + `return ${rtn};`;
-
-            output_text += "\n";
-            output_text += span4 + "}";
-
-            //添加结构转二进制方法
-            output_text += "\n\n";
-            output_text += span4 + `public static byte[] StructToBytes(${structName} st)`;
-            output_text += "\n";
-            output_text += span4 + "{";
-            output_text += "\n";
-
-            var stb = "stb";
-            output_text += span8 + `StructToBytes ${stb} = new StructToBytes(typeof(${structName}));`;
+            output_text += span8 + `${stb}.WriteBytes(${writeName}Bytes);`;
             output_text += "\n\n";
 
-            //添加写转换
-            for (var i = 0; i < propertyNames.length; i++) {
+            writeStructHaveList[writeName] = writeName;
+        } else {
+            //是否是数组
+            if (propertyArr[i]) {
 
-                var writeName = TypeChangeWrite(propertyTypes[i]);
-                var propertyName = propertyNames[i];
-                //是否是数组
-                if (propertyArr[i]) {
+                if (writeName == "WriteByte") {
+                    writeName = `${writeName}s`;
+                } else {
                     writeName = `${writeName}Array`;
-                    propertyName = propertyNameArr[i];
                 }
-                output_text += span8 + `${stb}.${writeName}(st.${propertyName});`;
-                output_text += "\n";
             }
+            output_text += span8 + `${stb}.${writeName}(st.${propertyName});`;
             output_text += "\n";
-            output_text += span8 + `return ${stb}.buffer;`;
-            output_text += "\n";
-            output_text += span4 + "}";
-
-            //结束括号
-            output_text += "\n";
-            output_text += "}";
-
-            struct_output.value = output_text;
         }
+    }
+    output_text += "\n";
+    output_text += span8 + `return ${stb}.buffer;`;
+    output_text += "\n";
+    output_text += span4 + "}";
 
-        //由C++类型转换为C#类型
-        function TypeChange(oldType) {
+    //结束括号
+    output_text += "\n";
+    output_text += "}";
 
-            var newType = oldType;
-            switch (oldType) {
-                case "BYTE":
-                case "bool":
-                    newType = "byte";
-                    break;
-                case "WORD":
-                    newType = "Int16";
-                    break;
-                case "DWORD":
-                    newType = "Int32";
-                    break;
-                case "LONGLONG":
-                case "__int64":
-                    newType = "Int64";
-                    break;
-            }
-            return newType;
-        }
+    return output_text;
+}
 
-        //由C++类型转换成C#类型需要的方法
-        function TypeChangeRead(oldType) {
+//由C++类型转换为C#类型
+function TypeChange(oldType) {
 
-            var readName = oldType;
-            switch (oldType) {
-                case "BYTE":
-                case "bool":
-                    readName = "ReadByte";
-                    break;
-                case "WORD":
-                    readName = "ReadInt16";
-                    break;
-                case "DWORD":
-                    newType = "ReadInt32";
-                    break;
-                case "LONGLONG":
-                case "__int64":
-                    readName = "ReadInt64";
-                    break;
-            }
-            return readName;
-        }
+    var newType = oldType;
+    switch (oldType) {
+        case "BYTE":
+        case "bool":
+            newType = "byte";
+            break;
+        case "WORD":
+            newType = "Int16";
+            break;
+        case "DWORD":
+        case "INT":
+        case "int":
+            newType = "Int32";
+            break;
+        case "LONGLONG":
+        case "__int64":
+            newType = "Int64";
+            break;
+    }
+    return newType;
+}
 
-        //由#类型转换成C++类型需要的方法
-        function TypeChangeWrite(oldType) {
+//由C++类型转换成C#类型需要的方法
+function TypeChangeRead(oldType) {
 
-            var writeName = oldType;
-            switch (oldType) {
-                case "BYTE":
-                case "bool":
-                    writeName = "WriteByte";
-                    break;
-                case "WORD":
-                    writeName = "WriteInt16";
-                    break;
-                case "DWORD":
-                    newType = "WriteInt32";
-                    break;
-                case "LONGLONG":
-                case "__int64":
-                    writeName = "WriteInt64";
-                    break;
-            }
-            return writeName;
-        }
+    var readName = oldType;
+    switch (oldType) {
+        case "BYTE":
+        case "bool":
+            readName = "ReadByte";
+            break;
+        case "WORD":
+            readName = "ReadInt16";
+            break;
+        case "DWORD":
+        case "INT":
+        case "int":
+            readName = "ReadInt32";
+            break;
+        case "LONGLONG":
+        case "__int64":
+            readName = "ReadInt64";
+            break;
+    }
+    return readName;
+}
+
+//由#类型转换成C++类型需要的方法
+function TypeChangeWrite(oldType) {
+
+    var writeName = oldType;
+    switch (oldType) {
+        case "BYTE":
+        case "bool":
+            writeName = "WriteByte";
+            break;
+        case "WORD":
+            writeName = "WriteInt16";
+            break;
+        case "DWORD":
+        case "INT":
+        case "int":
+            writeName = "WriteInt32";
+            break;
+        case "LONGLONG":
+        case "__int64":
+            writeName = "WriteInt64";
+            break;
+    }
+    return writeName;
+}
     </script>
+
+
 
 </pre>
 </body>
