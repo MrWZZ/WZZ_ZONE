@@ -8,3 +8,4 @@
 选择到行尾 Alt+Shift+Ctrl+O
 
 打开当前的文件 Ctrl+O
+编辑：格式化选中的代码 Alt+Shift+F
