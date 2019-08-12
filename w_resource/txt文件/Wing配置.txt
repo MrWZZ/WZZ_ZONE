@@ -1,27 +1,34 @@
-键盘映射
-
+// 将键绑定放入此文件中以覆盖默认值
 [{
     "key": "shift+alt+k",
     "command": "cursorDown",
     "when": "editorTextFocus"
-},{
+}, {
     "key": "shift+alt+o",
     "command": "cursorEnd",
     "when": "editorTextFocus"
-},{
+}, {
     "key": "shift+alt+u",
     "command": "cursorHome",
     "when": "editorTextFocus"
-},{
+}, {
     "key": "shift+alt+j",
     "command": "cursorLeft",
     "when": "editorTextFocus"
-},{
+}, {
     "key": "shift+alt+i",
     "command": "cursorUp",
     "when": "editorTextFocus"
-},{
+}, {
     "key": "shift+alt+l",
     "command": "cursorRight",
+    "when": "editorTextFocus"
+}, {
+    "key": "alt+o",
+    "command": "cursorEndSelect",
+    "when": "editorTextFocus"
+}, {
+    "key": "alt+u",
+    "command": "cursorHomeSelect",
     "when": "editorTextFocus"
 }]

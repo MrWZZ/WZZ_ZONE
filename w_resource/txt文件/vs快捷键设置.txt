@@ -1,0 +1,10 @@
+下移动一行 Alt+Shift+K
+上移动一行 Alt+Shift+I
+左移动字符 Alt+Shift+J
+右移动字符 Alt+Shift+L
+移动到行首 Alt+Shift+U
+移动到行尾 Alt+Shift+O
+选择到行首 Alt+Shift+Ctrl+U
+选择到行尾 Alt+Shift+Ctrl+O
+
+打开当前的文件 Ctrl+O
