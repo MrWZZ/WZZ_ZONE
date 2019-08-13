@@ -7,5 +7,7 @@
 选择到行首 Alt+Shift+Ctrl+U
 选择到行尾 Alt+Shift+Ctrl+O
 
-打开当前的文件 Ctrl+O
-编辑：格式化选中的代码 Alt+Shift+F
+打开当前的文件 				Ctrl+O
+编辑：格式化选中的代码  	Alt+Shift+F
+注释选定内容 				Ctrl+/
+取消注释选定内容			Ctrl+Shift+/
