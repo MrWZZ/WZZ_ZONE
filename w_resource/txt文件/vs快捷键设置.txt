@@ -11,3 +11,4 @@
 编辑：格式化选中的代码  	Alt+Shift+F
 注释选定内容 				Ctrl+/
 取消注释选定内容			Ctrl+Shift+/
+插入下一个匹配的脱字号      Alt+Shift+D
