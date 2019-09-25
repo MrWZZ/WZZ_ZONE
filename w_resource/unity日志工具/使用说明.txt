@@ -1,0 +1,2 @@
+将Reporter文件夹放入Assets目录下。
+在游戏的入口场景中，点击菜单栏中的Repoter,在Create即可。
