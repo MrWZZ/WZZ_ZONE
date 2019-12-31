@@ -1,2 +1,9 @@
 将Reporter文件夹放入Assets目录下。
 在游戏的入口场景中，点击菜单栏中的Repoter,在Create即可。
+
+点击create后，会在Hierarchy中生成一个 Reporter，点击该物体。
+
+脚本参数说明：
+其他参数不需要改动。
+num of circle to show:画多少圈显示。
+此项如果设置为1，则代表在游戏中，在屏幕做一个画圈的手势将会显示日志。
